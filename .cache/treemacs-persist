@@ -1,0 +1,8 @@
+* Default
+** classes
+ - path :: ~/doc/classes
+* Stellanom
+** MIB
+ - path :: ~/go/src/github.com/thecsw/mib
+** mira
+ - path :: ~/go/src/github.com/thecsw/mira
