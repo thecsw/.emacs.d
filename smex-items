@@ -1,22 +1,23 @@
 
 ;; ----- smex-history -----
 (
+ menu-bar-mode
+ mule-diag
  diff-hl-mode
  package-list-packages
  package-refresh-contents
- menu-bar-mode
  treemacs
  package-install
- treemacs-mode
 )
 
 ;; ----- smex-data -----
 (
  (package-list-packages . 8)
  (package-refresh-contents . 8)
- (menu-bar-mode . 15)
+ (menu-bar-mode . 22)
  (package-install . 3)
  (treemacs . 6)
  (treemacs-mode . 1)
  (diff-hl-mode . 1)
+ (mule-diag . 1)
 )
