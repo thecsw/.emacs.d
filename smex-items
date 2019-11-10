@@ -1,23 +1,25 @@
 
 ;; ----- smex-history -----
 (
- menu-bar-mode
- mule-diag
- diff-hl-mode
- package-list-packages
- package-refresh-contents
  treemacs
  package-install
+ package-refresh-contents
+ academic-phrases
+ replace-regexp
+ menu-bar-mode
+ package-list-packages
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 8)
- (package-refresh-contents . 8)
- (menu-bar-mode . 22)
- (package-install . 3)
- (treemacs . 6)
+ (package-list-packages . 9)
+ (package-refresh-contents . 12)
+ (menu-bar-mode . 30)
+ (package-install . 9)
+ (treemacs . 8)
  (treemacs-mode . 1)
  (diff-hl-mode . 1)
  (mule-diag . 1)
+ (replace-regexp . 5)
+ (academic-phrases . 3)
 )
