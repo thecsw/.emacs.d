@@ -107,11 +107,11 @@ There are two things you can do about this warning:
 
 (require 'org-ref)
 (setq org-latex-pdf-process
-'("xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
+'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
 "bibtex %b"
 "makeindex %b"
-"xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
-"xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"))
+"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
+"pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"))
 
 ;; (setq org-latex-listings 'minted
 ;;       org-latex-packages-alist '(("" "minted")))

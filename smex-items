@@ -1,20 +1,20 @@
 
 ;; ----- smex-history -----
 (
- treemacs
- package-install
- package-refresh-contents
- academic-phrases
- replace-regexp
+ shell
  menu-bar-mode
+ clang-format-buffer
+ go-gen-test-all
  package-list-packages
+ package-autoremove
+ package-refresh-contents
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 9)
- (package-refresh-contents . 12)
- (menu-bar-mode . 30)
+ (package-list-packages . 12)
+ (package-refresh-contents . 14)
+ (menu-bar-mode . 36)
  (package-install . 9)
  (treemacs . 8)
  (treemacs-mode . 1)
@@ -22,4 +22,8 @@
  (mule-diag . 1)
  (replace-regexp . 5)
  (academic-phrases . 3)
+ (package-autoremove . 1)
+ (go-gen-test-all . 2)
+ (clang-format-buffer . 2)
+ (shell . 1)
 )
