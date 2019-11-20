@@ -1,6 +1,7 @@
 ((magit-bisect nil)
  (magit-commit
   ("--signoff")
+  nil
   ("--allow-empty" "--signoff")
   ("--all"))
  (magit-diff

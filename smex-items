@@ -1,8 +1,8 @@
 
 ;; ----- smex-history -----
 (
- shell
  menu-bar-mode
+ shell
  clang-format-buffer
  go-gen-test-all
  package-list-packages
@@ -14,7 +14,7 @@
 (
  (package-list-packages . 12)
  (package-refresh-contents . 14)
- (menu-bar-mode . 36)
+ (menu-bar-mode . 40)
  (package-install . 9)
  (treemacs . 8)
  (treemacs-mode . 1)

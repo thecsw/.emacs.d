@@ -1,29 +1,91 @@
 ;;; -*- coding: utf-8 -*-
-(("/home/thecsw/.emacs.d/recentf" . 1307)
- ("/home/thecsw/.mutt/aliases" . 3343)
- ("/home/thecsw/.mutt/accounts/kumail" . 406)
- ("/home/thecsw/.mutt/accounts/personal" . 171)
- ("/home/thecsw/svc_history_view.php" . 9890)
- ("/home/thecsw/.mutt/accounts/cto" . 173)
+(("/home/thecsw/gits/client/go/gen_deps.pl" . 431)
+ ("/home/thecsw/.emacs.d/recentf" . 1425)
+ ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-11/Vivado/Lab1.srcs/sources_1/new/mux.vhd" . 1118)
+ ("/home/thecsw/.config/fish/config.fish" . 516)
+ ("/home/thecsw/go/src/github.com/keybase/client/go/kbfs/kbfsfuse/main.go" . 2779)
+ ("/home/thecsw/go/src/github.com/thecsw/mib/"
+  (dired-filename . "/home/thecsw/go/src/github.com/thecsw/mib/api"))
+ ("/home/thecsw/gits/fzf/src/algo/algo.go" . 19916)
+ ("/home/thecsw/gits/fzf/src/algo/normalize.go" . 20992)
+ ("/home/thecsw/gits/fzf/src/ansi.go" . 3892)
+ ("/home/thecsw/gits/fzf/bin/fzf-tmux" . 5322)
+ ("/home/thecsw/.mail/kumail/INBOX/cur/1560888967_2.21223.ctu,U=36,FMD5=7e33429f656f1e6e9d79b29c3f82c57e:2,S" . 11726)
+ ("/home/thecsw/.mutt/color.mutt" . 356)
+ ("/home/thecsw/.mutt/accounts/cto" . 152)
+ ("/home/thecsw/.mutt/accounts/personal" . 142)
+ ("/home/thecsw/.mutt/accounts/kumail" . 175)
+ ("/home/thecsw/.mutt/"
+  (dired-filename . "/home/thecsw/.mutt/mailcap"))
+ ("/home/thecsw/.muttrc" . 3070)
+ ("/home/thecsw/.emacs" . 2900)
+ ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Report/main.org" . 944)
+ ("/home/thecsw/doc/classes/" . 28)
+ ("/home/thecsw/doc/classes/EECS141/Labs/"
+  (dired-filename . "/home/thecsw/doc/classes/EECS141/Labs/tarballs"))
+ ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Report/main.tex" . 11590)
+ ("/home/thecsw/gits/xetex-code/source/README" . 1329)
+ ("/home/thecsw/go/src/github.com/thecsw/mib/bot/submitter.go" . 2713)
+ ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Vivado/Lab1.srcs/sources_1/new/Toplevel_lab9.vhd" . 5198)
+ ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Vivado/Lab1.srcs/sources_1/new/display_driver1.vhd" . 1353)
+ ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Vivado/Lab1.srcs/sources_1/new/Display_driver.vhd" . 1369)
+ ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Vivado/Lab1.srcs/sources_1/new/counter.vhd" . 1639)
+ ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Vivado/Lab1.srcs/sources_1/new/clock_divider.vhd" . 1188)
+ ("/home/thecsw/.emacs.d/configuration.org" . 4620)
+ ("/home/thecsw/go/src/github.com/thecsw/mib/bot/bot.go" . 2336)
+ ("/s383u895@cycle2.eecs.ku.edu:~/" . 4)
+ ("/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs141/"
+  (dired-filename . "/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs141/.."))
+ ("/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/"
+  (dired-filename . "/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs141"))
+ ("/home/thecsw/.urlview" . 103)
+ ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Vivado/Lab1.srcs/sources_1/new/ANDer.vhd" . 1029)
+ ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/" . 214)
+ ("/home/thecsw/doc/classes/EECS141/Assignments/"
+  (dired-filename . "/home/thecsw/doc/classes/EECS141/Assignments/eecs140hw01.pdf"))
+ ("/home/thecsw/gits/nnn/src/nnn.c" . 42134)
+ ("/home/thecsw/go/src/github.com/thecsw/mib/api/api.go" . 1685)
+ ("/home/thecsw/.Xdefaults" . 475)
+ ("/home/thecsw/go/src/github.com/thecsw/mib/api/utils.go" . 597)
+ ("/home/thecsw/go/src/github.com/thecsw/mib/Makefile" . 930)
+ ("/home/thecsw/gits/nerd-fonts/install.sh" . 2027)
+ ("/home/thecsw/.config/i3blocks/config" . 1093)
+ ("/home/thecsw/gits/neomutt/index.c" . 21185)
+ ("/home/thecsw/gits/neomutt/init.h" . 21491)
+ ("/home/thecsw/gits/mib_web/"
+  (dired-filename . "/home/thecsw/gits/mib_web/angular.json"))
+ ("/home/thecsw/gits/mib_web/.github/workflows/angular.yml" . 378)
+ ("/home/thecsw/go/src/github.com/thecsw/mira/.github/workflows/go.yml" . 304)
+ ("/home/thecsw/go/src/github.com/thecsw/mira/"
+  (dired-filename . "/home/thecsw/go/src/github.com/thecsw/mira/auth.go"))
+ ("/home/thecsw/doc/classes/MATH147/weekly_assignments/WA6/wa6/"
+  (dired-filename . "/home/thecsw/doc/classes/MATH147/weekly_assignments/WA6/wa6/1b.pdf"))
+ ("/home/thecsw/gits/symposium-2019/"
+  (dired-filename . "/home/thecsw/gits/symposium-2019/covers"))
+ ("/home/thecsw/gits/12751BR/"
+  (dired-filename . "/home/thecsw/gits/12751BR/chernikov.log"))
+ ("/home/thecsw/gits/12751BR/chernikov.tex" . 1471)
+ ("/home/thecsw/gits/thecsw.github.io/articles/better_mutt/better_mutt.org" . 303)
+ ("/home/thecsw/gits/thecsw.github.io/articles/better_mutt/better_mutt.tex" . 983)
+ ("/home/thecsw/gits/thecsw.github.io/index.org" . 2090)
+ ("/home/thecsw/"
+  (dired-filename . "/home/thecsw/.angular-config.json"))
+ ("/home/thecsw/.mutt/aliases" . 4356)
+ ("/home/thecsw/gits/neomutt/format_flags.h" . 784)
+ ("/home/thecsw/.emacs.d/"
+  (dired-filename . "/home/thecsw/.emacs.d/ac-comphist.dat"))
+ ("/home/thecsw/.mutt/thecsw.sig" . 43)
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-08/Report/main.org" . 1638)
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-08/Report/main.tex" . 10634)
  ("/home/thecsw/gits/neomutt/Makefile" . 887)
- ("/home/thecsw/.muttrc" . 1183)
- ("/home/thecsw/gits/neomutt/init.h" . 200964)
  ("/home/thecsw/gits/neomutt/doc/makedoc" . 31545)
- ("/home/thecsw/.mutt/"
-  (dired-filename . "/home/thecsw/.mutt/thecsw.sig"))
- ("/home/thecsw/.emacs.d/configuration.org" . 4606)
  ("/home/thecsw/.ssh/known_hosts" . 803)
- ("/home/thecsw/go/src/github.com/thecsw/mib/bot/submitter.go" . 1819)
  ("/home/thecsw/doc/classes/MATH291/Homework/"
   (dired-filename . "/home/thecsw/doc/classes/MATH291/Homework/291hw01.pdf"))
  ("/home/thecsw/go/src/github.com/jinzhu/gorm/main.go" . 18037)
- ("/home/thecsw/.emacs" . 3039)
  ("/home/thecsw/.emacs.d/elpa/go-mode-20191106.2259/go-mode.el" . 68859)
  ("/home/thecsw/.clang-format" . 15315)
  ("/home/thecsw/gits/mib_web/src/styles.css" . 229498)
- ("/home/thecsw/go/src/github.com/thecsw/mib/bot/bot.go" . 3001)
  ("/home/thecsw/doc/classes/EECS268/labs/Sagindyk-2966741-Lab-09/exercise1/macros.h" . 1853)
  ("/home/thecsw/doc/classes/EECS268/labs/Sagindyk-2966741-Lab-09/exercise1/pokemons.txt" . 16792)
  ("/home/thecsw/doc/classes/EECS268/labs/Sagindyk-2966741-Lab-09/exercise1/TreeTest.cc" . 817)
@@ -31,20 +93,14 @@
  ("/home/thecsw/gits/sce/"
   (dired-filename . "/home/thecsw/gits/sce/.git"))
  ("/home/thecsw/gits/gocd-test/main_test.go" . 118)
- ("/home/thecsw/go/src/github.com/thecsw/mib/models/models.go" . 247)
- ("/home/thecsw/go/src/github.com/thecsw/mib/api/utils.go" . 614)
- ("/home/thecsw/doc/classes/EECS141/Assignments/"
-  (dired-filename . "/home/thecsw/doc/classes/EECS141/Assignments/eecs140hw01.pdf"))
  ("/home/thecsw/go/src/github.com/thecsw/mib/bot/worker.go" . 180)
  ("/home/thecsw/go/src/github.com/thecsw/mib/api/"
   (dired-filename . "/home/thecsw/go/src/github.com/thecsw/mib/api/api.go"))
  ("/home/thecsw/go/src/github.com/thecsw/mib/commands/active_index.go" . 1450)
- ("/home/thecsw/go/src/github.com/thecsw/mib/api/api.go" . 379)
  ("/home/thecsw/gits/gocd-test/main.go" . 76)
  ("/home/thecsw/.emacs.d/elpa/gotest-20180617.1333/gotest-autoloads.el" . 1246)
  ("/home/thecsw/gits/gocd-test/"
   (dired-filename . "/home/thecsw/gits/gocd-test/.git"))
- ("/home/thecsw/gits/12751BR/chernikov.tex" . 1568)
  ("/home/thecsw/gits/xetex-code/source/libs/zlib/zlib-1.2.8/contrib/pascal/example.pas" . 4422)
  ("/home/thecsw/gits/xetex-code/source/texk/texlive/w32_wrapper/callexe.c" . 888)
  ("/home/thecsw/gits/xetex-code/manual/Makefile" . 1460)
@@ -53,10 +109,6 @@
  ("/home/thecsw/gits/xetex-code/"
   (dired-filename . "/home/thecsw/gits/xetex-code/.git"))
  ("/home/thecsw/.emacs.d/elpa/kaolin-themes-20191110.2037/kaolin-themes-autoloads.el" . 4766)
- ("/home/thecsw/.emacs.d/"
-  (dired-filename . "/home/thecsw/.emacs.d/ac-comphist.dat"))
- ("/home/thecsw/"
-  (dired-filename . "/home/thecsw/.angular-config.json"))
  ("/home/thecsw/.emacs.d/elpa/avy-20191106.1234/avy-autoloads.el" . 8473)
  ("/home/thecsw/.emacs.d/elpa/company-20191106.2247/company-autoloads.el" . 12212)
  ("/home/thecsw/.emacs.d/elpa/dash-20191109.1327/dash-autoloads.el" . 557)
@@ -81,14 +133,9 @@
  ("/home/thecsw/.emacs.d/elpa/w3m-20191105.634/w3m-autoloads.el" . 23084)
  ("/home/thecsw/.emacs.d/elpa/with-editor-20191105.2250/with-editor-autoloads.el" . 3403)
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-09/Report/main.tex" . 12770)
- ("/home/thecsw/go/src/github.com/thecsw/mib/"
-  (dired-filename . "/home/thecsw/go/src/github.com/thecsw/mib/api"))
- ("/home/thecsw/.config/i3blocks/config" . 351)
  ("/home/thecsw/go/src/github.com/thecsw/mib/models/price_update.go" . 206)
  ("/home/thecsw/go/src/github.com/thecsw/mib/models/mongodb.go" . 3504)
- ("/home/thecsw/test/main.go" . 258)
  ("/home/thecsw/go/src/github.com/thecsw/mib/commands/create_investor.go" . 1042)
- ("/home/thecsw/go/src/github.com/thecsw/mib/Makefile" . 749)
  ("/home/thecsw/gits/12751BR/chapter3/section4.tex" . 121)
  ("/home/thecsw/gits/12751BR/chapter3/section5.tex" . 53)
  ("/home/thecsw/gits/12751BR/chapter4/section2.tex" . 46)
@@ -118,8 +165,6 @@
  ("/home/thecsw/gits/memeinvestor_bot/FINAL_SYSTEM_10-07-19/api/firm/firm.go" . 4050)
  ("/home/thecsw/gits/memeinvestor_bot/FINAL_SYSTEM_10-07-19/docker-compose.yml" . 2256)
  ("/home/thecsw/gits/memeinvestor_bot/docker-compose.yml" . 1357)
- ("/home/thecsw/doc/classes/EECS141/Labs/"
-  (dired-filename . "/home/thecsw/doc/classes/EECS141/Labs/tarballs"))
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-09/Report/main.org" . 680)
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-09/Vivado/Lab1.srcs/sources_1/new/ADDer.vhd" . 1894)
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-09/Vivado/Lab1.srcs/sources_1/new/Display_driver.vhd" . 1369)
@@ -202,7 +247,6 @@
  ("/home/thecsw/go/src/github.com/thecsw/mib/bot/invitefirm.go" . 466)
  ("/home/thecsw/gits/rsa-ee/src/factor_with_primes/factor_with_primes.c" . 2288)
  ("/home/thecsw/gits/prequelmemes_bot/src/main.py" . 3046)
- ("/home/thecsw/gits/nnn/src/nnn.c" . 39918)
  ("/home/thecsw/gits/kuemacs.github.io/index.html" . 13446)
  ("/home/thecsw/gits/thecsw.github.io/resume/index.html" . 31470)
  ("/home/thecsw/.config/i3/config" . 203)
@@ -219,21 +263,16 @@
   (dired-filename . "/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-09/Vivado"))
  ("/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs141/Lab9/"
   (dired-filename . "/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs141/Lab9/.."))
- ("/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs141/"
-  (dired-filename . "/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs141/.."))
  ("/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs268/"
   (dired-filename . "/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs268/.."))
  ("/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs169/"
   (dired-filename . "/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs169/.."))
- ("/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/"
-  (dired-filename . "/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs169"))
  ("/home/thecsw/.config/aacs/"
   (dired-filename . "/home/thecsw/.config/aacs/.."))
  ("/home/thecsw/.config/"
   (dired-filename . "/home/thecsw/.config/fish"))
  ("/home/thecsw/.config/fish/"
   (dired-filename . "/home/thecsw/.config/fish/config.fish"))
- ("/home/thecsw/.config/fish/config.fish" . 91)
  ("/home/thecsw/doc/classes/PHSX214/Lab/syllabus/"
   (dired-filename . "/home/thecsw/doc/classes/PHSX214/Lab/syllabus/214 Rubric(2).pdf"))
  ("/home/thecsw/.emacs.d/elpa/gruber-darker-theme-20180529.712/gruber-darker-theme-autoloads.el" . 600)
@@ -271,7 +310,6 @@
  ("/home/thecsw/doc/classes/SOC335/Statements/Statement2/main.org" . 1143)
  ("/home/thecsw/gits/thinkmorse/main.py" . 2943)
  ("/home/thecsw/go/src/github.com/thecsw/mib/commands/commands_integration_test.go" . 1107)
- ("/home/thecsw/go/src/github.com/thecsw/mib/docker-compose.yml" . 125)
  ("/home/thecsw/.emacs.d/elpa/dashboard-20190721.504/dashboard-widgets.el" . 24754)
  ("/home/thecsw/go/src/github.com/Workiva/go-datastructures/rangetree/ordered.go" . 5453)
  ("/home/thecsw/go/src/github.com/Workiva/go-datastructures/rtree/interface.go" . 1480)
@@ -294,8 +332,6 @@
  ("/home/thecsw/gits/thecsw.github.io/articles/year_12019/index.org" . 520)
  ("/home/thecsw/doc/classes/PHSX214/Lecture/notes/"
   (dired-filename . "/home/thecsw/doc/classes/PHSX214/Lecture/notes/0826.pdf"))
- ("/home/thecsw/gits/12751BR/"
-  (dired-filename . "/home/thecsw/gits/12751BR/chernikov.log"))
  ("/home/thecsw/gits/12751BR/abstract/"
   (dired-filename . "/home/thecsw/gits/12751BR/abstract/.."))
  ("/home/thecsw/gits/12751BR/compile.pl" . 44)
@@ -315,7 +351,6 @@
  ("/home/thecsw/gits/mathugra-2019/README.md" . 242)
  ("/home/thecsw/go/src/github.com/thecsw/mira/README.md" . 7297)
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-07/Vivado/Lab1.srcs/sources_1/new/xor6.vhd" . 477)
- ("/home/thecsw/doc/classes/" . 28)
  ("/home/thecsw/.emacs.d/elpa/pfuture-20190505.1006/pfuture-autoloads.el" . 984)
  ("/home/thecsw/doc/classes/COMS131/lorem_ipsum.txt" . 89659)
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-07/"
@@ -383,7 +418,6 @@
   (dired-filename . "/home/thecsw/gits/memeinvestor_bot/api"))
  ("/home/thecsw/gits/memeinvestor_bot/README.md" . 261)
  ("/home/thecsw/go/src/github.com/rgm3/gomandelbrot/main.go" . 2599)
- ("/home/thecsw/gits/neomutt/index.c" . 44555)
  ("/home/thecsw/doc/classes/MATH291/"
   (dired-filename . "/home/thecsw/doc/classes/MATH291/.."))
  ("/lib/"
@@ -398,7 +432,6 @@
  ("/home/thecsw/gits/meeting-notes/"
   (dired-filename . "/home/thecsw/gits/meeting-notes/20191008-Intro-to-Go"))
  ("/home/thecsw/gits/latex/src/rsa/rsa.tex" . 1176)
- ("/home/thecsw/gits/thecsw.github.io/index.org" . 3022)
  ("/home/thecsw/gits/latex/src/cods/test.tex" . 24712)
  ("/home/thecsw/gits/latex/src/rsa/a" . 74)
  ("/home/thecsw/gits/docs/clubs/kuemacs/hello.go" . 68)
@@ -435,38 +468,4 @@
  ("/home/thecsw/gits/docs/clubs/kuemacs/intro.slide" . 4741)
  ("/home/thecsw/doc/classes/SOC335/Statements/"
   (dired-filename . "/home/thecsw/doc/classes/SOC335/Statements/Statement1"))
- ("/home/thecsw/.emacs.d/elpa/smex-20151212.2209/smex-autoloads.el" . 626)
- ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-06/Report/main.org" . 7318)
- ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-06/Report/main.tex" . 7633)
- ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-04/Report/main.org" . 1252)
- ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-05/Report/main.org" . 1385)
- ("/home/thecsw/doc/classes/SOC335/Statements/Statement2/main.tex" . 6154)
- ("/home/thecsw/gits/docs/companies/RiskIQ/second_interview/"
-  (dired-filename . "/home/thecsw/gits/docs/companies/RiskIQ/second_interview/Sagindyk_Risk_IQ_fair"))
- ("/home/thecsw/.emacs.d/elpa/irony-eldoc-20170502.1908/irony-eldoc-autoloads.el" . 1052)
- ("/home/thecsw/.emacs.d/elpa/company-irony-20190124.2346/company-irony-autoloads.el" . 879)
- ("/home/thecsw/.emacs.d/elpa/irony-20190703.1732/irony-autoloads.el" . 4873)
- ("/home/thecsw/.emacs.d/elpa/company-c-headers-20190825.1631/company-c-headers-autoloads.el" . 635)
- ("/home/thecsw/doc/classes/PHSX214/Lab/labs/"
-  (dired-filename . "/home/thecsw/doc/classes/PHSX214/Lab/labs/Lab1"))
- ("/home/thecsw/go/src/github.com/thecsw/mira/"
-  (dired-filename . "/home/thecsw/go/src/github.com/thecsw/mira/auth.go"))
- ("/home/thecsw/gits/kym-reddit/kym-reddit.go" . 1246)
- ("/home/thecsw/gits/contracts/scripts/compile.sh" . 2605)
- ("/home/thecsw/gits/thecsw.github.io/articles/using_mutt/index.org" . 13502)
- ("/home/thecsw/gits/thecsw.github.io/index.adoc" . 2758)
- ("/home/thecsw/gits/farbfeld/ff2png.c" . 1527)
- ("/home/thecsw/gits/farbfeld/png2ff.c" . 764)
- ("/home/thecsw/doc/classes/SOC335/Essays/Essay1/main.tex" . 23924)
- ("/home/thecsw/gits/thecsw.github.io/articles/installing_arch/index.org" . 12600)
- ("/home/thecsw/gits/thecsw.github.io/articles/using_mutt/"
-  (dired-filename . "/home/thecsw/gits/thecsw.github.io/articles/using_mutt/index.org"))
- ("/home/thecsw/doc/classes/EECS141/Labs/archive.sh" . 17)
- ("/home/thecsw/.local/bin/update_wal.pl" . 1698)
- ("/home/thecsw/doc/classes/TA/HNRS190/"
-  (dired-filename . "/home/thecsw/doc/classes/TA/HNRS190/Assignment1"))
- ("/home/thecsw/gits/docs/research/erik/PFfiles/mgs.m" . 179)
- ("/home/thecsw/.emacs.d/elpa/matlab-mode-20180928.1526/matlab-mode-autoloads.el" . 7466)
- ("/home/thecsw/gits/docs/research/mathugra_2019/mathugra.pdf" . 2)
- ("/home/thecsw/gits/docs/.gitignore" . 24)
- ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-04/Report/main.tex" . 3610))
+ ("/home/thecsw/.emacs.d/elpa/smex-20151212.2209/smex-autoloads.el" . 626))
