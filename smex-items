@@ -1,19 +1,19 @@
 
 ;; ----- smex-history -----
 (
+ package-list-packages
+ move-past-close-and-reindent
+ package-refresh-contents
+ package-autoremove
  menu-bar-mode
  shell
  clang-format-buffer
- go-gen-test-all
- package-list-packages
- package-autoremove
- package-refresh-contents
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 12)
- (package-refresh-contents . 14)
+ (package-list-packages . 14)
+ (package-refresh-contents . 16)
  (menu-bar-mode . 40)
  (package-install . 9)
  (treemacs . 8)
@@ -22,8 +22,9 @@
  (mule-diag . 1)
  (replace-regexp . 5)
  (academic-phrases . 3)
- (package-autoremove . 1)
+ (package-autoremove . 2)
  (go-gen-test-all . 2)
  (clang-format-buffer . 2)
  (shell . 1)
+ (move-past-close-and-reindent . 1)
 )
