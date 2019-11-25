@@ -1,11 +1,33 @@
 ;;; -*- coding: utf-8 -*-
-(("/home/thecsw/doc/classes/SOC335/Essays/Essay3/main.tex" . 103)
- ("/home/thecsw/.emacs.d/recentf" . 1302)
+(("/home/thecsw/test.ms" . 288)
+ ("/home/thecsw/.emacs.d/recentf" . 1262)
+ ("/home/thecsw/.emacs" . 3167)
+ ("/home/thecsw/.emacs.d/configuration.org" . 2150)
+ ("/home/thecsw/gits/docs/competitions/KCDC-Alpha/report.ms" . 122)
+ ("/home/thecsw/test.org" . 55)
+ ("/home/thecsw/gits/creepy/creepy/components/PersonProjectWizard.py" . 10186)
+ ("/home/thecsw/gits/go/lib/time/update.bash" . 928)
+ ("/home/thecsw/gits/go/src/archive/tar/format.go" . 11358)
+ ("/home/thecsw/gits/go/src/archive/tar/common.go" . 22569)
+ ("/home/thecsw/.mutt/mailcap" . 279)
+ ("/home/thecsw/.config/fish/config.fish" . 951)
+ ("/home/thecsw/Downloads/get_views.sh" . 527)
+ ("/home/thecsw/.config/i3blocks/config" . 40)
+ ("/home/thecsw/doc/classes/PHSX214/Lecture/notes/"
+  (dired-filename . "/home/thecsw/doc/classes/PHSX214/Lecture/notes/0826.pdf"))
+ ("/home/thecsw/gits/mib_web/dist/MIBweb/assets/js/bundle.js" . 97130)
+ ("/home/thecsw/gits/memeinvestor_bot/"
+  (dired-filename . "/home/thecsw/gits/memeinvestor_bot/api"))
+ ("/home/thecsw/doc/classes/SOC335/Essays/Essay3/"
+  (dired-filename . "/home/thecsw/doc/classes/SOC335/Essays/Essay3/main.bbl"))
+ ("/home/thecsw/.emacs.d/"
+  (dired-filename . "/home/thecsw/.emacs.d/ac-comphist.dat"))
+ ("/home/thecsw/gits/mib_web/src/assets/js/bundle.js" . 725811)
+ ("/home/thecsw/doc/classes/SOC335/Essays/Essay3/main.tex" . 103)
  ("/home/thecsw/doc/classes/SOC335/Essays/"
   (dired-filename . "/home/thecsw/doc/classes/SOC335/Essays/Essay1"))
  ("/home/thecsw/doc/classes/SOC335/Essays/Essay3/main.org" . 7935)
  ("/home/thecsw/.offlineimaprc" . 71)
- ("/home/thecsw/.emacs" . 3075)
  ("/home/thecsw/.emacs.d/elpa/diff-hl-20191108.2158/diff-hl-autoloads.el" . 4942)
  ("/home/thecsw/gits/12751BR/"
   (dired-filename . "/home/thecsw/gits/12751BR/chernikov.log"))
@@ -28,8 +50,6 @@
  ("/home/thecsw/gits/rust-analyzer/crates/ra_cli/src/analysis_stats.rs" . 306)
  ("/home/thecsw/gits/rust-analyzer/crates/ra_arena/src/lib.rs" . 2524)
  ("/home/thecsw/.emacs.d/elpa/rust-mode-20191118.1015/rust-mode-autoloads.el" . 764)
- ("/home/thecsw/doc/classes/PHSX214/Lecture/notes/"
-  (dired-filename . "/home/thecsw/doc/classes/PHSX214/Lecture/notes/0826.pdf"))
  ("/home/thecsw/.mail/kumail/INBOX/cur/1560888967_2.21223.ctu,U=36,FMD5=7e33429f656f1e6e9d79b29c3f82c57e:2,S" . 5643)
  ("/home/thecsw/.mutt/accounts/personal" . 568)
  ("/home/thecsw/gits/neomutt/init.h" . 210740)
@@ -39,9 +59,6 @@
  ("/home/thecsw/gits/thecsw.github.io/index.org" . 2080)
  ("/home/thecsw/gits/dotfiles/"
   (dired-filename . "/home/thecsw/gits/dotfiles/bin"))
- ("/home/thecsw/.config/fish/config.fish" . 246)
- ("/home/thecsw/.emacs.d/"
-  (dired-filename . "/home/thecsw/.emacs.d/ac-comphist.dat"))
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-11/Vivado/Lab1.srcs/sources_1/new/mux.vhd" . 1118)
  ("/home/thecsw/go/src/github.com/keybase/client/go/kbfs/kbfsfuse/main.go" . 2779)
  ("/home/thecsw/go/src/github.com/thecsw/mib/"
@@ -66,7 +83,6 @@
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Vivado/Lab1.srcs/sources_1/new/Display_driver.vhd" . 1369)
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Vivado/Lab1.srcs/sources_1/new/counter.vhd" . 1639)
  ("/home/thecsw/doc/classes/EECS141/Labs/Sagindyk-2966741-Lab-10/Vivado/Lab1.srcs/sources_1/new/clock_divider.vhd" . 1188)
- ("/home/thecsw/.emacs.d/configuration.org" . 4620)
  ("/home/thecsw/go/src/github.com/thecsw/mib/bot/bot.go" . 2336)
  ("/s383u895@cycle2.eecs.ku.edu:~/" . 4)
  ("/ssh:s383u895@cycle2.eecs.ku.edu:/home/s383u895/eecs141/"
@@ -84,7 +100,6 @@
  ("/home/thecsw/go/src/github.com/thecsw/mib/api/utils.go" . 597)
  ("/home/thecsw/go/src/github.com/thecsw/mib/Makefile" . 930)
  ("/home/thecsw/gits/nerd-fonts/install.sh" . 2027)
- ("/home/thecsw/.config/i3blocks/config" . 1093)
  ("/home/thecsw/gits/neomutt/index.c" . 21185)
  ("/home/thecsw/gits/mib_web/"
   (dired-filename . "/home/thecsw/gits/mib_web/angular.json"))
@@ -122,7 +137,6 @@
  ("/home/thecsw/go/src/github.com/thecsw/mib/bot/worker.go" . 180)
  ("/home/thecsw/go/src/github.com/thecsw/mib/api/"
   (dired-filename . "/home/thecsw/go/src/github.com/thecsw/mib/api/api.go"))
- ("/home/thecsw/go/src/github.com/thecsw/mib/commands/active_index.go" . 1450)
  ("/home/thecsw/gits/gocd-test/main.go" . 76)
  ("/home/thecsw/gits/gocd-test/"
   (dired-filename . "/home/thecsw/gits/gocd-test/.git"))
@@ -419,8 +433,6 @@
  ("/home/thecsw/gits/quantum-algorithms/qutip/simons-alg.py" . 2666)
  ("/home/thecsw/gits/memeinvestor_bot/docs/index.html" . 3624)
  ("/home/thecsw/gits/memeinvestor_bot/docs/js/index.js" . 11034)
- ("/home/thecsw/gits/memeinvestor_bot/"
-  (dired-filename . "/home/thecsw/gits/memeinvestor_bot/api"))
  ("/home/thecsw/gits/memeinvestor_bot/README.md" . 261)
  ("/home/thecsw/go/src/github.com/rgm3/gomandelbrot/main.go" . 2599)
  ("/home/thecsw/doc/classes/MATH291/"
@@ -459,10 +471,4 @@
  ("/home/thecsw/gits/docs/clubs/kuemacs/slices.go" . 150)
  ("/home/thecsw/gits/docs/clubs/kuemacs/len.go" . 111)
  ("/home/thecsw/gits/docs/clubs/kuemacs/range.go" . 153)
- ("/home/thecsw/gits/docs/clubs/kuemacs/maps.go" . 236)
- ("/home/thecsw/gits/docs/clubs/kuemacs/closure.go" . 206)
- ("/home/thecsw/gits/docs/clubs/kuemacs/rec.go" . 162)
- ("/home/thecsw/gits/docs/clubs/kuemacs/channels.go" . 196)
- ("/home/thecsw/gits/docs/clubs/kuemacs/web.go" . 257)
- ("/home/thecsw/gits/docs/clubs/kuemacs/reddit.go" . 211)
- ("/home/thecsw/gits/docs/clubs/kuemacs/read.go" . 209))
+ ("/home/thecsw/gits/docs/clubs/kuemacs/maps.go" . 236))
