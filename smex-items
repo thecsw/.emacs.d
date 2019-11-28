@@ -2,8 +2,8 @@
 ;; ----- smex-history -----
 (
  package-list-packages
- move-past-close-and-reindent
  package-refresh-contents
+ move-past-close-and-reindent
  package-autoremove
  menu-bar-mode
  shell
@@ -12,8 +12,8 @@
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 14)
- (package-refresh-contents . 16)
+ (package-list-packages . 16)
+ (package-refresh-contents . 17)
  (menu-bar-mode . 40)
  (package-install . 9)
  (treemacs . 8)
