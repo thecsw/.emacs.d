@@ -3,18 +3,18 @@
 (
  package-list-packages
  package-refresh-contents
+ linum-mode
+ menu-bar-mode
  move-past-close-and-reindent
  package-autoremove
- menu-bar-mode
  shell
- clang-format-buffer
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 16)
- (package-refresh-contents . 17)
- (menu-bar-mode . 40)
+ (package-list-packages . 20)
+ (package-refresh-contents . 20)
+ (menu-bar-mode . 42)
  (package-install . 9)
  (treemacs . 8)
  (treemacs-mode . 1)
@@ -27,4 +27,5 @@
  (clang-format-buffer . 2)
  (shell . 1)
  (move-past-close-and-reindent . 1)
+ (linum-mode . 9)
 )

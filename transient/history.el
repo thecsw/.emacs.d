@@ -11,6 +11,6 @@
  (magit-merge nil)
  (magit-push nil)
  (magit-stash nil)
- (magit-tag
-  ("--annotate" "--sign")
-  ("--sign")))
+ (magit-tag nil
+	    ("--annotate" "--sign")
+	    ("--sign")))

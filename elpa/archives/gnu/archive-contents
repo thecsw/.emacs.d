@@ -445,13 +445,11 @@
 		  ("Daiki Ueno" . "ueno@gnu.org"))
 		 (:maintainer nil . "emacs-devel@gnu.org"))])
  (debbugs .
-	  [(0 20)
+	  [(0 21)
 	   ((emacs
 	     (25 1))
 	    (soap-client
-	     (3 1 5))
-	    (cl-lib
-	     (0 5)))
+	     (3 1 5)))
 	   "SOAP library to access debbugs servers" tar
 	   ((:maintainer "Michael Albinus" . "michael.albinus@gmx.de")
 	    (:authors
@@ -517,7 +515,7 @@
 	     (:keywords "files" "unix" "convenience")
 	     (:url . "http://elpa.gnu.org/packages/dired-du.html"))])
  (dired-git-info .
-		 [(0 2)
+		 [(0 3 1)
 		  ((emacs
 		    (25)))
 		  "Show git info in dired" single
@@ -1071,7 +1069,7 @@
 	       ("Simen Heggestøyl" . "simenheg@gmail.com"))
 	      (:maintainer "Simen Heggestøyl" . "simenheg@gmail.com"))])
  (jsonrpc .
-	  [(1 0 8)
+	  [(1 0 9)
 	   ((emacs
 	     (25 2)))
 	   "JSON-RPC library" single
@@ -1405,7 +1403,7 @@
 	      (:maintainer "Michael Heerdegen" . "michael_heerdegen@web.de")
 	      (:url . "https://github.com/michael-heerdegen/on-screen.el"))])
  (org .
-      [(9 2 6)
+      [(9 3)
        nil "Outline-based notes management and organizer" tar
        ((:url . "https://orgmode.org")
 	(:maintainer "Carsten Dominik <carsten at orgmode dot org>")
@@ -1511,7 +1509,7 @@
 	     ("Phillip Lord" . "phillip.lord@russet.org.uk"))
 	    (:url . "http://elpa.gnu.org/packages/persist.html"))])
  (phps-mode .
-	    [(0 3 17)
+	    [(0 3 25)
 	     ((emacs
 	       (26)))
 	     "Major mode for PHP with Semantic integration" tar
@@ -1585,7 +1583,7 @@
 	  (:maintainer "Toby Cubitt" . "toby-predictive@dr-qubit.org")
 	  (:url . "http://www.dr-qubit.org/emacs.php"))])
  (rainbow-mode .
-	       [(1 0 1)
+	       [(1 0 2)
 		nil "Colorize color names in buffers" single
 		((:url . "http://elpa.gnu.org/packages/rainbow-mode.html")
 		 (:keywords "faces")
@@ -2004,7 +2002,7 @@
 	  ("Oleh Krehel" . "ohwoeowho@gmail.com"))
 	 (:keywords "convenience"))])
  (tramp .
-	[(2 4 2 4)
+	[(2 4 2 5)
 	 ((emacs
 	   (24 4)))
 	 "Transparent Remote Access, Multiple Protocol" tar
