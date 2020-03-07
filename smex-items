@@ -1,31 +1,33 @@
 
 ;; ----- smex-history -----
 (
- package-list-packages
- package-refresh-contents
- linum-mode
- menu-bar-mode
- move-past-close-and-reindent
- package-autoremove
  shell
+ package-install
+ package-refresh-contents
+ package-list-packages
+ menu-bar-mode
+ focus-mode
+ replace-regexp
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 20)
- (package-refresh-contents . 20)
- (menu-bar-mode . 42)
- (package-install . 9)
+ (package-list-packages . 23)
+ (package-refresh-contents . 25)
+ (menu-bar-mode . 45)
+ (package-install . 13)
  (treemacs . 8)
  (treemacs-mode . 1)
  (diff-hl-mode . 1)
  (mule-diag . 1)
- (replace-regexp . 5)
+ (replace-regexp . 6)
  (academic-phrases . 3)
  (package-autoremove . 2)
  (go-gen-test-all . 2)
  (clang-format-buffer . 2)
- (shell . 1)
+ (shell . 3)
  (move-past-close-and-reindent . 1)
  (linum-mode . 9)
+ (go-gen-test-dwim . 2)
+ (focus-mode . 5)
 )
