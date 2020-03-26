@@ -1,20 +1,20 @@
 
 ;; ----- smex-history -----
 (
+ menu-bar-mode
+ abyss-theme
  go-guru-callers
  go-guru-describe
  package-list-packages
  package-install
  package-refresh-contents
- menu-bar-mode
- clipboard-yank
 )
 
 ;; ----- smex-data -----
 (
  (package-list-packages . 29)
  (package-refresh-contents . 30)
- (menu-bar-mode . 46)
+ (menu-bar-mode . 48)
  (package-install . 14)
  (treemacs . 8)
  (treemacs-mode . 1)
@@ -36,4 +36,5 @@
  (x-clipboard-yank . 1)
  (go-guru-describe . 4)
  (go-guru-callers . 1)
+ (abyss-theme . 1)
 )
