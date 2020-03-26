@@ -1,21 +1,21 @@
 
 ;; ----- smex-history -----
 (
+ go-guru-callers
+ go-guru-describe
  package-list-packages
- package-refresh-contents
- package-autoremove
- shell
  package-install
+ package-refresh-contents
  menu-bar-mode
- linum-mode
+ clipboard-yank
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 27)
- (package-refresh-contents . 28)
- (menu-bar-mode . 45)
- (package-install . 13)
+ (package-list-packages . 29)
+ (package-refresh-contents . 30)
+ (menu-bar-mode . 46)
+ (package-install . 14)
  (treemacs . 8)
  (treemacs-mode . 1)
  (diff-hl-mode . 1)
@@ -32,4 +32,8 @@
  (focus-mode . 5)
  (go-play-buffer . 1)
  (godef-jump . 1)
+ (clipboard-yank . 2)
+ (x-clipboard-yank . 1)
+ (go-guru-describe . 4)
+ (go-guru-callers . 1)
 )
