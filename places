@@ -1,7 +1,5 @@
 ;;; -*- coding: utf-8 -*-
-(("/tmp/crontab.z2apJH" . 239)
- ("/home/thecsw/.emacs.d/recentf" . 999)
- ("/tmp/crontab.Pzexhy" . 239)
+(("/home/thecsw/.emacs.d/recentf" . 909)
  ("/home/thecsw/Downloads/ml/bin/glnxa64/install_unix" . 19217)
  ("/home/thecsw/Downloads/ml/install" . 8360)
  ("/home/thecsw/Downloads/ml/readme.txt" . 6046)
@@ -447,6 +445,4 @@
  ("/home/thecsw/gits/actix-web/actix-framed/src/app.rs" . 2158)
  ("/home/thecsw/go/src/github.com/thecsw/mib/README.md" . 1443)
  ("/home/thecsw/go/src/github.com/square/go-jose/asymmetric.go" . 15553)
- ("/home/thecsw/go/src/github.com/square/go-jose/crypter.go" . 8822)
- ("/home/thecsw/go/src/github.com/square/go-jose/cipher/cbc_hmac_test.go" . 15046)
- ("/home/thecsw/gits/memeinvestor_bot/src/message.py" . 14238))
+ ("/home/thecsw/go/src/github.com/square/go-jose/crypter.go" . 8822))
