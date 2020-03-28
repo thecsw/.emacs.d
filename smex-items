@@ -14,7 +14,7 @@
 (
  (package-list-packages . 29)
  (package-refresh-contents . 30)
- (menu-bar-mode . 50)
+ (menu-bar-mode . 52)
  (package-install . 14)
  (treemacs . 8)
  (treemacs-mode . 1)
