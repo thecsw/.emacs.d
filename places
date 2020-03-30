@@ -1,9 +1,5 @@
 ;;; -*- coding: utf-8 -*-
-(("/home/thecsw/.emacs.d/recentf" . 909)
- ("/home/thecsw/Downloads/ml/bin/glnxa64/install_unix" . 19217)
- ("/home/thecsw/Downloads/ml/install" . 8360)
- ("/home/thecsw/Downloads/ml/readme.txt" . 6046)
- ("/home/thecsw/Downloads/ml/installer_input.txt" . 2047)
+(("/home/thecsw/.emacs.d/recentf" . 633)
  ("/home/thecsw/doc/classes/EECS210/"
   (dired-filename . "/home/thecsw/doc/classes/EECS210/book"))
  ("/home/thecsw/.config/fish/config.fish" . 1708)
@@ -16,7 +12,6 @@
  ("/home/thecsw/.muttrc" . 279)
  ("/home/thecsw/.mutt/accounts/kumail" . 607)
  ("/home/thecsw/.emacs" . 3484)
- ("/home/thecsw/karamazov.txt" . 409218)
  ("/home/thecsw/.emacs.d/elpa/go-guru-20181012.330/go-guru-autoloads.el" . 3016)
  ("/home/thecsw/.emacs.d/elpa/go-mode-20200309.303/go-mode-autoloads.el" . 3386)
  ("/home/thecsw/doc/docs/ku/kuhousing/"
