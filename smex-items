@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ perl-mode
  package-list-packages
  package-refresh-contents
  menu-bar-mode
  abyss-theme
  go-guru-callers
  go-guru-describe
- package-install
 )
 
 ;; ----- smex-data -----
@@ -37,4 +37,5 @@
  (go-guru-describe . 4)
  (go-guru-callers . 1)
  (abyss-theme . 1)
+ (perl-mode . 1)
 )
