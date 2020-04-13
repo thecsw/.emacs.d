@@ -1,9 +1,9 @@
 
 ;; ----- smex-history -----
 (
- perl-mode
  package-list-packages
  package-refresh-contents
+ perl-mode
  menu-bar-mode
  abyss-theme
  go-guru-callers
@@ -12,8 +12,8 @@
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 31)
- (package-refresh-contents . 31)
+ (package-list-packages . 32)
+ (package-refresh-contents . 32)
  (menu-bar-mode . 52)
  (package-install . 14)
  (treemacs . 8)
