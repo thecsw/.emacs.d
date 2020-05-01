@@ -1,21 +1,21 @@
 
 ;; ----- smex-history -----
 (
+ format-all-buffer
+ dot-mode
  package-list-packages
+ olivetti-mode
+ package-install
  package-refresh-contents
- perl-mode
- menu-bar-mode
- abyss-theme
- go-guru-callers
- go-guru-describe
+ format-all-mode
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 32)
- (package-refresh-contents . 32)
- (menu-bar-mode . 52)
- (package-install . 14)
+ (package-list-packages . 35)
+ (package-refresh-contents . 35)
+ (menu-bar-mode . 59)
+ (package-install . 15)
  (treemacs . 8)
  (treemacs-mode . 1)
  (diff-hl-mode . 1)
@@ -38,4 +38,9 @@
  (go-guru-callers . 1)
  (abyss-theme . 1)
  (perl-mode . 1)
+ (menu-bar-open . 3)
+ (format-all-mode . 1)
+ (format-all-buffer . 10)
+ (olivetti-mode . 2)
+ (dot-mode . 1)
 )

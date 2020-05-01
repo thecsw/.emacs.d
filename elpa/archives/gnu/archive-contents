@@ -581,7 +581,7 @@
 	       ("Leo Liu" . "sdl.web@gmail.com"))
 	      (:keywords "killing" "convenience"))])
  (ebdb .
-       [(0 6 13)
+       [(0 6 16)
 	((emacs
 	  (25 1))
 	 (cl-lib
@@ -610,7 +610,7 @@
 		 ((pyim
 		   (1 6 0))
 		  (ebdb
-		   (0 2)))
+		   (0 6 17)))
 		 "China-specific internationalization support for EBDB" single
 		 ((:url . "http://elpa.gnu.org/packages/ebdb-i18n-chn.html")
 		  (:authors
@@ -635,7 +635,7 @@
 	 ("Eduardo Ochs" . "eduardoochs@gmail.com"))
 	(:keywords "lisp" "e-scripts"))])
  (eglot .
-	[(1 5)
+	[(1 6)
 	 ((emacs
 	   (26 1))
 	  (jsonrpc
@@ -1549,7 +1549,7 @@
 	     ("Phillip Lord" . "phillip.lord@russet.org.uk"))
 	    (:url . "http://elpa.gnu.org/packages/persist.html"))])
  (phps-mode .
-	    [(0 3 39)
+	    [(0 3 43)
 	     ((emacs
 	       (26)))
 	     "Major mode for PHP with Semantic integration" tar
@@ -1871,10 +1871,17 @@
 	       ("Ralph Amissah & Ambrose Kofi Laing"))
 	      (:maintainer "Ralph Amissah" . "ralph.amissah@gmail.com")
 	      (:url . "http://www.sisudoc.org/"))])
+ (sm-c-mode .
+	    [(1 0)
+	     nil "C major mode based on SMIE" single
+	     ((:url . "http://elpa.gnu.org/packages/sm-c-mode.html")
+	      (:authors
+	       ("Stefan Monnier" . "monnier@iro.umontreal.ca"))
+	      (:maintainer "Stefan Monnier" . "monnier@iro.umontreal.ca"))])
  (smalltalk-mode .
 		 [(3 2 92)
 		  nil "Major mode for the GNU Smalltalk programming language" tar
-		  ((:maintainer "Derek Zhou" . "derek@shannon-data.com")
+		  ((:maintainer "Derek Zhou" . "derek@3qin.us")
 		   (:authors
 		    ("Steve Byrne"))
 		   (:url . "http://elpa.gnu.org/packages/smalltalk-mode.html"))])
