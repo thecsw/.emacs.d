@@ -12,15 +12,9 @@
 (when load-file-name (add-to-list 'custom-theme-load-path (file-name-as-directory (file-name-directory load-file-name))))
 
 (autoload 'abyss-theme "abyss-theme" "\
-Load abyss-theme.
-
-\(fn)" t nil)
+Load abyss-theme." t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "abyss-theme" '("abyss")))
-
-;;;***
-
-;;;### (autoloads nil nil ("abyss-theme-pkg.el") (0 0 0 0))
 
 ;;;***
 

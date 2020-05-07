@@ -2,19 +2,19 @@
 ;; ----- smex-history -----
 (
  format-all-buffer
- dot-mode
+ auto-complete
+ menu-bar-mode
  package-list-packages
- olivetti-mode
- package-install
  package-refresh-contents
- format-all-mode
+ package-autoremove
+ package-install
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 35)
- (package-refresh-contents . 35)
- (menu-bar-mode . 59)
+ (package-list-packages . 40)
+ (package-refresh-contents . 38)
+ (menu-bar-mode . 60)
  (package-install . 15)
  (treemacs . 8)
  (treemacs-mode . 1)
@@ -22,7 +22,7 @@
  (mule-diag . 1)
  (replace-regexp . 6)
  (academic-phrases . 3)
- (package-autoremove . 3)
+ (package-autoremove . 5)
  (go-gen-test-all . 2)
  (clang-format-buffer . 2)
  (shell . 3)
@@ -40,7 +40,16 @@
  (perl-mode . 1)
  (menu-bar-open . 3)
  (format-all-mode . 1)
- (format-all-buffer . 10)
+ (format-all-buffer . 23)
  (olivetti-mode . 2)
  (dot-mode . 1)
+ (python-menu . 1)
+ (python-mode . 2)
+ (company-go . 2)
+ (company-jedi . 18)
+ (jedi-mode . 1)
+ (jedi:setup . 2)
+ (jedi:install-server . 3)
+ (company-mode . 2)
+ (auto-complete . 1)
 )

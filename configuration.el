@@ -16,6 +16,8 @@ There are two things you can do about this warning:
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
+(ac-config-default)
+
 (setq-default c-basic-offset 8
 	      c-default-style "k&r"
 	      tab-width 8
@@ -86,12 +88,24 @@ There are two things you can do about this warning:
 (dashboard-setup-startup-hook)
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
-;;(add-to-list 'load-path "~/.emacs.d/evil")
-;;(require 'evil)
-;;(evil-mode 1)
-;;(setq evil-default-state 'emacs) ;; changes default state to emacs
-
 (global-set-key (kbd "C-x g") 'magit-status)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "unspecified-bg" :foreground "#f8f8f2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
+ '(diff-function ((t (:inherit nil))))
+ '(line-number ((t (:inherit nil))))
+ '(linum ((t (:background "unspecified-bg" :foreground "#565761" :slant italic))))
+ '(magit-diff-added ((t (:foreground "#22aa22"))))
+ '(magit-diff-added-highlight ((t (:background "color-233" :foreground "#22aa22"))))
+ '(magit-diff-context-highlight ((t (:background "color-233" :foreground "brightyellow"))))
+ '(magit-diff-file-heading-highlight ((t (:foreground "magenta"))))
+ '(magit-diff-removed ((t (:foreground "#aa2222"))))
+ '(magit-diff-removed-highlight ((t (:background "color-233" :foreground "#aa2222"))))
+ '(magit-section-highlight ((t (:background "color-232" :foreground "brightmagenta" :weight bold)))))
 
 (setq browse-url-browser-function 'w3m-browse-url)
 (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
@@ -119,3 +133,5 @@ There are two things you can do about this warning:
 (setq tramp-default-method "ssh")
 
 (global-set-key (kbd "M-x") 'smex)
+
+(load-theme 'abyss t)
