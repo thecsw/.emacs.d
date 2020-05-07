@@ -3,19 +3,19 @@
 (
  format-all-buffer
  auto-complete
+ auto-complete-mode
  menu-bar-mode
  package-list-packages
+ ac-complete-go
  package-refresh-contents
- package-autoremove
- package-install
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 40)
- (package-refresh-contents . 38)
- (menu-bar-mode . 60)
- (package-install . 15)
+ (package-list-packages . 43)
+ (package-refresh-contents . 40)
+ (menu-bar-mode . 61)
+ (package-install . 16)
  (treemacs . 8)
  (treemacs-mode . 1)
  (diff-hl-mode . 1)
@@ -40,7 +40,7 @@
  (perl-mode . 1)
  (menu-bar-open . 3)
  (format-all-mode . 1)
- (format-all-buffer . 23)
+ (format-all-buffer . 25)
  (olivetti-mode . 2)
  (dot-mode . 1)
  (python-menu . 1)
@@ -51,5 +51,8 @@
  (jedi:setup . 2)
  (jedi:install-server . 3)
  (company-mode . 2)
- (auto-complete . 1)
+ (auto-complete . 10)
+ (ac-emoji-setup . 4)
+ (auto-complete-mode . 9)
+ (ac-complete-go . 1)
 )
