@@ -23,8 +23,6 @@ There are two things you can do about this warning:
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 (setq ac-auto-start 1)
 (setq ac-auto-show-menu 0.8)
-;(define-key ac-completing-map "\t" 'ac-complete)
-;(define-key ac-completing-map "\r" nil)
 
 (setq-default c-basic-offset 8
 	      c-default-style "k&r"
@@ -72,12 +70,9 @@ There are two things you can do about this warning:
 
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
-;(defun auto-complete-for-go ()
 (auto-complete-mode 1)
-;)
 (add-hook 'go-mode-hook 'auto-complete-for-go)
 (require 'go-autocomplete)
-(ac-config-default)
 (global-set-key (kbd"C-c C-c") 'godef-jump)
 
 ;;(require 'company)
@@ -98,29 +93,29 @@ There are two things you can do about this warning:
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
 (global-set-key (kbd "C-x g") 'magit-status)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(dockerfile-mode yaml-mode w3m tramp solidity-mode smex powerline org-ref olivetti matlab-mode markdown-mode+ magit irony-eldoc goto-chg go-scratch go-gopath go-gen-test go-complete go-autocomplete git-gutter-fringe format-all elisp-benchmarks dot-mode dashboard cquery clang-format caddyfile-mode autopair ac-emoji abyss-theme)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "unspecified-bg" :foreground "#f8f8f2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
- '(diff-function ((t (:inherit nil))))
- '(line-number ((t (:inherit nil))))
- '(linum ((t (:background "unspecified-bg" :foreground "#565761" :slant italic))))
- '(magit-diff-added ((t (:foreground "#22aa22"))))
- '(magit-diff-added-highlight ((t (:background "color-233" :foreground "#22aa22"))))
- '(magit-diff-context-highlight ((t (:background "color-233" :foreground "brightyellow"))))
- '(magit-diff-file-heading-highlight ((t (:foreground "magenta"))))
- '(magit-diff-removed ((t (:foreground "#aa2222"))))
- '(magit-diff-removed-highlight ((t (:background "color-233" :foreground "#aa2222"))))
- '(magit-section-highlight ((t (:background "color-232" :foreground "brightmagenta" :weight bold)))))
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(package-selected-packages
+;;    '(dockerfile-mode yaml-mode w3m tramp solidity-mode smex powerline org-ref olivetti matlab-mode markdown-mode+ magit irony-eldoc goto-chg go-scratch go-gopath go-gen-test go-complete go-autocomplete git-gutter-fringe format-all elisp-benchmarks dot-mode dashboard cquery clang-format caddyfile-mode autopair ac-emoji abyss-theme)))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(default ((t (:inherit nil :stipple nil :background "unspecified-bg" :foreground "#f8f8f2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
+;;  '(diff-function ((t (:inherit nil))))
+;;  '(line-number ((t (:inherit nil))))
+;;  '(linum ((t (:background "unspecified-bg" :foreground "#565761" :slant italic))))
+;;  '(magit-diff-added ((t (:foreground "#22aa22"))))
+;;  '(magit-diff-added-highlight ((t (:background "color-233" :foreground "#22aa22"))))
+;;  '(magit-diff-context-highlight ((t (:background "color-233" :foreground "brightyellow"))))
+;;  '(magit-diff-file-heading-highlight ((t (:foreground "magenta"))))
+;;  '(magit-diff-removed ((t (:foreground "#aa2222"))))
+;;  '(magit-diff-removed-highlight ((t (:background "color-233" :foreground "#aa2222"))))
+;;  '(magit-section-highlight ((t (:background "color-232" :foreground "brightmagenta" :weight bold)))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -166,4 +161,4 @@ There are two things you can do about this warning:
 
 (global-set-key (kbd "M-x") 'smex)
 
-(load-theme 'abyss t)
+(load-theme 'lush t)

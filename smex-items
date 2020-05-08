@@ -1,20 +1,20 @@
 
 ;; ----- smex-history -----
 (
- format-all-buffer
- auto-complete
- auto-complete-mode
+ package-refresh-contents
  menu-bar-mode
  package-list-packages
- ac-complete-go
- package-refresh-contents
+ format-all-buffer
+ autopair-mode
+ auto-complete
+ package-install
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 43)
- (package-refresh-contents . 40)
- (menu-bar-mode . 61)
+ (package-list-packages . 49)
+ (package-refresh-contents . 43)
+ (menu-bar-mode . 62)
  (package-install . 16)
  (treemacs . 8)
  (treemacs-mode . 1)
@@ -40,7 +40,7 @@
  (perl-mode . 1)
  (menu-bar-open . 3)
  (format-all-mode . 1)
- (format-all-buffer . 25)
+ (format-all-buffer . 32)
  (olivetti-mode . 2)
  (dot-mode . 1)
  (python-menu . 1)
@@ -55,4 +55,6 @@
  (ac-emoji-setup . 4)
  (auto-complete-mode . 9)
  (ac-complete-go . 1)
+ (autopair-mode . 2)
+ (magit-unstage . 1)
 )
