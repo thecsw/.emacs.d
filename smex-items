@@ -1,20 +1,20 @@
 
 ;; ----- smex-history -----
 (
+ format-all-buffer
+ auto-complete-mode
+ auto-complete
+ ac-emoji-setup
+ package-list-packages
  package-refresh-contents
  menu-bar-mode
- package-list-packages
- format-all-buffer
- autopair-mode
- auto-complete
- package-install
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 49)
- (package-refresh-contents . 43)
- (menu-bar-mode . 62)
+ (package-list-packages . 54)
+ (package-refresh-contents . 45)
+ (menu-bar-mode . 65)
  (package-install . 16)
  (treemacs . 8)
  (treemacs-mode . 1)
@@ -22,7 +22,7 @@
  (mule-diag . 1)
  (replace-regexp . 6)
  (academic-phrases . 3)
- (package-autoremove . 5)
+ (package-autoremove . 7)
  (go-gen-test-all . 2)
  (clang-format-buffer . 2)
  (shell . 3)
@@ -40,7 +40,7 @@
  (perl-mode . 1)
  (menu-bar-open . 3)
  (format-all-mode . 1)
- (format-all-buffer . 32)
+ (format-all-buffer . 67)
  (olivetti-mode . 2)
  (dot-mode . 1)
  (python-menu . 1)
@@ -51,10 +51,13 @@
  (jedi:setup . 2)
  (jedi:install-server . 3)
  (company-mode . 2)
- (auto-complete . 10)
- (ac-emoji-setup . 4)
- (auto-complete-mode . 9)
+ (auto-complete . 11)
+ (ac-emoji-setup . 5)
+ (auto-complete-mode . 11)
  (ac-complete-go . 1)
  (autopair-mode . 2)
  (magit-unstage . 1)
+ (doctor . 1)
+ (fortpy-setup . 1)
+ (fortpy-install-server . 1)
 )
