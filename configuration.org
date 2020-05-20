@@ -32,6 +32,20 @@ There are two things you can do about this warning:
   (set-fontset-font
    t 'symbol
    (font-spec :family "Symbola") nil 'prepend)
+
+(require 'ac-math) ; This is not needed when you install from MELPA
+
+(add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of `latex-mode`
+
+(defun ac-latex-mode-setup ()         ; add ac-sources to default ac-sources
+  (setq ac-sources
+     (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
+               ac-sources)))
+
+(add-hook 'TeX-mode-hook 'ac-latex-mode-setup)
+(add-hook 'org-mode-hook 'ac-latex-mode-setup)
+
+(setq ac-math-unicode-in-math-p t)
 #+END_SRC
 * Coding styles
 ** C
@@ -98,6 +112,10 @@ There are two things you can do about this warning:
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode 1)
   (setq show-paren-delay 0)
+#+END_SRC
+** Disable validate link in HTML
+#+BEGIN_SRC emacs-lisp
+(setq org-html-validation-link nil)
 #+END_SRC
 * Window management
 #+BEGIN_SRC emacs-lisp
@@ -205,4 +223,8 @@ There are two things you can do about this warning:
 * Default theme
   #+BEGIN_SRC emacs-lisp
   (load-theme 'lush t)
+#+END_SRC
+* Inferior Lisp
+#+BEGIN_SRC emacs-lisp
+(setq inferior-lisp-program "sbcl")
 #+END_SRC

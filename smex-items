@@ -1,20 +1,20 @@
 
 ;; ----- smex-history -----
 (
- format-all-buffer
- auto-complete-mode
- auto-complete
- ac-emoji-setup
- package-list-packages
- package-refresh-contents
  menu-bar-mode
+ package-list-packages
+ format-all-buffer
+ package-menu-mark-upgrades
+ package-refresh-contents
+ slime
+ list-packages
 )
 
 ;; ----- smex-data -----
 (
- (package-list-packages . 54)
- (package-refresh-contents . 45)
- (menu-bar-mode . 65)
+ (package-list-packages . 62)
+ (package-refresh-contents . 48)
+ (menu-bar-mode . 68)
  (package-install . 16)
  (treemacs . 8)
  (treemacs-mode . 1)
@@ -40,7 +40,7 @@
  (perl-mode . 1)
  (menu-bar-open . 3)
  (format-all-mode . 1)
- (format-all-buffer . 67)
+ (format-all-buffer . 76)
  (olivetti-mode . 2)
  (dot-mode . 1)
  (python-menu . 1)
@@ -51,8 +51,8 @@
  (jedi:setup . 2)
  (jedi:install-server . 3)
  (company-mode . 2)
- (auto-complete . 11)
- (ac-emoji-setup . 5)
+ (auto-complete . 13)
+ (ac-emoji-setup . 6)
  (auto-complete-mode . 11)
  (ac-complete-go . 1)
  (autopair-mode . 2)
@@ -60,4 +60,9 @@
  (doctor . 1)
  (fortpy-setup . 1)
  (fortpy-install-server . 1)
+ (list-packages . 1)
+ (slime . 3)
+ (slime-repl . 2)
+ (slime-setup . 1)
+ (package-menu-mark-upgrades . 1)
 )
