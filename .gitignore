@@ -3,5 +3,8 @@ ac-comphist.dat
 tramp
 places
 smex-items
-.saves
+.cache
+.python-environments
+auto-save-list
+.saves*
 *~
