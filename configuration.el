@@ -23,13 +23,6 @@ There are two things you can do about this warning:
 (setq ac-auto-start 1)
 (setq ac-auto-show-menu 0.8)
 
-;; (add-hook 'markdown-mode-hook 'ac-emoji-setup)
-;; (add-hook 'git-commit-mode-hook 'ac-emoji-setup)
-
-;; (set-fontset-font
-;;  t 'symbol
-;;  (font-spec :family "Symbola") nil 'prepend)
-
 (setq-default c-basic-offset 8
 	      c-default-style "k&r"
 	      tab-width 8
@@ -39,8 +32,11 @@ There are two things you can do about this warning:
 	      tab-width 8
 	      indent-tabs-mode t)
 
+;; Instea of putting *~ backups in current directory,
+;; put them in local .saves
 (setq backup-directory-alist `(("." . ".saves")))
 
+;; Just to stop spamming backup files
 (setq delete-old-versions t
       kept-new-versions 6
       kept-old-versions 2
@@ -77,41 +73,30 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 
-(add-to-list 'exec-path "/home/thecsw/go/bin")
-
+;; Make sure that $GOPATH/bin is enabled
+(add-to-list 'exec-path "~/go/bin")
+;; Run goimports when saving a .go file
 (setq gofmt-command "goimports")
+;; Format on save
 (add-hook 'before-save-hook 'gofmt-before-save)
-(auto-complete-mode 1)
 (add-hook 'go-mode-hook 'auto-complete-for-go)
+;; Enable auto-complete
 (require 'go-autocomplete)
+(auto-complete-mode 1)
+;; Use C-c C-c to jump to definition
 (global-set-key (kbd"C-c C-c") 'godef-jump)
 
-;;(require 'company)
-;;(require 'smex)
-;;(add-hook 'after-init-hook 'global-company-mode)
-;;(global-set-key (kbd "M-n") 'company-complete)
-;; (eval-after-load 'company
-;;   '(add-to-list 'company-backends 'company-irony))
-
-
-;; (add-hook 'c++-mode-hook 'irony-mode)
-;; (add-hook 'c-mode-hook 'irony-mode)
-;; (add-hook 'objc-mode-hook 'irony-mode)
-;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
+;; Enable dashboard
 (require 'dashboard)
+;; Add the hook
 (dashboard-setup-startup-hook)
+;; Set the dashboard as the default buffer
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
+;; Press C-x g to open magit
 (global-set-key (kbd "C-x g") 'magit-status)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(dockerfile-mode yaml-mode w3m tramp solidity-mode smex powerline org-ref olivetti matlab-mode markdown-mode+ magit irony-eldoc goto-chg go-scratch go-gopath go-gen-test go-complete go-autocomplete git-gutter-fringe format-all elisp-benchmarks dot-mode dashboard cquery clang-format caddyfile-mode autopair ac-emoji abyss-theme)))
-   (custom-set-faces
+;; Define some colors for magit, I love pink
+(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
@@ -128,19 +113,13 @@ There are two things you can do about this warning:
  '(magit-diff-removed-highlight ((t (:background "color-233" :foreground "#aa2222"))))
  '(magit-section-highlight ((t (:background "color-232" :foreground "brightmagenta" :weight bold)))))
 
-(setq browse-url-browser-function 'w3m-browse-url)
-(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
-;; optional keyboard short-cut
-(global-set-key "\C-xm" 'browse-url-at-point)
-
 (require 'powerline)
-(powerline-center-theme)
-;;(powerline-default-theme)
-;;(powerline-center-evil-theme)
-;;(powerline-vim-theme)
-;;(powerline-nano-theme)
+;; Use the vim powerline theme
+(powerline-default-theme)
 
+;; Use org-ref
 (require 'org-ref)
+;; Build nonstopmode with pdflatex
 (setq org-latex-pdf-process
 '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
 "bibtex %b"
@@ -151,10 +130,11 @@ There are two things you can do about this warning:
 ;; (setq org-latex-listings 'minted
 ;;       org-latex-packages-alist '(("" "minted")))
 
+;; Default to ssh when using tramp
 (setq tramp-default-method "ssh")
 
+;; Fuzzy command complete on M-x
 (global-set-key (kbd "M-x") 'smex)
 
+;; I like lush and use it by default
 (load-theme 'lush t)
-
-(setq inferior-lisp-program "sbcl")
