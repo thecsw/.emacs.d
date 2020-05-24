@@ -28,12 +28,12 @@ There are two things you can do about this warning:
    (setq ac-auto-start 1)
    (setq ac-auto-show-menu 0.8)
 
-   (add-hook 'markdown-mode-hook 'ac-emoji-setup)
-   (add-hook 'git-commit-mode-hook 'ac-emoji-setup)
+   ;; (add-hook 'markdown-mode-hook 'ac-emoji-setup)
+   ;; (add-hook 'git-commit-mode-hook 'ac-emoji-setup)
 
-   (set-fontset-font
-    t 'symbol
-    (font-spec :family "Symbola") nil 'prepend)
+   ;; (set-fontset-font
+   ;;  t 'symbol
+   ;;  (font-spec :family "Symbola") nil 'prepend)
  #+END_SRC
 * Coding styles
 ** C
