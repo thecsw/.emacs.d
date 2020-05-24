@@ -16,10 +16,15 @@ There are two things you can do about this warning:
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
+;; Enable compan
 (add-hook 'after-init-hook 'global-company-mode)
+
+;; Enable default auto-complete
 (ac-config-default)
 (global-auto-complete-mode t)
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+
+;; Quick auto-complete
 (setq ac-auto-start 1)
 (setq ac-auto-show-menu 0.8)
 
@@ -119,6 +124,7 @@ There are two things you can do about this warning:
 
 ;; Use org-ref
 (require 'org-ref)
+
 ;; Build nonstopmode with pdflatex
 (setq org-latex-pdf-process
 '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
@@ -126,9 +132,6 @@ There are two things you can do about this warning:
 "makeindex %b"
 "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
 "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"))
-
-;; (setq org-latex-listings 'minted
-;;       org-latex-packages-alist '(("" "minted")))
 
 ;; Default to ssh when using tramp
 (setq tramp-default-method "ssh")
