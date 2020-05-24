@@ -20,8 +20,8 @@ There are two things you can do about this warning:
 #+END_SRC
 * Auto-complete
  #+BEGIN_SRC emacs-lisp
-   ;; Enable compan
-   (add-hook 'after-init-hook 'global-company-mode)
+   ;; Enable company
+   ;(add-hook 'after-init-hook 'global-company-mode)
 
    ;; Enable default auto-complete
    (ac-config-default)
@@ -190,4 +190,24 @@ There are two things you can do about this warning:
   #+BEGIN_SRC emacs-lisp
     ;; I like lush and use it by default
     (load-theme 'lush t)
+#+END_SRC
+* Chef
+#+BEGIN_SRC emacs-lisp
+(setq org-capture-templates
+      '(("c" "Cookbook" entry (file "~/org/cookbook.org")
+         "%(org-chef-get-recipe-from-url)"
+         :empty-lines 1)
+        ("m" "Manual Cookbook" entry (file "~/org/cookbook.org")
+         "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")))
+#+END_SRC
+* Org mode
+#+BEGIN_SRC emacs-lisp
+  ;; Add the Unicode bullets package
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+  ;; This is usually the default, but keep in mind it must be nil
+  (setq org-hide-leading-stars nil)
+  ;; This line is necessary.
+  (setq org-superstar-leading-bullet ?\s)
+  ;; Add the new fancy extra org mode blocks
+  (add-hook 'org-mode-hook #'org-special-block-extras-mode)
 #+END_SRC

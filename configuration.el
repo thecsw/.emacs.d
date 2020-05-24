@@ -16,8 +16,8 @@ There are two things you can do about this warning:
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
-;; Enable compan
-(add-hook 'after-init-hook 'global-company-mode)
+;; Enable company
+;(add-hook 'after-init-hook 'global-company-mode)
 
 ;; Enable default auto-complete
 (ac-config-default)
@@ -141,3 +141,19 @@ There are two things you can do about this warning:
 
 ;; I like lush and use it by default
 (load-theme 'lush t)
+
+(setq org-capture-templates
+      '(("c" "Cookbook" entry (file "~/org/cookbook.org")
+         "%(org-chef-get-recipe-from-url)"
+         :empty-lines 1)
+        ("m" "Manual Cookbook" entry (file "~/org/cookbook.org")
+         "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")))
+
+;; Add the Unicode bullets package
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+;; This is usually the default, but keep in mind it must be nil
+(setq org-hide-leading-stars nil)
+;; This line is necessary.
+(setq org-superstar-leading-bullet ?\s)
+;; Add the new fancy extra org mode blocks
+(add-hook 'org-mode-hook #'org-special-block-extras-mode)
