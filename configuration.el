@@ -16,32 +16,19 @@ There are two things you can do about this warning:
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
+(add-hook 'after-init-hook 'global-company-mode)
 (ac-config-default)
-  (global-auto-complete-mode t)
-  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-  (setq ac-auto-start 1)
-  (setq ac-auto-show-menu 0.8)
+(global-auto-complete-mode t)
+(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+(setq ac-auto-start 1)
+(setq ac-auto-show-menu 0.8)
 
-  (add-hook 'markdown-mode-hook 'ac-emoji-setup)
-  (add-hook 'git-commit-mode-hook 'ac-emoji-setup)
+(add-hook 'markdown-mode-hook 'ac-emoji-setup)
+(add-hook 'git-commit-mode-hook 'ac-emoji-setup)
 
-  (set-fontset-font
-   t 'symbol
-   (font-spec :family "Symbola") nil 'prepend)
-
-(require 'ac-math) ; This is not needed when you install from MELPA
-
-(add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of `latex-mode`
-
-(defun ac-latex-mode-setup ()         ; add ac-sources to default ac-sources
-  (setq ac-sources
-     (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
-               ac-sources)))
-
-(add-hook 'TeX-mode-hook 'ac-latex-mode-setup)
-(add-hook 'org-mode-hook 'ac-latex-mode-setup)
-
-(setq ac-math-unicode-in-math-p t)
+(set-fontset-font
+ t 'symbol
+ (font-spec :family "Symbola") nil 'prepend)
 
 (setq-default c-basic-offset 8
 	      c-default-style "k&r"
@@ -103,14 +90,14 @@ There are two things you can do about this warning:
 ;;(require 'smex)
 ;;(add-hook 'after-init-hook 'global-company-mode)
 ;;(global-set-key (kbd "M-n") 'company-complete)
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
+;; (eval-after-load 'company
+;;   '(add-to-list 'company-backends 'company-irony))
 
 
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+;; (add-hook 'c++-mode-hook 'irony-mode)
+;; (add-hook 'c-mode-hook 'irony-mode)
+;; (add-hook 'objc-mode-hook 'irony-mode)
+;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
