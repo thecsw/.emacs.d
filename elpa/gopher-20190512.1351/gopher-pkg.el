@@ -1,0 +1,2 @@
+;;; Generated package description from /home/thecsw/.emacs.d/elpa/gopher-20190512.1351/gopher.el  -*- no-byte-compile: t -*-
+(define-package "gopher" "20190512.1351" "easily access and navigate Gopher servers" '((emacs "24.4") (w3m "0")) :commit "6f4accac226698b22e8388e41ad5723b12553dde" :authors '(("Matthew Snyder" . "matthew.c.snyder@gmail.com") ("and the gopher.el authors (see AUTHORS.org)")) :maintainer '("Matthew Snyder" . "matthew.c.snyder@gmail.com") :url "http://github.com/ardekantur/gopher.el")

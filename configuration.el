@@ -78,6 +78,8 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 
+(global-set-key [remap goto-line] 'goto-line-preview)
+
 ;; Make sure that $GOPATH/bin is enabled
 (add-to-list 'exec-path "~/go/bin")
 ;; Run goimports when saving a .go file
@@ -158,3 +160,11 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; Press C-c d to open docker interface
+(global-set-key (kbd "C-c d") 'docker)
+
+;; Press C-c c to open git-messenge
+(global-set-key (kbd "C-c c") 'git-messenger:popup-message)
+(custom-set-variables
+ '(git-messenger:use-magit-popup t)))

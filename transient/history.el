@@ -1,4 +1,9 @@
-((magit-bisect nil)
+((docker nil)
+ (docker-compose nil)
+ (docker-image-rm
+  ("-f"))
+ (docker-network-rm nil)
+ (magit-bisect nil)
  (magit-commit
   ("--signoff")
   ("--allow-empty" "--signoff")
