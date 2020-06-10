@@ -167,4 +167,4 @@ There are two things you can do about this warning:
 ;; Press C-c c to open git-messenge
 (global-set-key (kbd "C-c c") 'git-messenger:popup-message)
 (custom-set-variables
- '(git-messenger:use-magit-popup t)))
+ '(git-messenger:use-magit-popup t))
