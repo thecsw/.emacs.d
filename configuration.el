@@ -1,32 +1,29 @@
 (require 'package)
+(require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
+		    (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
-  (when no-ssl
-    (warn "\
+  (when no-ssl (warn "\
 Your version of Emacs does not support SSL connections,
 which is unsafe because it allows man-in-the-middle attacks.
 There are two things you can do about this warning:
 1. Install an Emacs version that does support SSL and be safe.
 2. Remove this warning from your init file so you won't see it again."))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+  ;; and `package-pinned-packages`. Most users will not need or want to do this.
   ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+  )
+(package-initialize)
 
-;; Enable company
-   ;(add-hook 'after-init-hook 'global-company-mode)
-
-   ;; Enable default auto-complete
-;   (ac-config-default)
- ;  (global-auto-complete-mode t)
- ;  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+;; Enable default auto-complete
+   (ac-config-default)
+   (global-auto-complete-mode t)
+   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 
 ; Quick auto-complete
-   ;(setq ac-auto-start 1)
-   ;(setq ac-auto-show-menu 0.8)
+   (setq ac-auto-start 1)
+   (setq ac-auto-show-menu 0.8)
 
 (setq-default c-basic-offset 8
 	      c-default-style "k&r"
@@ -80,6 +77,8 @@ There are two things you can do about this warning:
 
 (global-set-key [remap goto-line] 'goto-line-preview)
 
+(require 'go-autocomplete)
+(require 'auto-complete-config)
 ;; Make sure that $GOPATH/bin is enabled
 (add-to-list 'exec-path "~/go/bin")
 ;; Run goimports when saving a .go file
@@ -89,8 +88,6 @@ There are two things you can do about this warning:
 (add-hook 'go-mode-hook 'auto-complete-for-go)
 ;; Enable auto-complete
 (auto-complete-mode 1)
-(require 'go-autocomplete)
-(require 'auto-complete-config)
 (ac-config-default)
 ;; Use C-c C-c to jump to definition
 (global-set-key (kbd"C-c C-c") 'godef-jump)
