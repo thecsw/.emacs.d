@@ -17,16 +17,16 @@ There are two things you can do about this warning:
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
 ;; Enable company
-;(add-hook 'after-init-hook 'global-company-mode)
+   ;(add-hook 'after-init-hook 'global-company-mode)
 
-;; Enable default auto-complete
-(ac-config-default)
-(global-auto-complete-mode t)
-(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+   ;; Enable default auto-complete
+;   (ac-config-default)
+ ;  (global-auto-complete-mode t)
+ ;  (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 
-;; Quick auto-complete
-(setq ac-auto-start 1)
-(setq ac-auto-show-menu 0.8)
+; Quick auto-complete
+   ;(setq ac-auto-start 1)
+   ;(setq ac-auto-show-menu 0.8)
 
 (setq-default c-basic-offset 8
 	      c-default-style "k&r"
@@ -88,8 +88,10 @@ There are two things you can do about this warning:
 (add-hook 'before-save-hook 'gofmt-before-save)
 (add-hook 'go-mode-hook 'auto-complete-for-go)
 ;; Enable auto-complete
-(require 'go-autocomplete)
 (auto-complete-mode 1)
+(require 'go-autocomplete)
+(require 'auto-complete-config)
+(ac-config-default)
 ;; Use C-c C-c to jump to definition
 (global-set-key (kbd"C-c C-c") 'godef-jump)
 
