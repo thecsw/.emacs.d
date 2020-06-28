@@ -17,13 +17,13 @@ There are two things you can do about this warning:
 (package-initialize)
 
 ;; Enable default auto-complete
-   (ac-config-default)
-   (global-auto-complete-mode t)
-   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+;;    (ac-config-default)
+;;    (global-auto-complete-mode t)
+;;    (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 
-; Quick auto-complete
-   (setq ac-auto-start 1)
-   (setq ac-auto-show-menu 0.8)
+;; ; Quick auto-complete
+;;    (setq ac-auto-start 1)
+;;    (setq ac-auto-show-menu 0.8)
 
 (setq-default c-basic-offset 8
 	      c-default-style "k&r"
@@ -82,7 +82,7 @@ There are two things you can do about this warning:
   :commands (lsp lsp-deferred)
   :hook (go-mode . lsp-deferred))
 
-  (global-set-key (kbd"C-c C-c") 'lsp-find-definition)
+(global-set-key (kbd"C-c C-c") 'lsp-find-definition)
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
@@ -97,12 +97,12 @@ There are two things you can do about this warning:
   :commands lsp-ui-mode)
 
 ;; Company mode is a standard completion package that works well with lsp-mode.
-(use-package company
-  :ensure t
-  :config
-  ;; Optionally enable completion-as-you-type behavior.
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1))
+;; (use-package company
+;;   :ensure t
+;;   :config
+;;   ;; Optionally enable completion-as-you-type behavior.
+;;   (setq company-idle-delay 0)
+;;   (setq company-minimum-prefix-length 1))
 
 ;; Optional - provides snippet support.
 (use-package yasnippet

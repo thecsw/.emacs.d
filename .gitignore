@@ -7,4 +7,4 @@ smex-items
 .python-environments
 auto-save-list
 .saves*
-*~
+.lsp-session-v1
