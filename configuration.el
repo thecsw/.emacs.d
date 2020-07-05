@@ -185,3 +185,17 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-c c") 'git-messenger:popup-message)
 (custom-set-variables
  '(git-messenger:use-magit-popup t))
+
+(add-hook 'after-init-hook #'global-emojify-mode)
+
+(global-set-key (kbd "<f5>") #'deadgrep)
+
+(global-anzu-mode +1)
+
+(autoload 'artbollocks-mode "artbollocks-mode")
+(add-hook 'text-mode-hook 'artbollocks-mode)
+
+(emms-all)
+(emms-default-players)
+
+(put 'narrow-to-region 'disabled nil)

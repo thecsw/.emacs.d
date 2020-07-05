@@ -131,7 +131,7 @@
 	   ("John Wiegley" . "jwiegley@gmail.com"))
 	  (:keywords "async"))])
  (auctex .
-	 [(12 2 3)
+	 [(12 2 4)
 	  ((emacs
 	    (24 1))
 	   (cl-lib
@@ -1598,7 +1598,7 @@
 	     ("Phillip Lord" . "phillip.lord@russet.org.uk"))
 	    (:url . "http://elpa.gnu.org/packages/persist.html"))])
  (phps-mode .
-	    [(0 3 51)
+	    [(0 3 52)
 	     ((emacs
 	       (26)))
 	     "Major mode for PHP with Semantic integration" tar
@@ -1648,6 +1648,14 @@
 	   ("James Clark" . "jjc@clark.com"))
 	  (:keywords "languages")
 	  (:url . "http://elpa.gnu.org/packages/psgml.html"))])
+ (pspp-mode .
+	    [(1 1)
+	     nil "Major mode for editing PSPP files" single
+	     ((:url . "http://elpa.gnu.org/packages/pspp-mode.html")
+	      (:keywords "pspp" "major-mode")
+	      (:authors
+	       ("Scott Andrew Borton" . "scott@pp.htv.fi"))
+	      (:maintainer "John Darrington" . "john@darrington.wattle.id.au"))])
  (python .
 	 [(0 26 1)
 	  ((emacs
@@ -2132,7 +2140,7 @@
 	  ("Oleh Krehel" . "ohwoeowho@gmail.com"))
 	 (:keywords "convenience"))])
  (tramp .
-	[(2 4 3 5)
+	[(2 4 4)
 	 ((emacs
 	   (24 4)))
 	 "Transparent Remote Access, Multiple Protocol" tar
