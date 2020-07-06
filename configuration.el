@@ -80,9 +80,12 @@ There are two things you can do about this warning:
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred))
+  :hook (go-mode . lsp-deferred)
+  :hook (c++-mode . lsp-deferred)
+  :hook (c-mode . lsp-deferred))
 
 (global-set-key (kbd"C-c C-c") 'lsp-find-definition)
+(global-set-key (kbd"C-c f") 'lsp-find-definition)
 
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
@@ -199,3 +202,10 @@ There are two things you can do about this warning:
 (emms-default-players)
 
 (put 'narrow-to-region 'disabled nil)
+
+(which-key-mode)
+
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+

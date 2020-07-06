@@ -112,14 +112,17 @@
 #+BEGIN_SRC emacs-lisp
 (global-set-key [remap goto-line] 'goto-line-preview)
 #+END_SRC
-* Go environment
+* LSP
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
     :ensure t
     :commands (lsp lsp-deferred)
-    :hook (go-mode . lsp-deferred))
+    :hook (go-mode . lsp-deferred)
+    :hook (c++-mode . lsp-deferred)
+    :hook (c-mode . lsp-deferred))
 
   (global-set-key (kbd"C-c C-c") 'lsp-find-definition)
+  (global-set-key (kbd"C-c f") 'lsp-find-definition)
 
   ;; Set up before-save hooks to format buffer and add/delete imports.
   ;; Make sure you don't have other gofmt/goimports hooks enabled.
@@ -274,4 +277,17 @@
 * Artist
 #+BEGIN_SRC emacs-lisp
   (put 'narrow-to-region 'disabled nil)
+#+END_SRC
+* Which key
+#+BEGIN_SRC emacs-lisp
+(which-key-mode)
+#+END_SRC
+* Projectile
+#+BEGIN_SRC emacs-lisp
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+#+END_SRC
+* C++ mode
+#+BEGIN_SRC emacs-lisp
+
 #+END_SRC

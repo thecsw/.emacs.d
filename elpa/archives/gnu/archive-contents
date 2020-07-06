@@ -2258,7 +2258,7 @@
 	  (:maintainer "Justin Burkett" . "justin@burkett.cc")
 	  (:url . "https://github.com/justbur/emacs-vdiff"))])
  (verilog-mode .
-	       [(2020 2 23 232634261)
+	       [(2020 6 27 14326051)
 		nil "major mode for editing verilog source in Emacs" single
 		((:keywords "languages")
 		 (:authors
