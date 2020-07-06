@@ -1,1 +1,0 @@
-("~/gits/memeinvestor_bot/" "~/gits/emacs/" "~/gits/linux/" "~/.emacs.d/" "~/go/src/git.sr.ht/~yotam/shavit/" "~/doc/kudocs/EECS268/labs/")
