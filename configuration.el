@@ -34,6 +34,65 @@ There are two things you can do about this warning:
 	      tab-width 8
 	      indent-tabs-mode t)
 
+(add-hook 'html-mode-hook
+	  (lambda ()
+	    ;; Default indentation is usually 2 spaces, changing to 4.
+	    (set (make-local-variable 'sgml-basic-offset) 4)))
+
+(defun html-show-toc ()
+  "Shows a TOC based on headings tags <H[1-6]>"
+  (interactive)
+  (if sgml-tags-invisible
+      (error "SGML tags are invisible")
+    (occur "<h[1-6]>")
+    (pop-to-buffer "*Occur*")
+    (vc-toggle-read-only)
+    (goto-char (point-min))
+    (replace-string "<h1>" "")
+    (goto-char (point-min))
+    (replace-string "<h2>" "  ")
+    (goto-char (point-min))
+    (replace-string "<h3>" "    ")
+    (goto-char (point-min))
+    (replace-string "<h4>" "      ")
+    (goto-char (point-min))
+    (replace-string "<h5>" "        ")
+    (goto-char (point-min))
+    (replace-string "<h6>" "          ")
+    (goto-char (point-min))
+    (replace-regexp "</h[1-6]>" "")
+    (goto-char (point-min))
+    (toggle-read-only 1)))
+
+(defun html-end-of-line ()
+  "If there is an HTML tag at the end of the line, then go to start of tag.
+ Otherwise go to the real end of the line."
+  (interactive)
+  (if (or (looking-at ".*>$") ; if we're on a line that ends with a tag
+	  (and (= (char-before) 62)
+	       (= (point) (save-excursion
+			    (end-of-line)
+			    (point))))) ; or we're at the end of a line
+					; with a tag
+      (let ((where-now (point)))
+	(narrow-to-region
+	 (save-excursion
+	   (beginning-of-line)
+	   (point))
+	 (save-excursion
+	   (end-of-line)
+	   (point)))
+	(end-of-line)
+	(re-search-backward "<" nil t)
+	(if (= (point) where-now)
+	    (end-of-line))
+	(widen))
+    (end-of-line)))
+
+(add-hook 'html-helper-mode-hook
+	  (lambda ()
+	    (define-key html-helper-mode-map "\C-e" 'html-end-of-line)))
+
 ;; Instea of putting *~ backups in current directory,
 ;; put them in local .saves
 (setq backup-directory-alist `(("." . ".saves")))
@@ -82,7 +141,9 @@ There are two things you can do about this warning:
   :commands (lsp lsp-deferred)
   :hook (go-mode . lsp-deferred)
   :hook (c++-mode . lsp-deferred)
-  :hook (c-mode . lsp-deferred))
+  :hook (c-mode . lsp-deferred)
+  :hook (js-mode . lsp-deferred)
+  :hook (html-mode . lsp-deferred))
 
 (global-set-key (kbd"C-c C-c") 'lsp-find-definition)
 (global-set-key (kbd"C-c f") 'lsp-find-definition)
@@ -209,3 +270,6 @@ There are two things you can do about this warning:
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 
+
+(add-hook 'gemini-mode-hook '(lambda () (setq fill-column 80)))
+(add-hook 'gemini-mode-hook 'turn-on-auto-fill)
