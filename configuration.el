@@ -155,6 +155,11 @@ There are two things you can do about this warning:
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
+;; Automatically format code on save
+(setq gofmt-command "goimports")
+(add-hook 'before-save-hook 'gofmt-before-save)
+(add-hook 'go-mode-hook 'auto-complete-for-go)
+
 ;; Optional - provides fancier overlays.
 (use-package lsp-ui
   :ensure t
@@ -243,7 +248,7 @@ There are two things you can do about this warning:
  )
 
 ;; Press C-c d to open docker interface
-(global-set-key (kbd "C-c d") 'docker)
+;;(global-set-key (kbd "C-c d") 'docker)
 
 ;; Press C-c c to open git-messenge
 (global-set-key (kbd "C-c c") 'git-messenger:popup-message)

@@ -194,6 +194,11 @@
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 
+  ;; Automatically format code on save
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (add-hook 'go-mode-hook 'auto-complete-for-go)
+
   ;; Optional - provides fancier overlays.
   (use-package lsp-ui
     :ensure t
@@ -306,7 +311,7 @@
 * Docker
 #+BEGIN_SRC emacs-lisp
     ;; Press C-c d to open docker interface
-    (global-set-key (kbd "C-c d") 'docker)
+    ;;(global-set-key (kbd "C-c d") 'docker)
 #+END_SRC
 * Git messenger
 #+BEGIN_SRC emacs-lisp
