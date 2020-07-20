@@ -137,13 +137,16 @@ There are two things you can do about this warning:
 (global-set-key [remap goto-line] 'goto-line-preview)
 
 (use-package lsp-mode
-  :ensure t
-  :commands (lsp lsp-deferred)
-  :hook (go-mode . lsp-deferred)
-  :hook (c++-mode . lsp-deferred)
-  :hook (c-mode . lsp-deferred)
-  :hook (js-mode . lsp-deferred)
-  :hook (html-mode . lsp-deferred))
+  :hook (
+	 (go-mode . lsp)
+	 (c++-mode . lsp)
+	 (c-mode . lsp)
+	 (js-mode . lsp)
+	 (html-mode . lsp)
+	 (python-mode . lsp)
+	 ;; if you want which-key integration
+	 (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
 
 (global-set-key (kbd"C-c C-c") 'lsp-find-definition)
 (global-set-key (kbd"C-c f") 'lsp-find-definition)
