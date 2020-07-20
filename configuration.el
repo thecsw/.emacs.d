@@ -137,14 +137,13 @@ There are two things you can do about this warning:
 (global-set-key [remap goto-line] 'goto-line-preview)
 
 (use-package lsp-mode
-  :hook (
-	 (go-mode . lsp)
+  :hook ((go-mode . lsp)
+	 (rust-mode . lsp)
 	 (c++-mode . lsp)
 	 (c-mode . lsp)
 	 (js-mode . lsp)
 	 (html-mode . lsp)
 	 (python-mode . lsp)
-	 ;; if you want which-key integration
 	 (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
@@ -161,7 +160,6 @@ There are two things you can do about this warning:
 ;; Automatically format code on save
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
-(add-hook 'go-mode-hook 'auto-complete-for-go)
 
 ;; Optional - provides fancier overlays.
 (use-package lsp-ui
@@ -276,8 +274,6 @@ There are two things you can do about this warning:
 
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
-
 
 (add-hook 'gemini-mode-hook '(lambda () (setq fill-column 80)))
 (add-hook 'gemini-mode-hook 'turn-on-auto-fill)
