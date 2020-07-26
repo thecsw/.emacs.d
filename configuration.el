@@ -212,7 +212,8 @@ There are two things you can do about this warning:
 (global-set-key (kbd "M-x") 'smex)
 
 ;; I like lush and use it by default
-(load-theme 'lush t)
+;(load-theme 'lush t)
+(load-theme 'abyss t)
 
 (setq org-capture-templates
       '(("c" "Cookbook" entry (file "~/org/cookbook.org")

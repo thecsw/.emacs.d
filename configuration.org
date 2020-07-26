@@ -265,7 +265,8 @@
 * Default theme
   #+BEGIN_SRC emacs-lisp
     ;; I like lush and use it by default
-    (load-theme 'lush t)
+    ;(load-theme 'lush t)
+    (load-theme 'abyss t)
 #+END_SRC
 * Chef
 #+BEGIN_SRC emacs-lisp
