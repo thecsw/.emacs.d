@@ -136,6 +136,10 @@ There are two things you can do about this warning:
 
 (global-set-key [remap goto-line] 'goto-line-preview)
 
+;; Give emacs some RAW power, yes
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
 (use-package lsp-mode
   :hook ((go-mode . lsp)
 	 (rust-mode . lsp)
