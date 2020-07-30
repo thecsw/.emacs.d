@@ -140,6 +140,17 @@ There are two things you can do about this warning:
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
+;; Configure LSP-UI by https://emacs-lsp.github.io/lsp-ui/
+;; Optional - provides fancier overlays.
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+;; Sideline options
+(setq lsp-ui-sideline-show-diagnostics t)
+(setq lsp-ui-sideline-show-hover nil)
+(setq lsp-ui-sideline-show-code-actions t)
+(setq lsp-ui-sideline-update-mode nil)
+
 (use-package lsp-mode
   :hook ((go-mode . lsp)
 	 (rust-mode . lsp)
@@ -164,19 +175,6 @@ There are two things you can do about this warning:
 ;; Automatically format code on save
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
-
-;; Optional - provides fancier overlays.
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
-
-;; Company mode is a standard completion package that works well with lsp-mode.
-;; (use-package company
-;;   :ensure t
-;;   :config
-;;   ;; Optionally enable completion-as-you-type behavior.
-;;   (setq company-idle-delay 0)
-;;   (setq company-minimum-prefix-length 1))
 
 ;; Optional - provides snippet support.
 (use-package yasnippet
