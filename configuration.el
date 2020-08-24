@@ -16,15 +16,6 @@ There are two things you can do about this warning:
   )
 (package-initialize)
 
-;; Enable default auto-complete
-;;    (ac-config-default)
-;;    (global-auto-complete-mode t)
-;;    (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-
-;; ; Quick auto-complete
-;;    (setq ac-auto-start 1)
-;;    (setq ac-auto-show-menu 0.8)
-
 (setq-default c-basic-offset 8
 	      c-default-style "k&r"
 	      tab-width 8
@@ -189,7 +180,6 @@ There are two things you can do about this warning:
 ;; Set the dashboard as the default buffer
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
-;; Press C-x g to open magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (require 'powerline)
@@ -236,20 +226,6 @@ There are two things you can do about this warning:
 (setq org-log-done 'time)
 
 (setq olivetti-body-width 80)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(yaml-mode tramp smex powerline origami org-superstar org-special-block-extras org-ref org-chef olivetti matlab-mode markdown-mode+ magit lush-theme go-rename go-gopath go-autocomplete format-all dot-mode dockerfile-mode dashboard cquery company clang-format caddyfile-mode autopair)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;; Press C-c d to open docker interface
 ;;(global-set-key (kbd "C-c d") 'docker)

@@ -1,7 +1,8 @@
 ((docker nil)
  (docker-compose nil)
- (docker-image-rm
-  ("-f"))
+ (docker-image-help nil)
+ (docker-image-rm nil
+		  ("-f"))
  (docker-network-rm nil)
  (magit-bisect nil)
  (magit-commit
