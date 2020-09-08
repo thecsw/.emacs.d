@@ -340,3 +340,7 @@
   (add-hook 'gemini-mode-hook '(lambda () (setq fill-column 80)))
   (add-hook 'gemini-mode-hook 'turn-on-auto-fill)
 #+END_SRC
+* LaTeX in org
+#+BEGIN_SRC emacs-lisp
+(setq org-highlight-latex-and-related '(latex script entities))
+#+END_SRC

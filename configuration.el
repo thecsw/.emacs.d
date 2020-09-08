@@ -256,3 +256,5 @@ There are two things you can do about this warning:
 
 (add-hook 'gemini-mode-hook '(lambda () (setq fill-column 80)))
 (add-hook 'gemini-mode-hook 'turn-on-auto-fill)
+
+(setq org-highlight-latex-and-related '(latex script entities))
