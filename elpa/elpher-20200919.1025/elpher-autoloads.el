@@ -12,7 +12,7 @@
 (autoload 'elpher "elpher" "\
 Start elpher with default landing page." t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "elpher" '("elpher-")))
+(register-definition-prefixes "elpher" '("elpher-"))
 
 ;;;***
 

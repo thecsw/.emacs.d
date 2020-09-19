@@ -1,6 +1,6 @@
-(define-package "elpher" "20200628.2255" "A friendly gopher and gemini client"
+(define-package "elpher" "20200919.1025" "A friendly gopher and gemini client"
   '((emacs "26.2"))
-  :commit "b4450244a5e23605f80b2179ce7d4dbaff56d927" :keywords
+  :commit "3561c2815bc6bc896fc7a6da8f094edca48c55b8" :keywords
   '("comm" "gopher")
   :authors
   '(("Tim Vaughan" . "plugd@thelambdalab.xyz"))

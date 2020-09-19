@@ -4,7 +4,7 @@
 
 ;; Author: Tim Vaughan <plugd@thelambdalab.xyz>
 ;; Created: 11 April 2019
-;; Version: 2.10.0
+;; Version: 2.10.2
 ;; Keywords: comm gopher
 ;; Homepage: http://thelambdalab.xyz/elpher
 ;; Package-Requires: ((emacs "26.2"))
@@ -71,7 +71,7 @@
 ;;; Global constants
 ;;
 
-(defconst elpher-version "2.10.0"
+(defconst elpher-version "2.10.2"
   "Current version of elpher.")
 
 (defconst elpher-margin-width 6
@@ -209,7 +209,7 @@ some servers which do not support IPv6 can take a long time to time-out."
   "Face used for html type directory records.")
 
 (defface elpher-gemini
-  '((t :inherit font-lock-regexp-grouping-backslash))
+  '((t :inherit font-lock-constant-face))
   "Face used for Gemini type directory records.")
 
 (defface elpher-other-url
@@ -804,6 +804,8 @@ base for the installed key and certificate files."
 
 (defun elpher-list-existing-certificates ()
   "Return a list of the persistent certificates in `elpher-certificate-directory'."
+  (unless (file-directory-p elpher-certificate-directory)
+    (make-directory elpher-certificate-directory))
   (mapcar
    (lambda (file)
      (file-name-sans-extension file))
@@ -1363,17 +1365,20 @@ treatment that a separate function is warranted."
 The gemini map file line describing the header is given
 by HEADER-LINE."
   (when (string-match "^\\(#+\\)[ \t]*" header-line)
-    (let ((level (length (match-string 1 header-line)))
-          (header (substring header-line (match-end 0))))
+    (let* ((level (length (match-string 1 header-line)))
+           (header (substring header-line (match-end 0)))
+	   (face (pcase level
+                   (1 'elpher-gemini-heading1)
+                   (2 'elpher-gemini-heading2)
+                   (3 'elpher-gemini-heading3)
+                   (_ 'default)))
+	   (fill-column (/ (* fill-column
+			      (font-get (font-spec :name (face-font 'default)) :size))
+			   (font-get (font-spec :name (face-font face)) :size))))
       (unless (display-graphic-p)
         (insert (make-string level ?#) " "))
-      (insert (propertize header 'face
-                          (pcase level
-                            (1 'elpher-gemini-heading1)
-                            (2 'elpher-gemini-heading2)
-                            (3 'elpher-gemini-heading3)
-                            (_ 'default)))
-              "\n"))))
+      (insert (propertize header 'face face))
+      (newline))))
 
 (defun elpher-gemini-insert-text (text-line)
   "Insert a plain non-preformatted TEXT-LINE into a text/gemini document.
