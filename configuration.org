@@ -3,7 +3,6 @@
 * MELPA
 #+BEGIN_SRC emacs-lisp
   (require 'package)
-  (require 'package)
   (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
 		      (not (gnutls-available-p))))
 	 (proto (if no-ssl "http" "https")))
@@ -287,11 +286,6 @@
 * Olivetti
 #+BEGIN_SRC emacs-lisp
 (setq olivetti-body-width 80)
-#+END_SRC
-* Docker
-#+BEGIN_SRC emacs-lisp
-    ;; Press C-c d to open docker interface
-    ;;(global-set-key (kbd "C-c d") 'docker)
 #+END_SRC
 * Git messenger
 #+BEGIN_SRC emacs-lisp

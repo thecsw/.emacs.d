@@ -1,5 +1,4 @@
 (require 'package)
-(require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
 		    (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
@@ -226,9 +225,6 @@ There are two things you can do about this warning:
 (setq org-log-done 'time)
 
 (setq olivetti-body-width 80)
-
-;; Press C-c d to open docker interface
-;;(global-set-key (kbd "C-c d") 'docker)
 
 ;; Press C-c c to open git-messenge
 (global-set-key (kbd "C-c c") 'git-messenger:popup-message)
