@@ -131,7 +131,7 @@
 	   ("John Wiegley" . "jwiegley@gmail.com"))
 	  (:keywords "async"))])
  (auctex .
-	 [(12 2 4)
+	 [(12 2 5)
 	  ((emacs
 	    (24 1))
 	   (cl-lib
@@ -1513,7 +1513,7 @@
 	      ("Ian Dunn" . "dunni@gnu.org"))
 	     (:keywords "convenience" "text" "org"))])
  (org-translate .
-		[(0 1)
+		[(0 1 1)
 		 ((emacs
 		   (25 1))
 		  (org
@@ -1524,7 +1524,7 @@
 		   ("Eric Abrahamsen" . "eric@ericabrahamsen.net"))
 		  (:maintainer "Eric Abrahamsen" . "eric@ericabrahamsen.net"))])
  (orgalist .
-	   [(1 12)
+	   [(1 13)
 	    ((emacs
 	      (24 4)))
 	    "Manage Org-like lists in non-Org buffers" single
@@ -1938,6 +1938,16 @@
 	    (:authors
 	     ("Michael R. Mauger" . "michael@mauger.com"))
 	    (:maintainer "Michael R. Mauger" . "michael@mauger.com"))])
+ (shell-command+ .
+		 [(2 0 0)
+		  ((emacs
+		    (24 1)))
+		  "An extended shell-command" tar
+		  ((:url . "http://elpa.gnu.org/packages/shell-command+.html")
+		   (:maintainer "Philip K." . "philipk@posteo.net")
+		   (:authors
+		    ("Philip K." . "philipk@posteo.net"))
+		   (:keywords "unix" "processes" "convenience"))])
  (shen-mode .
 	    [(0 1)
 	     nil "A major mode for editing shen source code" tar
