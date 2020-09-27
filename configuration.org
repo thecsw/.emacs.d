@@ -338,3 +338,7 @@
 #+BEGIN_SRC emacs-lisp
 (setq org-highlight-latex-and-related '(latex script entities))
 #+END_SRC
+* Default GUI font
+#+BEGIN_SRC emacs-lisp
+(set-frame-font "InputMono 10" nil t)
+#+END_SRC

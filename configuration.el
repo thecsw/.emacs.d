@@ -254,3 +254,5 @@ There are two things you can do about this warning:
 (add-hook 'gemini-mode-hook 'turn-on-auto-fill)
 
 (setq org-highlight-latex-and-related '(latex script entities))
+
+(set-frame-font "InputMono 10" nil t)
