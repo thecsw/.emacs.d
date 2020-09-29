@@ -650,7 +650,7 @@
 	      (:maintainer "Markus Triska" . "triska@metalevel.at")
 	      (:url . "https://www.metalevel.at/ediprolog/"))])
  (eev .
-      [(20200224)
+      [(20200928)
        ((emacs
 	 (24 1)))
        "Support for e-scripts (eepitch blocks, elisp hyperlinks, etc)" tar
@@ -1880,7 +1880,7 @@
 		   ("Yoni Rabkin" . "yrk@gnu.org"))
 		  (:keywords "rt" "tickets"))])
  (rudel .
-	[(0 3 1)
+	[(0 3 2)
 	 ((emacs
 	   (24))
 	  (cl-lib
