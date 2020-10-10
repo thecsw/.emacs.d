@@ -152,6 +152,8 @@ There are two things you can do about this warning:
 	 (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
+(setq lsp-keymap-prefix "C-c l")
+
 (global-set-key (kbd"C-c C-c") 'lsp-find-definition)
 (global-set-key (kbd"C-c f") 'lsp-find-definition)
 
