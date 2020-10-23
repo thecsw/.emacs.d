@@ -1,0 +1,2 @@
+;;; Generated package description from /home/thecsw/.emacs.d/elpa/ascii-table-20201019.700/ascii-table.el  -*- no-byte-compile: t -*-
+(define-package "ascii-table" "20201019.700" "Interactive ASCII table" '((emacs "24.3") (cl-lib "0.5")) :commit "4f68ad0b36c365c0652756691ab1703d0d46b4b4" :keywords '("help" "tools") :authors '(("Lassi Kortela" . "lassi@lassi.io")) :maintainer '("Lassi Kortela" . "lassi@lassi.io") :url "https://github.com/lassik/emacs-ascii-table")
