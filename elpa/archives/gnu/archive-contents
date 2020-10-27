@@ -688,7 +688,7 @@
 	      (:keywords "lisp")
 	      (:url . "http://elpa.gnu.org/packages/el-search.html"))])
  (eldoc .
-	[(1 10 0)
+	[(1 11 0)
 	 ((emacs
 	   (26 3)))
 	 "Show function arglist or variable docstring in echo area" single
@@ -939,7 +939,7 @@
 			    (:keywords "maint" "tools")
 			    (:url . "http://elpa.gnu.org/packages/gnu-elpa-keyring-update.html"))])
  (gnugo .
-	[(3 1 0)
+	[(3 1 1)
 	 ((ascii-art-to-unicode
 	   (1 5))
 	  (xpm
@@ -980,7 +980,7 @@
 	    (:keywords "tools" "accessibility")
 	    (:url . "http://elpa.gnu.org/packages/greader.html"))])
  (greenbar .
-	   [(1 0)
+	   [(1 1)
 	    nil "Mark comint output with \"greenbar\" background" single
 	    ((:url . "http://elpa.gnu.org/packages/greenbar.html")
 	     (:keywords "faces" "terminals")
@@ -1099,7 +1099,7 @@
 		 (:maintainer "Clemens Radermacher" . "clemera@posteo.net")
 		 (:url . "https://github.com/clemera/ivy-explorer"))])
  (ivy-posframe .
-	       [(0 5 1)
+	       [(0 5 2)
 		((emacs
 		  (26 0))
 		 (posframe
@@ -1657,7 +1657,7 @@
 	   ("Mario Lang" . "mlang@delysid.org"))
 	  (:maintainer "Mario Lang" . "mlang@delysid.org"))])
  (posframe .
-	   [(0 8 1)
+	   [(0 8 2)
 	    ((emacs
 	      (26)))
 	    "Pop a posframe (just a frame) at point" single

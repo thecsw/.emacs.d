@@ -234,19 +234,6 @@
   ;; Use the vim powerline theme
   (powerline-default-theme)
 #+END_SRC
-* Compiling Org-Ref
-#+BEGIN_SRC emacs-lisp
-  ;; Use org-ref
-  (require 'org-ref)
-  
-  ;; Build nonstopmode with pdflatex
-  (setq org-latex-pdf-process
-  '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
-  "bibtex %b"
-  "makeindex %b"
-  "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
-  "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"))
-#+END_SRC
 * TRAMP
 #+BEGIN_SRC emacs-lisp
   ;; Default to ssh when using tramp
@@ -274,6 +261,10 @@
 #+END_SRC
 * Org mode
 #+BEGIN_SRC emacs-lisp
+  (use-package org-special-block-extras
+    :ensure t
+    :hook (org-mode . org-special-block-extras-mode))
+
   ;; Add the Unicode bullets package
   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
   ;; This is usually the default, but keep in mind it must be nil
@@ -284,6 +275,39 @@
   (add-hook 'org-mode-hook #'org-special-block-extras-mode)
   ;; Add timestamp when marked DONE
   (setq org-log-done 'time)
+
+  ;; Use org-ref
+  (require 'org)
+  (require 'ox-latex)
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
+
+  (setq org-latex-custom-lang-environments
+	'(
+	  (emacs-lisp "common-lispcode")
+	  ))
+  (setq org-latex-minted-options
+	'(("frame" "lines")
+	  ("fontsize" "\\footnotesize")
+	  ("linenos" "")
+	  ("mathescape" "")
+	  ("numbersep" "5pt")
+	  ("numbersep" "2mm")))
+
+  ;; Build nonstopmode with xelatex
+  (setq org-latex-pdf-process
+	'("xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
+	  "bibtex %b"
+	  "makeindex %b"
+	  "xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
+	  "xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"))
+
+  (setq org-src-fontify-natively t)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (latex . t)))
 #+END_SRC
 * Olivetti
 #+BEGIN_SRC emacs-lisp
