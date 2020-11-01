@@ -720,7 +720,7 @@
 		     (:keywords "languages" "lisp")
 		     (:url . "http://elpa.gnu.org/packages/elisp-benchmarks.html"))])
  (emms .
-       [(5 42)
+       [(6 0)
 	((cl-lib
 	  (0 5)))
 	"The Emacs Multimedia System" tar
@@ -1371,7 +1371,7 @@
 			(:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
 			(:url . "https://gitlab.com/protesilaos/modus-themes"))])
  (multishell .
-	     [(1 1 5)
+	     [(1 1 9)
 	      ((cl-lib
 		(0 5)))
 	      "Easily use multiple shell buffers, local and remote" tar
@@ -2211,7 +2211,7 @@
 	  ("Oleh Krehel" . "ohwoeowho@gmail.com"))
 	 (:keywords "convenience"))])
  (tramp .
-	[(2 4 4 2)
+	[(2 4 4 3)
 	 ((emacs
 	   (24 4)))
 	 "Transparent Remote Access, Multiple Protocol" tar
