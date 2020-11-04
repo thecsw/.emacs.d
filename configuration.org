@@ -193,7 +193,6 @@
 
   (setq lsp-keymap-prefix "C-c l")
 
-  (global-set-key (kbd"C-c C-c") 'lsp-find-definition)
   (global-set-key (kbd"C-c f") 'lsp-find-definition)
 
   ;; Set up before-save hooks to format buffer and add/delete imports.
