@@ -149,6 +149,7 @@ There are two things you can do about this warning:
 	 (js-mode . lsp)
 	 (html-mode . lsp)
 	 (python-mode . lsp)
+	 (haskell-mode . lsp)
 	 (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
