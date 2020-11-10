@@ -720,7 +720,7 @@
 		     (:keywords "languages" "lisp")
 		     (:url . "http://elpa.gnu.org/packages/elisp-benchmarks.html"))])
  (emms .
-       [(6 1)
+       [(6 2)
 	((cl-lib
 	  (0 5))
 	 (seq
@@ -1148,7 +1148,7 @@
 	      ("Dmitry Gutov" . "dgutov@yandex.ru"))
 	     (:keywords "languages" "javascript"))])
  (json-mode .
-	    [(0 1)
+	    [(0 2)
 	     ((emacs
 	       (25 1)))
 	     "Major mode for editing JSON files" single
