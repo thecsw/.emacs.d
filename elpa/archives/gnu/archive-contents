@@ -329,7 +329,7 @@
 		(:maintainer "Chris Wanstrath" . "chris@ozmm.org")
 		(:url . "http://github.com/defunkt/coffee-mode"))])
  (compact-docstrings .
-		     [(0 1)
+		     [(0 2)
 		      nil "Shrink blank lines in docstrings and doc comments" single
 		      ((:keywords "convenience" "faces" "lisp" "maint" "c")
 		       (:authors
@@ -404,7 +404,7 @@
 	    (:maintainer "Oleh Krehel" . "ohwoeowho@gmail.com")
 	    (:url . "https://github.com/abo-abo/swiper"))])
  (cpio-mode .
-	    [(0 16)
+	    [(0 17)
 	     ((emacs
 	       (24 5)))
 	     "Handle cpio archives in the style of dired." tar
@@ -570,7 +570,7 @@
 	    (nil . "Frank E. Ritter, ritter@cs.cmu.edu"))
 	   (:url . "http://elpa.gnu.org/packages/dismal.html"))])
  (djvu .
-       [(1 1)
+       [(1 1 1)
 	nil "Edit and view Djvu files via djvused" single
 	((:url . "http://elpa.gnu.org/packages/djvu.html")
 	 (:keywords "files" "wp")
@@ -1193,9 +1193,9 @@
 	      ("Terrence Brannon" . "metaperl@gmail.com"))
 	     (:maintainer nil . "emacs-devel@gnu.org"))])
  (leaf .
-       [(4 2 5)
+       [(4 3 2)
 	((emacs
-	  (24 4)))
+	  (24 1)))
 	"Simplify your init.el configuration, extended use-package" tar
 	((:url . "https://github.com/conao3/leaf.el")
 	 (:maintainer "Naoya Yamashita" . "conao3@gmail.com")
@@ -1858,6 +1858,15 @@
 		      (:maintainer "Rocky Bernstein" . "rocky@gnu.org")
 		      (:authors
 		       ("Rocky Bernstein" . "rocky@gnu.org")))])
+ (rec-mode .
+	   [(1 6)
+	    ((emacs
+	      (25)))
+	    "Major mode for viewing/editing rec files" tar
+	    ((:url . "https://www.gnu.org/software/recutils/")
+	     (:maintainer "Antoine Kalmbach" . "ane@iki.fi")
+	     (:authors
+	      ("Jose E. Marchesi" . "jemarch@gnu.org")))])
  (register-list .
 		[(0 1)
 		 nil "Interactively list/edit registers" single
