@@ -283,4 +283,4 @@ There are two things you can do about this warning:
 
 (setq org-highlight-latex-and-related '(latex script entities))
 
-(set-frame-font "InputMono 10" nil t)
+;;;(set-frame-font "InputMono 10" nil t)
