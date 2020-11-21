@@ -285,6 +285,3 @@ There are two things you can do about this warning:
 
 ;;;(set-frame-font "InputMono 10" nil t)
 (set-face-attribute 'default nil :height 130)
-
-(add-to-list 'load-path "/Library/TeX/texbin")
-(setq explicit-shell-file-name "/usr/local/bin/fish")
