@@ -366,5 +366,5 @@
 #+END_SRC
 * Default GUI font
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "InputMono 10" nil t)
+;;;(set-frame-font "InputMono 10" nil t)
 #+END_SRC
