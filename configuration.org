@@ -247,8 +247,7 @@
 * Default theme
   #+BEGIN_SRC emacs-lisp
     ;; I like lush and use it by default
-    ;(load-theme 'lush t)
-    (load-theme 'abyss t)
+    (load-theme 'lush t)
 #+END_SRC
 * Chef
 #+BEGIN_SRC emacs-lisp
@@ -277,6 +276,7 @@
   (setq org-log-done 'time)
 
   ;; Use org-ref
+  (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
   (require 'org)
   (require 'ox-latex)
   (add-to-list 'org-latex-packages-alist '("" "minted"))
@@ -367,4 +367,10 @@
 * Default GUI font
 #+BEGIN_SRC emacs-lisp
 ;;;(set-frame-font "InputMono 10" nil t)
+(set-face-attribute 'default nil :height 130)
+#+END_SRC
+* Mac Stuff
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "/Library/TeX/texbin")
+(setq explicit-shell-file-name "/usr/local/bin/fish")
 #+END_SRC

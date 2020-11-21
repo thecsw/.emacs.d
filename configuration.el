@@ -194,8 +194,7 @@ There are two things you can do about this warning:
 (global-set-key (kbd "M-x") 'smex)
 
 ;; I like lush and use it by default
-;(load-theme 'lush t)
-(load-theme 'abyss t)
+(load-theme 'lush t)
 
 (setq org-capture-templates
       '(("c" "Cookbook" entry (file "~/org/cookbook.org")
@@ -220,6 +219,7 @@ There are two things you can do about this warning:
 (setq org-log-done 'time)
 
 ;; Use org-ref
+(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
 (require 'org)
 (require 'ox-latex)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
@@ -284,3 +284,7 @@ There are two things you can do about this warning:
 (setq org-highlight-latex-and-related '(latex script entities))
 
 ;;;(set-frame-font "InputMono 10" nil t)
+(set-face-attribute 'default nil :height 130)
+
+(add-to-list 'load-path "/Library/TeX/texbin")
+(setq explicit-shell-file-name "/usr/local/bin/fish")
