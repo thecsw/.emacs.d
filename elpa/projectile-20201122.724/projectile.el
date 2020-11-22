@@ -4,8 +4,8 @@
 
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/projectile
-;; Package-Version: 20201030.1132
-;; Package-Commit: d1daf274e8ca2eb0f20475b8f314bb955167c6a1
+;; Package-Version: 20201122.724
+;; Package-Commit: f1308c787d484c81ecfa0178cc8efa0eff9602a3
 ;; Keywords: project, convenience
 ;; Version: 2.3.0-snapshot
 ;; Package-Requires: ((emacs "25.1") (pkg-info "0.4"))
@@ -49,6 +49,9 @@
   (require 'subr-x))
 
 (eval-when-compile
+  (defvar ido-mode)
+  (defvar ivy-mode)
+  (defvar helm-mode)
   (defvar ag-ignore-list)
   (defvar ggtags-completion-table)
   (defvar tags-completion-table)
@@ -201,10 +204,11 @@ When nil Projectile will consider the current directory the project root."
                  (const :tag "Yes" t)
                  (const :tag "Prompt for project" prompt)))
 
-(defcustom projectile-completion-system 'ido
+(defcustom projectile-completion-system 'auto
   "The completion system to be used by Projectile."
   :group 'projectile
   :type '(radio
+          (const :tag "Auto-detect" auto)
           (const :tag "Ido" ido)
           (const :tag "Helm" helm)
           (const :tag "Ivy" ivy)
@@ -394,6 +398,7 @@ Regular expressions can be used."
     ".svn"
     ".stack-work"
     ".ccls-cache"
+    ".cache"
     ".clangd")
   "A list of directories globally ignored by projectile.
 
@@ -1819,36 +1824,38 @@ project-root for every file."
   (let ((prompt (projectile-prepend-project-name prompt))
         res)
     (setq res
-          (cond
-           ((eq projectile-completion-system 'ido)
-            (ido-completing-read prompt choices nil nil initial-input))
-           ((eq projectile-completion-system 'default)
-            (completing-read prompt choices nil nil initial-input))
-           ((eq projectile-completion-system 'helm)
-            (if (and (fboundp 'helm)
-                     (fboundp 'helm-make-source))
-                (helm :sources
-                      (helm-make-source "Projectile" 'helm-source-sync
-                                        :candidates choices
-                                        :action (if action
-                                                    (prog1 action
-                                                      (setq action nil))
-                                                  #'identity))
-                      :prompt prompt
-                      :input initial-input
-                      :buffer "*helm-projectile*")
-              (user-error "Please install helm from \
-https://github.com/emacs-helm/helm")))
-           ((eq projectile-completion-system 'ivy)
-            (if (fboundp 'ivy-read)
-                (ivy-read prompt choices
-                          :initial-input initial-input
-                          :action (prog1 action
-                                    (setq action nil))
-                          :caller 'projectile-completing-read)
-              (user-error "Please install ivy from \
-https://github.com/abo-abo/swiper")))
-           (t (funcall projectile-completion-system prompt choices))))
+          (pcase (if (eq projectile-completion-system 'auto)
+                     (cond
+                      ((and (boundp 'ido-mode)  ido-mode)  'ido)
+                      ((and (boundp 'helm-mode) helm-mode) 'helm)
+                      ((and (boundp 'ivy-mode)  ivy-mode)  'ivy)
+                      (t 'default))
+                   projectile-completion-system)
+            ('default (completing-read prompt choices nil nil initial-input))
+            ('ido (ido-completing-read prompt choices nil nil initial-input))
+            ('helm
+             (if (and (fboundp 'helm)
+                      (fboundp 'helm-make-source))
+                 (helm :sources
+                       (helm-make-source "Projectile" 'helm-source-sync
+                                         :candidates choices
+                                         :action (if action
+                                                     (prog1 action
+                                                       (setq action nil))
+                                                   #'identity))
+                       :prompt prompt
+                       :input initial-input
+                       :buffer "*helm-projectile*")
+               (user-error "Please install helm from melpa")))
+            ('ivy
+             (if (fboundp 'ivy-read)
+                 (ivy-read prompt choices
+                           :initial-input initial-input
+                           :action (prog1 action
+                                     (setq action nil))
+                           :caller 'projectile-completing-read)
+               (user-error "Please install ivy from elpa")))
+            (_ (funcall projectile-completion-system prompt choices))))
     (if action
         (funcall action res)
       res)))

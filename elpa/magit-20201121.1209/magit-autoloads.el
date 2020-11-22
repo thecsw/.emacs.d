@@ -582,6 +582,11 @@ that is you) or committer date is available as the previous
 history element.
 
 \(fn DATE)" t nil)
+
+(autoload 'magit-commit-absorb-modules "magit-commit" "\
+Spread modified modules across recent commits.
+
+\(fn PHASE COMMIT)" t nil)
  (autoload 'magit-commit-absorb "magit-commit" nil t)
  (autoload 'magit-commit-autofixup "magit-commit" nil t)
 

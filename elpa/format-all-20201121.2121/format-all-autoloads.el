@@ -25,10 +25,18 @@ external program.
 A suitable formatter is selected according to the `major-mode' of
 the buffer.  Many popular programming languages are supported.
 It is fairly easy to add new languages that have an external
-formatter.
+formatter.  When called interactively or PROMPT-P is non-nil, a
+missing formatter is prompted in the minibuffer.
+
+If PROMPT is non-nil (or the function is called as an interactive
+command), a missing formatter is prompted in the minibuffer.  If
+PROMPT is the symbol `always' (or a prefix argument is given),
+the formatter is prompted for even if one has already been set.
 
 If any errors or warnings were encountered during formatting,
-they are shown in a buffer called *format-all-errors*." t nil)
+they are shown in a buffer called *format-all-errors*.
+
+\(fn &optional PROMPT)" t nil)
 
 (autoload 'format-all-mode "format-all" "\
 Toggle automatic source code formatting before save.
@@ -65,7 +73,7 @@ or zero, and enabled otherwise.
 
 \(fn &optional ARG)" t nil)
 
-(register-definition-prefixes "format-all" '("asmfmt" "bibtex-mode" "black" "brittany" "bsrefmt" "buildifier" "cabal-fmt" "cmake-format" "crystal" "dartfmt" "define-format-all-formatter" "dfmt" "dhall" "dockfmt" "elm-format" "emacs-lisp" "fish-indent" "format-all-" "fprettify" "gleam" "gofmt" "html-tidy" "istyle-verilog" "jsonnetfmt" "ktlint" "latexindent" "ledger-mode" "lua-fmt" "mix-format" "nixfmt" "ocp-indent" "perltidy" "prettier" "purty" "rufo" "rustfmt" "scalafmt" "shfmt" "snakefmt" "sqlformat" "styler" "swiftformat" "terraform-fmt"))
+(register-definition-prefixes "format-all" '("asmfmt" "beautysh" "bibtex-mode" "black" "brittany" "bsrefmt" "buildifier" "cabal-fmt" "cmake-format" "crystal" "dartfmt" "define-format-all-formatter" "dfmt" "dhall" "dockfmt" "elm-format" "emacs-lisp" "fish-indent" "format-all-" "fprettify" "gleam" "gofmt" "hindent" "html-tidy" "istyle-verilog" "jsonnetfmt" "ktlint" "latexindent" "ledger-mode" "lua-fmt" "mix-format" "nixfmt" "ocp-indent" "perltidy" "pg-format" "prettier" "purty" "rufo" "rustfmt" "scalafmt" "shfmt" "snakefmt" "sqlformat" "swiftformat" "terraform-fmt" "yapf"))
 
 ;;;***
 
