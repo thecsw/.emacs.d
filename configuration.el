@@ -220,6 +220,7 @@ There are two things you can do about this warning:
 
 ;; Use org-ref
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+(setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/Library/Python/3.9/bin"))
 (require 'org)
 (require 'ox-latex)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
