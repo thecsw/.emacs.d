@@ -1,2 +1,0 @@
-;;; Generated package description from /home/thecsw/.emacs.d/elpa/ascii-art-to-unicode-1.12/ascii-art-to-unicode.el  -*- no-byte-compile: t -*-
-(define-package "ascii-art-to-unicode" "1.12" "a small artist adjunct" 'nil :keywords '("ascii" "unicode" "box-drawing") :authors '(("Thien-Thi Nguyen" . "ttn@gnu.org")) :maintainer '("Thien-Thi Nguyen" . "ttn@gnu.org") :url "http://www.gnuvola.org/software/aa2u/")
