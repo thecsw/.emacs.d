@@ -143,6 +143,12 @@
 	 (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+			 (require 'lsp-pyright)
+			 (lsp))))  ; or lsp-deferred
+
 (setq lsp-keymap-prefix "C-c l")
 
 (global-set-key (kbd"C-c f") 'lsp-find-definition)
@@ -276,3 +282,8 @@
 
 ;;;(set-frame-font "InputMono 10" nil t)
 (set-face-attribute 'default nil :height 130)
+
+(add-hook 'after-init-hook 'global-color-identifiers-mode)
+
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))

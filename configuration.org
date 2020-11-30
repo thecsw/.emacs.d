@@ -182,6 +182,12 @@
 	   (lsp-mode . lsp-enable-which-key-integration))
     :commands lsp)
 
+  (use-package lsp-pyright
+    :ensure t
+    :hook (python-mode . (lambda ()
+			   (require 'lsp-pyright)
+			   (lsp))))  ; or lsp-deferred
+
   (setq lsp-keymap-prefix "C-c l")
 
   (global-set-key (kbd"C-c f") 'lsp-find-definition)
@@ -359,4 +365,13 @@
 #+BEGIN_SRC emacs-lisp
 ;;;(set-frame-font "InputMono 10" nil t)
 (set-face-attribute 'default nil :height 130)
+#+END_SRC
+* Syntax highlight
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'global-color-identifiers-mode)
+#+END_SRC
+* MacOS stuff
+#+BEGIN_SRC emacs-lisp
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 #+END_SRC

@@ -1,2 +1,0 @@
-;;; Generated package description from org-special-block-extras.el  -*- no-byte-compile: t -*-
-(define-package "org-special-block-extras" "20201129.1308" "29 new custom blocks & 34 link types for Org-mode" '((s "1.12.0") (dash "2.16.0") (emacs "26.1") (dash-functional "1.2.0") (org "9.1")) :commit "5fc6837066593c5a4585c04df48c3a0d3a8182bf" :keywords '("org" "blocks" "colors" "convenience") :authors '(("Musa Al-hassy" . "alhassy@gmail.com")) :maintainer '("Musa Al-hassy" . "alhassy@gmail.com") :url "https://alhassy.github.io/org-special-block-extras")
