@@ -1,7 +1,1 @@
-* Sandy's .emacs.d
-
-Here are some tools that we need for LSP and different modes:
-
-#+BEGIN_SRC sh
-  go get -u golang.org/x/tools/...
-#+END_SRC
+configuration.org
