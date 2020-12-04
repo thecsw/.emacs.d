@@ -287,3 +287,8 @@
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
+
+(add-to-list 'load-path "~/.emacs.d/nano/")
+
+(require 'nano-layout)
+(provide 'nano)

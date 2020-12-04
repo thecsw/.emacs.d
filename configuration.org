@@ -375,3 +375,10 @@
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 #+END_SRC
+* Nano
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/nano/")
+
+  (require 'nano-layout)
+  (provide 'nano)
+#+END_SRC
