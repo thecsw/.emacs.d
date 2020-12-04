@@ -397,12 +397,12 @@
 	     (24 5))
 	    (swiper
 	     (0 13 1)))
-	   "Various completion functions using Ivy" single
-	   ((:keywords "convenience" "matching" "tools")
+	   "Various completion functions using Ivy" tar
+	   ((:url . "https://github.com/abo-abo/swiper")
+	    (:maintainer "Oleh Krehel" . "ohwoeowho@gmail.com")
 	    (:authors
 	     ("Oleh Krehel" . "ohwoeowho@gmail.com"))
-	    (:maintainer "Oleh Krehel" . "ohwoeowho@gmail.com")
-	    (:url . "https://github.com/abo-abo/swiper"))])
+	    (:keywords "convenience" "matching" "tools"))])
  (cpio-mode .
 	    [(0 17)
 	     ((emacs
@@ -1193,7 +1193,7 @@
 	(:keywords "lisp" "convenience")
 	(:authors
 	 ("Tino Calancha" . "tino.calancha@gmail.com"))
-	(:maintainer "Tino Calancha"))])
+	(:maintainer "Tino Calancha" . "tino.calancha@gmail.com"))])
  (landmark .
 	   [(1 0)
 	    nil "Neural-network robot that learns landmarks" single
@@ -1304,8 +1304,8 @@
 		((:url . "http://elpa.gnu.org/packages/memory-usage.html")
 		 (:keywords "maint")
 		 (:authors
-		  ("Stefan Monnier" . "monnier@cs.yale.edu"))
-		 (:maintainer "Stefan Monnier" . "monnier@cs.yale.edu"))])
+		  ("Stefan Monnier" . "monnier@iro.umontreal.ca"))
+		 (:maintainer "Stefan Monnier" . "monnier@iro.umontreal.ca"))])
  (metar .
 	[(0 3)
 	 ((cl-lib
@@ -1721,8 +1721,8 @@
 		 ((:url . "http://elpa.gnu.org/packages/quarter-plane.html")
 		  (:keywords "convenience" "wp")
 		  (:authors
-		   ("Peter J. Weisberg"))
-		  (:maintainer "Peter J. Weisberg"))])
+		   ("Peter J. Weisberg" . "pj@irregularexpressions.net"))
+		  (:maintainer "Peter J. Weisberg" . "pj@irregularexpressions.net"))])
  (queue .
 	[(0 2)
 	 nil "Queue data structure" single
@@ -2009,7 +2009,7 @@
 	      (:maintainer "Ralph Amissah" . "ralph.amissah@gmail.com")
 	      (:url . "http://www.sisudoc.org/"))])
  (slime-volleyball .
-		   [(1 1 6)
+		   [(1 1 7)
 		    ((cl-lib
 		      (0 5)))
 		    "An SVG Slime Volleyball Game" tar
@@ -2177,12 +2177,12 @@
 	    (24 5))
 	   (ivy
 	    (0 13 1)))
-	  "Isearch with an overview. Oh, man!" single
-	  ((:keywords "matching")
+	  "Isearch with an overview. Oh, man!" tar
+	  ((:url . "https://github.com/abo-abo/swiper")
+	   (:maintainer "Oleh Krehel" . "ohwoeowho@gmail.com")
 	   (:authors
 	    ("Oleh Krehel" . "ohwoeowho@gmail.com"))
-	   (:maintainer "Oleh Krehel" . "ohwoeowho@gmail.com")
-	   (:url . "https://github.com/abo-abo/swiper"))])
+	   (:keywords "matching"))])
  (system-packages .
 		  [(1 0 11)
 		   ((emacs
@@ -2330,6 +2330,16 @@
 	     (:authors
 	      ("Artur Malabarba" . "emacs@endlessparentheses.com"))
 	     (:maintainer "Artur Malabarba" . "emacs@endlessparentheses.com"))])
+ (valign .
+	 [(3 0 0)
+	  ((emacs
+	    (26 0)))
+	  "Visually align tables" single
+	  ((:keywords "convenience" "text" "table")
+	   (:authors
+	    ("Yuan Fu" . "casouri@gmail.com"))
+	   (:maintainer "Yuan Fu" . "casouri@gmail.com")
+	   (:url . "https://github.com/casouri/valign"))])
  (vcard .
 	[(0 1)
 	 ((emacs
