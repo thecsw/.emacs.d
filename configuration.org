@@ -382,3 +382,8 @@
   (require 'nano-layout)
   (provide 'nano)
 #+END_SRC
+* Company
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load 'company
+    '(push 'company-robe company-backends))
+#+END_SRC
