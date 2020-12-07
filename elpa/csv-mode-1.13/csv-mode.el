@@ -4,7 +4,7 @@
 
 ;; Author: "Francis J. Wright" <F.J.Wright@qmul.ac.uk>
 ;; Maintainer: emacs-devel@gnu.org
-;; Version: 1.12
+;; Version: 1.13
 ;; Package-Requires: ((emacs "24.1") (cl-lib "0.5"))
 ;; Keywords: convenience
 
@@ -662,8 +662,20 @@ point or marker arguments, BEG and END, delimiting the region."
 (defun csv-end-of-field ()
   "Skip forward over one field."
   (skip-chars-forward " ")
-  (if (eq (char-syntax (following-char)) ?\")
-      (goto-char (scan-sexps (point) 1)))
+  ;; If the first character is a double quote, then we have a quoted
+  ;; value.
+  (when (eq (char-syntax (following-char)) ?\")
+    (forward-char)
+    (let ((ended nil))
+      (while (not ended)
+	(cond ((not (eq (char-syntax (following-char)) ?\"))
+	       (forward-char 1))
+	      ;; Quotes inside quoted strings are quoted by doubling
+	      ;; the quote char: a,"b""c,",d
+	      ((eq (char-syntax (char-after (1+ (point)))) ?\")
+	       (forward-char 2))
+	      (t
+	       (setq ended t))))))
   (skip-chars-forward csv--skip-chars))
 
 (defun csv-beginning-of-field ()
