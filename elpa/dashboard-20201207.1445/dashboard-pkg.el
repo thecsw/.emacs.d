@@ -1,7 +1,7 @@
-(define-package "dashboard" "20201125.654" "A startup screen extracted from Spacemacs"
+(define-package "dashboard" "20201207.1445" "A startup screen extracted from Spacemacs"
   '((emacs "25.3")
     (page-break-lines "0.11"))
-  :commit "dabb6bd63e0a5650d9ea9bc9e1cb80128574a574" :keywords
+  :commit "f0387180a4d1540bb29562d65b141967339e7a18" :keywords
   ("startup" "screen" "tools" "dashboard")
   :authors
   (("Rakan Al-Hneiti"))
