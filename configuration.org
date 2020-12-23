@@ -22,7 +22,7 @@
 #+BEGIN_SRC emacs-lisp
 (setq-default python-basic-offset 8
 	      tab-width 8
-	      indent-tabs-mode t)
+	      indent-tabs-mode nil)
 #+END_SRC
 ** HTML
 #+BEGIN_SRC emacs-lisp
@@ -280,24 +280,26 @@
   (setq org-latex-listings 'minted)
 
   (setq org-latex-custom-lang-environments
-	'(
-	  (emacs-lisp "common-lispcode")
-	  ))
+        '(
+          (emacs-lisp "common-lispcode")
+          ))
   (setq org-latex-minted-options
-	'(("frame" "lines")
-	  ("fontsize" "\\footnotesize")
-	  ("linenos" "")
-	  ("mathescape" "")
-	  ("numbersep" "5pt")
-	  ("numbersep" "2mm")))
-
+        '(("frame" "lines")
+        ("fontsize" "\\scriptsize")
+        ;;   ("linenos" "")
+        ("obeytabs" "")
+        ("mathescape" "")
+        ("numbersep" "5pt")
+        ("numbersep" "2mm")
+        ("xleftmargin" "0.25in")))
+        
   ;; Build nonstopmode with xelatex
   (setq org-latex-pdf-process
-	'("xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
-	  "bibtex %b"
-	  "makeindex %b"
-	  "xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
-	  "xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"))
+        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
+          "bibtex %b"
+          "makeindex %b"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"))
 
   (setq org-src-fontify-natively t)
 
@@ -423,6 +425,7 @@
   \\def\\Q{\\mathbb Q}
   \\def\\noi{\\noindent}
   \\onehalfspace
+  \\usemintedstyle{bw}
   [NO-DEFAULT-PACKAGES]
   [NO-PACKAGES]"
 		 ("\\section{%s}" . "\\section*{%s}")
