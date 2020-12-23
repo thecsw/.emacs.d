@@ -382,7 +382,7 @@
   \\usepackage{subcaption}
   \\usepackage{mathtools}
   \\usepackage{xfrac}
-  \\usepackage[margin=1in]{geometry}
+  \\usepackage[margin=1.25in]{geometry}
   \\usepackage[utf8]{inputenc}
   \\usepackage{color}
   \\usepackage{epsf}
@@ -393,7 +393,6 @@
   \\usepackage[adobe-utopia]{mathdesign}
   \\usepackage{helvet}
   \\renewcommand{\\familydefault}{\\sfdefault}
-  \\textheight9in \\oddsidemargin-.5in \\textwidth7in \\topmargin-.5in
   \\usepackage{textgreek}
   \\renewcommand*{\\textgreekfontmap}{%
   {phv/*/*}{LGR/neohellenic/*/*}%
