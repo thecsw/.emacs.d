@@ -131,13 +131,13 @@
 	   ("John Wiegley" . "jwiegley@gmail.com"))
 	  (:keywords "async"))])
  (auctex .
-	 [(12 3 1)
+	 [(13 0 1)
 	  ((emacs
-	    (24 1))
+	    (24 3))
 	   (cl-lib
-	    (0 5)))
+	    (1 0)))
 	  "Integrated environment for *TeX*" tar
-	  ((:url . "http://www.gnu.org/software/auctex/")
+	  ((:url . "https://www.gnu.org/software/auctex/")
 	   (:maintainer nil . "auctex-devel@gnu.org")
 	   (:keywords "tex" "latex" "texinfo" "context" "doctex" "preview-latex"))])
  (aumix-mode .
@@ -728,7 +728,7 @@
 		     (:keywords "languages" "lisp")
 		     (:url . "http://elpa.gnu.org/packages/elisp-benchmarks.html"))])
  (emms .
-       [(6 2)
+       [(6 3)
 	((cl-lib
 	  (0 5))
 	 (seq
@@ -1192,6 +1192,18 @@
 	  (:authors
 	   ("Ivan Kanis" . "ivan@kanis.fr"))
 	  (:maintainer "Ivan Kanis" . "ivan@kanis.fr"))])
+ (kiwix .
+	[(1 0 1)
+	 ((emacs
+	   (24 4))
+	  (request
+	   (0 3 0)))
+	 "Searching offline Wikipedia through Kiwix." tar
+	 ((:url . "https://github.com/stardiviner/kiwix.el")
+	  (:maintainer "stardiviner" . "numbchild@gmail.com")
+	  (:authors
+	   ("stardiviner" . "numbchild@gmail.com"))
+	  (:keywords "kiwix" "wikipedia"))])
  (kmb .
       [(0 1)
        ((emacs
@@ -2250,15 +2262,14 @@
 	  ("Oleh Krehel" . "ohwoeowho@gmail.com"))
 	 (:keywords "convenience"))])
  (tramp .
-	[(2 4 4 4)
+	[(2 5 0)
 	 ((emacs
-	   (24 4)))
+	   (25 1)))
 	 "Transparent Remote Access, Multiple Protocol" tar
-	 ((:url . "https://savannah.gnu.org/projects/tramp")
+	 ((:url . "https://www.gnu.org/software/tramp/")
 	  (:maintainer "Michael Albinus" . "michael.albinus@gmx.de")
 	  (:authors
-	   ("Kai Großjohann" . "kai.grossjohann@gmx.net")
-	   ("Michael Albinus" . "michael.albinus@gmx.de"))
+	   ("Kai Großjohann" . "kai.grossjohann@gmx.net"))
 	  (:keywords "comm" "processes"))])
  (tramp-theme .
 	      [(0 2)
@@ -2349,14 +2360,14 @@
 	   (:maintainer "Yuan Fu" . "casouri@gmail.com")
 	   (:url . "https://github.com/casouri/valign"))])
  (vcard .
-	[(0 1)
+	[(0 2 1)
 	 ((emacs
 	   (27 1)))
 	 "Package for handling vCard files" tar
 	 ((:maintainer "Eric Abrahamsen" . "eric@ericabrahamsen.net")
 	  (:authors
 	   ("Eric Abrahamsen" . "eric@ericabrahamsen.net"))
-	  (:url . "http://elpa.gnu.org/packages/vcard.html"))])
+	  (:url . "https://elpa.gnu.org/packages/vcard.html"))])
  (vcl-mode .
 	   [(1 1)
 	    nil "Major mode for Varnish Configuration Language" single

@@ -261,11 +261,12 @@
     :hook (org-mode . org-special-block-extras-mode))
 
   ;; Add the Unicode bullets package
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-  ;; This is usually the default, but keep in mind it must be nil
-  (setq org-hide-leading-stars nil)
-  ;; This line is necessary.
-  (setq org-superstar-leading-bullet ?\s)
+  (require 'org-bullets)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  ;; ;; This is usually the default, but keep in mind it must be nil
+  ;; (setq org-hide-leading-stars nil)
+  ;; ;; This line is necessary.
+  ;; (setq org-superstar-leading-bullet ?\s)
   ;; Add the new fancy extra org mode blocks
   (add-hook 'org-mode-hook #'org-special-block-extras-mode)
   ;; Add timestamp when marked DONE
@@ -285,14 +286,14 @@
           ))
   (setq org-latex-minted-options
         '(("frame" "lines")
-        ("fontsize" "\\scriptsize")
-        ;;   ("linenos" "")
-        ("obeytabs" "")
-        ("mathescape" "")
-        ("numbersep" "5pt")
-        ("numbersep" "2mm")
-        ("xleftmargin" "0.25in")))
-        
+          ("fontsize" "\\scriptsize")
+          ;;   ("linenos" "")
+          ("obeytabs" "")
+          ("mathescape" "")
+          ("numbersep" "5pt")
+          ("numbersep" "2mm")
+          ("xleftmargin" "0.25in")))
+
   ;; Build nonstopmode with xelatex
   (setq org-latex-pdf-process
         '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %b %f"
@@ -330,11 +331,6 @@
 * Anzu search
 #+BEGIN_SRC emacs-lisp
   (global-anzu-mode +1)
-#+END_SRC
-* Art bollocks
-#+BEGIN_SRC emacs-lisp
-  (autoload 'artbollocks-mode "artbollocks-mode")
-  (add-hook 'text-mode-hook 'artbollocks-mode)
 #+END_SRC
 * EMMS
 #+BEGIN_SRC emacs-lisp
