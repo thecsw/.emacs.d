@@ -224,11 +224,10 @@
 #+BEGIN_SRC emacs-lisp
     (global-set-key (kbd "C-x g") 'magit-status)
 #+END_SRC
-* Powerline theme
+* Modeline theme
 #+BEGIN_SRC emacs-lisp
-  (require 'powerline)
-  ;; Use the vim powerline theme
-  (powerline-default-theme)
+  (require 'doom-modeline)
+  (doom-modeline-mode 1)
 #+END_SRC
 * TRAMP
 #+BEGIN_SRC emacs-lisp
