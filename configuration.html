@@ -1,182 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-01-05 Tue 15:52 -->
+<!-- 2021-01-05 Tue 19:03 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Sandy Urazayev" />
-<meta name="version" content="S5 1.2a2" />
-<meta name='defaultView' content='slideshow' />
-<meta name='controlVis' content='hidden' />
-<!-- style sheet links -->
-<link rel='stylesheet' href='uioutline.css' type='text/css' media='screen' id='outlineStyle' />
-<link rel='stylesheet' href='uiprint.css' type='text/css' media='print' id='slidePrint' />
-<link rel='stylesheet' href='uiopera.css' type='text/css' media='projection' id='operaFix' />
-<link rel='stylesheet' href='ui/slides.css' type='text/css' media='screen' id='slideProj' />
-<!-- S5 JS -->
-<script src='ui/slides.js' type='text/javascript'></script>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
 <link rel="stylesheet" href="https://sandyuraz.com/styles/org.min.css">
-
-        <style>
-        /* From: https://endlessparentheses.com/public/css/endless.css */
-        /* See also: https://meta.superuser.com/questions/4788/css-for-the-new-kbd-style */
-        kbd
-        {
-          -moz-border-radius: 6px;
-          -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-          -webkit-border-radius: 6px;
-          -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-          background-color: #f7f7f7;
-          border: 1px solid #ccc;
-          border-radius: 6px;
-          box-shadow: 0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
-          color: #333;
-          display: inline-block;
-          font-family: 'Droid Sans Mono', monospace;
-          font-size: 80%;
-          font-weight: normal;
-          line-height: inherit;
-          margin: 0 .1em;
-          padding: .08em .4em;
-          text-shadow: 0 1px 0 #fff;
-          word-spacing: -4px;
-        
-          box-shadow: 2px 2px 2px #222; /* MA: An extra I've added. */
-        }
-        </style>
-        <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/tooltipster.bundle.min.css"/>
-        
-        <link rel="stylesheet" type="text/css" href="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css" />
-        
-        <script type="text/javascript">
-            if (typeof jQuery == 'undefined') {
-                document.write(unescape('%3Cscript src="https://code.jquery.com/jquery-1.10.0.min.js"%3E%3C/script%3E'));
-            }
-        </script>
-        
-         <script type="text/javascript"            src="https://alhassy.github.io/org-special-block-extras/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
-        
-          <script>
-                 $(document).ready(function() {
-                     $('.tooltip').tooltipster({
-                         theme: 'tooltipster-punk',
-                         contentAsHTML: true,
-                         animation: 'grow',
-                         delay: [100,500],
-                         // trigger: 'click'
-                         trigger: 'custom',
-                         triggerOpen: {
-                             mouseenter: true
-                         },
-                         triggerClose: {
-                             originClick: true,
-                             scroll: true
-                         }
-         });
-                 });
-             </script>
-        
-        <style>
-           abbr {color: red;}
-        
-           .tooltip { border-bottom: 1px dotted #000;
-                      color:red;
-                      text-decoration: none;}
-        </style>
-
-
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
 </head>
 <body>
-<div class="layout">
-<div id="controls"><!-- no edit --></div>
-<div id="currentSlide"><!-- no edit --></div>
-<div id="header" class="status">
-&#x20;
-</div>
-
-<div id="footer" class="status">
-<h1>Sandy Urazayev - </h1>
-</div>
-
-</div>
-<div id="content" class="presentation">
-<div id='title-slide' class='slide'>
-<h1></h1>
-     <h2></h2>
-     <h2>Sandy Urazayev</h2>
-     <h3><a href="mailto:thecsw@Mania">thecsw@Mania</a></h3>
-     <h4></h4>
-</div>
-<div id='table-of-contents' class='slide'>
-<h1>Table of Contents</h1>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li>1. MELPA</li>
-<li>2. Coding styles
+<li><a href="#orgbc1e1e4">1. MELPA</a></li>
+<li><a href="#orgdbd52d5">2. Coding styles</a>
 <ul>
-<li>2.1. C</li>
-<li>2.2. Python</li>
-<li>2.3. HTML</li>
+<li><a href="#org19fc1a9">2.1. C</a></li>
+<li><a href="#org19b68df">2.2. Python</a></li>
+<li><a href="#orge1e594d">2.3. HTML</a></li>
 </ul>
 </li>
-<li>3. Backup control</li>
-<li>4. Display control
+<li><a href="#orgefc26b0">3. Backup control</a></li>
+<li><a href="#org0862ae4">4. Display control</a>
 <ul>
-<li>4.1. Hide top bar</li>
-<li>4.2. Line numbers</li>
-<li>4.3. Scrolling</li>
-<li>4.4. Silence annoying bell</li>
-<li>4.5. Character limit in Org-Mode</li>
-<li>4.6. Pair the braces</li>
-<li>4.7. Open shell on F1</li>
-<li>4.8. Show Paren Mode</li>
-<li>4.9. Disable validate link in HTML</li>
-<li>4.10. Window management</li>
-<li>4.11. Go to line preview</li>
+<li><a href="#org83f82d1">4.1. Hide top bar</a></li>
+<li><a href="#orgb6aa1fd">4.2. Line numbers</a></li>
+<li><a href="#org7e65ca8">4.3. Scrolling</a></li>
+<li><a href="#org3057d31">4.4. Silence annoying bell</a></li>
+<li><a href="#org142f59b">4.5. Character limit in Org-Mode</a></li>
+<li><a href="#org43bd26e">4.6. Pair the braces</a></li>
+<li><a href="#org8243cb7">4.7. Open shell on F1</a></li>
+<li><a href="#orgef86f19">4.8. Show Paren Mode</a></li>
+<li><a href="#org7c900be">4.9. Disable validate link in HTML</a></li>
+<li><a href="#org1871dbd">4.10. Window management</a></li>
+<li><a href="#orgea53078">4.11. Go to line preview</a></li>
 </ul>
 </li>
-<li>5. LSP</li>
-<li>6. Dashboard</li>
-<li>7. Magit</li>
-<li>8. Modeline theme</li>
-<li>9. TRAMP</li>
-<li>10. M-x Autocomplete</li>
-<li>11. Default theme</li>
-<li>12. Chef</li>
-<li>13. Org mode</li>
-<li>14. Olivetti</li>
-<li>15. Git messenger</li>
-<li>16. Emojify</li>
-<li>17. Ripgrep</li>
-<li>18. Anzu search</li>
-<li>19. EMMS</li>
-<li>20. Artist</li>
-<li>21. Which key</li>
-<li>22. Projectile</li>
-<li>23. Gemini protocol</li>
-<li>24. LaTeX in org</li>
-<li>25. Default GUI font</li>
-<li>26. Syntax highlight</li>
-<li>27. MacOS stuff</li>
-<li>28. Nano</li>
-<li>29. Company</li>
-<li>30. ox5 export (contrib)
+<li><a href="#orgf2e25b8">5. LSP</a></li>
+<li><a href="#orgc48f9ff">6. Dashboard</a></li>
+<li><a href="#orgebc83dc">7. Magit</a></li>
+<li><a href="#orge188088">8. Modeline theme</a></li>
+<li><a href="#orge239a8f">9. TRAMP</a></li>
+<li><a href="#orgc8bf1be">10. M-x Autocomplete</a></li>
+<li><a href="#org36e7bfe">11. Default theme</a></li>
+<li><a href="#org2694cfb">12. Chef</a></li>
+<li><a href="#org8602982">13. Org mode</a></li>
+<li><a href="#org9c88b47">14. Git messenger</a></li>
+<li><a href="#org16f94d7">15. Olivetti</a></li>
+<li><a href="#org61ad226">16. Emojify</a></li>
+<li><a href="#org7e67e5b">17. Ripgrep</a></li>
+<li><a href="#orgc889c6c">18. Anzu search</a></li>
+<li><a href="#orgb88877d">19. EMMS</a></li>
+<li><a href="#orgc981499">20. Artist</a></li>
+<li><a href="#org9ef01ab">21. Which key</a></li>
+<li><a href="#org97287ef">22. Projectile</a></li>
+<li><a href="#orgb2f3179">23. Gemini protocol</a></li>
+<li><a href="#org9843f7d">24. LaTeX in org</a></li>
+<li><a href="#orgd41f20c">25. Default GUI font</a></li>
+<li><a href="#org66b5402">26. Syntax highlight</a></li>
+<li><a href="#orgeddf4a8">27. MacOS stuff</a></li>
+<li><a href="#org06a9f17">28. Nano</a></li>
+<li><a href="#orgf768325">29. Company</a></li>
+<li><a href="#org23755fd">30. ox5 export (contrib)</a>
 <ul>
-<li>30.1. source</li>
-<li>30.2. theme</li>
+<li><a href="#orgb51480d">30.1. source</a></li>
+<li><a href="#orgc35c9aa">30.2. theme</a></li>
 </ul>
 </li>
-<li>31. Render latex in org mode</li>
+<li><a href="#orgded3e5f">31. Render latex in org mode</a></li>
 </ul>
 </div>
 </div>
 
-
-<div id="outline-container-orge89f7bb" class="outline-2  slide">
-<h2 id="orge89f7bb"><span class="section-number-2">1</span> MELPA</h2>
+<div id="outline-container-orgbc1e1e4" class="outline-2">
+<h2 id="orgbc1e1e4"><span class="section-number-2">1</span> MELPA</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">require</span> '<span style="color: #FF951B;">package</span>)
@@ -189,12 +297,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org77e2331" class="outline-2  slide">
-<h2 id="org77e2331"><span class="section-number-2">2</span> Coding styles</h2>
+<div id="outline-container-orgdbd52d5" class="outline-2">
+<h2 id="orgdbd52d5"><span class="section-number-2">2</span> Coding styles</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org4c4ba59" class="outline-3">
-<h3 id="org4c4ba59"><span class="section-number-3">2.1</span> C</h3>
+<div id="outline-container-org19fc1a9" class="outline-3">
+<h3 id="org19fc1a9"><span class="section-number-3">2.1</span> C</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq-default</span> c-basic-offset 8
@@ -205,8 +313,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org959dcab" class="outline-3">
-<h3 id="org959dcab"><span class="section-number-3">2.2</span> Python</h3>
+<div id="outline-container-org19b68df" class="outline-3">
+<h3 id="org19b68df"><span class="section-number-3">2.2</span> Python</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq-default</span> python-basic-offset 8
@@ -216,8 +324,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org17153ef" class="outline-3">
-<h3 id="org17153ef"><span class="section-number-3">2.3</span> HTML</h3>
+<div id="outline-container-orge1e594d" class="outline-3">
+<h3 id="orge1e594d"><span class="section-number-3">2.3</span> HTML</h3>
 <div class="outline-text-3" id="text-2-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-hook 'html-mode-hook
@@ -283,8 +391,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgb7675c4" class="outline-2  slide">
-<h2 id="orgb7675c4"><span class="section-number-2">3</span> Backup control</h2>
+<div id="outline-container-orgefc26b0" class="outline-2">
+<h2 id="orgefc26b0"><span class="section-number-2">3</span> Backup control</h2>
 <div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">Instea of putting *~ backups in current directory,</span>
@@ -300,12 +408,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org851e3f9" class="outline-2  slide">
-<h2 id="org851e3f9"><span class="section-number-2">4</span> Display control</h2>
+<div id="outline-container-org0862ae4" class="outline-2">
+<h2 id="org0862ae4"><span class="section-number-2">4</span> Display control</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org6d7db25" class="outline-3">
-<h3 id="org6d7db25"><span class="section-number-3">4.1</span> Hide top bar</h3>
+<div id="outline-container-org83f82d1" class="outline-3">
+<h3 id="org83f82d1"><span class="section-number-3">4.1</span> Hide top bar</h3>
 <div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(menu-bar-mode -1)
@@ -313,8 +421,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgdc39b96" class="outline-3">
-<h3 id="orgdc39b96"><span class="section-number-3">4.2</span> Line numbers</h3>
+<div id="outline-container-orgb6aa1fd" class="outline-3">
+<h3 id="orgb6aa1fd"><span class="section-number-3">4.2</span> Line numbers</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq</span> linum-format <span style="color: #61CE3C;">"%4d  "</span>)
@@ -323,8 +431,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org4e4a5ce" class="outline-3">
-<h3 id="org4e4a5ce"><span class="section-number-3">4.3</span> Scrolling</h3>
+<div id="outline-container-org7e65ca8" class="outline-3">
+<h3 id="org7e65ca8"><span class="section-number-3">4.3</span> Scrolling</h3>
 <div class="outline-text-3" id="text-4-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq</span> redisplay-dont-pause t
@@ -336,8 +444,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgc140b52" class="outline-3">
-<h3 id="orgc140b52"><span class="section-number-3">4.4</span> Silence annoying bell</h3>
+<div id="outline-container-org3057d31" class="outline-3">
+<h3 id="org3057d31"><span class="section-number-3">4.4</span> Silence annoying bell</h3>
 <div class="outline-text-3" id="text-4-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq</span> ring-bell-function 'ignore)
@@ -345,8 +453,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org5bf76fb" class="outline-3">
-<h3 id="org5bf76fb"><span class="section-number-3">4.5</span> Character limit in Org-Mode</h3>
+<div id="outline-container-org142f59b" class="outline-3">
+<h3 id="org142f59b"><span class="section-number-3">4.5</span> Character limit in Org-Mode</h3>
 <div class="outline-text-3" id="text-4-5">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-hook 'org-mode-hook '(lambda () (<span style="color: #FFE329;">setq</span> fill-column 80)))
@@ -355,8 +463,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org371005e" class="outline-3">
-<h3 id="org371005e"><span class="section-number-3">4.6</span> Pair the braces</h3>
+<div id="outline-container-org43bd26e" class="outline-3">
+<h3 id="org43bd26e"><span class="section-number-3">4.6</span> Pair the braces</h3>
 <div class="outline-text-3" id="text-4-6">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">require</span> '<span style="color: #FF951B;">autopair</span>)
@@ -365,8 +473,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org88f2571" class="outline-3">
-<h3 id="org88f2571"><span class="section-number-3">4.7</span> Open shell on F1</h3>
+<div id="outline-container-org8243cb7" class="outline-3">
+<h3 id="org8243cb7"><span class="section-number-3">4.7</span> Open shell on F1</h3>
 <div class="outline-text-3" id="text-4-7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #61CE3C;">"&lt;f1&gt;"</span>) 'shell)
@@ -374,8 +482,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org6e5c20b" class="outline-3">
-<h3 id="org6e5c20b"><span class="section-number-3">4.8</span> Show Paren Mode</h3>
+<div id="outline-container-orgef86f19" class="outline-3">
+<h3 id="orgef86f19"><span class="section-number-3">4.8</span> Show Paren Mode</h3>
 <div class="outline-text-3" id="text-4-8">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(show-paren-mode 1)
@@ -384,8 +492,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org602da95" class="outline-3">
-<h3 id="org602da95"><span class="section-number-3">4.9</span> Disable validate link in HTML</h3>
+<div id="outline-container-org7c900be" class="outline-3">
+<h3 id="org7c900be"><span class="section-number-3">4.9</span> Disable validate link in HTML</h3>
 <div class="outline-text-3" id="text-4-9">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq</span> org-html-validation-link nil)
@@ -393,8 +501,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgea0202f" class="outline-3">
-<h3 id="orgea0202f"><span class="section-number-3">4.10</span> Window management</h3>
+<div id="outline-container-org1871dbd" class="outline-3">
+<h3 id="org1871dbd"><span class="section-number-3">4.10</span> Window management</h3>
 <div class="outline-text-3" id="text-4-10">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #61CE3C;">"C-x &lt;up&gt;"</span>) 'windmove-up)
@@ -405,8 +513,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org4dbc7ca" class="outline-3">
-<h3 id="org4dbc7ca"><span class="section-number-3">4.11</span> Go to line preview</h3>
+<div id="outline-container-orgea53078" class="outline-3">
+<h3 id="orgea53078"><span class="section-number-3">4.11</span> Go to line preview</h3>
 <div class="outline-text-3" id="text-4-11">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(global-set-key [remap goto-line] 'goto-line-preview)
@@ -415,8 +523,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org7dc527c" class="outline-2  slide">
-<h2 id="org7dc527c"><span class="section-number-2">5</span> LSP</h2>
+<div id="outline-container-orgf2e25b8" class="outline-2">
+<h2 id="orgf2e25b8"><span class="section-number-2">5</span> LSP</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">Give emacs some RAW power, yes</span>
@@ -443,6 +551,7 @@
          (html-mode . lsp)
          (python-mode . lsp)
          (haskell-mode . lsp)
+         (js-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   <span style="color: #f0e68c;">:commands</span> lsp)
 
@@ -476,8 +585,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orge269cd1" class="outline-2  slide">
-<h2 id="orge269cd1"><span class="section-number-2">6</span> Dashboard</h2>
+<div id="outline-container-orgc48f9ff" class="outline-2">
+<h2 id="orgc48f9ff"><span class="section-number-2">6</span> Dashboard</h2>
 <div class="outline-text-2" id="text-6">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">Enable dashboard</span>
@@ -490,8 +599,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgc761fdc" class="outline-2  slide">
-<h2 id="orgc761fdc"><span class="section-number-2">7</span> Magit</h2>
+<div id="outline-container-orgebc83dc" class="outline-2">
+<h2 id="orgebc83dc"><span class="section-number-2">7</span> Magit</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 Press <code>C-x g</code> to open magit
@@ -502,8 +611,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org79a29ae" class="outline-2  slide">
-<h2 id="org79a29ae"><span class="section-number-2">8</span> Modeline theme</h2>
+<div id="outline-container-orge188088" class="outline-2">
+<h2 id="orge188088"><span class="section-number-2">8</span> Modeline theme</h2>
 <div class="outline-text-2" id="text-8">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">require</span> '<span style="color: #FF951B;">doom-modeline</span>)
@@ -512,8 +621,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org9d1c83f" class="outline-2  slide">
-<h2 id="org9d1c83f"><span class="section-number-2">9</span> TRAMP</h2>
+<div id="outline-container-orge239a8f" class="outline-2">
+<h2 id="orge239a8f"><span class="section-number-2">9</span> TRAMP</h2>
 <div class="outline-text-2" id="text-9">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">Default to ssh when using tramp</span>
@@ -522,8 +631,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org2c92e9b" class="outline-2  slide">
-<h2 id="org2c92e9b"><span class="section-number-2">10</span> M-x Autocomplete</h2>
+<div id="outline-container-orgc8bf1be" class="outline-2">
+<h2 id="orgc8bf1be"><span class="section-number-2">10</span> M-x Autocomplete</h2>
 <div class="outline-text-2" id="text-10">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">Fuzzy command complete on M-x</span>
@@ -532,8 +641,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org8ebe6d1" class="outline-2  slide">
-<h2 id="org8ebe6d1"><span class="section-number-2">11</span> Default theme</h2>
+<div id="outline-container-org36e7bfe" class="outline-2">
+<h2 id="org36e7bfe"><span class="section-number-2">11</span> Default theme</h2>
 <div class="outline-text-2" id="text-11">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">I like lush and use it by default</span>
@@ -542,8 +651,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org9b7bd80" class="outline-2  slide">
-<h2 id="org9b7bd80"><span class="section-number-2">12</span> Chef</h2>
+<div id="outline-container-org2694cfb" class="outline-2">
+<h2 id="org2694cfb"><span class="section-number-2">12</span> Chef</h2>
 <div class="outline-text-2" id="text-12">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq</span> org-capture-templates
@@ -556,25 +665,16 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org6688cbb" class="outline-2  slide">
-<h2 id="org6688cbb"><span class="section-number-2">13</span> Org mode</h2>
+<div id="outline-container-org8602982" class="outline-2">
+<h2 id="org8602982"><span class="section-number-2">13</span> Org mode</h2>
 <div class="outline-text-2" id="text-13">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq</span> org-startup-folded t)
 
-(<span style="color: #FFE329;">use-package</span> <span style="color: #FF951B;">org-special-block-extras</span>
-  <span style="color: #f0e68c;">:ensure</span> t
-  <span style="color: #f0e68c;">:hook</span> (org-mode . org-special-block-extras-mode))
-
 <span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">Add the Unicode bullets package</span>
 (<span style="color: #FFE329;">require</span> '<span style="color: #FF951B;">org-bullets</span>)
 (add-hook 'org-mode-hook (<span style="color: #FFE329;">lambda</span> () (org-bullets-mode 1)))
-<span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">;; This is usually the default, but keep in mind it must be nil</span>
-<span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">(setq org-hide-leading-stars nil)</span>
-<span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">;; This line is necessary.</span>
-<span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">(setq org-superstar-leading-bullet ?\s)</span>
-<span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">Add the new fancy extra org mode blocks</span>
-(add-hook 'org-mode-hook #'org-special-block-extras-mode)
+
 <span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">Add timestamp when marked DONE</span>
 (<span style="color: #FFE329;">setq</span> org-log-done 'time)
 
@@ -618,18 +718,9 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-orgc65c4e3" class="outline-2  slide">
-<h2 id="orgc65c4e3"><span class="section-number-2">14</span> Olivetti</h2>
+<div id="outline-container-org9c88b47" class="outline-2">
+<h2 id="org9c88b47"><span class="section-number-2">14</span> Git messenger</h2>
 <div class="outline-text-2" id="text-14">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq</span> olivetti-body-width 80)
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgfb3f401" class="outline-2  slide">
-<h2 id="orgfb3f401"><span class="section-number-2">15</span> Git messenger</h2>
-<div class="outline-text-2" id="text-15">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #2AA198; font-style: italic;">;; </span><span style="color: #2AA198; font-style: italic;">Press C-c c to open git-messenge</span>
 (global-set-key (kbd <span style="color: #61CE3C;">"C-c c"</span>) 'git-messenger:popup-message)
@@ -639,8 +730,17 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org4cf9da0" class="outline-2  slide">
-<h2 id="org4cf9da0"><span class="section-number-2">16</span> Emojify</h2>
+<div id="outline-container-org16f94d7" class="outline-2">
+<h2 id="org16f94d7"><span class="section-number-2">15</span> Olivetti</h2>
+<div class="outline-text-2" id="text-15">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq</span> olivetti-body-width 80)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org61ad226" class="outline-2">
+<h2 id="org61ad226"><span class="section-number-2">16</span> Emojify</h2>
 <div class="outline-text-2" id="text-16">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-hook 'after-init-hook #'global-emojify-mode)
@@ -648,8 +748,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org57a53ab" class="outline-2  slide">
-<h2 id="org57a53ab"><span class="section-number-2">17</span> Ripgrep</h2>
+<div id="outline-container-org7e67e5b" class="outline-2">
+<h2 id="org7e67e5b"><span class="section-number-2">17</span> Ripgrep</h2>
 <div class="outline-text-2" id="text-17">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #61CE3C;">"&lt;f5&gt;"</span>) #'deadgrep)
@@ -657,8 +757,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org7732021" class="outline-2  slide">
-<h2 id="org7732021"><span class="section-number-2">18</span> Anzu search</h2>
+<div id="outline-container-orgc889c6c" class="outline-2">
+<h2 id="orgc889c6c"><span class="section-number-2">18</span> Anzu search</h2>
 <div class="outline-text-2" id="text-18">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(global-anzu-mode +1)
@@ -666,8 +766,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org3d38d4c" class="outline-2  slide">
-<h2 id="org3d38d4c"><span class="section-number-2">19</span> EMMS</h2>
+<div id="outline-container-orgb88877d" class="outline-2">
+<h2 id="orgb88877d"><span class="section-number-2">19</span> EMMS</h2>
 <div class="outline-text-2" id="text-19">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(emms-all)
@@ -676,8 +776,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-orgc250f25" class="outline-2  slide">
-<h2 id="orgc250f25"><span class="section-number-2">20</span> Artist</h2>
+<div id="outline-container-orgc981499" class="outline-2">
+<h2 id="orgc981499"><span class="section-number-2">20</span> Artist</h2>
 <div class="outline-text-2" id="text-20">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(put 'narrow-to-region 'disabled nil)
@@ -685,8 +785,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-orgba97e42" class="outline-2  slide">
-<h2 id="orgba97e42"><span class="section-number-2">21</span> Which key</h2>
+<div id="outline-container-org9ef01ab" class="outline-2">
+<h2 id="org9ef01ab"><span class="section-number-2">21</span> Which key</h2>
 <div class="outline-text-2" id="text-21">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(which-key-mode)
@@ -694,8 +794,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org386676f" class="outline-2  slide">
-<h2 id="org386676f"><span class="section-number-2">22</span> Projectile</h2>
+<div id="outline-container-org97287ef" class="outline-2">
+<h2 id="org97287ef"><span class="section-number-2">22</span> Projectile</h2>
 <div class="outline-text-2" id="text-22">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(projectile-mode +1)
@@ -704,8 +804,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org487d769" class="outline-2  slide">
-<h2 id="org487d769"><span class="section-number-2">23</span> Gemini protocol</h2>
+<div id="outline-container-orgb2f3179" class="outline-2">
+<h2 id="orgb2f3179"><span class="section-number-2">23</span> Gemini protocol</h2>
 <div class="outline-text-2" id="text-23">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-hook 'gemini-mode-hook '(lambda () (<span style="color: #FFE329;">setq</span> fill-column 80)))
@@ -714,8 +814,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org0b45900" class="outline-2  slide">
-<h2 id="org0b45900"><span class="section-number-2">24</span> LaTeX in org</h2>
+<div id="outline-container-org9843f7d" class="outline-2">
+<h2 id="org9843f7d"><span class="section-number-2">24</span> LaTeX in org</h2>
 <div class="outline-text-2" id="text-24">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq</span> org-highlight-latex-and-related '(latex script entities))
@@ -794,8 +894,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org572e418" class="outline-2  slide">
-<h2 id="org572e418"><span class="section-number-2">25</span> Default GUI font</h2>
+<div id="outline-container-orgd41f20c" class="outline-2">
+<h2 id="orgd41f20c"><span class="section-number-2">25</span> Default GUI font</h2>
 <div class="outline-text-2" id="text-25">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #2AA198; font-style: italic;">;;;</span><span style="color: #2AA198; font-style: italic;">(set-frame-font "InputMono 10" nil t)</span>
@@ -804,8 +904,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-orgbb3ffa8" class="outline-2  slide">
-<h2 id="orgbb3ffa8"><span class="section-number-2">26</span> Syntax highlight</h2>
+<div id="outline-container-org66b5402" class="outline-2">
+<h2 id="org66b5402"><span class="section-number-2">26</span> Syntax highlight</h2>
 <div class="outline-text-2" id="text-26">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-hook 'after-init-hook 'global-color-identifiers-mode)
@@ -813,8 +913,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org94aaec8" class="outline-2  slide">
-<h2 id="org94aaec8"><span class="section-number-2">27</span> MacOS stuff</h2>
+<div id="outline-container-orgeddf4a8" class="outline-2">
+<h2 id="orgeddf4a8"><span class="section-number-2">27</span> MacOS stuff</h2>
 <div class="outline-text-2" id="text-27">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">when</span> (memq window-system '(mac ns x))
@@ -823,8 +923,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org87a1968" class="outline-2  slide">
-<h2 id="org87a1968"><span class="section-number-2">28</span> Nano</h2>
+<div id="outline-container-org06a9f17" class="outline-2">
+<h2 id="org06a9f17"><span class="section-number-2">28</span> Nano</h2>
 <div class="outline-text-2" id="text-28">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #61CE3C;">"~/.emacs.d/nano/"</span>)
@@ -835,8 +935,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-orgede27bb" class="outline-2  slide">
-<h2 id="orgede27bb"><span class="section-number-2">29</span> Company</h2>
+<div id="outline-container-orgf768325" class="outline-2">
+<h2 id="orgf768325"><span class="section-number-2">29</span> Company</h2>
 <div class="outline-text-2" id="text-29">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(eval-after-load 'company
@@ -845,12 +945,12 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org48180c7" class="outline-2  slide">
-<h2 id="org48180c7"><span class="section-number-2">30</span> ox5 export (contrib)</h2>
+<div id="outline-container-org23755fd" class="outline-2">
+<h2 id="org23755fd"><span class="section-number-2">30</span> ox5 export (contrib)</h2>
 <div class="outline-text-2" id="text-30">
 </div>
-<div id="outline-container-orgcd82f2c" class="outline-3">
-<h3 id="orgcd82f2c"><span class="section-number-3">30.1</span> source</h3>
+<div id="outline-container-orgb51480d" class="outline-3">
+<h3 id="orgb51480d"><span class="section-number-3">30.1</span> source</h3>
 <div class="outline-text-3" id="text-30-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #2AA198; font-style: italic;">;;; </span><span style="color: #2AA198; font-style: italic;">ox-s5.el --- S5 Presentation Back-End for Org Export Engine</span>
@@ -963,7 +1063,7 @@ Press <code>C-x g</code> to open magit
   <span style="color: #f0e68c;">:group</span> 'org-export-s5
   <span style="color: #f0e68c;">:type</span> 'string)
 
-(<span style="color: #FFE329;">defcustom</span> <span style="color: #FA583F;">org-s5-ui-url</span> <span style="color: #61CE3C;">"ui"</span>
+(<span style="color: #FFE329;">defcustom</span> <span style="color: #FA583F;">org-s5-ui-url</span> <span style="color: #61CE3C;">"/present/ui"</span>
   <span style="color: #708090;">"Base url to directory containing S5 \"default\" subdirectory</span>
 <span style="color: #708090;">     and the \"s5-notes.html\" file.</span>
 <span style="color: #708090;">     Can be overridden with the S5_UI_URL property."</span>
@@ -1095,7 +1195,7 @@ Press <code>C-x g</code> to open magit
        (<span style="color: #FFE329;">lambda</span> (list)
          (format
           (concat
-           <span style="color: #61CE3C;">"&lt;link rel='stylesheet' href='%s//%s' type='text/css'"</span>
+           <span style="color: #61CE3C;">"&lt;link rel='stylesheet' href='%s/%s' type='text/css'"</span>
            <span style="color: #61CE3C;">" media='%s' id='%s' /&gt;"</span>)
           dir (nth 0 list) (nth 1 list) (nth 2 list)))
        (list
@@ -1290,8 +1390,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-orgb015a3a" class="outline-3">
-<h3 id="orgb015a3a"><span class="section-number-3">30.2</span> theme</h3>
+<div id="outline-container-orgc35c9aa" class="outline-3">
+<h3 id="orgc35c9aa"><span class="section-number-3">30.2</span> theme</h3>
 <div class="outline-text-3" id="text-30-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #FFE329;">setq</span> org-s5-theme <span style="color: #61CE3C;">"i18n"</span>)        <span style="color: #2AA198; font-style: italic;">; </span><span style="color: #2AA198; font-style: italic;">the i18n theme by the author of S5</span>
@@ -1300,8 +1400,8 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-<div id="outline-container-org185d5af" class="outline-2  slide">
-<h2 id="org185d5af"><span class="section-number-2">31</span> Render latex in org mode</h2>
+<div id="outline-container-orgded3e5f" class="outline-2">
+<h2 id="orgded3e5f"><span class="section-number-2">31</span> Render latex in org mode</h2>
 <div class="outline-text-2" id="text-31">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-hook 'org-mode-hook 'org-fragtog-mode)
@@ -1309,8 +1409,10 @@ Press <code>C-x g</code> to open magit
 </div>
 </div>
 </div>
-
-
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Sandy Urazayev</p>
+<p class="date">Created: 2021-01-05 Tue 19:03</p>
 </div>
 </body>
 </html>

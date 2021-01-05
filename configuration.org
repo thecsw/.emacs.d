@@ -258,19 +258,10 @@
 #+BEGIN_SRC emacs-lisp
   (setq org-startup-folded t)
 
-  (use-package org-special-block-extras
-    :ensure t
-    :hook (org-mode . org-special-block-extras-mode))
-
   ;; Add the Unicode bullets package
   (require 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  ;; ;; This is usually the default, but keep in mind it must be nil
-  ;; (setq org-hide-leading-stars nil)
-  ;; ;; This line is necessary.
-  ;; (setq org-superstar-leading-bullet ?\s)
-  ;; Add the new fancy extra org mode blocks
-  (add-hook 'org-mode-hook #'org-special-block-extras-mode)
+
   ;; Add timestamp when marked DONE
   (setq org-log-done 'time)
 
@@ -311,16 +302,16 @@
    '((R . t)
      (latex . t)))
 #+END_SRC
-* Olivetti
-#+BEGIN_SRC emacs-lisp
-(setq olivetti-body-width 80)
-#+END_SRC
 * Git messenger
 #+BEGIN_SRC emacs-lisp
   ;; Press C-c c to open git-messenge
   (global-set-key (kbd "C-c c") 'git-messenger:popup-message)
   (custom-set-variables
    '(git-messenger:use-magit-popup t))
+#+END_SRC
+* Olivetti
+#+BEGIN_SRC emacs-lisp
+(setq olivetti-body-width 80)
 #+END_SRC
 * Emojify
 #+BEGIN_SRC emacs-lisp
@@ -571,7 +562,7 @@
        :group 'org-export-s5
        :type 'string)
 
-     (defcustom org-s5-ui-url "/ui"
+     (defcustom org-s5-ui-url "/present/ui"
        "Base url to directory containing S5 \"default\" subdirectory
           and the \"s5-notes.html\" file.
           Can be overridden with the S5_UI_URL property."
