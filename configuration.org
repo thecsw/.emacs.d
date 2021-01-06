@@ -562,7 +562,7 @@
        :group 'org-export-s5
        :type 'string)
 
-     (defcustom org-s5-ui-url "/present/ui"
+     (defcustom org-s5-ui-url "/ui"
        "Base url to directory containing S5 \"default\" subdirectory
           and the \"s5-notes.html\" file.
           Can be overridden with the S5_UI_URL property."
