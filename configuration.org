@@ -894,3 +894,7 @@
   #+BEGIN_SRC emacs-lisp
     (add-hook 'org-mode-hook 'org-fragtog-mode)
   #+END_SRC
+* Better search with ctrlf
+  #+BEGIN_SRC emacs-lisp
+    (ctrlf-mode +1)
+  #+END_SRC
