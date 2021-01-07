@@ -1,0 +1,2 @@
+;;; Generated package description from org-download.el  -*- no-byte-compile: t -*-
+(define-package "org-download" "20210105.1758" "Image drag-and-drop for Org-mode." '((emacs "24.3") (async "1.2")) :commit "97bec7412e1a4d6e9031c7a0568d0f065cd9fd00" :authors '(("Oleh Krehel")) :maintainer '("Oleh Krehel") :keywords '("multimedia" "images" "screenshots" "download") :url "https://github.com/abo-abo/org-download")
