@@ -482,8 +482,8 @@ Entry gets added after the last #+latex_header line.
 
 (autoload 'org-ref-add-acronym-entry "org-ref-glossary" "\
 Add an acronym entry with LABEL.
-ABBRV is the abbreviated form.
-FULL is the expanded acronym.
+  ABBRV is the abbreviated form.
+  FULL is the expanded acronym.
 
 \(fn LABEL ABBRV FULL)" t nil)
 

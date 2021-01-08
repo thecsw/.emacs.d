@@ -1336,14 +1336,29 @@ if FORCE is non-nil reparse the buffer no matter what."
 		 (insert (format "  %S\n" el))))
 
 
-      (insert (format "- ox-bibtex loaded = %s" (featurep 'ox-bibtex)))
-      (insert (format "- ox-bibtex loaded after org-ref = %s"
+      (insert (format "- ox-bibtex loaded = %s\n" (featurep 'ox-bibtex)))
+      (insert (format "- ox-bibtex loaded after org-ref = %s\n"
 		      (let ((org-ref-i (seq-position load-history (assoc (locate-library "org-ref") load-history)) )
 			    (ox-bibtex-i (seq-position load-history (assoc (locate-library "ox-bibtex") load-history))))
 			(and org-ref-i ox-bibtex-i
 			     (> org-ref-i ox-bibtex-i)))))
 
       (insert "- cite link definition:\n" (pp (assoc "cite" org-link-parameters)))
+
+      (insert "* LaTeX setup\n\n")
+      (cl-loop for executable in '("latex" "pdflatex" "bibtex" "biblatex"
+				   "makeindex" "makeglossaries")
+	       do
+	       (insert (format "%s is installed at %s" executable (executable-find executable))))
+
+      (insert "\n* Warnings\n")
+      (if (get-buffer "*Warnings*")
+	  (cl-loop for line in (s-split "\n" (with-current-buffer "*Warnings*"
+					       (buffer-string)))
+		   if (s-starts-with?  "Warning (org-ref):" line)
+		   do
+		   (insert " - " line "\n"))
+	(insert "- No (org-ref) Warnings found."))
 
 
       (insert (format  "\n* Utilities
