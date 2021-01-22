@@ -181,8 +181,7 @@
            (python-mode . lsp)
            (haskell-mode . lsp)
            (js-mode . lsp)
-           (lsp-mode . lsp-enable-which-key-integration)
-           (lsp-mode . lsp-enable-completion-at-point))
+           (lsp-mode . lsp-enable-which-key-integration))
     :commands lsp)
 
   (use-package lsp-pyright
