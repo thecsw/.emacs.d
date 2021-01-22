@@ -193,17 +193,6 @@
 
   (global-set-key (kbd"C-c f") 'lsp-find-definition)
 
-  ;; Set up before-save hooks to format buffer and add/delete imports.
-  ;; Make sure you don't have other gofmt/goimports hooks enabled.
-  (defun lsp-go-install-save-hooks ()
-    (add-hook 'before-save-hook #'lsp-format-buffer t t)
-    (add-hook 'before-save-hook #'lsp-organize-imports t t))
-  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-
-  ;; Automatically format code on save
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save)
-
   ;; Optional - provides snippet support.
   (use-package yasnippet
     :ensure t
@@ -223,6 +212,41 @@
   (lsp-register-custom-settings
    '(("gopls.completeUnimported" t t)
      ("gopls.staticcheck" t t)))
+
+  ;;Company mode is a standard completion package that works well with lsp-mode.
+  ;;company-lsp integrates company mode completion with lsp-mode.
+  ;;completion-at-point also works out of the box but doesn't support snippets.
+
+  (use-package company
+    :ensure t
+    :config
+    (setq company-idle-delay 0)
+    (setq company-minimum-prefix-length 1)
+    :bind ("C-<tab>" . company-complete))
+
+  (use-package company-lsp
+    :ensure t
+    :commands company-lsp)
+
+  (setq lsp-ui-doc-enable nil
+        lsp-ui-peek-enable t
+        lsp-ui-sideline-enable t
+        lsp-ui-imenu-enable t
+        lsp-ui-flycheck-enable t)
+
+  (setq lsp-enable-completion-at-point t)
+
+  (defun dot-pressed()
+    (interactive)
+    (insert ".")
+    (call-interactively 'company-complete))
+
+  (require 'company-box)
+  (add-hook 'company-mode-hook 'company-box-mode)
+
+  (custom-set-faces
+   '(company-tooltip ((t (:background "black" :foreground "white"))))
+   '(company-tooltip-selection ((t (:background "plum1" :foreground "black")))))
 #+END_SRC
 * Dashboard
 #+BEGIN_SRC emacs-lisp
@@ -460,6 +484,8 @@
 #+END_SRC
 * Company
 #+BEGIN_SRC emacs-lisp
+  (add-hook 'after-init-hook 'global-company-mode)
+
   (eval-after-load 'company
     '(push 'company-robe company-backends))
 #+END_SRC
