@@ -164,6 +164,7 @@
   (use-package lsp-ui
     :ensure t
     :commands lsp-ui-mode)
+
   ;; Sideline options
   (setq lsp-ui-sideline-show-diagnostics t)
   (setq lsp-ui-sideline-show-hover nil)
@@ -180,7 +181,8 @@
            (python-mode . lsp)
            (haskell-mode . lsp)
            (js-mode . lsp)
-           (lsp-mode . lsp-enable-which-key-integration))
+           (lsp-mode . lsp-enable-which-key-integration)
+           (lsp-mode . lsp-enable-completion-at-point))
     :commands lsp)
 
   (use-package lsp-pyright
@@ -198,9 +200,6 @@
     :ensure t
     :commands yas-minor-mode
     :hook (go-mode . yas-minor-mode))
-
-  (require 'lsp-mode)
-  (add-hook 'go-mode-hook #'lsp-deferred)
 
   ;; Set up before-save hooks to format buffer and add/delete imports.
   ;; Make sure you don't have other gofmt/goimports hooks enabled.
@@ -228,22 +227,8 @@
     :ensure t
     :commands company-lsp)
 
-  (setq lsp-ui-doc-enable nil
-        lsp-ui-peek-enable t
-        lsp-ui-sideline-enable t
-        lsp-ui-imenu-enable t
-        lsp-ui-flycheck-enable t)
-
-  (setq lsp-enable-completion-at-point t)
-
-  (defun dot-pressed()
-    (interactive)
-    (insert ".")
-    (call-interactively 'company-complete))
-
   (require 'company-box)
   (add-hook 'company-mode-hook 'company-box-mode)
-
   (custom-set-faces
    '(company-tooltip ((t (:background "black" :foreground "white"))))
    '(company-tooltip-selection ((t (:background "plum1" :foreground "black")))))
