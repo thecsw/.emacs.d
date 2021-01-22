@@ -1,3 +1,6 @@
 [submodule "nano"]
 	path = nano
 	url = git@github.com:rougier/nano-emacs
+[submodule "elpa/awesome-tray"]
+	path = elpa/awesome-tray
+	url = https://github.com/manateelazycat/awesome-tray.git
