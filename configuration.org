@@ -912,3 +912,13 @@
   #+BEGIN_SRC emacs-lisp
     (ctrlf-mode +1)
   #+END_SRC
+* Highlight current active line
+  #+BEGIN_SRC emacs-lisp
+    (global-hl-line-mode +1)
+  #+END_SRC
+* Native compilation
+  #+BEGIN_SRC emacs-lisp
+    (setq package-native-compile t)
+    ;;(native-compile-async "~/.emacs.d/elpa" 'recursively) ;; <-- danger zone
+  #+END_SRC
+  
