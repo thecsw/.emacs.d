@@ -1,5 +1,7 @@
 #+HTML_HEAD: <link rel="stylesheet" href="https://sandyuraz.com/styles/org.min.css">
 
+[[./emacs.png]]
+
 * MELPA
 #+BEGIN_SRC emacs-lisp
 (require 'package)
