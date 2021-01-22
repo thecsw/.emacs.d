@@ -484,8 +484,6 @@
 #+END_SRC
 * Company
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'after-init-hook 'global-company-mode)
-
   (eval-after-load 'company
     '(push 'company-robe company-backends))
 #+END_SRC
