@@ -234,7 +234,7 @@ stop the SPINNER's timer."
             (and buffer (not (buffer-live-p buffer))))
         (spinner-stop spinner)
       ;; Increment
-      (callf (lambda (x) (if (< x 0)
+      (cl-callf (lambda (x) (if (< x 0)
                         (1+ x)
                       (% (1+ x) (length (spinner--frames spinner)))))
           (spinner--counter spinner))
