@@ -1,3 +1,13 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+title: Sandy's .emacs.d
+#+date: 23; 12021 H.E.
+#+author: Sandy Urazayev
+#+email: ctu@ku.edu
+#+language: en
+
 #+HTML_HEAD: <link rel="stylesheet" href="https://sandyuraz.com/styles/org.min.css">
 
 [[./emacs.png]]
