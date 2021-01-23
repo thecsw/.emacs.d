@@ -354,11 +354,6 @@
 #+BEGIN_SRC emacs-lisp
   (global-anzu-mode +1)
 #+END_SRC
-* EMMS
-#+BEGIN_SRC emacs-lisp
-  (emms-all)
-  (emms-default-players)
-#+END_SRC
 * Artist
 #+BEGIN_SRC emacs-lisp
   (put 'narrow-to-region 'disabled nil)
