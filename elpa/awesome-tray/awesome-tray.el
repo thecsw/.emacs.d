@@ -206,12 +206,12 @@
   "Modular tray bar."
   :group 'awesome-tray)
 
-(defcustom awesome-tray-mode-line-active-color "DarkRed"
+(defcustom awesome-tray-mode-line-active-color "firebrick1"
   "Active color."
   :type 'string
   :group 'awesome-tray)
 
-(defcustom awesome-tray-mode-line-inactive-color "Gray10"
+(defcustom awesome-tray-mode-line-inactive-color "RoyalBlue3"
   "Inactive color."
   :type 'string
   :group 'awesome-tray)
