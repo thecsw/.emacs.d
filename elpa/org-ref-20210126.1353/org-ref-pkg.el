@@ -1,4 +1,4 @@
-(define-package "org-ref" "20210121.1440" "citations, cross-references and bibliographies in org-mode"
+(define-package "org-ref" "20210126.1353" "citations, cross-references and bibliographies in org-mode"
   '((dash "2.11.0")
     (htmlize "1.51")
     (helm "1.5.5")
@@ -10,7 +10,7 @@
     (f "0.18.0")
     (pdf-tools "0.7")
     (bibtex-completion "0"))
-  :commit "4b5df6b312b1486428561aea7cfb72501c496d7c" :authors
+  :commit "052a176b4cc1c080376c183e5e02ab37cb1f0f0a" :authors
   '(("John Kitchin" . "jkitchin@andrew.cmu.edu"))
   :maintainer
   '("John Kitchin" . "jkitchin@andrew.cmu.edu")

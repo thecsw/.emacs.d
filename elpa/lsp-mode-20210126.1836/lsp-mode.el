@@ -710,6 +710,7 @@ Changes take effect only when a new session is started."
                                         (hack-mode . "hack")
                                         (php-mode . "php")
                                         (powershell-mode . "powershell")
+                                        (powershell-mode . "PowerShell")
                                         (json-mode . "json")
                                         (jsonc-mode . "jsonc")
                                         (rjsx-mode . "javascript")
@@ -4743,13 +4744,12 @@ In addition, each can have property:
 (defun lsp--render-string (str language)
   "Render STR using `major-mode' corresponding to LANGUAGE.
 When language is nil render as markup if `markdown-mode' is loaded."
-  (setq str (or str ""))
-  (if-let ((mode (-some (-lambda ((mode . lang))
-                          (when (and (equal lang language) (functionp mode))
-                            mode))
-                        lsp-language-id-configuration)))
-      (lsp--fontlock-with-mode str mode)
-    (s-replace "\r" "" str)))
+  (setq str (s-replace "\r" "" (or str "")))
+  (when-let ((mode (-some (-lambda ((mode . lang))
+                            (when (and (equal lang language) (functionp mode))
+                              mode))
+                          lsp-language-id-configuration)))
+    (lsp--fontlock-with-mode str mode)))
 
 (defun lsp--render-element (content)
   "Render CONTENT element."
@@ -4872,6 +4872,30 @@ RENDER-ALL - nil if only the signature should be rendered."
         (let ((lv-force-update t))
           (lv-message "%s" message)))
     (lv-delete-window)))
+
+(declare-function posframe-show "ext:posframe")
+(declare-function posframe-hide "ext:posframe")
+(declare-function posframe-poshandler-point-bottom-left-corner-upward "ext:posframe")
+
+(defvar lsp-signature-posframe-params
+  (list :poshandler #'posframe-poshandler-point-bottom-left-corner-upward
+        :background-color (face-attribute 'tooltip :background)
+        :height 6
+        :width 60
+        :min-width 60)
+  "Params for signature and `posframe-show'.")
+
+(defun lsp-signature-posframe (str)
+  (if str
+      (apply #'posframe-show
+             (with-current-buffer (get-buffer-create "*lsp-signature*")
+               (erase-buffer)
+               (insert str)
+               (visual-line-mode 1)
+               (current-buffer))
+             :position (point)
+             lsp-signature-posframe-params)
+    (posframe-hide "*lsp-signature*")))
 
 (defun lsp--handle-signature-update (signature)
   (let ((message
