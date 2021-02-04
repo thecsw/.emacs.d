@@ -215,7 +215,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (use-package yasnippet
     :ensure t
     :commands yas-minor-mode
-    :hook (go-mode . yas-minor-mode))
+    :hook ((go-mode . yas-minor-mode)
+           (c++-mode . yas-minor-mode)))
 
   ;; Set up before-save hooks to format buffer and add/delete imports.
   ;; Make sure you don't have other gofmt/goimports hooks enabled.
@@ -1002,4 +1003,9 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     (add-to-list 'load-path "~/.emacs.d/elpa/awesome-tray")
     (require 'awesome-tray)
     (awesome-tray-mode 1)
+  #+END_SRC
+* Vterm
+  #+BEGIN_SRC emacs-lisp
+    (add-to-list 'load-path "/Users/thecsw/gits/emacs-libvterm")
+    (require 'vterm)
   #+END_SRC
