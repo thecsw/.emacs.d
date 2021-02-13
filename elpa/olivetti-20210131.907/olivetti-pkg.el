@@ -1,2 +1,0 @@
-;;; Generated package description from olivetti.el  -*- no-byte-compile: t -*-
-(define-package "olivetti" "20210131.907" "Minor mode for a nice writing environment" '((emacs "24.4")) :commit "a2dbd3dc4e7000fec29febbd089cd4558a7322b9" :authors '(("Paul W. Rankin" . "pwr@bydasein.com")) :maintainer '("Paul W. Rankin" . "pwr@bydasein.com") :keywords '("wp" "text") :url "https://github.com/rnkn/olivetti")

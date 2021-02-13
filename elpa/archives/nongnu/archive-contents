@@ -19,7 +19,7 @@
 		   ("Jason R. Blevins" . "jblevins@xbeta.org"))
 		  (:keywords "markdown" "github flavored markdown" "itex"))])
  (request .
-	  [(0 3 2)
+	  [(0 3 3)
 	   ((emacs
 	     (24 4)))
 	   "Compatible layer for URL request in Emacs" tar
