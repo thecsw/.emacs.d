@@ -492,7 +492,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
                  '(font . "Monaco:style=Light:size=13")
                  ;; '(font . "Roboto Mono Emacs Regular:size=14")
                  '(min-height . 1)  '(height     . 40)
-                 '(min-width  . 1) '(width      . 92)
+                 '(min-width  . 1) '(width      . 95)
                  '(vertical-scroll-bars . nil)
                  '(internal-border-width . 30)
                  '(left-fringe    . 0)
