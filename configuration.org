@@ -258,6 +258,15 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (dashboard-setup-startup-hook)
   ;; Set the dashboard as the default buffer
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+  ;; Set the title
+  (setq dashboard-banner-logo-title "Sandy's Emacs")
+  ;; Set the banner
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-show-shortcuts nil)
+  (setq dashboard-week-agenda nil)
+  (setq dashboard-items '((recents  . 5)
+                          (projects . 5)))
+  (setq dashboard-set-heading-icons t)
 #+END_SRC
 * Magit
 
@@ -1016,3 +1025,9 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
     (telephone-line-mode 1)
   #+END_SRC
+* Neotree
+  #+begin_src emacs-lisp
+    (setq neo-smart-open t)
+    (global-set-key [f8] 'neotree-toggle)
+    (setq neo-global--do-autorefresh t)
+  #+end_src
