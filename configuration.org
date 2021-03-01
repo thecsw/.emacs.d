@@ -392,8 +392,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (setq org-highlight-latex-and-related '(latex script entities))
 
   (add-to-list 'org-latex-classes
-	       '("sandy-article"
-		 "\\documentclass[12pt]{article}
+               '("sandy-article"
+                 "\\documentclass[12pt]{article}
   \\usepackage{graphicx}
   \\usepackage{grffile}
   \\usepackage{longtable}
@@ -445,7 +445,9 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   #1\\;\\delimsize\\|\\;#2%
   }
   \\newcommand{\\infdiv}{D\\infdivx}
-  \\DeclarePairedDelimiter{\\norm}{\\lVert}{\\rVert}
+  \\DeclarePairedDelimiter{\\norm}{\\left\\lVert}{\\right\\rVert}
+  \\DeclarePairedDelimiter{\\ceil}{\\left\\lceil}{\\right\\rceil}
+  \\DeclarePairedDelimiter{\\floor}{\\left\\lfloor}{\\right\\rfloor}
   \\def\\Z{\\mathbb Z}
   \\def\\R{\\mathbb R}
   \\def\\C{\\mathbb C}
@@ -456,11 +458,11 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   \\usemintedstyle{bw}
   [NO-DEFAULT-PACKAGES]
   [NO-PACKAGES]"
-		 ("\\section{%s}" . "\\section*{%s}")
-		 ("\\subsection{%s}" . "\\subsection*{%s}")
-		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
 * Default GUI font
 #+BEGIN_SRC emacs-lisp
