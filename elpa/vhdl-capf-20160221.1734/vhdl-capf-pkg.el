@@ -1,0 +1,2 @@
+;;; Generated package description from vhdl-capf.el  -*- no-byte-compile: t -*-
+(define-package "vhdl-capf" "20160221.1734" "Completion at point function (capf) for vhdl-mode." 'nil :commit "290abe217050f33532bc9ccb04f894123402f414" :authors '(("sh-ow" . "sh-ow@users.noreply.github.com")) :maintainer '("sh-ow" . "sh-ow@users.noreply.github.com") :keywords '("convenience" "usability" "vhdl" "completion") :url "https://github.com/sh-ow/vhdl-capf")
