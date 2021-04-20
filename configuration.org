@@ -391,80 +391,82 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+END_SRC
 * LaTeX in org
 #+BEGIN_SRC emacs-lisp
-  (setq org-highlight-latex-and-related '(latex script entities))
+    (setq org-highlight-latex-and-related '(latex script entities))
 
-  (add-to-list 'org-latex-classes
-               '("sandy-article"
-                 "\\documentclass[12pt]{article}
-  \\usepackage{graphicx}
-  \\usepackage{grffile}
-  \\usepackage{longtable}
-  \\usepackage{wrapfig}
-  \\usepackage{rotating}
-  \\usepackage[normalem]{ulem}
-  \\usepackage{amsmath}
-  \\usepackage{textcomp}
-  \\usepackage{amssymb}
-  \\usepackage{capt-of}
-  \\usepackage{hyperref}
-  \\usepackage{minted}
-  \\usepackage{amsmath}
-  \\usepackage{amssymb}
-  \\usepackage{setspace}
-  \\usepackage{subcaption}
-  \\usepackage{mathtools}
-  \\usepackage{xfrac}
-  \\usepackage[margin=1.25in]{geometry}
-  \\usepackage[utf8]{inputenc}
-  \\usepackage{color}
-  \\usepackage{epsf}
-  \\usepackage{tikz}
-  \\usepackage{graphicx}
-  \\usepackage{pslatex}
-  \\usepackage{hyperref}
-  \\usepackage[adobe-utopia]{mathdesign}
-  \\usepackage{helvet}
-  \\renewcommand{\\familydefault}{\\sfdefault}
-  \\usepackage{textgreek}
-  \\renewcommand*{\\textgreekfontmap}{%
-  {phv/*/*}{LGR/neohellenic/*/*}%
-  {*/b/n}{LGR/artemisia/b/n}%
-  {*/bx/n}{LGR/artemisia/bx/n}%
-  {*/*/n}{LGR/artemisia/m/n}%
-  {*/b/it}{LGR/artemisia/b/it}%
-  {*/bx/it}{LGR/artemisia/bx/it}%
-  {*/*/it}{LGR/artemisia/m/it}%
-  {*/b/sl}{LGR/artemisia/b/sl}%
-  {*/bx/sl}{LGR/artemisia/bx/sl}%
-  {*/*/sl}{LGR/artemisia/m/sl}%
-  {*/*/sc}{LGR/artemisia/m/sc}%
-  {*/*/sco}{LGR/artemisia/m/sco}%
-  }
-  \\makeatletter
-  \\newcommand*{\\rom}[1]{\\expandafter\\@slowromancap\\romannumeral #1@}
-  \\makeatother
-  \\DeclarePairedDelimiterX{\\infdivx}[2]{(}{)}{%
-  #1\\;\\delimsize\\|\\;#2%
-  }
-  \\newcommand{\\infdiv}{D\\infdivx}
-  \\DeclarePairedDelimiter{\\norm}{\\left\\lVert}{\\right\\rVert}
-  \\DeclarePairedDelimiter{\\ceil}{\\left\\lceil}{\\right\\rceil}
-  \\DeclarePairedDelimiter{\\floor}{\\left\\lfloor}{\\right\\rfloor}
-  \\def\\Z{\\mathbb Z}
-  \\def\\R{\\mathbb R}
-  \\def\\C{\\mathbb C}
-  \\def\\N{\\mathbb N}
-  \\def\\Q{\\mathbb Q}
-  \\def\\noi{\\noindent}
-  \\onehalfspace
-  \\usemintedstyle{bw}
-  [NO-DEFAULT-PACKAGES]
-  [NO-PACKAGES]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+    (add-to-list 'org-latex-classes
+                 '("sandy-article"
+                   "\\documentclass[12pt]{article}
+    \\usepackage{graphicx}
+    \\usepackage{grffile}
+    \\usepackage{longtable}
+    \\usepackage{wrapfig}
+    \\usepackage{rotating}
+    \\usepackage[normalem]{ulem}
+    \\usepackage{amsmath}
+    \\usepackage{textcomp}
+    \\usepackage{amssymb}
+    \\usepackage{capt-of}
+    \\usepackage{hyperref}
+    \\usepackage{minted}
+    \\usepackage{amsmath}
+    \\usepackage{amssymb}
+    \\usepackage{setspace}
+    \\usepackage{subcaption}
+    \\usepackage{mathtools}
+    \\usepackage{xfrac}
+    \\usepackage[margin=1in]{geometry}
+    \\usepackage{marginnote}
+    \\usepackage[utf8]{inputenc}
+    \\usepackage{color}
+    \\usepackage{epsf}
+    \\usepackage{tikz}
+    \\usepackage{graphicx}
+    \\usepackage{pslatex}
+    \\usepackage{hyperref}
+
+    \\usepackage{concmath}
+    \\usepackage[OT1]{fontenc}
+
+    \\usepackage{textgreek}
+    \\renewcommand*{\\textgreekfontmap}{%
+    {phv/*/*}{LGR/neohellenic/*/*}%
+    {*/b/n}{LGR/artemisia/b/n}%
+    {*/bx/n}{LGR/artemisia/bx/n}%
+    {*/*/n}{LGR/artemisia/m/n}%
+    {*/b/it}{LGR/artemisia/b/it}%
+    {*/bx/it}{LGR/artemisia/bx/it}%
+    {*/*/it}{LGR/artemisia/m/it}%
+    {*/b/sl}{LGR/artemisia/b/sl}%
+    {*/bx/sl}{LGR/artemisia/bx/sl}%
+    {*/*/sl}{LGR/artemisia/m/sl}%
+    {*/*/sc}{LGR/artemisia/m/sc}%
+    {*/*/sco}{LGR/artemisia/m/sco}%
+    }
+    \\makeatletter
+    \\newcommand*{\\rom}[1]{\\expandafter\\@slowromancap\\romannumeral #1@}
+    \\makeatother
+    \\DeclarePairedDelimiterX{\\infdivx}[2]{(}{)}{%
+    #1\\;\\delimsize\\|\\;#2%
+    }
+    \\newcommand{\\infdiv}{D\\infdivx}
+    \\DeclarePairedDelimiter{\\norm}{\\left\\lVert}{\\right\\rVert}
+    \\DeclarePairedDelimiter{\\ceil}{\\left\\lceil}{\\right\\rceil}
+    \\DeclarePairedDelimiter{\\floor}{\\left\\lfloor}{\\right\\rfloor}
+    \\def\\Z{\\mathbb Z}
+    \\def\\R{\\mathbb R}
+    \\def\\C{\\mathbb C}
+    \\def\\N{\\mathbb N}
+    \\def\\Q{\\mathbb Q}
+    \\def\\noi{\\noindent}
+    \\onehalfspace
+    \\usemintedstyle{bw}
+    [NO-DEFAULT-PACKAGES]
+    [NO-PACKAGES]"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
 * Default GUI font
 #+BEGIN_SRC emacs-lisp
