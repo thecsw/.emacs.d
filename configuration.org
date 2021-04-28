@@ -325,7 +325,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
           ))
   (setq org-latex-minted-options
         '(("frame" "lines")
-          ("fontsize" "\\scriptsize")
+          ("fontsize" "\\footnotesize")
           ;;   ("linenos" "")
           ("obeytabs" "")
           ("mathescape" "")
