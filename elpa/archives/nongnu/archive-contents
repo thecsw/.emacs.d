@@ -18,6 +18,18 @@
 		  (:authors
 		   ("Jason R. Blevins" . "jblevins@xbeta.org"))
 		  (:keywords "markdown" "github flavored markdown" "itex"))])
+ (org-contrib .
+	      [(0 1)
+	       ((emacs
+		 (25 1))
+		(org
+		 (9 4 5)))
+	       "Add-ons that are no longer distributed with Org-mode" tar
+	       ((:url . "https://git.sr.ht/~bzg/org-contrib")
+		(:maintainer "Bastien Guerry" . "bzg@gnu.org")
+		(:authors
+		 ("Bastien Guerry" . "bzg@gnu.org"))
+		(:keywords "org"))])
  (request .
 	  [(0 3 3)
 	   ((emacs
