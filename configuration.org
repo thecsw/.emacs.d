@@ -1,3 +1,4 @@
+
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
 #+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
 #+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
@@ -170,6 +171,17 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+BEGIN_SRC emacs-lisp
 (global-set-key [remap goto-line] 'goto-line-preview)
 #+END_SRC
+** Custom faces
+   #+begin_src emacs-lisp
+     (custom-set-faces
+      ;; custom-set-faces was added by Custom.
+      ;; If you edit it by hand, you could mess it up, so be careful.
+      ;; Your init file should contain only one such instance.
+      ;; If there is more than one, they won't work right.
+      '(company-tooltip ((t (:background "black" :foreground "white"))))
+      '(company-tooltip-selection ((t (:background "plum1" :foreground "black"))))
+      '(highlight ((t (:background "DarkOrchid3" :foreground "black")))))
+   #+end_src
 * LSP
 #+BEGIN_SRC emacs-lisp
   ;; Give emacs some RAW power, yes
@@ -248,10 +260,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   
   (require 'company-box)
   (add-hook 'company-mode-hook 'company-box-mode)
-  (custom-set-faces
-   '(company-tooltip ((t (:background "black" :foreground "white"))))
-   '(company-tooltip-selection ((t (:background "plum1" :foreground "black")))))
-  
+
   ;; Set the python interpreter right to ARM python3
   (setq python-shell-interpreter "/opt/homebrew/bin/python3.9")
   (setq lsp-pyright-python-executable-cmd python-shell-interpreter)
