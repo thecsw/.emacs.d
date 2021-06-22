@@ -888,7 +888,7 @@ You can toggle later `truncate-lines' with
   :group 'helm
   :type 'boolean)
 
-(defcustom helm-visible-mark-prefix "✓"
+(defcustom helm-visible-mark-prefix "*"
   "Prefix used in margin for marked candidates."
   :group 'helm
   :type 'string)
@@ -1023,6 +1023,11 @@ You can toggle later `truncate-lines' with
        :inherit default))
   "Face for empty line at end of sources in the Helm buffer.
 Allow specifying the height of this line."
+  :group 'helm-faces)
+
+(defface helm-mark-prefix
+  `((t :inherit default))
+  "Face for string `helm-visible-mark-prefix'."
   :group 'helm-faces)
 
 ;;; Variables.
@@ -3648,7 +3653,10 @@ Unuseful when used outside Helm, don't use it.")
       (set (make-local-variable 'buffer-read-only) nil)
       (buffer-disable-undo)
       (erase-buffer)
-      (set (make-local-variable 'helm-map) helm-map)
+      ;; Use this instead of setting helm-map local ensure we have all
+      ;; our keys when helm loose minibuffer focus.  And the map is
+      ;; made local as well AFAIU.
+      (use-local-map helm-map)
       (set (make-local-variable 'helm-source-filter) nil)
       (make-local-variable 'helm-sources)
       (set (make-local-variable 'helm-display-function) nil)
@@ -6000,6 +6008,7 @@ message 'no match'."
 If action buffer is displayed, kill it."
   (interactive)
   (with-helm-alive-p
+    (message "Aborting helm session")
     (when (get-buffer-window helm-action-buffer 'visible)
       (kill-buffer helm-action-buffer))
     (setq helm-exit-status 1)
@@ -6971,7 +6980,7 @@ Meaning of prefix ARG is the same as in `reposition-window'."
                                               `((margin left-margin)
                                                 ,(propertize
                                                   helm-visible-mark-prefix
-                                                  'face 'default))))
+                                                  'face 'helm-mark-prefix))))
     (overlay-put o 'visible-mark t)
     (overlay-put o 'evaporate t)
     (cl-pushnew o helm-visible-mark-overlays)

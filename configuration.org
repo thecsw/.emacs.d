@@ -288,7 +288,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 * M-x Autocomplete
 #+BEGIN_SRC emacs-lisp
   ;; Fuzzy command complete on M-x
-  (global-set-key (kbd "M-x") 'smex)
+  ;(global-set-key (kbd "M-x") 'smex)
 #+END_SRC
 * Default theme
   #+BEGIN_SRC emacs-lisp
@@ -1041,4 +1041,31 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     (setq neo-smart-open t)
     (global-set-key [f8] 'neotree-toggle)
     (setq neo-global--do-autorefresh t)
+  #+end_src
+* Marginalia
+  #+begin_src emacs-lisp
+    ;; Enable richer annotations using the Marginalia package
+    (use-package marginalia
+      ;; Either bind `marginalia-cycle` globally or only in the minibuffer
+      :bind (("M-A" . marginalia-cycle)
+             :map minibuffer-local-map
+             ("M-A" . marginalia-cycle))
+    
+      ;; The :init configuration is always executed (Not lazy!)
+      :init
+    
+      ;; Must be in the :init section of use-package such that the mode gets
+      ;; enabled right away. Note that this forces loading the package.
+      (marginalia-mode))
+  #+end_src
+* Selectrum
+  #+begin_src emacs-lisp
+    (selectrum-mode +1)
+    
+    ;; to make sorting and filtering more intelligent
+    (selectrum-prescient-mode +1)
+    
+    ;; to save your command history on disk, so the sorting gets more
+    ;; intelligent over time
+    (prescient-persist-mode +1)
   #+end_src
