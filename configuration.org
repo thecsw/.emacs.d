@@ -180,7 +180,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
       ;; If there is more than one, they won't work right.
       '(company-tooltip ((t (:background "black" :foreground "white"))))
       '(company-tooltip-selection ((t (:background "plum1" :foreground "black"))))
-      '(highlight ((t (:background "DarkOrchid3" :foreground "black")))))
+      '(highlight ((t (:background "plum1" :foreground "black")))))
    #+end_src
 * LSP
 #+BEGIN_SRC emacs-lisp
@@ -260,11 +260,28 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   
   (require 'company-box)
   (add-hook 'company-mode-hook 'company-box-mode)
-
+  
   ;; Set the python interpreter right to ARM python3
-  (setq python-shell-interpreter "/opt/homebrew/bin/python3.9")
+  (setq python-shell-interpreter "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/bin/python3.9")
   (setq lsp-pyright-python-executable-cmd python-shell-interpreter)
+  
+  (lsp-register-custom-settings
+   `(("python.pythonPath" "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/bin/python3.9")
+     ("python.venvPath" "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake")))
 #+END_SRC
+* Conda
+  #+begin_src emacs-lisp
+    (require 'conda)
+    ;; if you want interactive shell support, include:
+    (conda-env-initialize-interactive-shells)
+    ;; if you want eshell support, include:
+    (conda-env-initialize-eshell)
+    ;; if you want auto-activation (see below for details), include:
+    (conda-env-autoactivate-mode t)
+    
+    (custom-set-variables
+     '(conda-anaconda-home "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/"))
+  #+end_src
 * Dashboard
 #+BEGIN_SRC emacs-lisp
   ;; Enable dashboard
