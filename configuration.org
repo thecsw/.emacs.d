@@ -1044,11 +1044,6 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     (setq package-native-compile t)
     ;;(native-compile-async "~/.emacs.d/elpa" 'recursively) ;; <-- danger zone
   #+END_SRC
-* Vterm
-  #+BEGIN_SRC emacs-lisp
-    (add-to-list 'load-path "/Users/thecsw/gits/emacs-libvterm")
-    (require 'vterm)
-  #+END_SRC
 * Telephone line
   #+BEGIN_SRC emacs-lisp
     (require 'telephone-line)
