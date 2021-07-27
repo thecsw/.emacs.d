@@ -1,4 +1,4 @@
-;;; helm-bibtex-autoloads.el --- automatically extracted autoloads
+;;; helm-bibtex-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -28,8 +28,9 @@ frequent searches (e.g. your own publications).
 (autoload 'helm-bibtex-with-local-bibliography "helm-bibtex" "\
 Search BibTeX entries with local bibliography.
 
-With a prefix ARG the cache is invalidated and the bibliography
-reread.
+If none is found the global bibliography is used instead.  With a
+prefix ARG the cache is invalidated and the bibliography
+reloaded.
 
 \(fn &optional ARG)" t nil)
 

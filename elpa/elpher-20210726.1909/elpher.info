@@ -2,7 +2,9 @@ This is elpher.info, produced by makeinfo version 6.7 from elpher.texi.
 
 This manual documents Elpher, a gopher and gemini client for Emacs.
 
-   Copyright (C) 2019, 2020 Tim Vaughan
+   Copyright (C) 2019, 2020, 2021 Tim Vaughan
+Copyright (C) 2021 Daniel Semyonov
+Copyright (C) 2021 Alex Schroeder
 
      The source and documentation of Elpher is free software.  You can
      redistribute it and/or modify it under the terms of the GNU General
@@ -16,7 +18,7 @@ This manual documents Elpher, a gopher and gemini client for Emacs.
      this file for more details.
 INFO-DIR-SECTION Emacs
 START-INFO-DIR-ENTRY
-* Elpher: (elpher).     A gopher and gemini client for Emacs.
+* Elpher: (elpher). A gopher and gemini client for Emacs.
 END-INFO-DIR-ENTRY
 
 
@@ -27,7 +29,9 @@ Elpher
 
 This manual documents Elpher, a gopher and gemini client for Emacs.
 
-   Copyright (C) 2019, 2020 Tim Vaughan
+   Copyright (C) 2019, 2020, 2021 Tim Vaughan
+Copyright (C) 2021 Daniel Semyonov
+Copyright (C) 2021 Alex Schroeder
 
      The source and documentation of Elpher is free software.  You can
      redistribute it and/or modify it under the terms of the GNU General
@@ -48,11 +52,13 @@ This manual documents Elpher, a gopher and gemini client for Emacs.
 * Navigation::                  Fundamentals of Elpher navigation
 * Bookmarks::                   How to record and visit bookmarks
 * Gopher character encodings::  How Elpher selects encodings for gopher pages
-* Encrypted gopher connections::       How and when TLS is enabled for gopher
+* Encrypted gopher connections::  How and when TLS is enabled for gopher
 * Gemini support::              Support for the Gemini protocol
 * Finger support::              Support for the Finger protocol
 * Customization::               How to customize various aspects of Elpher
 * Command Index::
+* News::                        Changes introduced by major releases
+* Acknowledgements::            Contributors to Elpher
 
  -- The Detailed Node Listing --
 
@@ -85,8 +91,6 @@ Additionally, Elpher provides the following bells and whistles:
    * direct visualization of image files where supported (no writing to
      disk),
 
-   * a bookmark management system,
-
    * basic support for the new "heavier than gopher, lighter than the
      web" Gemini protocol,
 
@@ -116,10 +120,10 @@ To uninstall, use
 
      M-x package-delete <RET> elpher <RET>.
 
-   While not recommended, it is also possible to install Elpher directly
-by downloading the file 'elpher.el' from
-<gopher://thelambdalab.xyz/1/projects/elpher/>, adding it to a directory
-in your 'load-path', and then adding
+   It is also possible to install Elpher directly by downloading the
+file 'elpher.el' from <gopher://thelambdalab.xyz/1/projects/elpher>
+(you'll need to download the "source archive" and extract it), adding it
+to a directory in your 'load-path', and then adding
 
      (require 'elpher)
 
@@ -164,11 +168,15 @@ particularly useful for search query results, where this allows you to
 perform a different search.)
 
    That's more-or-less it.  Elpher supports a number of other features,
-such as bookmarking, support for different coding schemes and TLS
-encryption, and a variety of customization options, all of which are
-explained in the rest of this document.  However the emphasis is on
-keeping the basic navigation experience as intuitive and responsive as
-possible.
+such a support for different coding schemes and TLS encryption, and a
+variety of customization options, all of which are explained in the rest
+of this document.  However the emphasis is on keeping the basic
+navigation experience as intuitive and responsive as possible.
+
+   Note that you can launch multiple Elpher sessions in parallel by
+using a prefix:
+
+     C-u M-x elpher <RET>
 
 
 File: elpher.info,  Node: Navigation,  Next: Bookmarks,  Prev: Quick Start,  Up: Top
@@ -178,7 +186,7 @@ File: elpher.info,  Node: Navigation,  Next: Bookmarks,  Prev: Quick Start,  Up:
 
 Throughout this manual, we use the word "page" to refer to any
 visualization of a response from a gopher or gemini server, be it a
-menu/directory, query result, text file or image.  We use
+menu/directory, query result, text file or image.
 
    Elpher's navigation interface is inspired by the Emacs Info mode.
 Movement within a page is essentially the same as moving around any
@@ -209,7 +217,7 @@ between links and menu items.
 <TAB> ('elpher-next-link')
      Move to the next link or menu item in the file.
 
-'Shift-<TAB>'/<backtab> ('elpher-prev-link')
+'Shift-<TAB>' or <BACKTAB> ('elpher-prev-link')
      Move to the previous link or menu item in the file.
 
 <m> ('elpher-jump')
@@ -310,7 +318,7 @@ described by the following command:
 <O> ('elpher-root-dir')
      Open the root page (empty selector) on the current host.
 
-<u>, 'mouse-3' ('elpher-back')
+<u>, <->, <^>, 'mouse-3' ('elpher-back')
      Return to the previous page, where "previous" means the page where
      the page which was displayed immediately before the current page.
 
@@ -344,6 +352,17 @@ that was most recently followed from a given page.  This means that, at
 least for links followed from menus and text files, the inverse of <u>
 is actually just <RET>.
 
+   Elpher actually maintains two histories, and there are two different
+commands to access them:
+
+<s> ('elpher-show-history')
+     This shows the history of the current buffer.  This shows all the
+     links you would visit if you were to use <u> again and again.
+
+<S> ('elpher-show-visited-pages')
+     This shows the entire Elpher browsing history.  It includes all the
+     pages you visited in your current Emacs session.
+
    ---------- Footnotes ----------
 
    (1) The addition of the new page to the history happens even if the
@@ -359,8 +378,8 @@ File: elpher.info,  Node: Bookmarks,  Next: Gopher character encodings,  Prev: N
 5 Bookmarks
 ***********
 
-Elpher has a very simple link bookmarking system involving the following
-commands:
+Elpher makes use of standard Emacs bookmarks.  *Note (emacs)Bookmarks::.
+The following commands are perhaps the most useful ones:
 
 <a> ('elpher-bookmark-link')
      Add a bookmark for the link at point.  The minibuffer will prompt
@@ -372,26 +391,23 @@ commands:
      associated with the link that was followed to reach the current
      page.
 
-<x> ('elpher-unbookmark-link')
-     Immediately remove the bookmark (if one exists) to the link at
-     point.
+<B> ('elpher-open-bookmarks')
+     Open a page displaying all current bookmarks.  This is where you
+     can delete and search bookmarks, for example.
 
-<X> ('elpher-unbookmark-current')
-     Immediately remove the bookmark (if one exists) to the current
-     page.
+   On opening the bookmarks page, elpher will offer to import any legacy
+(2.x) bookmarks files into the new system.  Once the import is complete,
+the original bookmarks file will have "-legacy" appended to it, so so
+that elpher knows not to import it again.
 
-<B> ('elpher-bookmarks')
-     Open a page displaying all current bookmarks.  Note that this
-     bookmark page is added to the history just as if you had opened it
-     using a link.  Thus to return to the previous page, use 'u'.  This
-     also means that you can peruse the various bookmarks by visiting
-     them in turn, using 'u' to return to the bookmark page (where the
-     position of point is cached), then moving to another bookmarked
-     link and so on.
+   If you have any other legacy bookmark files (besides the one in the
+original location, or specified in the 'elpher-bookmarks-file'
+customization variable, which should be automatically detected), you can
+can import these using
 
-   Bookmarks are stored as a s-exp in the file 'elpher-bookmarks' in the
-user emacs directory (usually '~/.emacs.d/').  Any command which
-modifies the list of bookmarks immediately updates this file.
+     M-x elpher-bookmark-import <RET>
+
+   Once this is done, you may delete these legacy bookmarks files.
 
 
 File: elpher.info,  Node: Gopher character encodings,  Next: Encrypted gopher connections,  Prev: Bookmarks,  Up: Top
@@ -421,7 +437,7 @@ language settings of your emacs system.
    The alternative is to explicitly set the coding system used for
 decoding using the following command:
 
-<S> ('elpher-set-coding-system')
+<!> ('elpher-set-coding-system')
      Causes a elpher to prompt for a coding system to use for decoding
      future gopher text.  The <TAB> key can be used at this prompt to
      display a list of alternatives (which is extensive) and to
@@ -636,7 +652,7 @@ prompt for confirmation when switching away from TLS.
    See the customization group itself for details.
 
 
-File: elpher.info,  Node: Command Index,  Prev: Customization,  Up: Top
+File: elpher.info,  Node: Command Index,  Next: News,  Prev: Customization,  Up: Top
 
 Command Index
 *************
@@ -648,7 +664,6 @@ Command Index
                                                               (line  62)
 * elpher-bookmark-current:               Bookmarks.           (line  14)
 * elpher-bookmark-link:                  Bookmarks.           (line  10)
-* elpher-bookmarks:                      Bookmarks.           (line  28)
 * elpher-copy-current-url:               Within-page navigation.
                                                               (line  38)
 * elpher-copy-link-url:                  Within-page navigation.
@@ -672,36 +687,125 @@ Command Index
                                                               (line  20)
 * elpher-next-link:                      Within-page navigation.
                                                               (line  14)
+* elpher-open-bookmarks:                 Bookmarks.           (line  20)
 * elpher-prev-link:                      Within-page navigation.
                                                               (line  17)
 * elpher-root-dir:                       Between-page navigation.
                                                               (line  59)
 * elpher-set-coding-system:              Gopher character encodings.
                                                               (line  29)
-* elpher-unbookmark-current:             Bookmarks.           (line  24)
-* elpher-unbookmark-link:                Bookmarks.           (line  20)
+* elpher-show-history:                   History and Caching. (line  34)
+* elpher-show-visited-pages:             History and Caching. (line  38)
 * elpher-view-raw:                       Within-page navigation.
                                                               (line  52)
+
+
+File: elpher.info,  Node: News,  Next: Acknowledgements,  Prev: Command Index,  Up: Top
+
+11 News
+*******
+
+This chapter documents the major changes introduced by Elpher releases.
+
+11.1 v3.0.0
+===========
+
+11.1.1 Bookmarks system
+-----------------------
+
+Bookmarks are now handled by Emacs' own bookmark management system,
+instead of Elpher's own system.  (For details, *Note
+(emacs)Bookmarks::.)  This means two things.  Firstly, the bookmarks
+file (elpher-bookmarks by default) and format used by previous versions
+are now deprecated.  If these are detected, Elpher will offer to import
+your old bookmarks when you first accessing the bookmark list with the
+new version.  A suffix will be added to your old bookmarks file so that
+Elpher knows that the import is complete.
+
+   Secondly, the old Elpher bookmark menu has been removed in the new
+version.  Instead, 'B' brings up the menu provided by the Emacs function
+'bookmark-bmenu-list'.  This has different key and mouse bindings to
+Elpher's old menu, but is much more functional.  Bookmarks can be
+renamed, deleted in groups, and much more.  (Use 'C-h m' with the menu
+open to see the complete list.)
+
+11.1.2 History
+--------------
+
+Browsing history can now be accessed via new bindings to 's' and 'S'.
+The former shows the current history "stack" (pages accessible with the
+'u' key), while the latter shows a list of all pages which have been
+visited in the current session.
+
+11.1.3 Socks connections
+------------------------
+
+Elpher can now use socks connections to browse via TOR.
+
+11.1.4 browse-url, Org and mu4e integration
+-------------------------------------------
+
+These integrations provide support for elpher-handling of gemini, gopher
+and finger URLs using 'browse-url', in Org documents, and the mu4e mail
+system.
+
+11.1.5 imenu integration
+------------------------
+
+Gemini document headers are now navigable via imenu.  For details, *Note
+(emacs)Imenu::.
+
+
+File: elpher.info,  Node: Acknowledgements,  Prev: News,  Up: Top
+
+12 Acknowledgements
+*******************
+
+Elpher was originally written by Tim Vaughan.  Recent maintenance has
+been done by and with the help of Alex Schroeder.  In addition, the
+following people (in alphabetical order) have generously provided
+assistance and/or patches:
+
+   * Alexis
+   * Christopher Brannon
+   * Zhiwei Chen
+   * condy0919
+   * Étienne Deparis
+   * Roy Koushik
+   * Simon Nicolussi
+   * Noodles!
+   * Jens Östlund
+   * F. Jason Park
+   * Omar Polo
+   * Koushk Roy
+   * Michel Alexandre Salim
+   * Alex Schroeder
+   * Daniel Semyonov
+   * Simon South
+   * Bradley Thornton
+   * Vee
 
 
 
 Tag Table:
-Node: Top892
-Node: Introduction2631
-Node: Installation3856
-Node: Quick Start4619
-Node: Navigation6609
-Node: Within-page navigation7492
-Node: Between-page navigation9590
-Node: History and Caching12396
-Ref: History and Caching-Footnote-113652
-Node: Bookmarks14031
-Node: Gopher character encodings15561
-Node: Encrypted gopher connections17461
-Node: Gemini support18611
-Node: Finger support24962
-Node: Customization26018
-Node: Command Index26833
+Node: Top963
+Node: Introduction2896
+Node: Installation4085
+Node: Quick Start4886
+Node: Navigation6974
+Node: Within-page navigation7849
+Node: Between-page navigation9950
+Node: History and Caching12766
+Ref: History and Caching-Footnote-114449
+Node: Bookmarks14828
+Node: Gopher character encodings16259
+Node: Encrypted gopher connections18159
+Node: Gemini support19309
+Node: Finger support25660
+Node: Customization26716
+Node: Command Index27531
+Node: News30325
+Node: Acknowledgements32249
 
 End Tag Table
 
