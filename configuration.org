@@ -1080,6 +1080,11 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
       ;; Must be in the :init section of use-package such that the mode gets
       ;; enabled right away. Note that this forces loading the package.
       (marginalia-mode))
+    
+    (all-the-icons-completion-mode)
+    
+    ;; Use https://github.com/iyefrat/all-the-icons-completion for icons
+    (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
   #+end_src
 * Selectrum
   #+begin_src emacs-lisp
