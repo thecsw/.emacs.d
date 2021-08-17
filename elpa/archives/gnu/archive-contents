@@ -137,7 +137,7 @@
 	   ("John Wiegley" . "jwiegley@gmail.com"))
 	  (:keywords "async"))])
  (auctex .
-	 [(13 0 12)
+	 [(13 0 13)
 	  ((emacs
 	    (24 3)))
 	  "Integrated environment for *TeX*" tar
@@ -688,7 +688,7 @@
 	      (:maintainer "Markus Triska" . "triska@metalevel.at")
 	      (:url . "https://www.metalevel.at/ediprolog/"))])
  (eev .
-      [(20210808)
+      [(20210813)
        ((emacs
 	 (24 4)))
        "Support for e-scripts (eepitch blocks, elisp hyperlinks, etc)" tar
@@ -1402,7 +1402,7 @@
 	   (:maintainer "Alexey Veretennikov" . "alexey.veretennikov@gmail.com")
 	   (:url . "https://github.com/fourier/loccur"))])
  (map .
-      [(3 0)
+      [(3 1)
        ((emacs
 	 (26)))
        "Map manipulation functions" tar
