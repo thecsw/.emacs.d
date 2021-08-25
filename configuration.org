@@ -320,7 +320,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   #+BEGIN_SRC emacs-lisp
     ;; I like lush and use it by default
     ;;(load-theme 'lush t)
-    (load-theme 'modus-vivendi t)
+    (load-theme 'dracula t)
 #+END_SRC
 * Chef
 #+BEGIN_SRC emacs-lisp

@@ -1,0 +1,2 @@
+;;; Generated package description from notink-theme.el  -*- no-byte-compile: t -*-
+(define-package "notink-theme" "20210816.2337" "A custom theme inspired by e-ink displays" '((emacs "26.1")) :commit "ede878ee06d4f94b5819ed3ccffe121823fbcf44" :authors '(("MetroWind" . "chris.corsair@gmail.com")) :maintainer '("MetroWind" . "chris.corsair@gmail.com") :keywords '("faces") :url "https://github.com/MetroWind/notink-theme")
