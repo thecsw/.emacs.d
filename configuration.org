@@ -319,7 +319,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 * Default theme
   #+BEGIN_SRC emacs-lisp
     ;; I like lush and use it by default
-    (load-theme 'lush t)
+    ;;(load-theme 'lush t)
+    (load-theme 'modus-vivendi t)
 #+END_SRC
 * Chef
 #+BEGIN_SRC emacs-lisp
@@ -1096,4 +1097,22 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     ;; to save your command history on disk, so the sorting gets more
     ;; intelligent over time
     (prescient-persist-mode +1)
+  #+end_src
+* Centaur tabs
+  #+begin_src emacs-lisp
+    (require 'centaur-tabs)
+    (centaur-tabs-mode t)
+    (global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
+    (global-set-key (kbd "C-<next>") 'centaur-tabs-forward)
+    
+    (setq centaur-tabs-style "box")
+    (setq centaur-tabs-height 20)
+    (setq centaur-tabs-set-icons t)
+    (setq centaur-tabs-set-bar 'under)
+    (setq x-underline-at-descent-line t)
+    (setq centaur-tabs-set-modified-marker t)
+    (setq centaur-tabs-show-navigation-buttons t)
+    (setq centaur-tabs-set-modified-marker t)
+    (setq centaur-tabs-modified-marker "*")
+    (setq centaur-tabs-close-button " ×")
   #+end_src
