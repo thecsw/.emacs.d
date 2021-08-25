@@ -320,7 +320,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   #+BEGIN_SRC emacs-lisp
     ;; I like lush and use it by default
     ;;(load-theme 'lush t)
-    (load-theme 'dracula t)
+    (load-theme 'lush t)
 #+END_SRC
 * Chef
 #+BEGIN_SRC emacs-lisp
@@ -1104,6 +1104,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     (centaur-tabs-mode t)
     (global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
     (global-set-key (kbd "C-<next>") 'centaur-tabs-forward)
+    
+    (centaur-tabs-headline-match)
     
     (setq centaur-tabs-style "box")
     (setq centaur-tabs-height 20)
