@@ -1118,3 +1118,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     (setq centaur-tabs-modified-marker "*")
     (setq centaur-tabs-close-button " ×")
   #+end_src
+* Yas Snippets
+  #+begin_src emacs-lisp
+     (yas-global-mode 1)
+  #+end_src
