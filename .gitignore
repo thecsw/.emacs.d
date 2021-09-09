@@ -1,3 +1,4 @@
+lsp-sessions
 var
 *.elc
 .DS_Store

@@ -188,6 +188,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (setq gc-cons-threshold 100000000)
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
   
+  (setq lsp-log-io nil) ; if set to true can cause a performance hit
+  
   ;; Configure LSP-UI by https://emacs-lsp.github.io/lsp-ui/
   ;; Optional - provides fancier overlays.
   (use-package lsp-ui
@@ -280,7 +282,9 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     ;(conda-env-autoactivate-mode t)
     
     (custom-set-variables
-     '(conda-anaconda-home "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/"))
+     '(conda-anaconda-home "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/")
+     '(lsp-session-file "/Users/thecsw/.emacs.d/lsp-sessions")
+     )
   #+end_src
 * Dashboard
 #+BEGIN_SRC emacs-lisp
