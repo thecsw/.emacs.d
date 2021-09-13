@@ -440,13 +440,13 @@
 	      (:keywords "files")
 	      (:url . "http://elpa.gnu.org/packages/cpio-mode.html"))])
  (crdt .
-       [(0 1 4)
+       [(0 2 2)
 	nil "Collaborative editing using Conflict-free Replicated Data Types" tar
 	((:url . "https://code.librehq.com/qhong/crdt.el")
+	 (:keywords "collaboration" "crdt")
 	 (:maintainer "Qiantan Hong" . "qhong@alum.mit.edu")
 	 (:authors
-	  ("Qiantan Hong" . "qhong@alum.mit.edu"))
-	 (:keywords "collaboration" "crdt"))])
+	  ("Qiantan Hong" . "qhong@alum.mit.edu")))])
  (crisp .
 	[(1 3 6)
 	 nil "CRiSP/Brief Emacs emulator" single
@@ -466,16 +466,16 @@
 		 ("Theodor Thornhill" . "theo@thornhill.no"))
 		(:keywords "c#" "languages" "oop" "mode"))])
  (csv-mode .
-	   [(1 15)
+	   [(1 16)
 	    ((emacs
 	      (24 1))
 	     (cl-lib
 	      (0 5)))
 	    "Major mode for editing comma/char separated values" tar
-	    ((:maintainer nil . "emacs-devel@gnu.org")
+	    ((:keywords "convenience")
+	     (:maintainer nil . "emacs-devel@gnu.org")
 	     (:authors
 	      ("\"Francis J. Wright\"" . "F.J.Wright@qmul.ac.uk"))
-	     (:keywords "convenience")
 	     (:url . "https://elpa.gnu.org/packages/csv-mode.html"))])
  (cycle-quotes .
 	       [(0 1)
@@ -516,7 +516,7 @@
 		  ("Daiki Ueno" . "ueno@gnu.org"))
 		 (:maintainer nil . "emacs-devel@gnu.org"))])
  (debbugs .
-	  [(0 28)
+	  [(0 29)
 	   ((emacs
 	     (25 1))
 	    (soap-client
@@ -782,7 +782,7 @@
 		     (:keywords "languages" "lisp")
 		     (:url . "https://elpa.gnu.org/packages/elisp-benchmarks.html"))])
  (emms .
-       [(7 6)
+       [(7 7)
 	((cl-lib
 	  (0 5))
 	 (nadvice
@@ -791,10 +791,10 @@
 	  (0)))
 	"The Emacs Multimedia System" tar
 	((:url . "https://www.gnu.org/software/emms/")
+	 (:keywords "emms" "mp3" "ogg" "flac" "music" "mpeg" "video" "multimedia")
 	 (:maintainer "Yoni Rabkin" . "yrk@gnu.org")
 	 (:authors
-	  ("Jorgen Schäfer" . "forcer@forcix.cx"))
-	 (:keywords "emms" "mp3" "ogg" "flac" "music" "mpeg" "video" "multimedia"))])
+	  ("Jorgen Schäfer" . "forcer@forcix.cx")))])
  (engrave-faces .
 		[(0 2 0)
 		 ((emacs
@@ -2601,6 +2601,17 @@
 	      (:authors
 	       ("Philip Kaludercic" . "philipk@posteo.net"))
 	      (:keywords "vc"))])
+ (vc-got .
+	 [(1 0)
+	  ((emacs
+	    (25 1)))
+	  "VC backend for Game of Trees VCS" tar
+	  ((:url . "https://git.omarpolo.com/vc-got/")
+	   (:maintainer "Omar Polo" . "op@omarpolo.com")
+	   (:authors
+	    ("Omar Polo" . "op@omarpolo.com")
+	    ("Timo Myyrä" . "timo.myyra@bittivirhe.fi"))
+	   (:keywords "vc" "tools"))])
  (vc-hgcmd .
 	   [(1 14)
 	    ((emacs
