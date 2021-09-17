@@ -440,7 +440,7 @@
 	      (:keywords "files")
 	      (:url . "http://elpa.gnu.org/packages/cpio-mode.html"))])
  (crdt .
-       [(0 2 2)
+       [(0 2 3)
 	nil "Collaborative editing using Conflict-free Replicated Data Types" tar
 	((:url . "https://code.librehq.com/qhong/crdt.el")
 	 (:keywords "collaboration" "crdt")
@@ -706,15 +706,15 @@
 	      (:maintainer "Markus Triska" . "triska@metalevel.at")
 	      (:url . "https://www.metalevel.at/ediprolog/"))])
  (eev .
-      [(20210822)
+      [(20210913)
        ((emacs
 	 (24 4)))
        "Support for e-scripts (eepitch blocks, elisp hyperlinks, etc)" tar
        ((:url . "http://angg.twu.net/#eev")
+	(:keywords "lisp" "e-scripts")
 	(:maintainer "Eduardo Ochs" . "eduardoochs@gmail.com")
 	(:authors
-	 ("Eduardo Ochs" . "eduardoochs@gmail.com"))
-	(:keywords "lisp" "e-scripts"))])
+	 ("Eduardo Ochs" . "eduardoochs@gmail.com")))])
  (eglot .
 	[(1 7)
 	 ((emacs
@@ -905,16 +905,18 @@
 	     ("Barry O'Reilly" . "gundaetiapo@gmail.com"))
 	    (:maintainer "Barry O'Reilly" . "gundaetiapo@gmail.com"))])
  (flymake .
-	  [(1 1 1)
+	  [(1 2 1)
 	   ((emacs
 	     (26 1))
 	    (eldoc
-	     (1 1 0)))
+	     (1 1 0))
+	    (project
+	     (0 7 1)))
 	   "A universal on-the-fly syntax checker" tar
-	   ((:maintainer "João Távora" . "joaotavora@gmail.com")
+	   ((:keywords "c" "languages" "tools")
+	    (:maintainer "João Távora" . "joaotavora@gmail.com")
 	    (:authors
 	     ("Pavel Kobyakov" . "pk_at_work@yahoo.com"))
-	    (:keywords "c" "languages" "tools")
 	    (:url . "https://elpa.gnu.org/packages/flymake.html"))])
  (flymake-proselint .
 		    [(0 2 1)
@@ -1868,7 +1870,7 @@
 	      ("Feng Shu" . "tumashu@163.com"))
 	     (:keywords "convenience" "tooltip"))])
  (project .
-	  [(0 6 1)
+	  [(0 7 1)
 	   ((emacs
 	     (26 1))
 	    (xref
@@ -2437,15 +2439,15 @@
 	 (:maintainer "Toby Cubitt" . "toby-predictive@dr-qubit.org")
 	 (:url . "http://www.dr-qubit.org/emacs.php"))])
  (taxy .
-       [(0 5)
+       [(0 6)
 	((emacs
 	  (26 3)))
 	"Programmable taxonomical grouping for arbitrary objects" tar
 	((:url . "https://github.com/alphapapa/taxy.el")
+	 (:keywords "lisp")
 	 (:maintainer "Adam Porter" . "adam@alphapapa.net")
 	 (:authors
-	  ("Adam Porter" . "adam@alphapapa.net"))
-	 (:keywords "lisp"))])
+	  ("Adam Porter" . "adam@alphapapa.net")))])
  (temp-buffer-browse .
 		     [(1 5)
 		      ((emacs
@@ -2652,14 +2654,14 @@
 	   ("Justin Burkett" . "justin@burkett.cc"))
 	  (:keywords "diff"))])
  (verilog-mode .
-	       [(2021 4 12 188864585)
+	       [(2021 9 16 45775504)
 		nil "major mode for editing verilog source in Emacs" tar
 		((:url . "https://www.veripool.org")
+		 (:keywords "languages")
 		 (:maintainer "Michael McNamara" . "mac@verilog.com")
 		 (:authors
 		  ("Michael McNamara" . "mac@verilog.com")
-		  ("Wilson Snyder" . "wsnyder@wsnyder.org"))
-		 (:keywords "languages"))])
+		  ("Wilson Snyder" . "wsnyder@wsnyder.org")))])
  (vertico .
 	  [(0 14)
 	   ((emacs
