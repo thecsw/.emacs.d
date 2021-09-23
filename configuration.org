@@ -213,6 +213,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
            (html-mode . lsp)
            (python-mode . lsp)
            (haskell-mode . lsp)
+           (elm-mode . lsp)
            (js-mode . lsp)
            (lsp-mode . lsp-enable-which-key-integration))
     :commands lsp)
