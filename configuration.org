@@ -428,7 +428,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 * LaTeX in org
 #+BEGIN_SRC emacs-lisp
   (setq org-highlight-latex-and-related '(latex script entities))
-
+  
   (add-to-list 'org-latex-classes
                '("sandy-article"
                  "\\documentclass[12pt]{article}
@@ -459,11 +459,14 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   \\usepackage{graphicx}
   \\usepackage{pslatex}
   \\usepackage{hyperref}
-
-  \\usepackage{beton}
-  \\usepackage{euler}
-  \\usepackage[OT1]{fontenc}
-
+  
+  %\\usepackage{beton}
+  %\\usepackage{euler}
+  %\\usepackage[OT1]{fontenc}
+  
+  \\usepackage[T1]{fontenc}
+  \\usepackage{newpxtext,eulerpx}
+  
   \\usepackage{textgreek}
   \\renewcommand*{\\textgreekfontmap}{%
   {phv/*/*}{LGR/neohellenic/*/*}%
