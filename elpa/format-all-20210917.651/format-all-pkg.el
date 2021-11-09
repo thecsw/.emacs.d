@@ -1,2 +1,0 @@
-;;; Generated package description from format-all.el  -*- no-byte-compile: t -*-
-(define-package "format-all" "20210917.651" "Auto-format C, C++, JS, Python, Ruby and 50 other languages" '((emacs "24.4") (inheritenv "0.1") (language-id "0.16")) :commit "dfaf3e4a80d064f2a138b0a4b6a7e85263168fbf" :authors '(("Lassi Kortela" . "lassi@lassi.io")) :maintainer '("Lassi Kortela" . "lassi@lassi.io") :keywords '("languages" "util") :url "https://github.com/lassik/emacs-format-all-the-code")
