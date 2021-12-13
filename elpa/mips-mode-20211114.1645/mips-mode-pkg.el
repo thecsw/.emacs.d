@@ -1,0 +1,2 @@
+;;; Generated package description from mips-mode.el  -*- no-byte-compile: t -*-
+(define-package "mips-mode" "20211114.1645" "Major-mode for MIPS assembly" 'nil :commit "5676174bea9a5780ddd33d2d8111b8678dfa4e99" :authors '(("Henrik Lissner <http://github/hlissner>")) :maintainer '("Henrik Lissner" . "contact@henrik.io") :keywords '("languages" "mips" "assembly") :url "https://github.com/hlissner/emacs-mips-mode")

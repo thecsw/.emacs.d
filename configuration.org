@@ -1060,20 +1060,20 @@ one line
   #+BEGIN_SRC emacs-lisp
     (require 'telephone-line)
 
-    ;; (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
-    ;;       telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
-    ;;       telephone-line-primary-right-separator 'telephone-line-cubed-right
-    ;;       telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
+    (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
+          telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
+          telephone-line-primary-right-separator 'telephone-line-cubed-right
+          telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
 
-    ;; (setq telephone-line-primary-right-separator 'telephone-line-abs-left
-    ;;       telephone-line-secondary-right-separator 'telephone-line-abs-hollow-left)
+    (setq telephone-line-primary-right-separator 'telephone-line-abs-left
+          telephone-line-secondary-right-separator 'telephone-line-abs-hollow-left)
 
-    ;; (setq telephone-line-height 20
-    ;;       telephone-line-evil-use-short-tag t)
+    (setq telephone-line-height 20
+          telephone-line-evil-use-short-tag t)
 
-    ;; (telephone-line-mode 1)
+    (telephone-line-mode 1)
 
-    (powerline-nano-theme)
+    ;; (powerline-nano-theme)
   #+END_SRC
 * Neotree
   #+begin_src emacs-lisp
