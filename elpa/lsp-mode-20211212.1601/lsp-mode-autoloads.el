@@ -57,6 +57,11 @@ Explain a clang-tidy ERROR by scraping documentation from llvm.org.
 ;;;### (autoloads nil "lsp-clojure" "lsp-clojure.el" (0 0 0 0))
 ;;; Generated autoloads from lsp-clojure.el
 
+(autoload 'lsp-clojure-show-test-tree "lsp-clojure" "\
+Show a test tree and focus on it if IGNORE-FOCUS? is nil.
+
+\(fn IGNORE-FOCUS\\=\\?)" t nil)
+
 (register-definition-prefixes "lsp-clojure" '("lsp-clojure-"))
 
 ;;;***
@@ -184,7 +189,7 @@ the mode if ARG is nil, omitted, or is a positive number.
 Disable the mode if ARG is a negative number.
 
 To check whether the minor mode is enabled in the current buffer,
-evaluate `(default-value 'lsp-dired-mode)'.
+evaluate `(default-value \\='lsp-dired-mode)'.
 
 The mode's hook is called both when the mode is enabled and when
 it is disabled.

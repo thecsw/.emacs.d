@@ -273,6 +273,12 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (lsp-register-custom-settings
    `(("python.pythonPath" "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/bin/python3.9")
      ("python.venvPath" "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake")))
+
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-delay 0.1)
+  (setq lsp-ui-doc-header nil)
+  (setq lsp-ui-doc-show-with-cursor t)
+  (setq lsp-ui-doc-show-with-mouse t)
 #+END_SRC
 * Conda
   #+begin_src emacs-lisp
