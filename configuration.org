@@ -391,6 +391,9 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
    'org-babel-load-languages
    '((R . t)
      (latex . t)))
+
+  (setf (nth 4 org-emphasis-regexp-components) 10)
+  (load-library "org")
 #+END_SRC
 * Git messenger
 #+BEGIN_SRC emacs-lisp
@@ -436,7 +439,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 * LaTeX in org
 #+BEGIN_SRC emacs-lisp
   (setq org-highlight-latex-and-related '(latex script entities))
-  
+
   (add-to-list 'org-latex-classes
                '("sandy-article"
                  "\\documentclass[12pt]{article}
@@ -458,7 +461,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   \\usepackage{subcaption}
   \\usepackage{mathtools}
   \\usepackage{xfrac}
-  \\usepackage[margin=1in]{geometry}
+  %\\usepackage{geometry}
+  \\usepackage[left=1.4in, right=1.4in, bottom=1in]{geometry}
   \\usepackage{marginnote}
   \\usepackage[utf8]{inputenc}
   \\usepackage{color}
@@ -467,14 +471,17 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   \\usepackage{graphicx}
   \\usepackage{pslatex}
   \\usepackage{hyperref}
-  
+
   %\\usepackage{beton}
   %\\usepackage{euler}
   %\\usepackage[OT1]{fontenc}
-  
-  \\usepackage[T1]{fontenc}
-  \\usepackage{newpxtext,eulerpx}
-  
+
+  %\\usepackage[T1]{fontenc}
+  %\\usepackage{newpxtext,eulerpx}
+
+  \\usepackage[p]{scholax}
+  \\usepackage[scaled=1.075,ncf,vvarbb]{newtxmath}
+
   \\usepackage{textgreek}
   \\renewcommand*{\\textgreekfontmap}{%
   {phv/*/*}{LGR/neohellenic/*/*}%
