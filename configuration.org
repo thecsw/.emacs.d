@@ -482,6 +482,9 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   \\usepackage[p]{scholax}
   \\usepackage[scaled=1.075,ncf,vvarbb]{newtxmath}
 
+  % this fixes wack monospace fonts and issues
+  \\usepackage[nomath,variablett]{lmodern}
+
   \\usepackage{textgreek}
   \\renewcommand*{\\textgreekfontmap}{%
   {phv/*/*}{LGR/neohellenic/*/*}%
