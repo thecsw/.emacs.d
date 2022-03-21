@@ -360,6 +360,22 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/Library/Python/3.9/bin"))
   (require 'org)
   (require 'ox-latex)
+
+  (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-cite-link)
+
+  (require 'bibtex)
+
+  (setq bibtex-autokey-year-length 4
+          bibtex-autokey-name-year-separator "-"
+          bibtex-autokey-year-title-separator "-"
+          bibtex-autokey-titleword-separator "-"
+          bibtex-autokey-titlewords 2
+          bibtex-autokey-titlewords-stretch 1
+          bibtex-autokey-titleword-length 5
+          org-ref-bibtex-hydra-key-binding (kbd "H-b"))
+
+  (define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
+
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (setq org-latex-listings 'minted)
 
@@ -408,7 +424,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+END_SRC
 * Emojify
 #+BEGIN_SRC emacs-lisp
-(add-hook 'after-init-hook #'global-emojify-mode)
+;; (add-hook 'after-init-hook #'global-emojify-mode)
 #+END_SRC
 * Ripgrep
 #+BEGIN_SRC emacs-lisp
