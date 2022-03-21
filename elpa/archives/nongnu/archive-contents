@@ -533,18 +533,18 @@
 		   ("András Simonyi" . "andras.simonyi@gmail.com"))
 		  (:keywords "languages" "gauche" "scheme" "geiser"))])
  (geiser-guile .
-	       [(0 21 2)
+	       [(0 23)
 		((emacs
 		  (25 1))
 		 (geiser
-		  (0 21)))
+		  (0 23 1)))
 		"Guile's implementation of the geiser protocols" tar
 		((:url . "https://gitlab.com/emacs-geiser/guile")
 		 (:keywords "languages" "guile" "scheme" "geiser")
 		 (:maintainer "Jose Antonio Ortega Ruiz" . "jao@gnu.org")
 		 (:authors
 		  ("Jose Antonio Ortega Ruiz" . "jao@gnu.org"))
-		 (:commit . "ecd118171a111e04120d11c0d72345ce1d0f8066"))])
+		 (:commit . "aa48110d69b018f03dbff0aa9e830111fef71da4"))])
  (geiser-kawa .
 	      [(0 0 1)
 	       ((emacs
@@ -729,7 +729,7 @@
 		    ((:url . "https://gitlab.com/tseenshe/haskell-tng-mode")
 		     (:keywords "languages"))])
  (helm .
-       [(3 8 4)
+       [(3 8 5)
 	((helm-core
 	  (3 8 4))
 	 (popup
@@ -739,9 +739,9 @@
 	 (:maintainer "Thierry Volpiatto" . "thierry.volpiatto@gmail.com")
 	 (:authors
 	  ("Thierry Volpiatto" . "thierry.volpiatto@gmail.com"))
-	 (:commit . "a7b9e898296142465c0857b2d201d8d828ba7b05"))])
+	 (:commit . "5e035c9193bf1e1d4bb709794a154957544dcfc7"))])
  (helm-core .
-	    [(3 8 4)
+	    [(3 8 5)
 	     ((emacs
 	       (25 1))
 	      (async
@@ -751,7 +751,7 @@
 	      (:maintainer "Thierry Volpiatto" . "thierry.volpiatto@gmail.com")
 	      (:authors
 	       ("Thierry Volpiatto" . "thierry.volpiatto@gmail.com"))
-	      (:commit . "a7b9e898296142465c0857b2d201d8d828ba7b05"))])
+	      (:commit . "5e035c9193bf1e1d4bb709794a154957544dcfc7"))])
  (highlight-parentheses .
 			[(2 1 0)
 			 ((emacs

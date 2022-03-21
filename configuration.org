@@ -1,4 +1,3 @@
-
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
 #+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
 #+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
@@ -332,8 +331,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 * Default theme
   #+BEGIN_SRC emacs-lisp
     ;; I like lush and use it by default
-    ;;(load-theme 'lush t)
     (load-theme 'lush t)
+    ;;(load-theme 'uwu t)
 #+END_SRC
 * Chef
 #+BEGIN_SRC emacs-lisp
@@ -424,7 +423,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+END_SRC
 * Emojify
 #+BEGIN_SRC emacs-lisp
-;; (add-hook 'after-init-hook #'global-emojify-mode)
+  (add-hook 'after-init-hook #'global-emojify-mode)
 #+END_SRC
 * Ripgrep
 #+BEGIN_SRC emacs-lisp
