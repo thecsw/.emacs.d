@@ -184,7 +184,7 @@
 	 ("Oleh Krehel" . "ohwoeowho@gmail.com"))
 	(:keywords "point" "location"))])
  (bbdb .
-       [(3 2 2)
+       [(3 2 2 1)
 	((emacs
 	  (24))
 	 (cl-lib
@@ -192,7 +192,7 @@
 	"Big Brother DataBase" tar
 	((:maintainer "Roland Winkler" . "winkler@gnu.org")
 	 (:url . "https://elpa.gnu.org/packages/bbdb.html")
-	 (:commit . "e300a375d55ef4033b3651e937c5ec2042871f91"))])
+	 (:commit . "387bb5f216dd7c2d901af186b07d84f005c583c4"))])
  (beacon .
 	 [(1 3 3)
 	  ((seq
@@ -1621,7 +1621,7 @@
 	   (:maintainer "Alexey Veretennikov" . "alexey.veretennikov@gmail.com")
 	   (:url . "https://github.com/fourier/loccur"))])
  (logos .
-	[(0 2 0)
+	[(0 3 0)
 	 ((emacs
 	   (27 1)))
 	 "Simple focus mode and extras" tar
@@ -1630,7 +1630,7 @@
 	  (:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
 	  (:authors
 	   ("Protesilaos Stavrou" . "info@protesilaos.com"))
-	  (:commit . "36e911064c263813110b17acd5fb9b01b9436112"))])
+	  (:commit . "de6959ceef59d818aa5ec2b1700932f5b78bcb78"))])
  (map .
       [(3 2 1)
        ((emacs
@@ -1754,16 +1754,16 @@
 			  ("Protesilaos Stavrou" . "info@protesilaos.com"))
 			 (:keywords "faces" "theme" "accessibility"))])
  (modus-themes .
-	       [(2 2 0)
+	       [(2 3 0)
 		((emacs
 		  (27 1)))
-		"Highly accessible and customizable themes (WCAG AAA)" tar
+		"Elegant, highly legible and customizable themes" tar
 		((:url . "https://gitlab.com/protesilaos/modus-themes")
 		 (:keywords "faces" "theme" "accessibility")
 		 (:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
 		 (:authors
 		  ("Protesilaos Stavrou" . "info@protesilaos.com"))
-		 (:commit . "b68217fe044c68c0ca73e43a3c1dee7fb73a9284"))])
+		 (:commit . "7b08e3a8e41db1483322f48305f837e705540249"))])
  (modus-vivendi-theme .
 		      [(0 13 2)
 		       ((emacs
@@ -1852,13 +1852,14 @@
 		(:keywords "convenience" "org-mode" "org-agenda")
 		(:maintainer "Nicolas P. Rougier" . "Nicolas.Rougier@inria.fr"))])
  (nano-modeline .
-		[(0 5)
+		[(0 6)
 		 ((emacs
 		   (27 1)))
 		 "N Λ N O modeline" tar
 		 ((:url . "https://github.com/rougier/nano-modeline")
 		  (:keywords "convenience" "mode-line" "header-line")
-		  (:maintainer "Nicolas P. Rougier" . "Nicolas.Rougier@inria.fr"))])
+		  (:maintainer "Nicolas P. Rougier" . "Nicolas.Rougier@inria.fr")
+		  (:commit . "1c743a9dbe72a1bdc2196ad43a217060e163c929"))])
  (nano-theme .
 	     [(0 3 0)
 	      ((emacs
@@ -2833,7 +2834,7 @@
 	 (:maintainer "Toby Cubitt" . "toby-predictive@dr-qubit.org")
 	 (:url . "http://www.dr-qubit.org/emacs.php"))])
  (taxy .
-       [(0 8)
+       [(0 9)
 	((emacs
 	  (26 3)))
 	"Programmable taxonomical grouping for arbitrary objects" tar
@@ -2841,7 +2842,21 @@
 	 (:keywords "lisp")
 	 (:maintainer "Adam Porter" . "adam@alphapapa.net")
 	 (:authors
-	  ("Adam Porter" . "adam@alphapapa.net")))])
+	  ("Adam Porter" . "adam@alphapapa.net"))
+	 (:commit . "b209692b632bbe8d7f97ea8a39b0c28c1be3b7ec"))])
+ (taxy-magit-section .
+		     [(0 9 1)
+		      ((emacs
+			(26 3))
+		       (magit-section
+			(3 2 1)))
+		      "View Taxy structs in a Magit Section buffer" tar
+		      ((:url . "https://github.com/alphapapa/taxy.el")
+		       (:keywords "lisp")
+		       (:maintainer "Adam Porter" . "adam@alphapapa.net")
+		       (:authors
+			("Adam Porter" . "adam@alphapapa.net"))
+		       (:commit . "62624c32d7f58bfa4acc89becc7cc8427d546aab"))])
  (temp-buffer-browse .
 		     [(1 5)
 		      ((emacs
@@ -2892,7 +2907,7 @@
 	  ("Oleh Krehel" . "ohwoeowho@gmail.com"))
 	 (:keywords "convenience"))])
  (tramp .
-	[(2 5 2 2)
+	[(2 5 2 3)
 	 ((emacs
 	   (25 1)))
 	 "Transparent Remote Access, Multiple Protocol" tar
@@ -2901,7 +2916,7 @@
 	  (:maintainer "Michael Albinus" . "michael.albinus@gmx.de")
 	  (:authors
 	   ("Kai Großjohann" . "kai.grossjohann@gmx.net"))
-	  (:commit . "aeb0ea73406d7d7066149cb487683e55b86e7124"))])
+	  (:commit . "ad1b28dca70c70cd4c317dcb606c92dfb436ccee"))])
  (tramp-nspawn .
 	       [(1 0)
 		((emacs
