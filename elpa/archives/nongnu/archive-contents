@@ -28,13 +28,13 @@
 		(:authors
 		 ("Jordon Biondo" . "jordonbiondo@gmail.com")))])
  (annotate .
-	   [(1 5 1)
+	   [(1 5 3)
 	    nil "annotate files without changing them" tar
 	    ((:url . "https://github.com/bastibe/annotate.el")
-	     (:maintainer "Bastian Bechtold")
+	     (:maintainer "Bastian Bechtold <bastibe.dev@mailbox.org>, cage" . "cage-dev@twistfold.it")
 	     (:authors
 	      ("Bastian Bechtold"))
-	     (:commit . "aa3c0540ee644e0e205644545d659a6ba16d76ac"))])
+	     (:commit . "e694b977cc82887ce722912a2634ae4b0bc4f5ea"))])
  (anti-zenburn-theme .
 		     [(2 5 1)
 		      nil "Low-contrast Zenburn-inverted theme" tar
@@ -128,14 +128,15 @@
 	     (:authors
 	      ("Dave Pearson" . "davep@davep.org")))])
  (buttercup .
-	    [(1 24)
+	    [(1 25)
 	     ((emacs
 	       (24 3)))
 	     "Behavior-Driven Emacs Lisp Testing" tar
 	     ((:url . "https://github.com/jorgenschaefer/emacs-buttercup")
-	      (:maintainer "Jorgen Schaefer" . "contact@jorgenschaefer.de")
+	      (:maintainer "Ola Nilsson" . "ola.nilsson@gmail.com")
 	      (:authors
-	       ("Jorgen Schaefer" . "contact@jorgenschaefer.de")))])
+	       ("Jorgen Schaefer" . "contact@jorgenschaefer.de"))
+	      (:commit . "ba62f80555d46faf49dc451c0ad20f39f6a170ab"))])
  (caml .
        [(4 9)
 	((emacs
@@ -294,7 +295,7 @@
 		(:keywords "languages" "elixir")
 		(:commit . "1d94b525ddcc995b5a979de7b050c2309648ca6f"))])
  (elpher .
-	 [(3 3 2)
+	 [(3 3 3)
 	  ((emacs
 	    (27 1)))
 	  "A friendly gopher and gemini client" tar
@@ -303,7 +304,7 @@
 	   (:maintainer "Tim Vaughan" . "plugd@thelambdalab.xyz")
 	   (:authors
 	    ("Tim Vaughan" . "plugd@thelambdalab.xyz"))
-	   (:commit . "6e3a8ef5af192eddcd834efac49866f84e2c73dd"))])
+	   (:commit . "ab75cffa4572115c3d6b17348b6bfa2f746f4798"))])
  (evil .
        [(1 14 0)
 	nil "extensible vi layer" tar
@@ -384,7 +385,7 @@
 		    (:authors
 		     ("Sylvain Benner" . "sylvain.benner@gmail.com")))])
  (evil-matchit .
-	       [(2 4 1)
+	       [(2 4 4)
 		((evil
 		  (1 14 0))
 		 (emacs
@@ -392,19 +393,21 @@
 		"Vim matchit ported to Evil" tar
 		((:url . "http://github.com/redguardtoo/evil-matchit")
 		 (:keywords "matchit" "vim" "evil")
-		 (:maintainer "Chen Bin <chenbin DOT sh AT gmail DOT com>")
+		 (:maintainer "Chen Bin" . "chenbin.sh@gmail.com")
 		 (:authors
-		  ("Chen Bin <chenbin DOT sh AT gmail DOT com>")))])
+		  ("Chen Bin" . "chenbin.sh@gmail.com"))
+		 (:commit . "b314e816bacfc01bb7df9b19a06b18638af5cdbe"))])
  (evil-nerd-commenter .
-		      [(3 5 6)
+		      [(3 5 7)
 		       ((emacs
 			 (25 1)))
 		       "Comment/uncomment lines efficiently. Like Nerd Commenter in Vim" tar
 		       ((:url . "http://github.com/redguardtoo/evil-nerd-commenter")
 			(:keywords "convenience" "evil")
-			(:maintainer "Chen Bin <chenbin DOT sh AT gmail.com>")
+			(:maintainer "Chen Bin" . "chenbin.sh@gmail.com")
 			(:authors
-			 ("Chen Bin <chenbin DOT sh AT gmail.com>")))])
+			 ("Chen Bin" . "chenbin.sh@gmail.com"))
+			(:commit . "29ced6fda6a76771a8a054ef55c13a1330793d4d"))])
  (evil-numbers .
 	       [(0 6)
 		((emacs
@@ -624,6 +627,15 @@
 	       ("Sebastian Wiesner" . "lunaryorn@gmail.com")
 	       ("Rüdiger Sonderfeld" . "ruediger@c-plusplus.net")
 	       ("Jonas Bernoulli" . "jonas@bernoul.li")))])
+ (gnu-apl-mode .
+	       [(1 5 1)
+		nil "Emacs mode for GNU APL" tar
+		((:url . "http://www.gnu.org/software/apl/")
+		 (:keywords "languages")
+		 (:maintainer "Elias Mårtenson" . "lokedhs@gmail.com")
+		 (:authors
+		  ("Elias Mårtenson" . "lokedhs@gmail.com"))
+		 (:commit . "deabf59d2375d4662221f8222e28caeb1be96428"))])
  (gnuplot .
 	  [(0 8 0)
 	   ((emacs
@@ -753,15 +765,16 @@
 	       ("Thierry Volpiatto" . "thierry.volpiatto@gmail.com"))
 	      (:commit . "5e035c9193bf1e1d4bb709794a154957544dcfc7"))])
  (highlight-parentheses .
-			[(2 1 0)
+			[(2 1 1)
 			 ((emacs
 			   (24 3)))
 			 "Highlight surrounding parentheses" tar
 			 ((:url . "https://sr.ht/~tsdh/highlight-parentheses.el/")
+			  (:keywords "faces" "matching")
 			  (:maintainer "Tassilo Horn" . "tsdh@gnu.org")
 			  (:authors
 			   ("Nikolaj Schumacher <bugs * nschum de>"))
-			  (:keywords "faces" "matching"))])
+			  (:commit . "438a1cb2563e2a2496be4678cc0df8d5b22caf5d"))])
  (htmlize .
 	  [(1 57)
 	   nil "Convert buffer text and decorations to HTML." tar
@@ -1118,20 +1131,17 @@
 	   ("Jonas Bernoulli" . "jonas@bernoul.li"))
 	  (:commit . "0b49d7a869b8fef3537a75df4db693ca3e3935a3"))])
  (pacmacs .
-	  [(0 1)
+	  [(0 1 1)
 	   ((emacs
 	     (24 4))
 	    (dash
-	     (2 18 0))
-	    (cl-lib
-	     (0 5))
-	    (f
-	     (0 18 0)))
+	     (2 18 0)))
 	   "Pacman for Emacs" tar
 	   ((:url . "http://github.com/codingteam/pacmacs.el")
 	    (:maintainer "Alexey Kutepov" . "reximkut@gmail.com")
 	    (:authors
-	     ("Codingteam" . "codingteam@conference.jabber.ru")))])
+	     ("Codingteam" . "codingteam@conference.jabber.ru"))
+	    (:commit . "071d008ebd734f469b87597cbdd34139a92e5308"))])
  (parseclj .
 	   [(1 1 0)
 	    ((emacs
@@ -1303,15 +1313,16 @@
 	   (:authors
 	    ("Vitalie Spinu")))])
  (shellcop .
-	   [(0 0 7)
+	   [(0 0 9)
 	    ((emacs
 	      (25 1)))
 	    "Analyze info&error in shell-mode" tar
 	    ((:url . "https://github.com/redguardtoo/shellcop")
 	     (:keywords "unix" "tools")
-	     (:maintainer "Chen Bin <chenbin DOT sh AT gmail DOT com>")
+	     (:maintainer "Chen Bin" . "chenbin.sh@gmail.com")
 	     (:authors
-	      ("Chen Bin <chenbin DOT sh AT gmail DOT com>")))])
+	      ("Chen Bin" . "chenbin.sh@gmail.com"))
+	     (:commit . "327f5ac43e5d543149a772aef06cdb616477eb43"))])
  (slime .
 	[(2 26 1)
 	 ((cl-lib
@@ -1376,13 +1387,16 @@
 		     ("John Olsson" . "john@cryon.se"))
 		    (:commit . "2d5acd143a153e16372d59000e57d76291ab81dd"))])
  (subed .
-	[(1 0 3)
+	[(1 0 5)
 	 ((emacs
 	   (25 1)))
 	 "A major mode for editing subtitles" tar
-	 ((:url . "https://github.com/rndusr/subed")
+	 ((:url . "https://github.com/sachac/subed")
 	  (:keywords "convenience" "files" "hypermedia" "multimedia")
-	  (:commit . "3b265af572d7e9032d20213264f9fa635cefd8db"))])
+	  (:maintainer "Sacha Chua" . "sacha@sachachua.com")
+	  (:authors
+	   ("Random User"))
+	  (:commit . "7a0c36c808e107b5851ba48ec3825dfa3c1a902e"))])
  (swift-mode .
 	     [(8 4 2)
 	      ((emacs
@@ -1570,6 +1584,17 @@
 	      (:maintainer "Le Wang")
 	      (:authors
 	       ("Le Wang")))])
+ (xah-fly-keys .
+	       [(17 5 20220416101054)
+		((emacs
+		  (24 1)))
+		"ergonomic modal keybinding minor mode." tar
+		((:url . "http://xahlee.info/emacs/misc/ergoemacs_vi_mode.html")
+		 (:keywords "convenience" "emulations" "vim" "ergoemacs")
+		 (:maintainer "Xah Lee ( http://xahlee.info/ )")
+		 (:authors
+		  ("Xah Lee ( http://xahlee.info/ )"))
+		 (:commit . "cb2b27ed7566b7863ad3e9adf67d75945d4118b0"))])
  (xml-rpc .
 	  [(1 6 15)
 	   nil "An elisp implementation of clientside XML-RPC" tar

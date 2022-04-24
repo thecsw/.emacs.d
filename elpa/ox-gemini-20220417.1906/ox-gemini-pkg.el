@@ -1,0 +1,2 @@
+;;; Generated package description from ox-gemini.el  -*- no-byte-compile: t -*-
+(define-package "ox-gemini" "20220417.1906" "Output gemini formatted documents from org-mode" '((emacs "26.1")) :commit "d0f2cabb2bca341494690fee4e652f926203ed9d" :authors '(("Justin Abrahms" . "justin@abrah.ms")) :maintainer '("Justin Abrahms" . "justin@abrah.ms") :keywords '("lisp" "gemini") :url "https://git.sr.ht/~abrahms/ox-gemini")
