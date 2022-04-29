@@ -1136,6 +1136,16 @@
 		      (:maintainer "Manuel Uberti" . "manuel.uberti@inventati.org")
 		      (:authors
 		       ("Manuel Uberti" . "manuel.uberti@inventati.org")))])
+ (fontaine .
+	   [(0 1 0)
+	    ((emacs
+	      (27 1)))
+	    "Set font configurations using presets" tar
+	    ((:url . "https://git.sr.ht/~protesilaos/fontaine")
+	     (:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
+	     (:authors
+	      ("Protesilaos Stavrou" . "info@protesilaos.com"))
+	     (:commit . "7896f2cdf5b2b71c718a580eec44677a0da48234"))])
  (frame-tabs .
 	     [(1 1)
 	      nil "show buffer tabs in side window" single
@@ -2782,6 +2792,15 @@
 		(:authors
 		 ("Filipp Gunbin" . "fgunbin@fastmail.fm"))
 		(:url . "https://elpa.gnu.org/packages/sql-beeline.html"))])
+ (sql-cassandra .
+		[(0 1)
+		 nil "Cassandra support for sql.el" tar
+		 ((:keywords "sql" "cassandra" "cql" "cqlsh")
+		  (:maintainer "Filipp Gunbin" . "fgunbin@fastmail.fm")
+		  (:authors
+		   ("Filipp Gunbin" . "fgunbin@fastmail.fm"))
+		  (:url . "https://elpa.gnu.org/packages/sql-cassandra.html")
+		  (:commit . "19a9bf54120c816f9635ed144b5be67bb11a31ea"))])
  (sql-indent .
 	     [(1 6)
 	      ((cl-lib
@@ -3236,7 +3255,7 @@
 	(:maintainer "Andrey Kotlarski" . "m00naticus@gmail.com")
 	(:keywords "large files" "utilities"))])
  (vundo .
-	[(1 0 0)
+	[(2 0 0)
 	 ((emacs
 	   (28 1)))
 	 "Visual undo tree" tar
@@ -3245,7 +3264,7 @@
 	  (:maintainer "Yuan Fu" . "casouri@gmail.com")
 	  (:authors
 	   ("Yuan Fu" . "casouri@gmail.com"))
-	  (:commit . "0e3af84944c2c69ddaf5364868fe77c31f62527e"))])
+	  (:commit . "10d5debe317b2244d19085151040f955dda4a9ab"))])
  (wcheck-mode .
 	      [(2021)
 	       nil "General interface for text checkers" tar
