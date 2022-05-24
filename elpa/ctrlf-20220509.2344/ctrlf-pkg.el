@@ -1,0 +1,2 @@
+;;; Generated package description from ctrlf.el  -*- no-byte-compile: t -*-
+(define-package "ctrlf" "20220509.2344" "Emacs finally learns how to ctrl+F" '((emacs "25.1")) :commit "d37d7a997e1e3ef5e2223aeecbbef92f369b0760" :authors '(("Radian LLC" . "contact+ctrlf@radian.codes")) :maintainer '("Radian LLC" . "contact+ctrlf@radian.codes") :keywords '("extensions") :url "https://github.com/radian-software/ctrlf")
