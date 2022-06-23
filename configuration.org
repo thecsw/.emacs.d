@@ -3,7 +3,7 @@
 #+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
 #+title: Sandy's .emacs.d
-#+date: 23; 12021 H.E.
+#+date: 169; 12022 H.E.
 #+author: Sandy Urazayev
 #+email: ctu@ku.edu
 #+language: en
@@ -205,6 +205,10 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
   (setq lsp-clients-clangd-args '("--header-insertion-decorators=0"))
 
+  (require 'rjsx-mode)
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . rjsx-mode))
+
   (use-package lsp-mode
     :hook ((go-mode . lsp)
            (rust-mode . lsp)
@@ -218,6 +222,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
            (js-mode . lsp)
            (ruby-mode . lsp)
            (sh-mode . lsp)
+           (rjsx-mode . lsp)
            (lsp-mode . lsp-enable-which-key-integration))
     :commands lsp)
 

@@ -489,18 +489,18 @@
 			("Ingo Lohmar" . "i.lohmar@gmail.com"))
 		       (:keywords "abbrev" "convenience" "matching"))])
  (compat .
-	 [(28 1 1 1)
+	 [(28 1 1 3)
 	  ((emacs
 	    (24 3))
 	   (nadvice
 	    (0 3)))
-	  "Compatibility Library" tar
+	  "Emacs Lisp Compatibility Library" tar
 	  ((:url . "https://sr.ht/~pkal/compat")
 	   (:keywords "lisp")
 	   (:maintainer "Compat Development" . "~pkal/compat-devel@lists.sr.ht")
 	   (:authors
 	    ("Philip Kaludercic" . "philipk@posteo.net"))
-	   (:commit . "5f1f156d8048c44e727cf3dd9a55422822562c3e"))])
+	   (:commit . "2c3233c0e09ef34176787b6e3da4319751ad91e7"))])
  (consult .
 	  [(0 18)
 	   ((emacs
@@ -2132,7 +2132,7 @@
 	      ("Ian Dunn" . "dunni@gnu.org"))
 	     (:keywords "convenience" "text" "org"))])
  (org-modern .
-	     [(0 3)
+	     [(0 4)
 	      ((emacs
 		(27 1)))
 	      "Modern looks for Org" tar
@@ -2140,7 +2140,7 @@
 	       (:maintainer "Daniel Mendler" . "mail@daniel-mendler.de")
 	       (:authors
 		("Daniel Mendler" . "mail@daniel-mendler.de"))
-	       (:commit . "64fa67a3e4cc7af4084bb879bd8a0e5380333bcf"))])
+	       (:commit . "5de3da1ff55b4567e9df3b234c09427aed2cbcd7"))])
  (org-real .
 	   [(1 0 5)
 	    ((emacs
@@ -2386,7 +2386,7 @@
 	    ("Protesilaos Stavrou" . "info@protesilaos.com"))
 	   (:commit . "86a7c429c6878287c068106b318889824cad3210"))])
  (pyim .
-       [(4 2 1)
+       [(5 1 0)
 	((emacs
 	  (25 1))
 	 (async
@@ -2400,16 +2400,16 @@
 	 (:authors
 	  ("Ye Wenbin" . "wenbinye@163.com")
 	  ("Feng Shu" . "tumashu@163.com"))
-	 (:commit . "6b4cea1b541f5efd18067d4cafa1ca4b059a0c63"))])
+	 (:commit . "5617d8f87c45e6e19af7654ac9e62cc90854776f"))])
  (pyim-basedict .
-		[(0 5 3)
+		[(0 5 4)
 		 nil "The default pinyin dict of pyim" tar
 		 ((:url . "https://github.com/tumashu/pyim-basedict")
 		  (:keywords "convenience" "chinese" "pinyin" "input-method" "complete")
 		  (:maintainer "Feng Shu" . "tumashu@163.com")
 		  (:authors
 		   ("Feng Shu" . "tumashu@163.com"))
-		  (:commit . "4aa30ff9f83cf6435230a987d323e48230f1f40e"))])
+		  (:commit . "d61af27686f7a39e6c138b7261a686e7ea7a0ef7"))])
  (python .
 	 [(0 28)
 	  ((emacs
@@ -2578,7 +2578,7 @@
 		      (:authors
 		       ("Rocky Bernstein" . "rocky@gnu.org")))])
  (rec-mode .
-	   [(1 8 4)
+	   [(1 9 0)
 	    ((emacs
 	      (25)))
 	    "Major mode for viewing/editing rec files" tar
@@ -2586,7 +2586,7 @@
 	     (:maintainer "Antoine Kalmbach" . "ane@iki.fi")
 	     (:authors
 	      ("Jose E. Marchesi" . "jemarch@gnu.org"))
-	     (:commit . "a8e7c19a548eb91762316c84870bdebb4490f2c7"))])
+	     (:commit . "09f828e9f54f32b56a805e4192588643d95c2f44"))])
  (register-list .
 		[(0 1)
 		 nil "Interactively list/edit registers" single
