@@ -578,13 +578,14 @@
 	      ("Stephen Meister" . "pallagun@gmail.com"))
 	     (:commit . "fa979dfafa1beb374bf42e937f0b5b99ed06222e"))])
  (crdt .
-       [(0 2 7)
+       [(0 3 0)
 	nil "Collaborative editing using Conflict-free Replicated Data Types" tar
 	((:url . "https://code.librehq.com/qhong/crdt.el")
 	 (:keywords "collaboration" "crdt")
 	 (:maintainer "Qiantan Hong" . "qhong@alum.mit.edu")
 	 (:authors
-	  ("Qiantan Hong" . "qhong@alum.mit.edu")))])
+	  ("Qiantan Hong" . "qhong@alum.mit.edu"))
+	 (:commit . "77be6cded0e2d24fc9c132032ae3bf7ae8ed2cf9"))])
  (crisp .
 	[(1 3 6)
 	 nil "CRiSP/Brief Emacs emulator" single
@@ -690,6 +691,16 @@
 	     ("Phil Sainty" . "psainty@orcon.net.nz"))
 	    (:maintainer "Phil Sainty" . "psainty@orcon.net.nz")
 	    (:url . "https://savannah.nongnu.org/projects/delight"))])
+ (denote .
+	 [(0 2 1)
+	  ((emacs
+	    (27 2)))
+	  "Simple notes with an efficient file-naming scheme" tar
+	  ((:url . "https://git.sr.ht/~protesilaos/denote")
+	   (:maintainer "Denote Development" . "~protesilaos/denote@lists.sr.ht")
+	   (:authors
+	    ("Protesilaos Stavrou" . "info@protesilaos.com"))
+	   (:commit . "f10fe51fcd80bbcfc44bbef31d5b8f6952b4be4c"))])
  (detached .
 	   [(0 7)
 	    ((emacs
@@ -1014,7 +1025,7 @@
 		    ("Omar Antolín Camarena" . "omar@matem.unam.mx"))
 		   (:commit . "bd603d8f3b1bcff34aee2dc4b7b36dc7912b9b26"))])
  (emms .
-       [(10)
+       [(11)
 	((cl-lib
 	  (0 5))
 	 (nadvice
@@ -1027,7 +1038,7 @@
 	 (:maintainer "Yoni Rabkin" . "yrk@gnu.org")
 	 (:authors
 	  ("Jorgen Schäfer" . "forcer@forcix.cx"))
-	 (:commit . "6afe1b26d679357586380ecd69c9795985231013"))])
+	 (:commit . "9adffa2e362e3d93367f5f69be20d81b969ad00c"))])
  (engrave-faces .
 		[(0 3 1)
 		 ((emacs
@@ -1174,15 +1185,15 @@
 		      (:authors
 		       ("Manuel Uberti" . "manuel.uberti@inventati.org")))])
  (fontaine .
-	   [(0 2 3)
+	   [(0 3 0)
 	    ((emacs
 	      (27 1)))
 	    "Set font configurations using presets" tar
 	    ((:url . "https://git.sr.ht/~protesilaos/fontaine")
-	     (:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
+	     (:maintainer "Fontaine Development" . "~protesilaos/fontaine@lists.sr.ht")
 	     (:authors
 	      ("Protesilaos Stavrou" . "info@protesilaos.com"))
-	     (:commit . "e18cc2e2a6180342ebfed8c94048b7d83e7d0d5d"))])
+	     (:commit . "9635653b16070dc290a98832d2515fe02f0605ac"))])
  (frame-tabs .
 	     [(1 1)
 	      nil "show buffer tabs in side window" single
@@ -2630,13 +2641,14 @@
 		   ("Artur Malabarba" . "emacs@endlessparentheses.com"))
 		  (:keywords "mode-line" "faces"))])
  (rnc-mode .
-	   [(0 2)
-	    nil "Emacs mode to edit Relax-NG Compact files" single
-	    ((:url . "http://elpa.gnu.org/packages/rnc-mode.html")
-	     (:keywords "xml" "relaxng")
+	   [(0 3)
+	    nil "Emacs mode to edit Relax-NG Compact files" tar
+	    ((:keywords "xml" "relaxng")
+	     (:maintainer "Stefan Monnier" . "monnier@iro.umontreal.ca")
 	     (:authors
 	      ("Stefan Monnier" . "monnier@iro.umontreal.ca"))
-	     (:maintainer "Stefan Monnier" . "monnier@iro.umontreal.ca"))])
+	     (:url . "https://elpa.gnu.org/packages/rnc-mode.html")
+	     (:commit . "dfee31d83208b734ed1d1fdc523565d7056db850"))])
  (rt-liberation .
 		[(5)
 		 nil "Emacs interface to RT" tar
@@ -3083,17 +3095,18 @@
 	  ("Oleh Krehel" . "ohwoeowho@gmail.com"))
 	 (:keywords "convenience"))])
  (tmr .
-      [(0 3 1)
+      [(0 4 0)
        ((emacs
 	 (27 1)))
        "Set timers using a convenient notation" tar
        ((:url . "https://git.sr.ht/~protesilaos/tmr")
 	(:keywords "convenience" "timer")
-	(:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
+	(:maintainer "TMR Development" . "~protesilaos/tmr@lists.sr.ht")
 	(:authors
 	 ("Protesilaos Stavrou" . "info@protesilaos.com")
-	 ("Damien Cassou" . "damien@cassou.me"))
-	(:commit . "600437f92cb7e4c111aed09fe668bf103c00f989"))])
+	 ("Damien Cassou" . "damien@cassou.me")
+	 ("Daniel Mendler" . "mail@daniel-mendler.de"))
+	(:commit . "0d6ce6979c980f0d61c61d1f6478f805612315b4"))])
  (tomelr .
 	 [(0 4 3)
 	  ((emacs
