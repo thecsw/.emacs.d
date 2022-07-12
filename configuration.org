@@ -223,6 +223,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
            (ruby-mode . lsp)
            (sh-mode . lsp)
            (rjsx-mode . lsp)
+           (zig-mode . lsp)
            (lsp-mode . lsp-enable-which-key-integration))
     :commands lsp)
 
@@ -285,6 +286,9 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (setq lsp-ui-doc-header nil)
   (setq lsp-ui-doc-show-with-cursor t)
   (setq lsp-ui-doc-show-with-mouse t)
+
+  ;; Add the zig lsp mode executable path for zls
+  (setq lsp-zig-zls-executable "/Users/thecsw/gits/zls/zig-out/bin/zls")
 #+END_SRC
 * Conda
   #+begin_src emacs-lisp

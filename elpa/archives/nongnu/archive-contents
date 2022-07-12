@@ -150,6 +150,17 @@
 	  ("Ian T Zimmerman" . "itz@rahul.net")
 	  ("Damien Doligez" . "damien.doligez@inria.fr"))
 	 (:keywords "ocaml"))])
+ (cdlatex .
+	  [(4 12)
+	   ((auctex
+	     (9 9)))
+	   "Fast input methods for LaTeX environments and math" tar
+	   ((:keywords "tex")
+	    (:maintainer "Carsten Dominik" . "carsten.dominik@gmail.com")
+	    (:authors
+	     ("Carsten Dominik" . "carsten.dominik@gmail.com"))
+	    (:url . "https://elpa.nongnu.org/nongnu/cdlatex.html")
+	    (:commit . "7791fa94d509f56ed671055e856c5d00c788dd7e"))])
  (cider .
 	[(1 4 1)
 	 ((emacs
@@ -275,7 +286,7 @@
 	       ("https://github.com/bradyt/dart-mode/issues"))
 	      (:keywords "languages"))])
  (diff-ansi .
-	    [(0 1)
+	    [(0 2)
 	     ((emacs
 	       (27 1)))
 	     "Display diff's using alternative diffing tools" tar
@@ -283,7 +294,7 @@
 	      (:maintainer "Campbell Barton" . "ideasman42@gmail.com")
 	      (:authors
 	       ("Campbell Barton" . "ideasman42@gmail.com"))
-	      (:commit . "f2207a67e3cc79433b43deeb463d0768357c350f"))])
+	      (:commit . "71336e614e3150c47c58f99f2df10a3af73370ac"))])
  (doc-show-inline .
 		  [(0 1)
 		   ((emacs
@@ -469,7 +480,7 @@
 			 ("Chen Bin" . "chenbin.sh@gmail.com"))
 			(:commit . "29ced6fda6a76771a8a054ef55c13a1330793d4d"))])
  (evil-numbers .
-	       [(0 6)
+	       [(0 7)
 		((emacs
 		  (24 1))
 		 (evil
@@ -479,7 +490,8 @@
 		 (:keywords "convenience" "tools")
 		 (:maintainer "Julia Path" . "julia@jpath.de")
 		 (:authors
-		  ("Michael Markert" . "markert.michael@googlemail.com")))])
+		  ("Michael Markert" . "markert.michael@googlemail.com"))
+		 (:commit . "61dde4e3715fd1255df8f87a37d9c8022e909bf4"))])
  (evil-visualstar .
 		  [(0 2 0)
 		   ((evil
@@ -500,7 +512,7 @@
 		   (:authors
 		    ("https://turbocafe.keybase.pub")))])
  (flymake-popon .
-		[(0 2)
+		[(0 3)
 		 ((emacs
 		   (26 1))
 		  (flymake
@@ -515,7 +527,7 @@
 		  (:maintainer "Akib Azmain Turja" . "akib@disroot.org")
 		  (:authors
 		   ("Akib Azmain Turja" . "akib@disroot.org"))
-		  (:commit . "3423e462fc32a3a87b43a4b118933606d02882f5"))])
+		  (:commit . "3255a917fc90d946a7a6f04ef7f7632c9a89ac94"))])
  (forth-mode .
 	     [(0 2)
 	      nil "Programming language mode for Forth" tar
@@ -910,6 +922,21 @@
 	       "Run an external Clojure process in an Emacs buffer" tar
 	       ((:url . "http://github.com/clojure-emacs/inf-clojure")
 		(:keywords "processes" "clojure"))])
+ (inf-ruby .
+	   [(2 6 1)
+	    ((emacs
+	      (24 3)))
+	    "Run a Ruby process in a buffer" tar
+	    ((:url . "http://github.com/nonsequitur/inf-ruby")
+	     (:keywords "languages" "ruby")
+	     (:maintainer "Yukihiro Matsumoto")
+	     (:authors
+	      ("Yukihiro Matsumoto")
+	      ("Nobuyoshi Nakada")
+	      ("Cornelius Mika" . "cornelius.mika@gmail.com")
+	      ("Dmitry Gutov" . "dgutov@yandex.ru")
+	      ("Kyle Hargraves" . "pd@krh.me"))
+	     (:commit . "4ddf6b3889004156a224e061c78357fa8936777a"))])
  (inkpot-theme .
 	       [(0 1)
 		((emacs
@@ -1583,7 +1610,7 @@
 	   ("Random User"))
 	  (:commit . "7a0c36c808e107b5851ba48ec3825dfa3c1a902e"))])
  (swift-mode .
-	     [(8 5 0)
+	     [(8 6 0)
 	      ((emacs
 		(24 4))
 	       (seq
@@ -1597,9 +1624,9 @@
 		("Chris Barrett" . "chris.d.barrett@me.com")
 		("Bozhidar Batsov" . "bozhidar@batsov.com")
 		("Arthur Evstifeev" . "lod@pisem.net"))
-	       (:commit . "c92e780530950a2cd6e501baf48c96ae4d8214a6"))])
+	       (:commit . "cdd194cbadcee724a9813da386f0a612082b1ab1"))])
  (swsw .
-       [(2 1 1)
+       [(2 2)
 	((emacs
 	  (27 1)))
 	"Simple window switching" tar
@@ -1608,7 +1635,7 @@
 	 (:maintainer "swsw Mailing List" . "~dsemy/swsw-devel@lists.sr.ht")
 	 (:authors
 	  ("Daniel Semyonov" . "daniel@dsemy.com"))
-	 (:commit . "bbe31e347c794df2753f67520060182745c8f19f"))])
+	 (:commit . "5faeffc16329a4a4946780c880c343a9fb95deb4"))])
  (symbol-overlay .
 		 [(4 1)
 		  ((emacs
@@ -1829,7 +1856,7 @@
 	      (:authors
 	       ("Le Wang")))])
  (xah-fly-keys .
-	       [(17 15 20220705140319)
+	       [(17 17 20220709145456)
 		((emacs
 		  (24 1)))
 		"ergonomic modal keybinding minor mode." tar
@@ -1838,7 +1865,7 @@
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
 		 (:authors
 		  ("Xah Lee ( http://xahlee.info/ )"))
-		 (:commit . "8bde45ee32f6833c03e349719d9272e19ebce638"))])
+		 (:commit . "2383b8b546fe6e1db4b86f4122055110ee4775f4"))])
  (xml-rpc .
 	  [(1 6 15)
 	   nil "An elisp implementation of clientside XML-RPC" tar
