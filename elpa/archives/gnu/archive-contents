@@ -207,15 +207,16 @@
 	 (:url . "https://elpa.gnu.org/packages/bbdb.html")
 	 (:commit . "715f35b5f53d6bcdcb3754b4f98933df01b57c15"))])
  (beacon .
-	 [(1 3 3)
-	  ((seq
-	    (2 14)))
-	  "Highlight the cursor whenever the window scrolls" single
-	  ((:keywords "convenience")
+	 [(1 3 4)
+	  ((emacs
+	    (25 1)))
+	  "Highlight the cursor whenever the window scrolls" tar
+	  ((:url . "https://github.com/Malabarba/beacon")
+	   (:keywords "convenience")
+	   (:maintainer "Artur Malabarba" . "emacs@endlessparentheses.com")
 	   (:authors
 	    ("Artur Malabarba" . "emacs@endlessparentheses.com"))
-	   (:maintainer "Artur Malabarba" . "emacs@endlessparentheses.com")
-	   (:url . "https://github.com/Malabarba/beacon"))])
+	   (:commit . "0cf8b60f62876f3e75653a5fb30d5d5cdd74c586"))])
  (blist .
 	[(0 1)
 	 nil "Display bookmarks in an ibuffer way" tar
@@ -285,16 +286,18 @@
 	  (:keywords "brief" "emulations" "crisp")
 	  (:url . "http://elpa.gnu.org/packages/brief.html"))])
  (buffer-env .
-	     [(0 3)
+	     [(0 4)
 	      ((emacs
-		(27 1)))
+		(27 1))
+	       (compat
+		(28 1)))
 	      "Buffer-local process environments" tar
 	      ((:url . "https://github.com/astoff/buffer-env")
 	       (:keywords "processes" "tools")
 	       (:maintainer "Augusto Stoffel" . "arstoffel@gmail.com")
 	       (:authors
 		("Augusto Stoffel" . "arstoffel@gmail.com"))
-	       (:commit . "ba1c9d24d3f1ba58445cbf1f762ba6859b66f6bf"))])
+	       (:commit . "7c176d043445ea94fe924a715158c25b91ec4776"))])
  (buffer-expose .
 		[(0 4 3)
 		 ((emacs
@@ -714,7 +717,7 @@
 	      ("Niklas Eklund" . "niklas.eklund@posteo.net"))
 	     (:commit . "8402e7ef4574c719f114b15f89b4aecdddea1e1e"))])
  (devdocs .
-	  [(0 4)
+	  [(0 5)
 	   ((emacs
 	     (27 1)))
 	   "Emacs viewer for DevDocs" tar
@@ -723,7 +726,7 @@
 	    (:maintainer "Augusto Stoffel" . "arstoffel@gmail.com")
 	    (:authors
 	     ("Augusto Stoffel" . "arstoffel@gmail.com"))
-	    (:commit . "cdc1a7cc3f05235883ffb098fe1c5a8963ed06e2"))])
+	    (:commit . "60099be5fc5c90d5adc2795b3bfacb492a0adb88"))])
  (dict-tree .
 	    [(0 16)
 	     ((trie
@@ -1569,13 +1572,14 @@
 		  ("Feng Shu" . "tumashu@163.com")
 		  ("Naoya Yamashita" . "conao3@gmail.com")))])
  (javaimp .
-	  [(0 8)
+	  [(0 9)
 	   nil "Add and reorder Java import statements in Maven/Gradle projects" tar
 	   ((:keywords "java" "maven" "gradle" "programming")
 	    (:maintainer "Filipp Gunbin" . "fgunbin@fastmail.fm")
 	    (:authors
 	     ("Filipp Gunbin" . "fgunbin@fastmail.fm"))
-	    (:url . "https://elpa.gnu.org/packages/javaimp.html"))])
+	    (:url . "https://elpa.gnu.org/packages/javaimp.html")
+	    (:commit . "65599a7954821c38e38949b5ec42891b41e75e13"))])
  (jgraph-mode .
 	      [(1 1)
 	       ((cl-lib
@@ -1889,16 +1893,16 @@
 			  ("Protesilaos Stavrou" . "info@protesilaos.com"))
 			 (:keywords "faces" "theme" "accessibility"))])
  (modus-themes .
-	       [(2 4 1)
+	       [(2 5 0)
 		((emacs
 		  (27 1)))
 		"Elegant, highly legible and customizable themes" tar
 		((:url . "https://git.sr.ht/~protesilaos/modus-themes")
 		 (:keywords "faces" "theme" "accessibility")
-		 (:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
+		 (:maintainer "Modus-Themes Development" . "~protesilaos/modus-themes@lists.sr.ht")
 		 (:authors
 		  ("Protesilaos Stavrou" . "info@protesilaos.com"))
-		 (:commit . "e3ec91232fcdd4d7fe2c48fcdb78b4ac7c6356d5"))])
+		 (:commit . "8a9839348fb8762c8843362595f2ca9de60d515c"))])
  (modus-vivendi-theme .
 		      [(0 13 2)
 		       ((emacs
@@ -2325,7 +2329,7 @@
 	     ("Phillip Lord" . "phillip.lord@russet.org.uk"))
 	    (:url . "http://elpa.gnu.org/packages/persist.html"))])
  (phps-mode .
-	    [(0 4 22)
+	    [(0 4 24)
 	     ((emacs
 	       (26)))
 	     "Major mode for PHP with code intelligence" tar
@@ -2334,7 +2338,7 @@
 	      (:maintainer "Christian Johansson" . "christian@cvj.se")
 	      (:authors
 	       ("Christian Johansson" . "christian@cvj.se"))
-	      (:commit . "69d4de374b1696bebf1fda5c9f8e1652b1b0fe2b"))])
+	      (:commit . "49c379f9f6db473310a2625b0c6dfc77d9198b6f"))])
  (pinentry .
 	   [(0 1)
 	    nil "GnuPG Pinentry server implementation" single
@@ -3137,7 +3141,7 @@
 	    ("Kaushal Modi" . "kaushal.modi@gmail.com"))
 	   (:commit . "670e0a08f625175fd80137cf69e799619bf8a381"))])
  (tramp .
-	[(2 5 3)
+	[(2 5 3 1)
 	 ((emacs
 	   (25 1)))
 	 "Transparent Remote Access, Multiple Protocol" tar
@@ -3146,7 +3150,7 @@
 	  (:maintainer "Michael Albinus" . "michael.albinus@gmx.de")
 	  (:authors
 	   ("Kai Großjohann" . "kai.grossjohann@gmx.net"))
-	  (:commit . "3e0278ea5938092600a781947334d175a4e4b542"))])
+	  (:commit . "c6e0674c4c8a0844a7555926a35e505ad4c1ff24"))])
  (tramp-nspawn .
 	       [(1 0)
 		((emacs
