@@ -274,8 +274,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (add-hook 'company-mode-hook 'company-box-mode)
 
   ;; Set the python interpreter right to ARM python3
-  (setq python-shell-interpreter "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/bin/python3.9")
-  (setq lsp-pyright-python-executable-cmd python-shell-interpreter)
+  ;; (setq python-shell-interpreter "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/bin/python3.9")
+  ;; (setq lsp-pyright-python-executable-cmd python-shell-interpreter)
 
   (lsp-register-custom-settings
    `(("python.pythonPath" "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/bin/python3.9")
@@ -290,7 +290,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   ;; Add the zig lsp mode executable path for zls
   (setq lsp-zig-zls-executable "/Users/thecsw/gits/zls/zig-out/bin/zls")
 #+END_SRC
-* Conda
+* COMMENT Conda
   #+begin_src emacs-lisp
     (require 'conda)
     ;; if you want interactive shell support, include:
