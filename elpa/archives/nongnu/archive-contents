@@ -28,13 +28,13 @@
 		(:authors
 		 ("Jordon Biondo" . "jordonbiondo@gmail.com")))])
  (annotate .
-	   [(1 7 0)
+	   [(1 7 1)
 	    nil "annotate files without changing them" tar
 	    ((:url . "https://github.com/bastibe/annotate.el")
 	     (:maintainer "Bastian Bechtold <bastibe.dev@mailbox.org>, cage" . "cage-dev@twistfold.it")
 	     (:authors
 	      ("Bastian Bechtold"))
-	     (:commit . "9bfa065a4e14f7e96c8ac487c4e54b084a02133c"))])
+	     (:commit . "7aadf4b9838ad83da9f4e6128aa9a450c66220ad"))])
  (anti-zenburn-theme .
 		     [(2 5 1)
 		      nil "Low-contrast Zenburn-inverted theme" tar
@@ -78,18 +78,17 @@
 		 (:maintainer "stardiviner" . "numbchild@gmail.com")
 		 (:keywords "languages" "arduino"))])
  (autothemer .
-	     [(0 2 3)
+	     [(0 2 9)
 	      ((dash
 		(2 10 0))
 	       (emacs
-		(24))
-	       (cl-lib
-		(0 5)))
-	      "Conveniently define themes." tar
-	      ((:url . "https://github.com/sebastiansturm/autothemer")
-	       (:maintainer "Sebastian Sturm")
+		(26 1)))
+	      "Conveniently define themes" tar
+	      ((:url . "https://github.com/jasonm23/autothemer")
+	       (:maintainer "Jason Milkins" . "jasonm23@gmail.com")
 	       (:authors
-		("Sebastian Sturm")))])
+		("Sebastian Sturm"))
+	       (:commit . "378f8707bdd944f19b6fd4544359e993c9113752"))])
  (better-jumper .
 		[(1 0 1)
 		 ((emacs
@@ -129,7 +128,7 @@
 	     (:authors
 	      ("Dave Pearson" . "davep@davep.org")))])
  (buttercup .
-	    [(1 25)
+	    [(1 26)
 	     ((emacs
 	       (24 3)))
 	     "Behavior-Driven Emacs Lisp Testing" tar
@@ -137,7 +136,7 @@
 	      (:maintainer "Ola Nilsson" . "ola.nilsson@gmail.com")
 	      (:authors
 	       ("Jorgen Schaefer" . "contact@jorgenschaefer.de"))
-	      (:commit . "ba62f80555d46faf49dc451c0ad20f39f6a170ab"))])
+	      (:commit . "9022546ebf2f492e9f3ce92e02ed893bcecab027"))])
  (caml .
        [(4 9)
 	((emacs
@@ -151,22 +150,20 @@
 	  ("Damien Doligez" . "damien.doligez@inria.fr"))
 	 (:keywords "ocaml"))])
  (cdlatex .
-	  [(4 12)
-	   ((auctex
-	     (9 9)))
-	   "Fast input methods for LaTeX environments and math" tar
+	  [(4 14)
+	   nil "Fast input methods for LaTeX environments and math" tar
 	   ((:keywords "tex")
 	    (:maintainer "Carsten Dominik" . "carsten.dominik@gmail.com")
 	    (:authors
 	     ("Carsten Dominik" . "carsten.dominik@gmail.com"))
 	    (:url . "https://elpa.nongnu.org/nongnu/cdlatex.html")
-	    (:commit . "7791fa94d509f56ed671055e856c5d00c788dd7e"))])
+	    (:commit . "6f734db8ab87f11dffb77c33a445140baeb723c4"))])
  (cider .
-	[(1 4 1)
+	[(1 5 0)
 	 ((emacs
 	   (26))
 	  (clojure-mode
-	   (5 14))
+	   (5 15 1))
 	  (parseedn
 	   (1 0 6))
 	  (queue
@@ -188,7 +185,7 @@
 	   ("Artur Malabarba" . "bruce.connor.am@gmail.com")
 	   ("Hugo Duncan" . "hugo@hugoduncan.org")
 	   ("Steve Purcell" . "steve@sanityinc.com"))
-	  (:commit . "11156e7b0cab470f4aab39d3af5ee3cb1e0b09d0"))])
+	  (:commit . "700ded1d6c245e01fca7f364db1561ad1e1bb595"))])
  (clojure-mode .
 	       [(5 15 1)
 		((emacs
@@ -307,13 +304,13 @@
 		     ("Campbell Barton" . "ideasman42@gmail.com"))
 		    (:commit . "1c5837d2a667d977a1bd90ba44ebd911cc660f26"))])
  (dockerfile-mode .
-		  [(1 5)
+		  [(1 7)
 		   ((emacs
 		     (24)))
 		   "Major mode for editing Docker's Dockerfiles" tar
 		   ((:url . "https://github.com/spotify/dockerfile-mode")
 		    (:keywords "docker")
-		    (:commit . "628315e2e4ab2f269548126444234caa057b2c75"))])
+		    (:commit . "74ed3dfd1584298a0ea9881115d33ba1808a4c3f"))])
  (dracula-theme .
 		[(1 7 0)
 		 ((emacs
@@ -549,7 +546,7 @@
 	       ("Matus Goljer" . "matus.goljer@gmail.com"))
 	      (:commit . "6f9172376af4d399c7853cbdfdd7425348a878f9"))])
  (geiser .
-	 [(0 24)
+	 [(0 26)
 	  ((emacs
 	    (25 1))
 	   (transient
@@ -562,7 +559,7 @@
 	   (:maintainer "Jose Antonio Ortega Ruiz" . "jao@gnu.org")
 	   (:authors
 	    ("Jose Antonio Ortega Ruiz" . "jao@gnu.org"))
-	   (:commit . "d28d19b582347bffebbf0ca905297e744842a5f2"))])
+	   (:commit . "40f03bbad917a16ffda0e4b5d5795a2875bc0428"))])
  (geiser-chez .
 	      [(0 17)
 	       ((emacs
@@ -779,7 +776,7 @@
 		  ("David Vazquez Pua" . "davazp@gmail.com"))
 		 (:commit . "fe8d7e2db5581cd0cb7a69563bc44f0669f76322"))])
  (gruvbox-theme .
-		[(1 27 0)
+		[(1 30 0)
 		 ((autothemer
 		   (0 2)))
 		 "A retro-groove colour theme for Emacs" tar
@@ -787,7 +784,7 @@
 		  (:maintainer "Jason Milkins" . "jasonm23@gmail.com")
 		  (:authors
 		   ("Jason Milkins" . "jasonm23@gmail.com"))
-		  (:commit . "01bcb9ed82cf00be15900fbe9721f62a6d1fa673"))])
+		  (:commit . "e9f8e6ee52727f6008c125b71a26c80cfa59c0af"))])
  (guru-mode .
 	    [(1 0)
 	     nil "Become an Emacs guru" tar
@@ -926,20 +923,20 @@
 		(:maintainer "Bozhidar Batsov" . "bozhidar@batsov.dev")
 		(:commit . "151b20ba9d3ae39b88f91aecbab98bd5a5215f1a"))])
  (inf-ruby .
-	   [(2 6 1)
+	   [(2 6 2)
 	    ((emacs
 	      (24 3)))
 	    "Run a Ruby process in a buffer" tar
 	    ((:url . "http://github.com/nonsequitur/inf-ruby")
 	     (:keywords "languages" "ruby")
-	     (:maintainer "Yukihiro Matsumoto")
+	     (:maintainer "Dmitry Gutov" . "dgutov@yandex.ru")
 	     (:authors
 	      ("Yukihiro Matsumoto")
 	      ("Nobuyoshi Nakada")
 	      ("Cornelius Mika" . "cornelius.mika@gmail.com")
 	      ("Dmitry Gutov" . "dgutov@yandex.ru")
 	      ("Kyle Hargraves" . "pd@krh.me"))
-	     (:commit . "4ddf6b3889004156a224e061c78357fa8936777a"))])
+	     (:commit . "eb7bf95d5b03bdb9b28647c89ea0a73e35fe0ad1"))])
  (inkpot-theme .
 	       [(0 1)
 		((emacs
@@ -1182,7 +1179,7 @@
 		    ("Campbell Barton" . "ideasman42@gmail.com"))
 		   (:commit . "3a1d67637ea4a6099a62de45842b8c5e4440ede4"))])
  (org-auto-tangle .
-		  [(0 5 1)
+		  [(0 6 0)
 		   ((emacs
 		     (24 1))
 		    (async
@@ -1193,7 +1190,7 @@
 		    (:maintainer "Yilkal Argaw" . "yilkalargawworkneh@gmail.com")
 		    (:authors
 		     ("Yilkal Argaw" . "yilkalargawworkneh@gmail.com"))
-		    (:commit . "bce665c79fc29f1e80f1eae7db7e91c56b0788fc"))])
+		    (:commit . "2494a6f78c9db5311123abc7cad119851a29a55c"))])
  (org-contrib .
 	      [(0 4)
 	       ((emacs
@@ -1803,7 +1800,7 @@
 			("Joost Kremers" . "joostkremers@fastmail.fm"))
 		       (:commit . "afaad5ac6b15cdf9f362662538e35d48578e218a"))])
  (web-mode .
-	   [(17 2 3)
+	   [(17 3 1)
 	    ((emacs
 	      (23 1)))
 	    "major mode for editing web templates" tar
@@ -1812,7 +1809,7 @@
 	     (:maintainer "François-Xavier Bois" . "fxbois@gmail.com")
 	     (:authors
 	      ("François-Xavier Bois"))
-	     (:commit . "7b5459f58c381f31eed257480b000a9a46209094"))])
+	     (:commit . "38ed4c575939083487e8abe59240d0ce4f671c93"))])
  (webpaste .
 	   [(3 2 2)
 	    ((emacs
@@ -1866,7 +1863,7 @@
 	      (:authors
 	       ("Le Wang")))])
  (xah-fly-keys .
-	       [(17 17 20220709145456)
+	       [(17 20 20220819141933)
 		((emacs
 		  (24 1)))
 		"ergonomic modal keybinding minor mode." tar
@@ -1875,7 +1872,7 @@
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
 		 (:authors
 		  ("Xah Lee ( http://xahlee.info/ )"))
-		 (:commit . "2383b8b546fe6e1db4b86f4122055110ee4775f4"))])
+		 (:commit . "6ed5cd15d6b63a967a5d10c3cdfafbe8bdf3e9c6"))])
  (xml-rpc .
 	  [(1 6 15)
 	   nil "An elisp implementation of clientside XML-RPC" tar
