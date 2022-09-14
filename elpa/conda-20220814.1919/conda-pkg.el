@@ -1,2 +1,0 @@
-;;; Generated package description from conda.el  -*- no-byte-compile: t -*-
-(define-package "conda" "20220814.1919" "Work with your conda environments" '((emacs "25.1") (pythonic "0.1.0") (dash "2.13.0") (s "1.11.0") (f "0.18.2")) :commit "e7f7e72cc058318b9c11499c38c3b0125322e6d6" :authors '(("Rami Chowdhury" . "rami.chowdhury@gmail.com")) :maintainer '("Rami Chowdhury" . "rami.chowdhury@gmail.com") :keywords '("languages" "local" "tools" "python" "environment" "conda") :url "http://github.com/necaris/conda.el")
