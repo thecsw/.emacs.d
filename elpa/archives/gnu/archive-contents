@@ -724,7 +724,7 @@
 	    ("Protesilaos Stavrou" . "info@protesilaos.com"))
 	   (:commit . "a143347053d1b91cbbaae602d6a109157d0e2ed7"))])
  (detached .
-	   [(0 8 1)
+	   [(0 9 0)
 	    ((emacs
 	      (27 1)))
 	    "A package to launch, and manage, detached processes" tar
@@ -733,7 +733,7 @@
 	     (:maintainer "detached.el Development" . "~niklaseklund/detached.el@lists.sr.ht")
 	     (:authors
 	      ("Niklas Eklund" . "niklas.eklund@posteo.net"))
-	     (:commit . "096dd65846b7e51cb45f4003e5562e699c691f0a"))])
+	     (:commit . "21a8cb01bb6714dcab99c49fc6a92c31540358fa"))])
  (devdocs .
 	  [(0 5)
 	   ((emacs
@@ -1059,7 +1059,7 @@
 		    ("Omar Antolín Camarena" . "omar@matem.unam.mx"))
 		   (:commit . "bd603d8f3b1bcff34aee2dc4b7b36dc7912b9b26"))])
  (ement .
-	[(0 1 3)
+	[(0 1 4)
 	 ((emacs
 	   (27 1))
 	  (map
@@ -1080,7 +1080,7 @@
 	  (:maintainer "Adam Porter" . "adam@alphapapa.net")
 	  (:authors
 	   ("Adam Porter" . "adam@alphapapa.net"))
-	  (:commit . "9e3c7fe07d396a68fa78617465c2cdb9781e8e80"))])
+	  (:commit . "19d8d086217281991d2a206a406514d3cf6ec734"))])
  (emms .
        [(11)
 	((cl-lib
@@ -2410,12 +2410,13 @@
 	      ("Harald Jörg" . "haj@posteo.de"))
 	     (:commit . "bc968d37dcc29db4cae65e6d1c3ddc80e31ffbb3"))])
  (persist .
-	  [(0 4)
+	  [(0 5)
 	   nil "Persist Variables between Emacs Sessions" tar
 	   ((:maintainer "Phillip Lord" . "phillip.lord@russet.org.uk")
 	    (:authors
 	     ("Phillip Lord" . "phillip.lord@russet.org.uk"))
-	    (:url . "http://elpa.gnu.org/packages/persist.html"))])
+	    (:url . "https://elpa.gnu.org/packages/persist.html")
+	    (:commit . "25d675307c03f720e592c3dc9a5a0ae8db0836eb"))])
  (phps-mode .
 	    [(0 4 25)
 	     ((emacs
@@ -2829,7 +2830,7 @@
 	 ("Nicolas Petton" . "nicolas@petton.fr"))
 	(:url . "https://elpa.gnu.org/packages/seq.html"))])
  (setup .
-	[(1 3 0)
+	[(1 3 1)
 	 ((emacs
 	   (26 1)))
 	 "Helpful Configuration Macro" tar
@@ -2838,7 +2839,7 @@
 	  (:maintainer "Philip Kaludercic" . "~pkal/public-inbox@lists.sr.ht")
 	  (:authors
 	   ("Philip Kaludercic" . "philipk@posteo.net"))
-	  (:commit . "eece09d1151fd641f31d738b8c62742918993e95"))])
+	  (:commit . "d768687d78a76ebe90a9eb824e98d7598655058e"))])
  (shelisp .
 	  [(1 0 0)
 	   nil "execute elisp in shell" tar
@@ -3676,12 +3677,12 @@
 	("Mattias Engdegård" . "mattiase@acm.org"))
        (:commit . "74906f6d104b7daae162dc32684e0443e80fdb03"))])
  (xref .
-       [(1 5 0)
+       [(1 5 1)
 	((emacs
 	  (26 1)))
 	"Cross-referencing commands" tar
 	((:url . "https://elpa.gnu.org/packages/xref.html")
-	 (:commit . "1b99f2908b7d2c17dc1231f83f499fe460ba926a"))])
+	 (:commit . "e0f137f079c346c5cb05f738ed96e9a09aaad4e6"))])
  (yasnippet .
 	    [(0 14 0)
 	     ((cl-lib
