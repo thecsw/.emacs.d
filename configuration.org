@@ -224,6 +224,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
            (sh-mode . lsp)
            (rjsx-mode . lsp)
            (zig-mode . lsp)
+           (css-mode . lsp)
            (lsp-mode . lsp-enable-which-key-integration))
     :commands lsp)
 
