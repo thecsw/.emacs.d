@@ -1,6 +1,6 @@
-(define-package "powerline" "20220122.1904" "Rewrite of Powerline"
+(define-package "powerline" "20221110.1956" "Rewrite of Powerline"
   '((cl-lib "0.2"))
-  :commit "566c77844f053cb39fa7acdfbc143a855450f0b5" :authors
+  :commit "c35c35bdf5ce2d992882c1f06f0f078058870d4a" :authors
   '(("Donald Ephraim Curtis" . "dcurtis@milkbox.net"))
   :maintainer
   '("Donald Ephraim Curtis" . "dcurtis@milkbox.net")

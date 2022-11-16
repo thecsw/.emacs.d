@@ -78,6 +78,24 @@ actually just the input, in which case nothing happens.
 
 (add-to-list 'completion-styles-alist '(prescient prescient-try-completion prescient-all-completions "Filtering using prescient.el.\nFor sorting, see the function `prescient-completion-sort'."))
 
+(autoload 'prescient-create-and-bind-toggle-command "prescient" "\
+Create and bind a command to toggle the use of a filter method.
+
+The created command toggles the FILTER-TYPE method on
+or off buffer locally, and doesn't affect the default
+behavior (determined by `prescient-filter-method').
+
+The created command is bound to KBD-STRING in
+`prescient-toggle-map'. This map is itself bound to `M-s'
+in the completion buffer when `selectrum-prescient-mode' or
+`vertico-prescient-mode' are enabled.
+
+FILTER-TYPE is an unquoted symbol that can be used in
+`prescient-filter-method'. KBD-STRING is a string that can be
+passed to `kbd'.
+
+\(fn FILTER-TYPE KBD-STRING)" nil t)
+
 (register-definition-prefixes "prescient" '("prescient-" "selectrum-"))
 
 ;;;***

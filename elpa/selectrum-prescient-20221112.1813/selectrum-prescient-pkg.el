@@ -1,0 +1,2 @@
+;;; Generated package description from selectrum-prescient.el  -*- no-byte-compile: t -*-
+(define-package "selectrum-prescient" "20221112.1813" "Selectrum integration" '((emacs "25.1") (prescient "6.0.0") (selectrum "3.1")) :commit "fbb4dc611d46604214112dbeebb7b02c5ecaee66" :authors '(("Radian LLC" . "contact+prescient@radian.codes")) :maintainer '("Radian LLC" . "contact+prescient@radian.codes") :keywords '("extensions") :url "https://github.com/raxod502/prescient.el")
