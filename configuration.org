@@ -1188,3 +1188,7 @@ one line
   (global-set-key (kbd "C-/") 'undo-only)
   (global-set-key (kbd "C-?") 'undo-redo)
 #+end_src
+* Undo Tree
+#+begin_src emacs-lisp
+  (global-undo-tree-mode)
+#+end_src
