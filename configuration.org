@@ -1192,3 +1192,12 @@ one line
 #+begin_src emacs-lisp
   (global-undo-tree-mode)
 #+end_src
+* Origami
+#+begin_src emacs-lisp
+  (global-origami-mode)
+
+  (bind-key "C-c g" 'origami-open-all-nodes)
+  (bind-key "C-c r" 'origami-close-all-nodes)
+  (bind-key "C-c t" 'origami-recursively-toggle-node)
+  (bind-key "C-c n" 'origami-next-fold)
+#+end_src
