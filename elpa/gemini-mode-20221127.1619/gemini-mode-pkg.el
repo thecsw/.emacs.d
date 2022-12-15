@@ -1,0 +1,2 @@
+;;; Generated package description from gemini-mode.el  -*- no-byte-compile: t -*-
+(define-package "gemini-mode" "20221127.1619" "A simple highlighting package for text/gemini" '((emacs "24.4")) :commit "a7dd7c6ea4e036d0d5ecc4a5d284874c400f10ba" :authors '(("Jason McBrayer <jmcbray@carcosa.net>, tastytea <tastytea@tastytea.de>, Étienne Deparis" . "etienne@depar.is")) :maintainer '("Jason McBrayer <jmcbray@carcosa.net>, tastytea <tastytea@tastytea.de>, Étienne Deparis" . "etienne@depar.is") :keywords '("languages") :url "https://git.carcosa.net/jmcbray/gemini.el")

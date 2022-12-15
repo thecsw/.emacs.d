@@ -1,2 +1,0 @@
-;; Generated package description from crdt.el  -*- no-byte-compile: t -*-
-(define-package "crdt" "0.3.4" "Collaborative editing using Conflict-free Replicated Data Types" 'nil :commit "92a7c93a3b4cb4b40f133acd22c89a5fda5cdd30" :authors '(("Qiantan Hong" . "qhong@alum.mit.edu")) :maintainer '("Qiantan Hong" . "qhong@alum.mit.edu") :keywords '("collaboration" "crdt") :url "https://code.librehq.com/qhong/crdt.el")
