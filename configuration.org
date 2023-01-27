@@ -225,6 +225,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
            (rjsx-mode . lsp)
            (zig-mode . lsp)
            (css-mode . lsp)
+           (java-mode . lsp)
            (lsp-mode . lsp-enable-which-key-integration))
     :commands lsp)
 
@@ -279,8 +280,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   ;; (setq lsp-pyright-python-executable-cmd python-shell-interpreter)
 
   (lsp-register-custom-settings
-   `(("python.pythonPath" "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/bin/python3.9")
-     ("python.venvPath" "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake")))
+   `(("python.pythonPath" "/opt/homebrew/bin/python3")))
 
   (setq lsp-ui-doc-enable t)
   (setq lsp-ui-doc-delay 0.1)
@@ -435,7 +435,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+END_SRC
 * Emojify
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'after-init-hook #'global-emojify-mode)
+;  (add-hook 'after-init-hook #'global-emojify-mode)
 #+END_SRC
 * Ripgrep
 #+BEGIN_SRC emacs-lisp

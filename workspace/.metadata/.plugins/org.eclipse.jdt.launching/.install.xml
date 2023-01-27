@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dirs>
+    <entry loc="/opt/homebrew/Cellar/openjdk/19.0.1/libexec/openjdk.jdk/Contents/Home" stamp="1663078580000"/>
+    <entry loc="/Library/Java/JavaVirtualMachines/temurin-19.jdk/Contents/Home" stamp="1666211614000"/>
+    <entry loc="/Library/Java/JavaVirtualMachines/adoptopenjdk-16.jdk/Contents/Home" stamp="1628583562623"/>
+    <entry loc="/Library/Java/JavaVirtualMachines/jdk-16.0.2.jdk/Contents/Home" stamp="1623191630000"/>
+    <entry loc="/Library/Java/JavaVirtualMachines/zulu-16.jdk/Contents/Home" stamp="1621916424000"/>
+</dirs>
