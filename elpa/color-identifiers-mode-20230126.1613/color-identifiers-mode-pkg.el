@@ -1,0 +1,2 @@
+;;; Generated package description from color-identifiers-mode.el  -*- no-byte-compile: t -*-
+(define-package "color-identifiers-mode" "20230126.1613" "Color identifiers based on their names" '((dash "2.5.0") (emacs "24")) :commit "3cf87b6a231f231fa66ce4890dfe4a74142a8660" :authors '(("Ankur Dave" . "ankurdave@gmail.com")) :maintainer '("Ankur Dave" . "ankurdave@gmail.com") :keywords '("faces" "languages") :url "https://github.com/ankurdave/color-identifiers-mode")

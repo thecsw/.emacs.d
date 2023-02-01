@@ -1,2 +1,0 @@
-;;; Generated package description from prescient.el  -*- no-byte-compile: t -*-
-(define-package "prescient" "20221112.1813" "Better sorting and filtering" '((emacs "25.1")) :commit "fbb4dc611d46604214112dbeebb7b02c5ecaee66" :authors '(("Radian LLC" . "contact+prescient@radian.codes")) :maintainer '("Radian LLC" . "contact+prescient@radian.codes") :keywords '("extensions") :url "https://github.com/raxod502/prescient.el")
