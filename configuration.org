@@ -237,7 +237,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
   (setq lsp-keymap-prefix "C-c l")
 
-  (global-set-key (kbd"C-c f") 'lsp-find-definition)
+  (global-set-key (kbd "C-c f") 'lsp-find-definition)
+  (global-set-key (kbd "C-c b") 'lsp-find-references)
 
   ;; Optional - provides snippet support.
   (use-package yasnippet
@@ -1200,4 +1201,9 @@ one line
   (bind-key "C-c r" 'origami-close-all-nodes)
   (bind-key "C-c t" 'origami-recursively-toggle-node)
   (bind-key "C-c n" 'origami-next-fold)
+#+end_src
+* Raise the limits
+#+begin_src emacs-lisp
+  (setq max-lisp-eval-depth 10000)
+  (setq max-specpdl-size 10000)
 #+end_src
