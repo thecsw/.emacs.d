@@ -533,17 +533,17 @@
 	    ("Philip Kaludercic <philipk@posteo.net>, Daniel Mendler" . "mail@daniel-mendler.de"))
 	   (:commit . "7a9c37f1b371b2c144b9d76e1f6333032d9f9179"))])
  (consult .
-	  [(0 32)
+	  [(0 33)
 	   ((emacs
 	     (27 1))
 	    (compat
-	     (29 1 3 2)))
+	     (29 1 4 0)))
 	   "Consulting completing-read" tar
 	   ((:url . "https://github.com/minad/consult")
 	    (:maintainer "Daniel Mendler" . "mail@daniel-mendler.de")
 	    (:authors
 	     ("Daniel Mendler and Consult contributors"))
-	    (:commit . "0759dd12bb2290480644a7ec34118f67718074ad"))])
+	    (:commit . "fd00979d2fbfad66960c621e9fc140eb8c6a06f3"))])
  (consult-recoll .
 		 [(0 8)
 		  ((emacs
@@ -750,6 +750,18 @@
 	   (:authors
 	    ("Protesilaos Stavrou" . "info@protesilaos.com"))
 	   (:commit . "7c425a2d0988f3fae603434c1f8044be8293d517"))])
+ (denote-menu .
+	      [(1 0 0)
+	       ((emacs
+		 (28 1))
+		(denote
+		 (1 2 0)))
+	       "View denote files in a tabulated list." tar
+	       ((:maintainer "Mohamed Suliman" . "sulimanm@tcd.ie")
+		(:authors
+		 ("Mohamed Suliman" . "sulimanm@tcd.ie"))
+		(:url . "https://elpa.gnu.org/packages/denote-menu.html")
+		(:commit . "3bd7cf7d126d4493df17715aec3e7a9046efdc8c"))])
  (detached .
 	   [(0 10 1)
 	    ((emacs
@@ -978,7 +990,7 @@
 	 ("Eduardo Ochs" . "eduardoochs@gmail.com"))
 	(:commit . "16613c18c5ec17755f083f4839bca7e4e05dd4c7"))])
  (ef-themes .
-	    [(0 10 0)
+	    [(0 11 0)
 	     ((emacs
 	       (27 1)))
 	     "Colorful and legible themes" tar
@@ -987,9 +999,9 @@
 	      (:maintainer "Ef-Themes Development" . "~protesilaos/ef-themes@lists.sr.ht")
 	      (:authors
 	       ("Protesilaos Stavrou" . "info@protesilaos.com"))
-	      (:commit . "35201e49e8c3f5d1a2d6c17cb1697a9e18529a9a"))])
+	      (:commit . "1d7e6e78df914e8829e6511a935616b0895403ae"))])
  (eglot .
-	[(1 11)
+	[(1 13)
 	 ((emacs
 	   (26 3))
 	  (jsonrpc
@@ -997,9 +1009,9 @@
 	  (flymake
 	   (1 2 1))
 	  (project
-	   (0 9 3))
+	   (0 9 8))
 	  (xref
-	   (1 4 0))
+	   (1 6 2))
 	  (eldoc
 	   (1 11 0))
 	  (seq
@@ -1012,7 +1024,7 @@
 	  (:maintainer "João Távora" . "joaotavora@gmail.com")
 	  (:authors
 	   ("João Távora" . "joaotavora@gmail.com"))
-	  (:commit . "f72a394716f4373dbbdc79ad0816da90bdb032a1"))])
+	  (:commit . "0fdc953edf7cfd0fe236b6b6e5726e4e58d9a94f"))])
  (el-search .
 	    [(1 12 6 1)
 	     ((emacs
@@ -1091,7 +1103,7 @@
 		    ("Omar Antolín Camarena" . "omar@matem.unam.mx"))
 		   (:commit . "127492fac048cecfdba145d496a902022a68d1d5"))])
  (ement .
-	[(0 5 2)
+	[(0 7)
 	 ((emacs
 	   (27 1))
 	  (map
@@ -1112,7 +1124,7 @@
 	  (:maintainer "Adam Porter" . "adam@alphapapa.net")
 	  (:authors
 	   ("Adam Porter" . "adam@alphapapa.net"))
-	  (:commit . "58ea59e80c5a68098c83413c49622aa0b08d7579"))])
+	  (:commit . "5bb6c930ff29f22263018b5dff7b45669b8357f5"))])
  (emms .
        [(14)
 	((cl-lib
@@ -1631,7 +1643,7 @@
 	   ("Durand" . "mmemmew@gmail.com"))
 	  (:url . "https://elpa.gnu.org/packages/ilist.html"))])
  (inspector .
-	    [(0 20)
+	    [(0 28)
 	     ((emacs
 	       (27 1)))
 	     "Tool for inspection of Emacs Lisp objects" tar
@@ -1640,7 +1652,7 @@
 	      (:maintainer "Mariano Montone" . "marianomontone@gmail.com")
 	      (:authors
 	       ("Mariano Montone" . "marianomontone@gmail.com"))
-	      (:commit . "61fd1dc7e321525cca11a5a899c631f745b2cf31"))])
+	      (:commit . "0b2cf2f00a827f06bda717da8250eafec4108fb3"))])
  (ioccur .
 	 [(2 6)
 	  ((emacs
@@ -1767,7 +1779,7 @@
 		 ("Stefan Monnier" . "monnier@iro.umontreal.ca"))
 		(:maintainer "Stefan Monnier" . "monnier@iro.umontreal.ca"))])
  (jit-spell .
-	    [(0 1)
+	    [(0 2)
 	     ((emacs
 	       (27 1))
 	      (compat
@@ -1778,7 +1790,7 @@
 	      (:maintainer "Augusto Stoffel" . "arstoffel@gmail.com")
 	      (:authors
 	       ("Augusto Stoffel" . "arstoffel@gmail.com"))
-	      (:commit . "0411d64169b5cef74c7b1c404dd1661596a7d1f8"))])
+	      (:commit . "c0340baa13ec381f88191bfa9f95d6f4199503fc"))])
  (js2-mode .
 	   [(20220710)
 	    ((emacs
@@ -1805,7 +1817,7 @@
 	       ("Simen Heggestøyl" . "simenheg@gmail.com"))
 	      (:maintainer "Simen Heggestøyl" . "simenheg@gmail.com"))])
  (jsonrpc .
-	  [(1 0 16)
+	  [(1 0 17)
 	   ((emacs
 	     (25 2)))
 	   "JSON-RPC library" tar
@@ -1814,7 +1826,7 @@
 	    (:authors
 	     ("João Távora" . "joaotavora@gmail.com"))
 	    (:url . "https://elpa.gnu.org/packages/jsonrpc.html")
-	    (:commit . "8bf4cdcf79bc3254a9169f28f68922ab83bd4e78"))])
+	    (:commit . "2d835d64ba339bb375f0d55c4679149d6da3f209"))])
  (jumpc .
 	[(3 0)
 	 nil "jump to previous insertion points" single
@@ -2375,15 +2387,17 @@
 	      ("Ian Dunn" . "dunni@gnu.org"))
 	     (:keywords "convenience" "text" "org"))])
  (org-modern .
-	     [(0 8)
+	     [(0 9)
 	      ((emacs
-		(27 1)))
+		(27 1))
+	       (compat
+		(29 1 4 0)))
 	      "Modern looks for Org" tar
 	      ((:url . "https://github.com/minad/org-modern")
 	       (:maintainer "Daniel Mendler" . "mail@daniel-mendler.de")
 	       (:authors
 		("Daniel Mendler" . "mail@daniel-mendler.de"))
-	       (:commit . "42fdbd2d27f5a8652593577a200eeea96555d018"))])
+	       (:commit . "b614ad31d72c49f9eb29d3836995fd7fb0d1fd4a"))])
  (org-notify .
 	     [(0 1 0)
 	      ((emacs
@@ -2589,7 +2603,7 @@
 	      ("Daiki Ueno" . "ueno@gnu.org"))
 	     (:maintainer "Daiki Ueno" . "ueno@gnu.org"))])
  (plz .
-      [(0 3)
+      [(0 4)
        ((emacs
 	 (26 3)))
        "HTTP library" tar
@@ -2598,7 +2612,7 @@
 	(:maintainer "Adam Porter" . "adam@alphapapa.net")
 	(:authors
 	 ("Adam Porter" . "adam@alphapapa.net"))
-	(:commit . "ecd1de2a7967bd8bc61737078d717d0ee050b344"))])
+	(:commit . "3e8a8e0bf6312922ccf65721f2d13dbd7ce76170"))])
  (poke .
        [(3 0)
 	((emacs
@@ -2626,7 +2640,7 @@
 	   ("Mario Lang" . "mlang@delysid.org"))
 	  (:maintainer "Mario Lang" . "mlang@delysid.org"))])
  (posframe .
-	   [(1 4 0)
+	   [(1 4 1)
 	    ((emacs
 	      (26 1)))
 	    "Pop a posframe (just a frame) at point" tar
@@ -2635,7 +2649,7 @@
 	     (:maintainer "Feng Shu" . "tumashu@163.com")
 	     (:authors
 	      ("Feng Shu" . "tumashu@163.com"))
-	     (:commit . "dace2dcf105e9685b4085836645b3392dc7e2211"))])
+	     (:commit . "b00f1386ca4e251a5c3d8985d313217e56e42a7e"))])
  (project .
 	  [(0 9 8)
 	   ((emacs
@@ -2675,7 +2689,7 @@
 	    ("Protesilaos Stavrou" . "info@protesilaos.com"))
 	   (:commit . "e01a8f7e80c5c83dfcfb87b10e0213d4963e4d15"))])
  (pyim .
-       [(5 3 0)
+       [(5 3 1)
 	((emacs
 	  (27 1))
 	 (async
@@ -2689,7 +2703,7 @@
 	 (:authors
 	  ("Ye Wenbin" . "wenbinye@163.com")
 	  ("Feng Shu" . "tumashu@163.com"))
-	 (:commit . "20b633aab16a31ffd1ca642ebaf329f0ad7c79d7"))])
+	 (:commit . "6cc5b76a947938b3b9e842423497a1875b7ca1a0"))])
  (pyim-basedict .
 		[(0 5 4)
 		 nil "The default pinyin dict of pyim" tar
@@ -2867,6 +2881,20 @@
 		      (:maintainer "Rocky Bernstein" . "rocky@gnu.org")
 		      (:authors
 		       ("Rocky Bernstein" . "rocky@gnu.org")))])
+ (realgud-trepan-xpy .
+		     [(1 0 1)
+		      ((realgud
+			(1 5 0))
+		       (load-relative
+			(1 3 1))
+		       (emacs
+			(25)))
+		      "Realgud front-end to trepan-xpy" tar
+		      ((:url . "https://github.com/realgud/realgud-trepan-xpy")
+		       (:maintainer "Rocky Bernstein" . "rocky@gnu.org")
+		       (:authors
+			("Rocky Bernstein" . "rocky@gnu.org"))
+		       (:commit . "f758f48266d90775643454e72214e40a4ed320b8"))])
  (rec-mode .
 	   [(1 9 1)
 	    ((emacs
@@ -2886,7 +2914,7 @@
 		   ("Bastien Guerry" . "bzg@gnu.org"))
 		  (:maintainer "Bastien Guerry" . "bzg@gnu.org"))])
  (relint .
-	 [(1 21)
+	 [(1 22)
 	  ((xr
 	    (1 22))
 	   (emacs
@@ -2897,7 +2925,7 @@
 	   (:maintainer "Mattias Engdegård" . "mattiase@acm.org")
 	   (:authors
 	    ("Mattias Engdegård" . "mattiase@acm.org"))
-	   (:commit . "f3da21d1748bae5b87f8ca010449a780f155a2e5"))])
+	   (:commit . "011f4f10ee65fb698d4caf3c72ba8ee6b98e3de5"))])
  (repology .
 	   [(1 2 3)
 	    ((emacs
@@ -3250,7 +3278,7 @@
 	   (:keywords "stream" "laziness" "sequences")
 	   (:url . "http://elpa.gnu.org/packages/stream.html"))])
  (substitute .
-	     [(0 1 6)
+	     [(0 1 7)
 	      ((emacs
 		(27 1)))
 	      "Efficiently replace targets in the buffer or context" tar
@@ -3258,7 +3286,7 @@
 	       (:maintainer "Protesilaos Stavrou General Issues" . "~protesilaos/general-issues@lists.sr.ht")
 	       (:authors
 		("Protesilaos Stavrou" . "info@protesilaos.com"))
-	       (:commit . "0605b995b60048a5eeb12edcc7e1d20663f019f6"))])
+	       (:commit . "d7dcd3b1ae4d910ce5d698f5bc09fa8b9a638398"))])
  (svg .
       [(1 1)
        ((emacs
@@ -3283,14 +3311,14 @@
 	       ("Ulf Jasper" . "ulf.jasper@web.de"))
 	      (:maintainer "Ulf Jasper" . "ulf.jasper@web.de"))])
  (svg-lib .
-	  [(0 2 5)
+	  [(0 2 6)
 	   ((emacs
 	     (27 1)))
 	   "SVG tags, progress bars & icons" tar
 	   ((:url . "https://github.com/rougier/svg-lib")
 	    (:keywords "svg" "icons" "tags" "convenience")
 	    (:maintainer "Nicolas P. Rougier" . "Nicolas.Rougier@inria.fr")
-	    (:commit . "0486c9453449771bc3f5872f70bc5cb23580d0f4"))])
+	    (:commit . "5ba4e4ea2b5c66e8811beb53251dee13685b2cb2"))])
  (svg-tag-mode .
 	       [(0 3 2)
 		((emacs
@@ -3707,17 +3735,17 @@
 		  ("Wilson Snyder" . "wsnyder@wsnyder.org"))
 		 (:commit . "2c2ecb46b0ad3e841ac9551e3a80d02893cdf6ec"))])
  (vertico .
-	  [(1 1)
+	  [(1 2)
 	   ((emacs
 	     (27 1))
 	    (compat
-	     (29 1 3 4)))
+	     (29 1 4 0)))
 	   "VERTical Interactive COmpletion" tar
 	   ((:url . "https://github.com/minad/vertico")
 	    (:maintainer "Daniel Mendler" . "mail@daniel-mendler.de")
 	    (:authors
 	     ("Daniel Mendler" . "mail@daniel-mendler.de"))
-	    (:commit . "01f0fc07d1831f00ebc64550867a0fa6eedb1fb7"))])
+	    (:commit . "3386763b717415840fd58929cc2ca056e0eb10d5"))])
  (vertico-posframe .
 		   [(0 7 2)
 		    ((emacs
@@ -3946,12 +3974,12 @@
 	("Mattias Engdegård" . "mattiase@acm.org"))
        (:commit . "74906f6d104b7daae162dc32684e0443e80fdb03"))])
  (xref .
-       [(1 6 2)
+       [(1 6 3)
 	((emacs
 	  (26 1)))
 	"Cross-referencing commands" tar
 	((:url . "https://elpa.gnu.org/packages/xref.html")
-	 (:commit . "b5bea14ca178b9f0c3944a9a14363c9923853814"))])
+	 (:commit . "4b6f2a7028b91128934a19f83572f24106782225"))])
  (yasnippet .
 	    [(0 14 0)
 	     ((cl-lib
