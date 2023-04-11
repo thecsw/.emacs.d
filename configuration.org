@@ -1219,7 +1219,7 @@ one line
   (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
   (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
 #+end_src
-* dired-gitignore
+* Dired-gitignore
 #+begin_src emacs-lisp
   (define-key dired-mode-map (kbd "h") #'dired-gitignore-mode)
   ;; (add-hook 'dired-mode-hook 'dired-gitignore-mode)
