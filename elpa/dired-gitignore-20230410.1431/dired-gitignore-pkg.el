@@ -1,0 +1,2 @@
+;;; Generated package description from dired-gitignore.el  -*- no-byte-compile: t -*-
+(define-package "dired-gitignore" "20230410.1431" "A minor mode to hide gitignored files in a dired buffer" '((emacs "27.1")) :commit "daedf426161a329d606fb4d02fda90fd39ce8a70" :authors '(("Johannes Mueller" . "github@johannes-mueller.org")) :maintainer '("Johannes Mueller" . "github@johannes-mueller.org") :keywords '("dired" "convenience" "git") :url "https://github.com/johannes-mueller/dired-gitignore.el")
