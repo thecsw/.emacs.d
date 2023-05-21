@@ -217,7 +217,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
            (elm-mode . lsp)
            (js-mode . lsp)
            (ruby-mode . lsp)
-           (sh-mode . lsp)
+           ;; (sh-mode . lsp)
            (rjsx-mode . lsp)
            (zig-mode . lsp)
            (css-mode . lsp)

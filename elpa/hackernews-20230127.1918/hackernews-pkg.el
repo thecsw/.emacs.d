@@ -1,0 +1,2 @@
+;;; Generated package description from hackernews.el  -*- no-byte-compile: t -*-
+(define-package "hackernews" "20230127.1918" "Hacker News Client for Emacs" 'nil :commit "dcb312194b60e9841a63455ba893d60856099c79" :authors '(("Lincoln de Sousa" . "lincoln@comum.org")) :maintainers '(("Basil L. Contovounesios" . "contovob@tcd.ie")) :maintainer '("Basil L. Contovounesios" . "contovob@tcd.ie") :keywords '("comm" "hypermedia" "news") :url "https://github.com/clarete/hackernews.el")
