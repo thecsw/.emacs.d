@@ -117,8 +117,20 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+END_SRC
 ** Line numbers
 #+BEGIN_SRC emacs-lisp
-(setq linum-format "%4d  ")
-(global-linum-mode 1)
+  ;; (menu-bar--display-line-numbers-mode-visual) ; <- relative
+  ;; (menu-bar--display-line-numbers-mode-relative) ; <- relative
+  (menu-bar--display-line-numbers-mode-absolute)
+
+  ;; This fixes an annoying issue of the left line number
+  ;; sliding right when we get into bigger digits. Let's hope
+  ;; I don't open a file with >99,999 lines.
+  (setq display-line-numbers-width-start 5)
+
+  (setq display-line-numbers-grow-only t)
+  (setq display-line-numbers-minor-tick 100)
+
+  ;; enable the line mode globally
+  (global-display-line-numbers-mode)
 #+END_SRC
 ** Scrolling
  #+BEGIN_SRC emacs-lisp
