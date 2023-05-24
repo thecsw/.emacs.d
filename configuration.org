@@ -8,10 +8,6 @@
 #+email: ctu@ku.edu
 #+language: en
 
-#+HTML_HEAD: <link rel="stylesheet" href="https://sandyuraz.com/styles/org.min.css">
-
-[[./emacs.png]]
-
 * Lorem Ipsum
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -221,7 +217,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
            (elm-mode . lsp)
            (js-mode . lsp)
            (ruby-mode . lsp)
-           (sh-mode . lsp)
+           ;; (sh-mode . lsp)
            (rjsx-mode . lsp)
            (zig-mode . lsp)
            (css-mode . lsp)
@@ -237,7 +233,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
   (setq lsp-keymap-prefix "C-c l")
 
-  (global-set-key (kbd"C-c f") 'lsp-find-definition)
+  (global-set-key (kbd "C-c f") 'lsp-find-definition)
+  (global-set-key (kbd "C-c b") 'lsp-find-references)
 
   ;; Optional - provides snippet support.
   (use-package yasnippet
@@ -1200,4 +1197,26 @@ one line
   (bind-key "C-c r" 'origami-close-all-nodes)
   (bind-key "C-c t" 'origami-recursively-toggle-node)
   (bind-key "C-c n" 'origami-next-fold)
+#+end_src
+* Raise the limits
+#+begin_src emacs-lisp
+  (setq max-lisp-eval-depth 10000)
+  (setq max-specpdl-size 10000)
+#+end_src
+* Copilot
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/elpa/copilot.el")
+  (require 'copilot)
+
+  (with-eval-after-load 'company
+    ;; disable inline previews
+    (delq 'company-preview-if-just-one-frontend company-frontends))
+
+  (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+  (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+#+end_src
+* Dired-gitignore
+#+begin_src emacs-lisp
+  (define-key dired-mode-map (kbd "h") #'dired-gitignore-mode)
+  ;; (add-hook 'dired-mode-hook 'dired-gitignore-mode)
 #+end_src
