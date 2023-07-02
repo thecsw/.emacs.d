@@ -1,2 +1,0 @@
-;;; Generated package description from go-gen-test.el  -*- no-byte-compile: t -*-
-(define-package "go-gen-test" "20230127.1422" "Generate tests for go code with gotests" '((emacs "24.4")) :commit "f84f4177af7fcbe10ce2116d5417ad5f0485034b" :authors '(("Sergey Kostyaev" . "feo.me@ya.ru")) :maintainer '("Sergey Kostyaev" . "feo.me@ya.ru") :keywords '("languages") :url "https://github.com/s-kostyaev/go-gen-test")

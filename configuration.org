@@ -281,8 +281,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     :ensure t
     :commands company-lsp)
 
-  (require 'company-box)
-  (add-hook 'company-mode-hook 'company-box-mode)
+  ;; (require 'company-box)
+  ;; (add-hook 'company-mode-hook 'company-box-mode)
 
   ;; Set the python interpreter right to ARM python3
   ;; (setq python-shell-interpreter "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/bin/python3.9")
@@ -577,7 +577,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (exec-path-from-shell-initialize))
 #+END_SRC
 * Nano
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   ;; ---------------------------------------------------------------------
   ;; GNU Emacs / N Λ N O - Emacs made simple
   ;; Copyright (C) 2020 - N Λ N O developers
@@ -643,12 +643,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
   ;; Hide org markup for README
   (setq org-hide-emphasis-markers t)
-#+END_SRC
-* Company
-#+BEGIN_SRC emacs-lisp
-  (eval-after-load 'company
-    '(push 'company-robe company-backends))
-#+END_SRC
+#+end_src
 * ox5 export (contrib)
 ** source
    #+BEGIN_SRC emacs-lisp
