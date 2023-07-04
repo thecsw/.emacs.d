@@ -337,7 +337,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
   Press =C-x g= to open magit
 #+BEGIN_SRC emacs-lisp
-    (global-set-key (kbd "C-x g") 'magit-status)
+  (global-set-key (kbd "C-x g") 'magit-status)
 #+END_SRC
 * TRAMP
 #+BEGIN_SRC emacs-lisp
@@ -1198,12 +1198,14 @@ one line
 #+end_src
 * Origami
 #+begin_src emacs-lisp
+  ;; (add-to-list 'load-path (expand-file-name "/Users/thecsw/.emacs.d/elpa/origami-20200331.1019/origami.el/"))
   (global-origami-mode)
 
   (bind-key "C-c g" 'origami-open-all-nodes)
   (bind-key "C-c r" 'origami-close-all-nodes)
   (bind-key "C-c t" 'origami-recursively-toggle-node)
   (bind-key "C-c n" 'origami-next-fold)
+  (bind-key "C-c u" 'origami-previous-fold)  
 #+end_src
 * Raise the limits
 #+begin_src emacs-lisp

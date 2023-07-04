@@ -233,6 +233,7 @@ Call `helm' only with SOURCES and BUFFER as args.
 ;;; Generated autoloads from helm-source.el
 
 (register-definition-prefixes "helm-source" '("helm-"))
+
 
 ;;; End of scraped data
 
