@@ -1,6 +1,6 @@
-(define-package "websearch" "20230624.1317" "Query search engines"
+(define-package "websearch" "20230705.1639" "Query search engines"
   '((emacs "24.4"))
-  :commit "a335f486d85a334bc088d3deb5f6863bfdfd2ca4" :authors
+  :commit "5120cec3c36ddcdaceb5235c0b52eecbc3b37fcb" :authors
   '(("Maciej Barć" . "xgqt@riseup.net"))
   :maintainers
   '(("Maciej Barć" . "xgqt@riseup.net"))

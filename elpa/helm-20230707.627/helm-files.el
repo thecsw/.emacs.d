@@ -5045,16 +5045,18 @@ Special commands:
                  (let ((thumbnail (plist-get
                                    (cdr (helm-ff--image-dired-get-thumbnail-image img))
                                    :file)))
-                   (cons (concat (propertize " "
-                                             'display `(image
-                                                        :type ,type
-                                                        :margin 5
-                                                        :file ,thumbnail)
-                                             'rear-nonsticky '(display))
-                                 disp)
-                         img))
-                 else collect (cons disp img)))
-    candidates))
+                   ;; When icons are displayed the leading space handling disp
+                   ;; prop is already here, just replace icon with the thumbnail.
+                   (unless helm-ff-icon-mode (setq disp (concat " " disp)))
+                   (add-text-properties 0 1 `(display (image
+                                                       :type ,type
+                                                       :margin 5
+                                                       :file ,thumbnail)
+                                                      rear-nonsticky '(display))
+                                        disp)
+                   (cons disp img))
+                   else collect (cons disp img)))
+        candidates))
 
 ;; Same as `image-dired-get-thumbnail-image' but use
 ;; `helm-ff--image-dired-thumb-name' which cache thumbnails for further use.
@@ -5063,11 +5065,11 @@ Special commands:
   (unless (string-match-p (image-file-name-regexp) file)
     (error "%s is not a valid image file" file))
   (let* ((thumb-file (helm-ff--image-dired-thumb-name file))
-	 (thumb-attr (file-attributes thumb-file)))
+         (thumb-attr (file-attributes thumb-file)))
     (when (or (not thumb-attr)
-	      (time-less-p (file-attribute-modification-time thumb-attr)
-			   (file-attribute-modification-time
-			    (file-attributes file))))
+              (time-less-p (file-attribute-modification-time thumb-attr)
+                           (file-attribute-modification-time
+                            (file-attributes file))))
       (image-dired-create-thumb file thumb-file))
     (create-image thumb-file)))
 
@@ -5094,8 +5096,9 @@ Special commands:
                      helm-ff--thumbnailed-directories))
     (setq helm-ff--thumbnailed-directories
           (delete helm-ff-default-directory helm-ff--thumbnailed-directories)))
-  (helm-update (regexp-quote (replace-regexp-in-string
-                              "\\`[[:multibyte:] ]*" "" (helm-get-selection nil t)))))
+  (helm-force-update (regexp-quote (replace-regexp-in-string
+                                    "\\`[[:multibyte:] ]*" ""
+                                    (helm-get-selection nil t)))))
 (put 'helm-ff-toggle-thumbnails 'no-helm-mx t)
 
 ;;;###autoload
@@ -5439,6 +5442,10 @@ source is `helm-source-find-files'."
           helm-ff-update-when-only-one-matched
           helm-ff-move-to-first-real-candidate
           helm-ff-clean-initial-input))
+  (maphash (lambda (k _v)
+             (when (member k helm-ff--thumbnailed-directories)
+               (remhash k helm-ff--list-directory-cache)))
+           helm-ff--list-directory-cache)
   (setq helm-ff--show-directories-only nil
         helm-ff--show-files-only nil
         helm-ff--show-thumbnails nil

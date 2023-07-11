@@ -22,7 +22,7 @@
 
 ;; Author: Maciej Barć <xgqt@riseup.net>
 ;; Homepage: https://gitlab.com/xgqt/emacs-websearch/
-;; Version: 2.1.0
+;; Version: 2.1.1
 ;; Keywords: convenience hypermedia
 ;; Package-Requires: ((emacs "24.4"))
 ;; SPDX-License-Identifier: GPL-2.0-or-later
@@ -49,6 +49,19 @@
 ;; (https://github.com/hrs/engine-mode), but the differences are big enough
 ;; for it to be it's own package.
 
+;; The full set of commands you can try is:
+;; * websearch-mode
+;; * websearch
+;; * websearch-browse-with
+;; * websearch-kill-ring
+;; * websearch-list-engines
+;; * websearch-point
+;; * websearch-region
+;; * websearch-term
+
+;; For more information and screenshots, see:
+;; https://gitlab.com/xgqt/emacs-websearch/
+
 
 
 ;;; Code:
@@ -69,7 +82,7 @@
   :group 'web)
 
 
-(defconst websearch-version "2.1.0"
+(defconst websearch-version "2.1.1"
   "Search-Engine package version.")
 
 (defconst websearch-methods

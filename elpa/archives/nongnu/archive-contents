@@ -28,13 +28,13 @@
 		(:authors
 		 ("Jordon Biondo" . "jordonbiondo@gmail.com")))])
  (annotate .
-	   [(2 0 0)
+	   [(2 0 1)
 	    nil "annotate files without changing them" tar
 	    ((:url . "https://github.com/bastibe/annotate.el")
 	     (:maintainer "Bastian Bechtold <bastibe.dev@mailbox.org>, cage" . "cage-dev@twistfold.it")
 	     (:authors
 	      ("Bastian Bechtold"))
-	     (:commit . "b8c929994048ed98c2a4fe6510365ece90dad8ec"))])
+	     (:commit . "93c4e36e7e62e5d82b9b3e659e59331b7df48f58"))])
  (anti-zenburn-theme .
 		     [(2 5 1)
 		      nil "Low-contrast Zenburn-inverted theme" tar
@@ -190,14 +190,14 @@
 	  ("Damien Doligez" . "damien.doligez@inria.fr"))
 	 (:keywords "ocaml"))])
  (cdlatex .
-	  [(4 14)
+	  [(4 15)
 	   nil "Fast input methods for LaTeX environments and math" tar
 	   ((:keywords "tex")
 	    (:maintainer "Carsten Dominik" . "carsten.dominik@gmail.com")
 	    (:authors
 	     ("Carsten Dominik" . "carsten.dominik@gmail.com"))
 	    (:url . "https://elpa.nongnu.org/nongnu/cdlatex.html")
-	    (:commit . "6f734db8ab87f11dffb77c33a445140baeb723c4"))])
+	    (:commit . "9a09c2ad32e45889ab7696a8cedbf99d6a17edd6"))])
  (cider .
 	[(1 7 0)
 	 ((emacs
@@ -703,17 +703,18 @@
 	    ("Jose Antonio Ortega Ruiz" . "jao@gnu.org"))
 	   (:commit . "bfc9cce54b7ac1cb036911965198b5cbe2f43f4c"))])
  (geiser-chez .
-	      [(0 17)
+	      [(0 18)
 	       ((emacs
 		 (26 1))
 		(geiser
 		 (0 19)))
-	       "Chez Scheme's implementation of the geiser protocols" tar
+	       "Chez and Geiser talk to each other" tar
 	       ((:url . "https://gitlab.com/emacs-geiser/chez")
 		(:keywords "languages" "chez" "scheme" "geiser")
 		(:maintainer "Jose A Ortega Ruiz" . "jao@gnu.org")
 		(:authors
-		 ("Peter" . "craven@gmx.net")))])
+		 ("Peter" . "craven@gmx.net"))
+		(:commit . "988d9f7e24b8634755cdb7b110e3e399bdb55df3"))])
  (geiser-chibi .
 	       [(0 17)
 		((emacs
@@ -815,7 +816,7 @@
 		   ("Jose Antonio Ortega Ruiz" . "jao@gnu.org"))
 		  (:keywords "languages" "racket" "scheme" "geiser"))])
  (geiser-stklos .
-		[(1 7)
+		[(1 8)
 		 ((emacs
 		   (24 4))
 		  (geiser
@@ -826,7 +827,7 @@
 		  (:maintainer "Jeronimo Pellegrini" . "j_p@aleph0.info")
 		  (:authors
 		   ("Jeronimo Pellegrini" . "j_p@aleph0.info"))
-		  (:commit . "6ef410bd7bd0d5c3f2498cb884227063795d48e0"))])
+		  (:commit . "3358d0cc01436bd8f71a500175db2716e75b2eed"))])
  (git-commit .
 	     [(3 3 0)
 	      ((emacs
@@ -996,9 +997,9 @@
 		    ((:url . "https://gitlab.com/tseenshe/haskell-tng-mode")
 		     (:keywords "languages"))])
  (helm .
-       [(3 9 0)
+       [(3 9 1)
 	((helm-core
-	  (3 9 0))
+	  (3 9 1))
 	 (popup
 	  (0 5 3)))
 	"Helm is an Emacs incremental and narrowing framework" tar
@@ -1006,9 +1007,9 @@
 	 (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	 (:authors
 	  ("Thierry Volpiatto" . "thievol@posteo.net"))
-	 (:commit . "371df21b1e73be03b90028e2f5d8554f70a989b7"))])
+	 (:commit . "1b411786346f1df38af3d37c389975db3a103353"))])
  (helm-core .
-	    [(3 9 0)
+	    [(3 9 1)
 	     ((emacs
 	       (25 1))
 	      (async
@@ -1018,7 +1019,7 @@
 	      (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	      (:authors
 	       ("Thierry Volpiatto" . "thievol@posteo.net"))
-	      (:commit . "371df21b1e73be03b90028e2f5d8554f70a989b7"))])
+	      (:commit . "1b411786346f1df38af3d37c389975db3a103353"))])
  (highlight-parentheses .
 			[(2 1 1)
 			 ((emacs
@@ -1937,7 +1938,7 @@
 		("Eshel Yaron" . "me@eshelyaron.com"))
 	       (:commit . "0e05fa9545c43b377fbfc38b9611e10018a65812"))])
  (swift-mode .
-	     [(8 6 0)
+	     [(9 0 0)
 	      ((emacs
 		(24 4))
 	       (seq
@@ -1945,13 +1946,13 @@
 	      "Major-mode for Apple's Swift programming language" tar
 	      ((:url . "https://github.com/swift-emacs/swift-mode")
 	       (:keywords "languages" "swift")
-	       (:maintainer "taku0 (http://github.com/taku0)")
+	       (:maintainer "taku0" . "mxxouy6x3m_github@tatapa.org")
 	       (:authors
-		("taku0 (http://github.com/taku0)")
+		("taku0" . "mxxouy6x3m_github@tatapa.org")
 		("Chris Barrett" . "chris.d.barrett@me.com")
 		("Bozhidar Batsov" . "bozhidar@batsov.com")
 		("Arthur Evstifeev" . "lod@pisem.net"))
-	       (:commit . "cdd194cbadcee724a9813da386f0a612082b1ab1"))])
+	       (:commit . "55da7a32c97c84c2d12295a0eeb1f8fca8a6f71a"))])
  (symbol-overlay .
 		 [(4 1)
 		  ((emacs
@@ -2236,7 +2237,7 @@
 	      (:authors
 	       ("Le Wang")))])
  (xah-fly-keys .
-	       [(23 11 20230626152352)
+	       [(23 12 20230707122000)
 		((emacs
 		  (24 1)))
 		"ergonomic modal keybinding minor mode." tar
@@ -2245,7 +2246,7 @@
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
 		 (:authors
 		  ("Xah Lee ( http://xahlee.info/ )"))
-		 (:commit . "08dd08d0fec3914072f99daf2b1304bfba21aa30"))])
+		 (:commit . "837ea683495abf31001e3f98f90e6da34afcd61b"))])
  (xkcd .
        [(1 1)
 	((json
