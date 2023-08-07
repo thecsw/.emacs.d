@@ -564,18 +564,18 @@
 			("Ingo Lohmar" . "i.lohmar@gmail.com"))
 		       (:keywords "abbrev" "convenience" "matching"))])
  (compat .
-	 [(29 1 4 1)
+	 [(29 1 4 2)
 	  ((emacs
 	    (24 4))
 	   (seq
 	    (2 3)))
 	  "Emacs Lisp Compatibility Library" tar
 	  ((:url . "https://github.com/emacs-compat/compat")
-	   (:keywords "lisp")
+	   (:keywords "lisp" "maint")
 	   (:maintainer "Daniel Mendler <mail@daniel-mendler.de>, Compat Development" . "~pkal/compat-devel@lists.sr.ht")
 	   (:authors
 	    ("Philip Kaludercic <philipk@posteo.net>, Daniel Mendler" . "mail@daniel-mendler.de"))
-	   (:commit . "cb09942868d50e654f159f9614fe3f22af96e547"))])
+	   (:commit . "74300f16a1630a33a86710aa20c1fc26f5f89f75"))])
  (consult .
 	  [(0 35)
 	   ((emacs
@@ -714,7 +714,7 @@
 	     (:url . "https://elpa.gnu.org/packages/csv-mode.html")
 	     (:commit . "db8a3e3aef31d35ce5bd1fd09127a3bbfdd0c340"))])
  (cursory .
-	  [(1 0 0)
+	  [(1 0 1)
 	   ((emacs
 	     (27 1)))
 	   "Manage cursor styles using presets" tar
@@ -723,7 +723,7 @@
 	    (:maintainer "Cursory Development" . "~protesilaos/cursory@lists.sr.ht")
 	    (:authors
 	     ("Protesilaos Stavrou" . "info@protesilaos.com"))
-	    (:commit . "12cd2b22913ddacf3cab54b0d6dd97d633f72e43"))])
+	    (:commit . "a91da4edc07df0bc17056d9a673287082a3c6b26"))])
  (cycle-quotes .
 	       [(0 1)
 		nil "Cycle between quote styles" tar
@@ -1196,7 +1196,7 @@
 	   ("Adam Porter" . "adam@alphapapa.net"))
 	  (:commit . "fba18f941289e607ad5e296783fc410e58f5d07e"))])
  (emms .
-       [(15)
+       [(16)
 	((cl-lib
 	  (0 5))
 	 (nadvice
@@ -1209,7 +1209,7 @@
 	 (:maintainer "Yoni Rabkin" . "yrk@gnu.org")
 	 (:authors
 	  ("Jorgen Schäfer" . "forcer@forcix.cx"))
-	 (:commit . "0a35f30e9aedd09977412a459162eaf6736febac"))])
+	 (:commit . "8ad5cf981b24cd9c7748232a843fafd2d62f6e15"))])
  (engrave-faces .
 		[(0 3 1)
 		 ((emacs
@@ -2388,7 +2388,7 @@
 		(nil . "<johnh@isi.edu>."))
 	       (:url . "http://elpa.gnu.org/packages/notes-mode.html"))])
  (notmuch-indicator .
-		    [(1 0 0)
+		    [(1 0 1)
 		     ((emacs
 		       (27 1)))
 		     "Display mode line indicator with notmuch-count(1) output" tar
@@ -2397,7 +2397,7 @@
 		      (:maintainer "notmuch-indicator Development" . "~protesilaos/notmuch-indicator@lists.sr.ht")
 		      (:authors
 		       ("Protesilaos Stavrou" . "info@protesilaos.com"))
-		      (:commit . "3a1f47081e712667a2de0ebd124435309cfdb6db"))])
+		      (:commit . "8c242eab4cc0fd7e70bf2bc0f5d361f573eb40cd"))])
  (ntlm .
        [(2 1 0)
 	nil "NTLM (NT LanManager) authentication support" single
@@ -2705,7 +2705,7 @@
 	(:url . "https://elpa.gnu.org/packages/peg.html")
 	(:commit . "90c9004a8347209f94a37c8d9506425721098402"))])
  (perl-doc .
-	   [(0 6)
+	   [(0 8)
 	    ((emacs
 	      (27)))
 	    "Read Perl documentation" tar
@@ -2714,7 +2714,7 @@
 	     (:maintainer "Harald Jörg" . "haj@posteo.de")
 	     (:authors
 	      ("Harald Jörg" . "haj@posteo.de"))
-	     (:commit . "eb329f2675e71d656e1512ba7ec5a37ada4603d6"))])
+	     (:commit . "050df667a6d2eda08e8c7628772d4e12fc632064"))])
  (persist .
 	  [(0 5)
 	   nil "Persist Variables between Emacs Sessions" tar
@@ -3054,9 +3054,9 @@
 		   ("Bastien Guerry" . "bzg@gnu.org"))
 		  (:maintainer "Bastien Guerry" . "bzg@gnu.org"))])
  (relint .
-	 [(1 22)
+	 [(1 23)
 	  ((xr
-	    (1 22))
+	    (1 24))
 	   (emacs
 	    (26 1)))
 	  "Elisp regexp mistake finder" tar
@@ -3065,7 +3065,7 @@
 	   (:maintainer "Mattias Engdegård" . "mattiase@acm.org")
 	   (:authors
 	    ("Mattias Engdegård" . "mattiase@acm.org"))
-	   (:commit . "011f4f10ee65fb698d4caf3c72ba8ee6b98e3de5"))])
+	   (:commit . "380754be9c288ee0baeb40c2a4773737f8aebcd9"))])
  (repology .
 	   [(1 2 3)
 	    ((emacs
@@ -3531,14 +3531,15 @@
 		  ("Protesilaos Stavrou" . "info@protesilaos.com"))
 		 (:commit . "112970f8d2355c0cfa0269bb92cd1ecc18790bc9"))])
  (system-packages .
-		  [(1 0 11)
+		  [(1 0 12)
 		   ((emacs
 		     (24 3)))
 		   "functions to manage system packages" tar
 		   ((:url . "https://gitlab.com/jabranham/system-packages")
 		    (:maintainer "J. Alexander Branham" . "alex.branham@gmail.com")
 		    (:authors
-		     ("J. Alexander Branham" . "alex.branham@gmail.com")))])
+		     ("J. Alexander Branham" . "alex.branham@gmail.com"))
+		    (:commit . "14b2cc3d54cc26692fb4a71ae4befee1f0b15e1b"))])
  (tNFA .
        [(0 1 1)
 	((queue
@@ -3667,7 +3668,7 @@
 	      ("Trevor Edwin Pogue" . "trevor.pogue@gmail.com"))
 	     (:commit . "33c2a6f0a11d1d88cdb2065c5a897e33507f4c86"))])
  (tramp .
-	[(2 6 1)
+	[(2 6 1 1)
 	 ((emacs
 	   (26 1)))
 	 "Transparent Remote Access, Multiple Protocol" tar
@@ -3676,7 +3677,7 @@
 	  (:maintainer "Michael Albinus" . "michael.albinus@gmx.de")
 	  (:authors
 	   ("Kai Großjohann" . "kai.grossjohann@gmx.net"))
-	  (:commit . "b04c8bfc49d4c41b8db461b837452887f4c259fe"))])
+	  (:commit . "ee53c26a61540d3ddf01af95d6508e9493377106"))])
  (tramp-nspawn .
 	       [(1 0 1)
 		((emacs
@@ -3755,7 +3756,7 @@
 	  ("Toby Cubitt" . "toby-predictive@dr-qubit.org"))
 	 (:keywords "extensions" "matching" "data structures trie" "ternary search tree" "tree" "completion" "regexp"))])
  (triples .
-	  [(0 3 3)
+	  [(0 3 4)
 	   ((seq
 	     (2 0))
 	    (emacs
@@ -3766,7 +3767,7 @@
 	    (:maintainer "Andrew Hyatt" . "ahyatt@gmail.com")
 	    (:authors
 	     ("Andrew Hyatt" . "ahyatt@gmail.com"))
-	    (:commit . "b5439fea7e5fbc9f2f7a6b2ef2a065c026371b46"))])
+	    (:commit . "1136da92b901a4922b47076a3dae9d5ef502275e"))])
  (typo .
        [(1 0 1)
 	((emacs
@@ -4214,7 +4215,7 @@
 	(:authors
 	 ("Thien-Thi Nguyen" . "ttn@gnu.org")))])
  (xr .
-     [(1 23)
+     [(1 24)
       ((emacs
 	(26 1)))
       "Convert string regexp to rx notation" tar
@@ -4223,7 +4224,7 @@
        (:maintainer "Mattias Engdegård" . "mattiase@acm.org")
        (:authors
 	("Mattias Engdegård" . "mattiase@acm.org"))
-       (:commit . "74906f6d104b7daae162dc32684e0443e80fdb03"))])
+       (:commit . "2d7bedc104deb9c39ddf53da7afbd7274d7ca274"))])
  (xref .
        [(1 6 3)
 	((emacs
