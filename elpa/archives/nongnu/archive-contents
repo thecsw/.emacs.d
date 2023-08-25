@@ -991,9 +991,9 @@
 		    ((:url . "https://gitlab.com/tseenshe/haskell-tng-mode")
 		     (:keywords "languages"))])
  (helm .
-       [(3 9 3)
+       [(3 9 4)
 	((helm-core
-	  (3 9 3))
+	  (3 9 4))
 	 (wfnames
 	  (1 1))
 	 (popup
@@ -1003,9 +1003,9 @@
 	 (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	 (:authors
 	  ("Thierry Volpiatto" . "thievol@posteo.net"))
-	 (:commit . "e347a2c98438e2dbb5b1f681729f00c0e816ffc6"))])
+	 (:commit . "497f479ec113583c2570c03a526c999e3d410f95"))])
  (helm-core .
-	    [(3 9 3)
+	    [(3 9 4)
 	     ((emacs
 	       (25 1))
 	      (async
@@ -1015,7 +1015,7 @@
 	      (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	      (:authors
 	       ("Thierry Volpiatto" . "thievol@posteo.net"))
-	      (:commit . "e347a2c98438e2dbb5b1f681729f00c0e816ffc6"))])
+	      (:commit . "497f479ec113583c2570c03a526c999e3d410f95"))])
  (highlight-parentheses .
 			[(2 1 1)
 			 ((emacs
@@ -1923,16 +1923,18 @@
 	   ("Random User"))
 	  (:commit . "6ce7de37f21e123467ef1191db7a37cd99881c00"))])
  (sweeprolog .
-	     [(0 22 2)
+	     [(0 23 0)
 	      ((emacs
-		(28 1)))
+		(27 1))
+	       (compat
+		(29 1 4 2)))
 	      "Embedded SWI-Prolog" tar
 	      ((:url . "https://git.sr.ht/~eshel/sweep")
 	       (:keywords "prolog" "languages" "extensions")
 	       (:maintainer "Eshel Yaron" . "~eshel/dev@lists.sr.ht")
 	       (:authors
 		("Eshel Yaron" . "me@eshelyaron.com"))
-	       (:commit . "2eaa3a26538b89fb4450b5fd23b6aba63a3c87af"))])
+	       (:commit . "be195d894fa078d262d663ffdc8fdbf1a64ddee7"))])
  (swift-mode .
 	     [(9 0 0)
 	      ((emacs
@@ -2243,14 +2245,14 @@
 	      (:authors
 	       ("Le Wang")))])
  (xah-fly-keys .
-	       [(24 5 20230812104032)
+	       [(24 6 20230818103059)
 		((emacs
 		  (24 1)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "emulations" "vim" "ergoemacs")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "b873a08cdb7966dea848e8a2854debb1a5d94328"))])
+		 (:commit . "44d6fd79f1be1f15d8f76a3845dbc51aec4464e1"))])
  (xkcd .
        [(1 1)
 	((json
