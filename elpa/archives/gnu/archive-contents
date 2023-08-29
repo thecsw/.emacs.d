@@ -941,6 +941,17 @@
 	  ("Roland Winkler" . "winkler@gnu.org"))
 	 (:url . "https://elpa.gnu.org/packages/djvu.html")
 	 (:commit . "071c8ab168588897475899c46eaa16e70141db8c"))])
+ (do-at-point .
+	      [(0 1 0)
+	       ((emacs
+		 (26 1)))
+	       "Generic context-sensitive action dispatcher." tar
+	       ((:url . "https://git.sr.ht/~pkal/do-at-point")
+		(:keywords "convenience")
+		(:maintainer "Philip Kaludercic" . "~pkal/public-inbox@lists.sr.ht")
+		(:authors
+		 ("Philip Kaludercic" . "philipk@posteo.net"))
+		(:commit . "539d5da7f439ca05b6f3eb227dc0587b951a86f0"))])
  (doc-toc .
 	  [(1 2)
 	   ((emacs
@@ -1300,7 +1311,7 @@
 		   ("Magnar Sveen" . "magnars@gmail.com"))
 		  (:keywords "marking" "region"))])
  (expreg .
-	 [(1 0 0)
+	 [(1 1 0)
 	  ((emacs
 	    (29 1)))
 	  "Simple expand region" tar
@@ -1309,7 +1320,7 @@
 	   (:maintainer "Yuan Fu" . "casouri@gmail.com")
 	   (:authors
 	    ("Yuan Fu" . "casouri@gmail.com"))
-	   (:commit . "a5ceac5c0c646cf1a2ea674465be3726e272e675"))])
+	   (:commit . "4fc82bbaafacbd3456cdf401f0b45c5203bd0a9d"))])
  (external-completion .
 		      [(0 1)
 		       nil "Let external tools control completion style" tar
@@ -2498,7 +2509,7 @@
 	       ("Omar Antolín Camarena" . "omar@matem.unam.mx"))
 	      (:commit . "847694e78c12d903d5e3f6cb365a5d3b984db537"))])
  (org .
-      [(9 6 7)
+      [(9 6 8)
        ((emacs
 	 (26 1)))
        "Outline-based notes management and organizer" tar
@@ -2507,7 +2518,7 @@
 	(:maintainer "Bastien Guerry" . "bzg@gnu.org")
 	(:authors
 	 ("Carsten Dominik" . "carsten.dominik@gmail.com"))
-	(:commit . "ca873f7fe47546bca19821f1578a6ab95bf5351c"))])
+	(:commit . "19a1a5024bef3163737fa6f2b71dd9d4437dc31f"))])
  (org-contacts .
 	       [(1 1)
 		((emacs
@@ -3718,7 +3729,7 @@
 		("David Gonzalez Gandara" . "dggandara@member.fsf.org"))
 	       (:maintainer "David Gonzalez Gandara" . "dggandara@member.fsf.org"))])
  (transient .
-	    [(0 4 1)
+	    [(0 4 3)
 	     ((emacs
 	       (25 1))
 	      (compat
@@ -3729,7 +3740,7 @@
 	      (:maintainer "Jonas Bernoulli" . "jonas@bernoul.li")
 	      (:authors
 	       ("Jonas Bernoulli" . "jonas@bernoul.li"))
-	      (:commit . "a1575e58331b1ff85ac97667df0130ae822ccf5f"))])
+	      (:commit . "8cf1238181d57504e68f42fa0d4ef66784b197a9"))])
  (transient-cycles .
 		   [(1 0)
 		    ((emacs
