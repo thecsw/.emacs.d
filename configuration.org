@@ -753,7 +753,7 @@ one line
 #+end_src
 * Undo Tree
 #+begin_src emacs-lisp
-  (global-undo-tree-mode)
+  ;; (global-undo-tree-mode)
 #+end_src
 * Origami
 #+begin_src emacs-lisp
