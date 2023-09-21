@@ -1166,7 +1166,7 @@
 		    ("Ihor Radchenko" . "yantar92@posteo.net"))
 		   (:commit . "703516c63ce71ec68945d48c297d294990728686"))])
  (embark .
-	 [(0 22 1)
+	 [(0 23)
 	  ((emacs
 	    (27 1))
 	   (compat
@@ -1177,9 +1177,9 @@
 	   (:maintainer "Omar Antolín Camarena" . "omar@matem.unam.mx")
 	   (:authors
 	    ("Omar Antolín Camarena" . "omar@matem.unam.mx"))
-	   (:commit . "c914efe881df2bc6a2bd35cc7ee975d3e9d4a418"))])
+	   (:commit . "07af44c7de72efde79ac563cbecdfff0b48d8411"))])
  (embark-consult .
-		 [(0 7)
+		 [(0 8)
 		  ((emacs
 		    (27 1))
 		   (embark
@@ -1192,9 +1192,9 @@
 		   (:maintainer "Omar Antolín Camarena" . "omar@matem.unam.mx")
 		   (:authors
 		    ("Omar Antolín Camarena" . "omar@matem.unam.mx"))
-		   (:commit . "127492fac048cecfdba145d496a902022a68d1d5"))])
+		   (:commit . "07af44c7de72efde79ac563cbecdfff0b48d8411"))])
  (ement .
-	[(0 11)
+	[(0 12)
 	 ((emacs
 	   (27 1))
 	  (map
@@ -1217,7 +1217,7 @@
 	  (:maintainer "Adam Porter" . "adam@alphapapa.net")
 	  (:authors
 	   ("Adam Porter" . "adam@alphapapa.net"))
-	  (:commit . "d2b7a8484033e16b6f196b6525124d5ebdf4c0d7"))])
+	  (:commit . "a4fc3d1ab6df424bc1296b8ca480a8c55c542dc2"))])
  (emms .
        [(16)
 	((cl-lib
@@ -1323,7 +1323,7 @@
 		   ("Magnar Sveen" . "magnars@gmail.com"))
 		  (:keywords "marking" "region"))])
  (expreg .
-	 [(1 2 1)
+	 [(1 3 1)
 	  ((emacs
 	    (29 1)))
 	  "Simple expand region" tar
@@ -1332,7 +1332,7 @@
 	   (:maintainer "Yuan Fu" . "casouri@gmail.com")
 	   (:authors
 	    ("Yuan Fu" . "casouri@gmail.com"))
-	   (:commit . "b9fd9f90c6f00b628a610e556d560d5719a92d7d"))])
+	   (:commit . "9950c07ec90293964baa33603f4a80e764b0a847"))])
  (external-completion .
 		      [(0 1)
 		       nil "Let external tools control completion style" tar
@@ -1640,7 +1640,7 @@
 	     ("Sean Allred" . "code@seanallred.com"))
 	    (:commit . "b57b5ca5d2d0837e1fb4a4f30c051d5f3e643f0f"))])
  (greader .
-	  [(0 2 1)
+	  [(0 4 0)
 	   ((emacs
 	     (25)))
 	   "gnamù reader, send buffer contents to a speech engine." tar
@@ -1649,7 +1649,7 @@
 	    (:authors
 	     ("Michelangelo Rodriguez" . "michelangelo.rodriguez@gmail.com"))
 	    (:url . "https://elpa.gnu.org/packages/greader.html")
-	    (:commit . "dd528739b9bc828b31fe0edf3ce3d671fe9c2d55"))])
+	    (:commit . "92a14825eb2b2c8764af7817bf2700eba10971a8"))])
  (greenbar .
 	   [(1 1)
 	    nil "Mark comint output with \"greenbar\" background" single
@@ -1772,7 +1772,7 @@
 	   ("Durand" . "mmemmew@gmail.com"))
 	  (:url . "https://elpa.gnu.org/packages/ilist.html"))])
  (inspector .
-	    [(0 33)
+	    [(0 35)
 	     ((emacs
 	       (27 1)))
 	     "Tool for inspection of Emacs Lisp objects" tar
@@ -1781,7 +1781,7 @@
 	      (:maintainer "Mariano Montone" . "marianomontone@gmail.com")
 	      (:authors
 	       ("Mariano Montone" . "marianomontone@gmail.com"))
-	      (:commit . "daff792202d36638033f83902fc0849130270d39"))])
+	      (:commit . "86f26bf7a78e791879e95d4d430aab1e3a6e8efe"))])
  (ioccur .
 	 [(2 6)
 	  ((emacs
@@ -2265,7 +2265,7 @@
 	     ("David Engster" . "deng@randomsample.de"))
 	    (:maintainer "David Engster" . "deng@randomsample.de"))])
  (mmm-mode .
-	   [(0 5 9)
+	   [(0 5 10)
 	    ((emacs
 	      (25 1))
 	     (cl-lib
@@ -2276,9 +2276,9 @@
 	     (:maintainer "Dmitry Gutov" . "dgutov@yandex.ru")
 	     (:authors
 	      ("Michael Abraham Shulman" . "viritrilbia@gmail.com"))
-	     (:commit . "d1c85e5e2cfc0cff3f63409b0ac15dd230568609"))])
+	     (:commit . "96906747e862449b722b6e2c741b61871894ac3a"))])
  (modus-themes .
-	       [(4 2 0)
+	       [(4 3 0)
 		((emacs
 		  (27 1)))
 		"Elegant, highly legible and customizable themes" tar
@@ -2287,7 +2287,7 @@
 		 (:maintainer "Modus-Themes Development" . "~protesilaos/modus-themes@lists.sr.ht")
 		 (:authors
 		  ("Protesilaos Stavrou" . "info@protesilaos.com"))
-		 (:commit . "b4ef90bb950b820a3bf316d7b212320a5b2f84d7"))])
+		 (:commit . "fe08a02c4c0501a984b15af3f8c3c5e4769b93ad"))])
  (multi-mode .
 	     [(1 14)
 	      nil "support for multiple major modes" tar
