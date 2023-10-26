@@ -221,13 +221,13 @@
 	    (:url . "https://elpa.nongnu.org/nongnu/cdlatex.html")
 	    (:commit . "7521fa1b39de735dcbd32bca92a792d5261e9ce2"))])
  (cider .
-	[(1 7 0)
+	[(1 9 0)
 	 ((emacs
 	   (26))
 	  (clojure-mode
-	   (5 16 0))
+	   (5 18 0))
 	  (parseedn
-	   (1 0 6))
+	   (1 2 0))
 	  (queue
 	   (0 2))
 	  (spinner
@@ -235,7 +235,9 @@
 	  (seq
 	   (2 22))
 	  (sesman
-	   (0 3 2)))
+	   (0 3 2))
+	  (transient
+	   (0 4 1)))
 	 "Clojure Interactive Development Environment that Rocks" tar
 	 ((:url . "http://www.github.com/clojure-emacs/cider")
 	  (:keywords "languages" "clojure" "cider")
@@ -247,16 +249,16 @@
 	   ("Artur Malabarba" . "bruce.connor.am@gmail.com")
 	   ("Hugo Duncan" . "hugo@hugoduncan.org")
 	   ("Steve Purcell" . "steve@sanityinc.com"))
-	  (:commit . "f39e0b52014913f5acc1dc28ad94c68385c0834e"))])
+	  (:commit . "65ab78c7321f1084922653c33b5085ba6633a100"))])
  (clojure-mode .
-	       [(5 17 0)
+	       [(5 18 0)
 		((emacs
 		  (25 1)))
 		"Major mode for Clojure code" tar
 		((:url . "https://github.com/clojure-emacs/clojure-mode")
 		 (:keywords "languages" "clojure" "clojurescript" "lisp")
 		 (:maintainer "Bozhidar Batsov" . "bozhidar@batsov.dev")
-		 (:commit . "5fab97d0efc1ed932518fba0cb90afe6dcd00191"))])
+		 (:commit . "525fc1b131b1fc537aa82d83d9eb2ea833cface6"))])
  (clojure-ts-mode .
 		  [(0 2 0)
 		   ((emacs
@@ -408,13 +410,13 @@
 		    (:keywords "docker")
 		    (:commit . "74ed3dfd1584298a0ea9881115d33ba1808a4c3f"))])
  (dracula-theme .
-		[(1 8 1)
+		[(1 8 2)
 		 ((emacs
 		   (24 3)))
 		 "Dracula Theme" tar
 		 ((:url . "https://github.com/dracula/emacs")
 		  (:maintainer "tienne Deparis" . "etienne@depar.is")
-		  (:commit . "8e73c675816faadcf4d052b1ba09dc1b00aa1509"))])
+		  (:commit . "29d5180f7e34c0c858a520068fb650f705b8cfc2"))])
  (drupal-mode .
 	      [(0 7 4)
 	       ((php-mode
@@ -427,7 +429,7 @@
 		 ("Arne Jørgensen" . "arne@arnested.dk"))
 		(:commit . "ed90b0c4d808365e9ae9f16cc8a96eff17815621"))])
  (eat .
-      [(0 9 2)
+      [(0 9 3)
        ((emacs
 	 (26 1))
 	(compat
@@ -438,7 +440,7 @@
 	(:maintainer "Akib Azmain Turja" . "akib@disroot.org")
 	(:authors
 	 ("Akib Azmain Turja" . "akib@disroot.org"))
-	(:commit . "c071e9e5e37f2e1dbef5b6907fae903547826480"))])
+	(:commit . "c890bb240b64f8157b70cd1c2f42170d2d5bc77d"))])
  (edit-indirect .
 		[(0 1 10)
 		 ((emacs
@@ -1151,7 +1153,7 @@
 	     ("Hrvoje Niksic" . "hniksic@gmail.com"))
 	    (:keywords "hypermedia" "extensions"))])
  (hyperdrive .
-	     [(0 1 0)
+	     [(0 2)
 	      ((emacs
 		(27 1))
 	       (map
@@ -1161,11 +1163,15 @@
 	       (plz
 		(0 7))
 	       (persist
-		(0 5)))
+		(0 5))
+	       (transient
+		(0 4 3)))
 	      "P2P filesystem" tar
 	      ((:url . "https://git.sr.ht/~ushin/hyperdrive.el")
-	       (:maintainer "Joseph Turner" . "joseph@ushin.org")
-	       (:commit . "91ea0fac623dfee497644d7f105180dc737ee749"))])
+	       (:maintainer "Joseph Turner" . "~ushin/ushin@lists.sr.ht")
+	       (:authors
+		("Joseph Turner" . "joseph@ushin.org"))
+	       (:commit . "262f4bf033fe10f7593ebbc156cfa83d04d5d5ba"))])
  (idle-highlight-mode .
 		      [(1 1 4)
 		       ((emacs
@@ -1385,7 +1391,7 @@
 		   ("Jason R. Blevins" . "jblevins@xbeta.org"))
 		  (:commit . "193b61605f44c85d261b8bd82e0a213fd8f1ff32"))])
  (mastodon .
-	   [(1 0 6)
+	   [(1 0 12)
 	    ((emacs
 	      (27 1))
 	     (request
@@ -1398,7 +1404,7 @@
 	     (:authors
 	      ("Johnson Denen" . "johnson.denen@gmail.com")
 	      ("Marty Hiatt" . "martianhiatus@riseup.net"))
-	     (:commit . "708aaa06b6f5dbe7db96154388309098a8f69fba"))])
+	     (:commit . "cd2d6f23b4f7af63df3000f2fb68227c22bc8dee"))])
  (material-theme .
 		 [(2015)
 		  ((emacs
@@ -1795,7 +1801,7 @@
 	  (:authors
 	   ("Tomohiro Matsuyama" . "m2ym.pub@gmail.com")))])
  (projectile .
-	     [(2 7 0)
+	     [(2 8 0)
 	      ((emacs
 		(25 1)))
 	      "Manage and navigate projects in Emacs easily" tar
@@ -1804,7 +1810,7 @@
 	       (:maintainer "Bozhidar Batsov" . "bozhidar@batsov.dev")
 	       (:authors
 		("Bozhidar Batsov" . "bozhidar@batsov.dev"))
-	       (:commit . "14beeaee7a77601aee4d4982811f6a27f696403c"))])
+	       (:commit . "e6889d7f4bc0d2c48ceac56dfe6f4a3d742a3b69"))])
  (proof-general .
 		[(4 5)
 		 ((emacs
@@ -1884,7 +1890,7 @@
 	    (:authors
 	     ("Takafumi Arakaki <aka.tkf at gmail.com>")))])
  (rfc-mode .
-	   [(1 4 0)
+	   [(1 4 2)
 	    ((emacs
 	      (25 1)))
 	    "RFC document browser and viewer" tar
@@ -1892,7 +1898,7 @@
 	     (:maintainer "Nicolas Martyanoff" . "nicolas@n16f.net")
 	     (:authors
 	      ("Nicolas Martyanoff" . "nicolas@n16f.net"))
-	     (:commit . "53ec006aa6aa4fae9c6c64004692aa3d01b38275"))])
+	     (:commit . "ab09db78d9d1baa4da4f926930833598e1e978ce"))])
  (rubocop .
 	  [(0 6 0)
 	   ((emacs
@@ -2071,16 +2077,16 @@
 		     ("John Olsson" . "john@cryon.se"))
 		    (:commit . "2d5acd143a153e16372d59000e57d76291ab81dd"))])
  (subed .
-	[(1 2 4)
+	[(1 2 5)
 	 ((emacs
 	   (25 1)))
 	 "A major mode for editing subtitles" tar
 	 ((:url . "https://github.com/sachac/subed")
 	  (:keywords "convenience" "files" "hypermedia" "multimedia")
 	  (:maintainer "Sacha Chua" . "sacha@sachachua.com")
-	  (:commit . "ccf071fb0bd815565c674ee8d2f213e3f209833d"))])
+	  (:commit . "de7ee929613a9c5430d5f8927f3beab7af002659"))])
  (sweeprolog .
-	     [(0 25 4)
+	     [(0 26 0)
 	      ((emacs
 		(27 1))
 	       (compat
@@ -2091,7 +2097,7 @@
 	       (:maintainer "Eshel Yaron" . "~eshel/dev@lists.sr.ht")
 	       (:authors
 		("Eshel Yaron" . "me@eshelyaron.com"))
-	       (:commit . "10b6f8fb9d98f94341fcd5623ed2991431ac4678"))])
+	       (:commit . "64de88fd7b0f2e86b484e51070dfe41c055ee0bb"))])
  (swift-mode .
 	     [(9 1 0)
 	      ((emacs
@@ -2289,14 +2295,14 @@
 			("Joost Kremers" . "joostkremers@fastmail.fm"))
 		       (:commit . "695a59789209c42fa08a5bce92963ee32f4455be"))])
  (web-mode .
-	   [(17 3 14)
+	   [(17 3 15)
 	    ((emacs
 	      (23 1)))
 	    "major mode for editing web templates" tar
 	    ((:url . "https://web-mode.org")
 	     (:keywords "languages")
 	     (:maintainer "François-Xavier Bois" . "fxbois@gmail.com")
-	     (:commit . "443a09423d23727df7efd4e60beedd3919e4800a"))])
+	     (:commit . "848fce94de202541cd3fcd35e9c9d22783e9e828"))])
  (webpaste .
 	   [(3 2 2)
 	    ((emacs
@@ -2400,14 +2406,14 @@
 	      (:authors
 	       ("Le Wang")))])
  (xah-fly-keys .
-	       [(24 13 20231009115302)
+	       [(24 13 20231025112537)
 		((emacs
 		  (29)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "emulations" "vim" "ergoemacs")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "7118846cda6026acd12a3fc6ab52a70091e6ec1a"))])
+		 (:commit . "d96d5a936a606446eaf29e8b3569a2f3cef94b9a"))])
  (xkcd .
        [(1 1)
 	((json
