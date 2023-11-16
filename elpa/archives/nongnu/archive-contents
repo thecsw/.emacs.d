@@ -39,13 +39,13 @@
 		(:authors
 		 ("Jordon Biondo" . "jordonbiondo@gmail.com")))])
  (annotate .
-	   [(2 0 3)
+	   [(2 1 0)
 	    nil "annotate files without changing them" tar
 	    ((:url . "https://github.com/bastibe/annotate.el")
 	     (:maintainer
 	      ("Bastian Bechtold" . "bastibe.dev@mailbox.org")
 	      ("cage" . "cage-dev@twistfold.it"))
-	     (:commit . "b2767cdba2cd7c4520811d75154b2489ff1e4d9f"))])
+	     (:commit . "866fa6d3c05baeace4e8906049a356c9ea913a23"))])
  (anti-zenburn-theme .
 		     [(2 5 1)
 		      nil "Low-contrast Zenburn-inverted theme" tar
@@ -157,7 +157,7 @@
 	  ("Akib Azmain Turja" . "akib@disroot.org"))
 	 (:commit . "19152095662c95bc73f1f25b8dcce432294b06a1"))])
  (blueprint-ts-mode .
-		    [(0 0 2)
+		    [(0 0 3)
 		     ((emacs
 		       (29 1)))
 		     "tree-sitter support for Blueprint files" tar
@@ -166,7 +166,7 @@
 		      (:maintainer "Huan Thieu Nguyen" . "nguyenthieuhuan@gmail.com")
 		      (:authors
 		       ("Huan Thieu Nguyen" . "nguyenthieuhuan@gmail.com"))
-		      (:commit . "19b91fca0bce72cc44fe96df95abd97c1fc05c35"))])
+		      (:commit . "e9e56dec10f070367ab555c717c3d567a5962c82"))])
  (boxquote .
 	   [(2 3)
 	    ((cl-lib
@@ -221,7 +221,7 @@
 	    (:url . "https://elpa.nongnu.org/nongnu/cdlatex.html")
 	    (:commit . "7521fa1b39de735dcbd32bca92a792d5261e9ce2"))])
  (cider .
-	[(1 9 0)
+	[(1 11 1)
 	 ((emacs
 	   (26))
 	  (clojure-mode
@@ -239,7 +239,7 @@
 	  (transient
 	   (0 4 1)))
 	 "Clojure Interactive Development Environment that Rocks" tar
-	 ((:url . "http://www.github.com/clojure-emacs/cider")
+	 ((:url . "https://www.github.com/clojure-emacs/cider")
 	  (:keywords "languages" "clojure" "cider")
 	  (:maintainer "Bozhidar Batsov" . "bozhidar@batsov.dev")
 	  (:authors
@@ -249,7 +249,7 @@
 	   ("Artur Malabarba" . "bruce.connor.am@gmail.com")
 	   ("Hugo Duncan" . "hugo@hugoduncan.org")
 	   ("Steve Purcell" . "steve@sanityinc.com"))
-	  (:commit . "65ab78c7321f1084922653c33b5085ba6633a100"))])
+	  (:commit . "9c605cd4938c0055c2766c55606f19ecbf664e8e"))])
  (clojure-mode .
 	       [(5 18 0)
 		((emacs
@@ -935,7 +935,7 @@
 		("Florian Ragwitz" . "rafl@debian.org")
 		("Marius Vollmer" . "marius.vollmer@gmail.com")))])
  (git-modes .
-	    [(1 4 1)
+	    [(1 4 2)
 	     ((emacs
 	       (25 1))
 	      (compat
@@ -948,7 +948,7 @@
 	       ("Sebastian Wiesner" . "lunaryorn@gmail.com")
 	       ("Rüdiger Sonderfeld" . "ruediger@c-plusplus.net")
 	       ("Jonas Bernoulli" . "jonas@bernoul.li"))
-	      (:commit . "44d536ba637235c9dd203410281397417a3e60b6"))])
+	      (:commit . "399b1b446644afce8d0949ff85a882bfdbbfb7bf"))])
  (gnu-apl-mode .
 	       [(1 5 1)
 		nil "Emacs mode for GNU APL" tar
@@ -1070,13 +1070,13 @@
 	       ("Natalie Weizenbaum"))
 	      (:commit . "45a0b23db0b8f827c78f7749457f3427263e6ffd"))])
  (haskell-mode .
-	       [(17 4)
+	       [(17 5)
 		((emacs
 		  (25 1)))
 		"A Haskell editing mode" tar
 		((:url . "https://github.com/haskell/haskell-mode")
 		 (:keywords "haskell" "cabal" "ghc" "repl" "languages")
-		 (:commit . "79af559b6d750aff32a916a81cc4fb63ecfd588d"))])
+		 (:commit . "8d0f44bfe2a9ab6b0969c9bafb75089f315ff5ae"))])
  (haskell-tng-mode .
 		   [(0 0 1)
 		    ((emacs
@@ -1657,13 +1657,15 @@
 	   ("Jonas Bernoulli" . "jonas@bernoul.li"))
 	  (:commit . "4a585029875a1dbbe96d8ac157bd2fd02875f289"))])
  (package-lint .
-	       [(0 19)
+	       [(0 21)
 		((cl-lib
 		  (0 5))
 		 (emacs
-		  (24 1))
+		  (24 4))
 		 (let-alist
-		     (1 0 6)))
+		     (1 0 6))
+		 (compat
+		  (29 1)))
 		"A linting library for elisp package authors" tar
 		((:url . "https://github.com/purcell/package-lint")
 		 (:keywords "lisp")
@@ -1673,7 +1675,7 @@
 		 (:authors
 		  ("Steve Purcell" . "steve@sanityinc.com")
 		  ("Fanael Linithien" . "fanael4@gmail.com"))
-		 (:commit . "91d0f1077c78753e09973d63fb3e571413a4c206"))])
+		 (:commit . "dd81a5b9224cc6e6dc4bbb6b4a2928df89c01317"))])
  (pacmacs .
 	  [(0 1 1)
 	   ((emacs
@@ -1831,7 +1833,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:keywords "convenience"))])
  (racket-mode .
-	      [(1 0 20230919 113921)
+	      [(1 0 20231115 104415)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -2077,16 +2079,16 @@
 		     ("John Olsson" . "john@cryon.se"))
 		    (:commit . "2d5acd143a153e16372d59000e57d76291ab81dd"))])
  (subed .
-	[(1 2 5)
+	[(1 2 7)
 	 ((emacs
 	   (25 1)))
 	 "A major mode for editing subtitles" tar
 	 ((:url . "https://github.com/sachac/subed")
 	  (:keywords "convenience" "files" "hypermedia" "multimedia")
 	  (:maintainer "Sacha Chua" . "sacha@sachachua.com")
-	  (:commit . "de7ee929613a9c5430d5f8927f3beab7af002659"))])
+	  (:commit . "c9e3ec9963fcc95050fe8a73ce978bebe2ac41ac"))])
  (sweeprolog .
-	     [(0 26 1)
+	     [(0 27 0)
 	      ((emacs
 		(27 1))
 	       (compat
@@ -2097,7 +2099,7 @@
 	       (:maintainer "Eshel Yaron" . "~eshel/dev@lists.sr.ht")
 	       (:authors
 		("Eshel Yaron" . "me@eshelyaron.com"))
-	       (:commit . "d89118a4f3c0e2df191524ab8b9da73b1069f64b"))])
+	       (:commit . "05020e1269600caa155b5c9705ef5f02869cfcd4"))])
  (swift-mode .
 	     [(9 1 0)
 	      ((emacs
@@ -2406,14 +2408,14 @@
 	      (:authors
 	       ("Le Wang")))])
  (xah-fly-keys .
-	       [(24 13 20231025112537)
+	       [(24 18 20231115084756)
 		((emacs
-		  (29)))
+		  (27)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
-		 (:keywords "convenience" "emulations" "vim" "ergoemacs")
+		 (:keywords "convenience" "vi" "vim" "ergoemacs" "keybinding")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "d96d5a936a606446eaf29e8b3569a2f3cef94b9a"))])
+		 (:commit . "68335b2a903d9d9163129e92bbbf8927599739a6"))])
  (xkcd .
        [(1 1)
 	((json
