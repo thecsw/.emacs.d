@@ -1,4 +1,4 @@
-(define-package "lsp-docker" "20230824.947" "LSP Docker integration"
+(define-package "lsp-docker" "20231117.1611" "LSP Docker integration"
   '((emacs "27.1")
     (dash "2.14.1")
     (lsp-mode "6.2.1")
@@ -6,7 +6,7 @@
     (s "1.13.0")
     (yaml "0.2.0")
     (ht "2.0"))
-  :commit "6b7701917417e4e74961185051c147e1bf003750" :authors
+  :commit "a9beb0b5c3cdb3fb1b6e34c6ad752f3b8474ae8a" :authors
   '(("Ivan Yonchovski" . "yyoncho@gmail.com"))
   :maintainers
   '(("Ivan Yonchovski" . "yyoncho@gmail.com"))

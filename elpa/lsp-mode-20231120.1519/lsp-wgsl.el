@@ -101,11 +101,11 @@
   :group 'lsp-wgsl
   :package-version '(lsp-mode . "8.0.1"))
 
-;; (defcustom lsp-wgsl-shaderdefs []
-;;   "Defines that should be valid for preprocessor operations like ifdef."
-;;   :type 'vector
-;;   :group 'lsp-wgsl
-;;   :package-version '(lsp-mode . "8.0.1"))
+(defcustom lsp-wgsl-shaderdefs []
+  "Defines that should be valid for preprocessor operations like ifdef, e.g, ['USE_TYPES', 'DEBUG']"
+  :type 'lsp-string-vector
+  :group 'lsp-wgsl
+  :package-version '(lsp-mode . "8.0.1"))
 
 ;; wgsl-analyzer is a bit weird with how it gets config.
 ;; Currently it relies on a custom extension to query the clients.
@@ -122,12 +122,13 @@
                           :parameterHints (lsp-json-bool lsp-wgsl-inlayhints-parameterhints)
                           :structLayoutHints (lsp-json-bool lsp-wgsl-inlayhints-structlayout)
                           :typeVerbosity lsp-wgsl-inlayhints-type-verbosity)
-        :shaderDefs []
+        :shaderDefs lsp-wgsl-shaderdefs
         ;; not configurable at the moment, as they don't seem to have much effect.
         ;; Fails if not given.
         :trace (list :extension t
                      :server t)))
 
+(defvar wgsl-font-lock-keywords)
 
 ;; Various interactive functions to use the custom LSP extensions from the server
 (defun lsp-wgsl-full-source ()
@@ -148,6 +149,23 @@
          (font-lock-mode))
        (switch-to-buffer buffer)))))
 
+(defun lsp-wgsl-syntax-tree ()
+  "Gets the syntax tree of the current buffer."
+  (interactive)
+  (lsp-request-async
+   "wgsl-analyzer/syntaxTree"
+   (list :textDocument (list :uri (lsp--buffer-uri))
+         :range (if (use-region-p)
+                    (lsp--region-to-range (region-beginning) (region-end))
+                  (lsp--region-to-range (point-min) (point-max))))
+   (lambda (syntax-tree)
+     (let ((buffer (get-buffer-create (format "*WGSL-syntax-tree %s*" (lsp--buffer-uri)))))
+       (with-current-buffer buffer
+         (setq-local buffer-read-only nil)
+         (erase-buffer)
+         (insert syntax-tree)
+         (read-only-mode))
+       (switch-to-buffer buffer)))))
 
 (lsp-register-client
  (make-lsp-client :new-connection (lsp-stdio-connection

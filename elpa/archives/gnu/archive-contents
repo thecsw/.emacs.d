@@ -252,7 +252,7 @@
 	    ("Artur Malabarba" . "emacs@endlessparentheses.com"))
 	   (:commit . "0cf8b60f62876f3e75653a5fb30d5d5cdd74c586"))])
  (beframe .
-	  [(0 3 0)
+	  [(1 0 0)
 	   ((emacs
 	     (28 1)))
 	   "Isolate buffers per frame" tar
@@ -260,7 +260,7 @@
 	    (:maintainer "Protesilaos Stavrou General Issues" . "~protesilaos/general-issues@lists.sr.ht")
 	    (:authors
 	     ("Protesilaos Stavrou" . "info@protesilaos.com"))
-	    (:commit . "24551a22b4561cdf4c256b941aeb6176e993c280"))])
+	    (:commit . "1709059b8ac33c76107da178cf2d0dc875dff14e"))])
  (bind-key .
 	   [(2 4 1)
 	    nil "A simple way to manage personal keybindings" tar
@@ -382,7 +382,7 @@
 		  (:maintainer "Clemens Radermacher" . "clemera@posteo.net")
 		  (:url . "https://github.com/clemera/buffer-expose"))])
  (bufferlo .
-	   [(0 3)
+	   [(0 4)
 	    ((emacs
 	      (27 1)))
 	    "Manage frame/tab-local buffer lists" tar
@@ -391,7 +391,7 @@
 	     (:maintainer "Florian Rommel" . "mail@florommel.de")
 	     (:authors
 	      ("Florian Rommel" . "mail@florommel.de"))
-	     (:commit . "02de3c5e3ae47c152997ced2f92341a1ffe23ef6"))])
+	     (:commit . "c516fd8e4a9fe2d46a35bba8b5b07a4df0d078df"))])
  (bug-hunter .
 	     [(1 3 1)
 	      ((seq
@@ -511,7 +511,7 @@
 	       (:url . "https://elpa.gnu.org/packages/cobol-mode.html")
 	       (:commit . "bd7879daa71908616277688ba51d27b60c88b0a2"))])
  (code-cells .
-	     [(0 3)
+	     [(0 4)
 	      ((emacs
 		(27 1)))
 	      "Lightweight notebooks with support for ipynb files" tar
@@ -520,7 +520,7 @@
 	       (:maintainer "Augusto Stoffel" . "arstoffel@gmail.com")
 	       (:authors
 		("Augusto Stoffel" . "arstoffel@gmail.com"))
-	       (:commit . "fd68a33eb43b3cbd44fed767f48e230382903592"))])
+	       (:commit . "44546ca256f3da29e3ac884e3d699c8455acbd6e"))])
  (comint-mime .
 	      [(0 3)
 	       ((emacs
@@ -811,7 +811,7 @@
 	    (:maintainer "Phil Sainty" . "psainty@orcon.net.nz")
 	    (:url . "https://savannah.nongnu.org/projects/delight"))])
  (denote .
-	 [(2 1 0)
+	 [(2 1 1)
 	  ((emacs
 	    (28 1)))
 	  "Simple notes with an efficient file-naming scheme" tar
@@ -819,7 +819,7 @@
 	   (:maintainer "Denote Development" . "~protesilaos/denote@lists.sr.ht")
 	   (:authors
 	    ("Protesilaos Stavrou" . "info@protesilaos.com"))
-	   (:commit . "5f10fbf0197b0b51dde5fbd8916d1a881d84c534"))])
+	   (:commit . "5b92f3709755e4531b6f01a517d6fe2d378fce3d"))])
  (denote-menu .
 	      [(1 2 0)
 	       ((emacs
@@ -1686,7 +1686,7 @@
 	     ("Sean Allred" . "code@seanallred.com"))
 	    (:commit . "b57b5ca5d2d0837e1fb4a4f30c051d5f3e643f0f"))])
  (greader .
-	  [(0 6 0)
+	  [(0 8 0)
 	   ((emacs
 	     (25)))
 	   "gnamù reader, send buffer contents to a speech engine." tar
@@ -1695,7 +1695,7 @@
 	    (:authors
 	     ("Michelangelo Rodriguez" . "michelangelo.rodriguez@gmail.com"))
 	    (:url . "https://elpa.gnu.org/packages/greader.html")
-	    (:commit . "8f6cf791ad02579346ee078cf929c0044ff3e46d"))])
+	    (:commit . "fe5df5a83932acccf3407d67c59c131be058d6c4"))])
  (greenbar .
 	   [(1 1)
 	    nil "Mark comint output with \"greenbar\" background" single
@@ -3521,18 +3521,20 @@
 		("Alex Harsanyi" . "AlexHarsanyi@gmail.com"))
 	       (:commit . "323ece64acaac7f27b7806db9dba0757d6e57885"))])
  (srht .
-       [(0 3)
+       [(0 4)
 	((emacs
 	  (27 1))
 	 (plz
-	  (0 7)))
+	  (0 7))
+	 (transient
+	  (0 4 3)))
 	"Sourcehut" tar
 	((:url . "https://sr.ht/~akagi/srht.el/")
 	 (:keywords "comm" "vc")
 	 (:maintainer "Aleksandr Vityazev" . "avityazev@posteo.org")
 	 (:authors
 	  ("Aleksandr Vityazev" . "avityazev@posteo.org"))
-	 (:commit . "8cab1e48bcb5b8ee70c498a712fb6f52eddc95ab"))])
+	 (:commit . "053c79fb41278f11e98c61785e8cc500ed4c853b"))])
  (ssh-deploy .
 	     [(3 1 16)
 	      ((emacs
@@ -4128,7 +4130,7 @@
 	     ("Daniel Mendler" . "mail@daniel-mendler.de"))
 	    (:commit . "438f9a47f8adc0c1d3de056c190d4edba3d4ad35"))])
  (vertico-posframe .
-		   [(0 7 3)
+		   [(0 7 4)
 		    ((emacs
 		      (26 0))
 		     (posframe
@@ -4141,7 +4143,7 @@
 		     (:maintainer "Feng Shu" . "tumashu@163.com")
 		     (:authors
 		      ("Feng Shu" . "tumashu@163.com"))
-		     (:commit . "db9fbc95bb8316165ec74e500a76d6857e6ced1a"))])
+		     (:commit . "63de823902ed0600b6570a7535bcc8a59fb87dca"))])
  (vigenere .
 	   [(1 0)
 	    ((emacs

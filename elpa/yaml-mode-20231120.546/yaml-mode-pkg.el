@@ -1,6 +1,6 @@
-(define-package "yaml-mode" "20231003.1142" "Major mode for editing YAML files"
+(define-package "yaml-mode" "20231120.546" "Major mode for editing YAML files"
   '((emacs "24.1"))
-  :commit "23395dfcf004c952850691b70e63f97f169596e8" :authors
+  :commit "aa7f04d8aaeb1b580904a84cadf561721d9acdbb" :authors
   '(("Yoshiki Kurihara" . "clouder@gmail.com")
     ("Marshall T. Vandegrift" . "llasram@gmail.com"))
   :maintainers

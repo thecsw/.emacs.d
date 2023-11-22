@@ -49,6 +49,11 @@
 (register-definition-prefixes "lsp-beancount" '("lsp-beancount-"))
 
 
+;;; Generated autoloads from lsp-bufls.el
+
+(register-definition-prefixes "lsp-bufls" '("lsp-bufls-"))
+
+
 ;;; Generated autoloads from lsp-camel.el
 
 (register-definition-prefixes "lsp-camel" '("lsp-camel-"))
@@ -263,6 +268,11 @@ Load all of the provided PROJECTS.
 ;;; Generated autoloads from lsp-go.el
 
 (register-definition-prefixes "lsp-go" '("lsp-go-"))
+
+
+;;; Generated autoloads from lsp-golangci-lint.el
+
+(register-definition-prefixes "lsp-golangci-lint" '("lsp-golangci-lint-"))
 
 
 ;;; Generated autoloads from lsp-graphql.el

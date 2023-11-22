@@ -212,14 +212,14 @@
 	  ("Damien Doligez" . "damien.doligez@inria.fr"))
 	 (:keywords "ocaml"))])
  (cdlatex .
-	  [(4 18 3)
+	  [(4 18 4)
 	   nil "Fast input methods for LaTeX environments and math" tar
 	   ((:keywords "tex")
 	    (:maintainer "Carsten Dominik" . "carsten.dominik@gmail.com")
 	    (:authors
 	     ("Carsten Dominik" . "carsten.dominik@gmail.com"))
 	    (:url . "https://elpa.nongnu.org/nongnu/cdlatex.html")
-	    (:commit . "7521fa1b39de735dcbd32bca92a792d5261e9ce2"))])
+	    (:commit . "33770dec73138909714711b05a63e79da5a19ccd"))])
  (cider .
 	[(1 11 1)
 	 ((emacs
@@ -1833,7 +1833,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:keywords "convenience"))])
  (racket-mode .
-	      [(1 0 20231115 104415)
+	      [(1 0 20231118 113908)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -2088,7 +2088,7 @@
 	  (:maintainer "Sacha Chua" . "sacha@sachachua.com")
 	  (:commit . "c9e3ec9963fcc95050fe8a73ce978bebe2ac41ac"))])
  (sweeprolog .
-	     [(0 27 0)
+	     [(0 27 1)
 	      ((emacs
 		(27 1))
 	       (compat
@@ -2099,7 +2099,7 @@
 	       (:maintainer "Eshel Yaron" . "~eshel/dev@lists.sr.ht")
 	       (:authors
 		("Eshel Yaron" . "me@eshelyaron.com"))
-	       (:commit . "05020e1269600caa155b5c9705ef5f02869cfcd4"))])
+	       (:commit . "9fb73320c5520871a5473f6b427fb9e7fae1d766"))])
  (swift-mode .
 	     [(9 1 0)
 	      ((emacs
