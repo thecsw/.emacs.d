@@ -221,11 +221,11 @@
 	    (:url . "https://elpa.nongnu.org/nongnu/cdlatex.html")
 	    (:commit . "33770dec73138909714711b05a63e79da5a19ccd"))])
  (cider .
-	[(1 11 1)
+	[(1 12 0)
 	 ((emacs
 	   (26))
 	  (clojure-mode
-	   (5 18 0))
+	   (5 18 1))
 	  (parseedn
 	   (1 2 0))
 	  (queue
@@ -249,16 +249,16 @@
 	   ("Artur Malabarba" . "bruce.connor.am@gmail.com")
 	   ("Hugo Duncan" . "hugo@hugoduncan.org")
 	   ("Steve Purcell" . "steve@sanityinc.com"))
-	  (:commit . "9c605cd4938c0055c2766c55606f19ecbf664e8e"))])
+	  (:commit . "2bafc1ec67308de500ce7ce8ac8f79eae449dee8"))])
  (clojure-mode .
-	       [(5 18 0)
+	       [(5 18 1)
 		((emacs
 		  (25 1)))
 		"Major mode for Clojure code" tar
 		((:url . "https://github.com/clojure-emacs/clojure-mode")
 		 (:keywords "languages" "clojure" "clojurescript" "lisp")
 		 (:maintainer "Bozhidar Batsov" . "bozhidar@batsov.dev")
-		 (:commit . "525fc1b131b1fc537aa82d83d9eb2ea833cface6"))])
+		 (:commit . "25d713a67d8e0209ee74bfc0153fdf677697b43f"))])
  (clojure-ts-mode .
 		  [(0 2 0)
 		   ((emacs
@@ -1087,7 +1087,7 @@
 		    ((:url . "https://gitlab.com/tseenshe/haskell-tng-mode")
 		     (:keywords "languages"))])
  (helm .
-       [(3 9 5)
+       [(3 9 6)
 	((helm-core
 	  (3 9 4))
 	 (wfnames
@@ -1099,9 +1099,9 @@
 	 (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	 (:authors
 	  ("Thierry Volpiatto" . "thievol@posteo.net"))
-	 (:commit . "ffff39b542196565dcec5641e287265aaa5517ed"))])
+	 (:commit . "d1f10e5a998254a763304a925963dc6d54e934b1"))])
  (helm-core .
-	    [(3 9 5)
+	    [(3 9 6)
 	     ((emacs
 	       (25 1))
 	      (async
@@ -1111,7 +1111,7 @@
 	      (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	      (:authors
 	       ("Thierry Volpiatto" . "thievol@posteo.net"))
-	      (:commit . "ffff39b542196565dcec5641e287265aaa5517ed"))])
+	      (:commit . "d1f10e5a998254a763304a925963dc6d54e934b1"))])
  (highlight-parentheses .
 			[(2 1 1)
 			 ((emacs
@@ -1283,7 +1283,7 @@
 	      ((:url . "https://github.com/JuliaEditorSupport/julia-emacs")
 	       (:keywords "languages"))])
  (keycast .
-	  [(1 3 2)
+	  [(1 3 3)
 	   ((emacs
 	     (25 3))
 	    (compat
@@ -1294,7 +1294,7 @@
 	    (:maintainer "Jonas Bernoulli" . "jonas@bernoul.li")
 	    (:authors
 	     ("Jonas Bernoulli" . "jonas@bernoul.li"))
-	    (:commit . "0b16d6aa3ae965bcd6b4d1fd0173cfde9dc8e275"))])
+	    (:commit . "c47fa154c756abd044da4a1353c30b978782f7dc"))])
  (kotlin-mode .
 	      [(2 0 0)
 	       ((emacs
@@ -1656,6 +1656,15 @@
 	  (:authors
 	   ("Jonas Bernoulli" . "jonas@bernoul.li"))
 	  (:commit . "4a585029875a1dbbe96d8ac157bd2fd02875f289"))])
+ (p4-16-mode .
+	     [(0 3)
+	      nil "Support for the P4_16 programming language" tar
+	      ((:keywords "languages" "p4_16")
+	       (:maintainer "Soham S Gumaste" . "sohamg2@gmail.com")
+	       (:authors
+		("Soham S Gumaste" . "sohamg2@gmail.com"))
+	       (:url . "https://elpa.nongnu.org/nongnu/p4-16-mode.html")
+	       (:commit . "794dd0056b4ca736ae5ecb39072547f22a006137"))])
  (package-lint .
 	       [(0 21)
 		((cl-lib
@@ -1771,16 +1780,14 @@
 	       ("Andreas Politz" . "mail@andreas-politz.de"))
 	      (:commit . "a9c9a12c3ecf2005fa641059368ac8284f507620"))])
  (php-mode .
-	   [(1 25 0)
+	   [(1 25 1)
 	    ((emacs
 	      (26 1)))
 	    "Major mode for editing PHP code" tar
 	    ((:url . "https://github.com/emacs-php/php-mode")
 	     (:keywords "languages" "php")
 	     (:maintainer "USAMI Kenta" . "tadsan@zonu.me")
-	     (:authors
-	      ("Eric James Michael Ritz"))
-	     (:commit . "28d0a0bc81a8481fd75e5a6477dda394fe04fef3"))])
+	     (:commit . "6ad1715ef0aed463ab05076dc7c91657978e4ec1"))])
  (popon .
 	[(0 13)
 	 ((emacs
@@ -1833,7 +1840,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:keywords "convenience"))])
  (racket-mode .
-	      [(1 0 20231118 113908)
+	      [(1 0 20231125 160501)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -1872,7 +1879,7 @@
 		("Campbell Barton" . "ideasman42@gmail.com"))
 	       (:commit . "2b38ca25e3392636fe936d3edad447970279a463"))])
  (reformatter .
-	      [(0 7)
+	      [(0 8)
 	       ((emacs
 		 (24 3)))
 	       "Define commands which run reformatters on the current buffer" tar
@@ -1881,7 +1888,7 @@
 		(:maintainer "Steve Purcell" . "steve@sanityinc.com")
 		(:authors
 		 ("Steve Purcell" . "steve@sanityinc.com"))
-		(:commit . "bfe3f1c6ece952d39921db16f601123bdd1748ab"))])
+		(:commit . "ebea79504b40fecb150caf8c39621146164f997e"))])
  (request .
 	  [(0 3 3)
 	   ((emacs
@@ -2088,7 +2095,7 @@
 	  (:maintainer "Sacha Chua" . "sacha@sachachua.com")
 	  (:commit . "c9e3ec9963fcc95050fe8a73ce978bebe2ac41ac"))])
  (sweeprolog .
-	     [(0 27 1)
+	     [(0 27 2)
 	      ((emacs
 		(27 1))
 	       (compat
@@ -2099,7 +2106,7 @@
 	       (:maintainer "Eshel Yaron" . "~eshel/dev@lists.sr.ht")
 	       (:authors
 		("Eshel Yaron" . "me@eshelyaron.com"))
-	       (:commit . "9fb73320c5520871a5473f6b427fb9e7fae1d766"))])
+	       (:commit . "e98cf4feb6dab3b01b650b95830ea57b176613e4"))])
  (swift-mode .
 	     [(9 1 0)
 	      ((emacs
@@ -2408,14 +2415,14 @@
 	      (:authors
 	       ("Le Wang")))])
  (xah-fly-keys .
-	       [(24 18 20231115084756)
+	       [(24 18 20231124130215)
 		((emacs
 		  (27)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "vi" "vim" "ergoemacs" "keybinding")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "68335b2a903d9d9163129e92bbbf8927599739a6"))])
+		 (:commit . "770b9dc860cb0b58c80136c94ba39762143a3da7"))])
  (xkcd .
        [(1 1)
 	((json

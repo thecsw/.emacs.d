@@ -153,7 +153,7 @@
 			 (:maintainer "Thien-Thi Nguyen" . "ttn@gnu.org")
 			 (:url . "http://www.gnuvola.org/software/aa2u/"))])
  (async .
-	[(1 9 7)
+	[(1 9 8)
 	 ((emacs
 	   (24 4)))
 	 "Asynchronous processing in Emacs" tar
@@ -162,7 +162,7 @@
 	  (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	  (:authors
 	   ("John Wiegley" . "jwiegley@gmail.com"))
-	  (:commit . "53addd02fbad33765f508f8e6254ebd44e1f81e5"))])
+	  (:commit . "00e07e060218fbd1e16faaf10116c03b12e62580"))])
  (auctex .
 	 [(13 2 2)
 	  ((emacs
@@ -2027,18 +2027,18 @@
 	  (:url . "https://elpa.gnu.org/packages/jumpc.html")
 	  (:commit . "ab83a2a5416f83405361e25df8cbd8aab35cb8b3"))])
  (kind-icon .
-	    [(0 2 0)
+	    [(0 2 1)
 	     ((emacs
 	       (27 1))
 	      (svg-lib
-	       (0)))
+	       (0 2 8)))
 	     "Completion kind icons" tar
 	     ((:url . "https://github.com/jdtsmith/kind-icon")
-	      (:keywords "completion")
+	      (:keywords "completion" "convenience")
 	      (:maintainer "J.D. Smith" . "jdtsmith@gmail.com")
 	      (:authors
 	       ("J.D. Smith" . "jdtsmith@gmail.com"))
-	      (:commit . "47b72281e2d339926b192574ccade8e5ca14c282"))])
+	      (:commit . "d432c947b218414621c9673b4ba8910ac129eef6"))])
  (kiwix .
 	[(1 1 5)
 	 ((emacs
@@ -3159,7 +3159,7 @@
 			("Rocky Bernstein" . "rocky@gnu.org"))
 		       (:commit . "f758f48266d90775643454e72214e40a4ed320b8"))])
  (rec-mode .
-	   [(1 9 1)
+	   [(1 9 3)
 	    ((emacs
 	      (25)))
 	    "Major mode for viewing/editing rec files" tar
@@ -3167,7 +3167,7 @@
 	     (:maintainer "Antoine Kalmbach" . "ane@iki.fi")
 	     (:authors
 	      ("Jose E. Marchesi" . "jemarch@gnu.org"))
-	     (:commit . "faae27aeb71cc9397d0fc1a19bd0df8c9e11cc98"))])
+	     (:commit . "dcd339458469d6c3c499b11df9d3b44e6de98ff5"))])
  (register-list .
 		[(0 1)
 		 nil "Interactively list/edit registers" single
@@ -3469,7 +3469,7 @@
 	    (:maintainer "Artur Malabarba" . "emacs@endlessparentheses.com")
 	    (:url . "https://github.com/Malabarba/speed-of-thought-lisp"))])
  (spacious-padding .
-		   [(0 1 0)
+		   [(0 2 2)
 		    ((emacs
 		      (28 1)))
 		    "Increase the padding/spacing of frames and windows" tar
@@ -3478,7 +3478,7 @@
 		     (:maintainer "Protesilaos Stavrou General Issues" . "~protesilaos/general-issues@lists.sr.ht")
 		     (:authors
 		      ("Protesilaos Stavrou" . "info@protesilaos.com"))
-		     (:commit . "8e4877c807b164d602a9482595b138aeebd94967"))])
+		     (:commit . "55b9e26d58c006389e43de27cdc2903b7bbd4338"))])
  (spinner .
 	  [(1 7 4)
 	   ((emacs
@@ -3547,7 +3547,7 @@
 		("Christian Johansson" . "christian@cvj.se"))
 	       (:commit . "95fb076c9b657c5f1bfad3ee5bf1f8691c50d428"))])
  (standard-themes .
-		  [(1 2 0)
+		  [(2 0 0)
 		   ((emacs
 		     (27 1)))
 		   "Like the default theme but more consistent" tar
@@ -3556,7 +3556,7 @@
 		    (:maintainer "Standard-Themes Development" . "~protesilaos/standard-themes@lists.sr.ht")
 		    (:authors
 		     ("Protesilaos Stavrou" . "info@protesilaos.com"))
-		    (:commit . "b594df646b99d55acba3ccff3109bd322a3278f0"))])
+		    (:commit . "ba79285bf1b2f9ce4430e83ba60391e7f26a9a1a"))])
  (stream .
 	 [(2 3 0)
 	  ((emacs
@@ -3602,14 +3602,14 @@
 	       ("Ulf Jasper" . "ulf.jasper@web.de"))
 	      (:maintainer "Ulf Jasper" . "ulf.jasper@web.de"))])
  (svg-lib .
-	  [(0 2 7)
+	  [(0 2 8)
 	   ((emacs
 	     (27 1)))
 	   "SVG tags, progress bars & icons" tar
 	   ((:url . "https://github.com/rougier/svg-lib")
 	    (:keywords "svg" "icons" "tags" "convenience")
 	    (:maintainer "Nicolas P. Rougier" . "Nicolas.Rougier@inria.fr")
-	    (:commit . "cde8a8c2ba153963cbe4d233069bc053943f0974"))])
+	    (:commit . "710803c3bea1a25d6d47475c6e1eee734e7144ae"))])
  (svg-tag-mode .
 	       [(0 3 2)
 		((emacs
@@ -3750,6 +3750,17 @@
 		 ("Rocky Bernstein" . "rocky@gnu.org"))
 		(:maintainer "Rocky Bernstein" . "rocky@gnu.org")
 		(:url . "http://github.com/rocky/emacs-test-simple"))])
+ (theme-buffet .
+	       [(0 1 0)
+		((emacs
+		  (29 1)))
+		"Time based theme switcher" tar
+		((:url . "https://git.sr.ht/~bboal/theme-buffet")
+		 (:maintainer "Theme-Buffet Development" . "~bboal/general-issues@lists.sr.ht")
+		 (:authors
+		  ("Bruno Boal" . "egomet@bboal.com")
+		  ("Protesilaos Stavrou" . "info@protesilaos.com"))
+		 (:commit . "8898823a87178581425d90d4f9fba7e741b0236a"))])
  (timerfunctions .
 		 [(1 4 2)
 		  ((cl-lib
@@ -4130,7 +4141,7 @@
 	     ("Daniel Mendler" . "mail@daniel-mendler.de"))
 	    (:commit . "438f9a47f8adc0c1d3de056c190d4edba3d4ad35"))])
  (vertico-posframe .
-		   [(0 7 4)
+		   [(0 7 5)
 		    ((emacs
 		      (26 0))
 		     (posframe
@@ -4143,7 +4154,7 @@
 		     (:maintainer "Feng Shu" . "tumashu@163.com")
 		     (:authors
 		      ("Feng Shu" . "tumashu@163.com"))
-		     (:commit . "63de823902ed0600b6570a7535bcc8a59fb87dca"))])
+		     (:commit . "15168c92ca06a39fbf84ac27d4e2ae02216300b5"))])
  (vigenere .
 	   [(1 0)
 	    ((emacs
