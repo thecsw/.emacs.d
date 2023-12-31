@@ -1842,7 +1842,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:keywords "convenience"))])
  (racket-mode .
-	      [(1 0 20231219 113220)
+	      [(1 0 20231224 162603)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -2001,14 +2001,15 @@
 	      ("Chen Bin" . "chenbin.sh@gmail.com"))
 	     (:commit . "4e71f5b9199a0ad10017104a6b2bf5ef5f207dfc"))])
  (slime .
-	[(2 26 1)
+	[(2 28)
 	 ((cl-lib
 	   (0 5))
 	  (macrostep
 	   (0 9)))
 	 "Superior Lisp Interaction Mode for Emacs" tar
 	 ((:url . "https://github.com/slime/slime")
-	  (:keywords "languages" "lisp" "slime"))])
+	  (:keywords "languages" "lisp" "slime")
+	  (:commit . "28adf1dca0eea36d113d942bbf050fa92150981d"))])
  (sly .
       [(1 0 43)
        ((emacs
@@ -2088,14 +2089,14 @@
 		     ("John Olsson" . "john@cryon.se"))
 		    (:commit . "2d5acd143a153e16372d59000e57d76291ab81dd"))])
  (subed .
-	[(1 2 9)
+	[(1 2 11)
 	 ((emacs
 	   (25 1)))
 	 "A major mode for editing subtitles" tar
 	 ((:url . "https://github.com/sachac/subed")
 	  (:keywords "convenience" "files" "hypermedia" "multimedia")
 	  (:maintainer "Sacha Chua" . "sacha@sachachua.com")
-	  (:commit . "0b4850030ad202bbced992e6fbe4489fd2ebdf77"))])
+	  (:commit . "e73c0a38039eb32fd43911023ff35007e324c733"))])
  (sweeprolog .
 	     [(0 27 2)
 	      ((emacs
@@ -2306,14 +2307,14 @@
 			("Joost Kremers" . "joostkremers@fastmail.fm"))
 		       (:commit . "695a59789209c42fa08a5bce92963ee32f4455be"))])
  (web-mode .
-	   [(17 3 15)
+	   [(17 3 17)
 	    ((emacs
 	      (23 1)))
 	    "major mode for editing web templates" tar
 	    ((:url . "https://web-mode.org")
 	     (:keywords "languages")
 	     (:maintainer "François-Xavier Bois" . "fxbois@gmail.com")
-	     (:commit . "848fce94de202541cd3fcd35e9c9d22783e9e828"))])
+	     (:commit . "82847071ce93293bdb7945db08d970f13fd883cf"))])
  (webpaste .
 	   [(3 2 2)
 	    ((emacs
