@@ -442,7 +442,7 @@
 	 ("Akib Azmain Turja" . "akib@disroot.org"))
 	(:commit . "c91451f2d17453c19d3fa76faa4945cbe54e14ce"))])
  (edit-indirect .
-		[(0 1 10)
+		[(0 1 11)
 		 ((emacs
 		   (24 3)))
 		 "Edit regions in separate buffers" tar
@@ -450,7 +450,7 @@
 		  (:maintainer "Fanael Linithien" . "fanael4@gmail.com")
 		  (:authors
 		   ("Fanael Linithien" . "fanael4@gmail.com"))
-		  (:commit . "f80f63822ffae78de38dbe72cacaeb1aaa96c732"))])
+		  (:commit . "d0378d9747791fcd78370a0e52ec018d5970c482"))])
  (editorconfig .
 	       [(0 10 1)
 		((emacs
@@ -523,6 +523,21 @@
 	      (:authors
 	       ("Connor Smith" . "wconnorsmith@gmail.com"))
 	      (:commit . "2671071a4a57eaee7cc8c27b9e4b6fc60fd2ccd3"))])
+ (evil-escape .
+	      [(3 16)
+	       ((emacs
+		 (24))
+		(evil
+		 (1 0 9))
+		(cl-lib
+		 (0 5)))
+	       "Escape from anything with a customizable key sequence" tar
+	       ((:url . "https://github.com/emacsorphanage/evil-escape")
+		(:keywords "convenience" "editing" "evil")
+		(:maintainer "Sylvain Benner" . "sylvain.benner@gmail.com")
+		(:authors
+		 ("Sylvain Benner" . "sylvain.benner@gmail.com"))
+		(:commit . "3c335a5709b1abb08687960038746b36add465f9"))])
  (evil-exchange .
 		[(0 41)
 		 ((evil
@@ -1842,7 +1857,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:keywords "convenience"))])
  (racket-mode .
-	      [(1 0 20231224 162603)
+	      [(1 0 20240111 83028)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -2098,7 +2113,7 @@
 	  (:maintainer "Sacha Chua" . "sacha@sachachua.com")
 	  (:commit . "e73c0a38039eb32fd43911023ff35007e324c733"))])
  (sweeprolog .
-	     [(0 27 2)
+	     [(0 27 3)
 	      ((emacs
 		(27 1))
 	       (compat
@@ -2109,7 +2124,7 @@
 	       (:maintainer "Eshel Yaron" . "~eshel/dev@lists.sr.ht")
 	       (:authors
 		("Eshel Yaron" . "me@eshelyaron.com"))
-	       (:commit . "e98cf4feb6dab3b01b650b95830ea57b176613e4"))])
+	       (:commit . "52f506b3a3dd7e7003a44ad3ae5257b3d22025d2"))])
  (swift-mode .
 	     [(9 1 0)
 	      ((emacs
@@ -2418,14 +2433,14 @@
 	      (:authors
 	       ("Le Wang")))])
  (xah-fly-keys .
-	       [(24 19 20231212124900)
+	       [(24 19 20240112095825)
 		((emacs
 		  (27)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "vi" "vim" "ergoemacs" "keybinding")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "d2f2608a9e283ca45053258086662a1bdd42be65"))])
+		 (:commit . "d3f95185de11b2f4dac6195cc0f0b6df3706e444"))])
  (xkcd .
        [(1 1)
 	((json
