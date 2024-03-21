@@ -39,13 +39,13 @@
 		(:authors
 		 ("Jordon Biondo" . "jordonbiondo@gmail.com")))])
  (annotate .
-	   [(2 1 0)
+	   [(2 2 0)
 	    nil "annotate files without changing them" tar
 	    ((:url . "https://github.com/bastibe/annotate.el")
 	     (:maintainer
 	      ("Bastian Bechtold" . "bastibe.dev@mailbox.org")
 	      ("cage" . "cage-dev@twistfold.it"))
-	     (:commit . "866fa6d3c05baeace4e8906049a356c9ea913a23"))])
+	     (:commit . "9aa27cadf7b4b2b579d322f540b85c6846b70022"))])
  (anti-zenburn-theme .
 		     [(2 5 1)
 		      nil "Low-contrast Zenburn-inverted theme" tar
@@ -1897,7 +1897,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:keywords "convenience"))])
  (racket-mode .
-	      [(1 0 20240301 121422)
+	      [(1 0 20240319 160226)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -2488,14 +2488,14 @@
 	      (:authors
 	       ("Le Wang")))])
  (xah-fly-keys .
-	       [(24 22 20240306092400)
+	       [(24 22 20240319015202)
 		((emacs
 		  (27)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "vi" "vim" "ergoemacs" "keybinding")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "e9266924f515ff2a9e11d6d0cf449c031a593191"))])
+		 (:commit . "d1dc2321d489ec8172414b6446756ac55fe495c8"))])
  (xkcd .
        [(1 1)
 	((json
