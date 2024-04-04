@@ -788,3 +788,19 @@ one line
   (define-key dired-mode-map (kbd "h") #'dired-gitignore-mode)
   ;; (add-hook 'dired-mode-hook 'dired-gitignore-mode)
 #+end_src
+* Difftastic
+#+begin_src emacs-lisp
+  (require 'difftastic)
+
+  ;; Add commands to a `magit-difftastic'
+  (eval-after-load 'magit-diff
+    '(transient-append-suffix 'magit-diff '(-1 -1)
+       [("D" "Difftastic diff (dwim)" difftastic-magit-diff)
+        ("S" "Difftastic show" difftastic-magit-show)]))
+  (add-hook 'magit-blame-read-only-mode-hook
+            (lambda ()
+              (keymap-set magit-blame-read-only-mode-map
+                          "D" #'difftastic-magit-show)
+              (keymap-set magit-blame-read-only-mode-map
+                          "S" #'difftastic-magit-show)))
+#+end_src
