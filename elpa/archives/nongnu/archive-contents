@@ -711,22 +711,18 @@
 		   "Starts a * or # search from the visual selection" tar
 		   ((:url . "https://github.com/bling/evil-visualstar")
 		    (:keywords "evil" "vim" "visualstar")
-		    (:maintainer "Bailey Ling")
-		    (:authors
-		     ("Bailey Ling")))])
+		    (:commit . "87a5bd845759c5e5508de2e2aed2a99424995d44"))])
  (exec-path-from-shell .
-		       [(2 1)
+		       [(2 2)
 			((emacs
-			  (24 1))
-			 (cl-lib
-			  (0 6)))
+			  (24 4)))
 			"Get environment variables such as $PATH from the shell" tar
 			((:url . "https://github.com/purcell/exec-path-from-shell")
 			 (:keywords "unix" "environment")
 			 (:maintainer "Steve Purcell" . "steve@sanityinc.com")
 			 (:authors
 			  ("Steve Purcell" . "steve@sanityinc.com"))
-			 (:commit . "03fc0a38af9e396c98f5a30c392cf757b3a34feb"))])
+			 (:commit . "72ede29a0e0467b3b433e8edbee3c79bab005884"))])
  (flx .
       [(0 6 2)
        ((cl-lib
@@ -1141,9 +1137,9 @@
 		     (:keywords "languages")
 		     (:commit . "59640ceec33cd4df37096289e11ff6f4b876be03"))])
  (helm .
-       [(3 9 7)
+       [(3 9 8)
 	((helm-core
-	  (3 9 7))
+	  (3 9 8))
 	 (wfnames
 	  (1 1))
 	 (popup
@@ -1153,9 +1149,9 @@
 	 (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	 (:authors
 	  ("Thierry Volpiatto" . "thievol@posteo.net"))
-	 (:commit . "b04272a53e5b2db1fc7724d4ba84e51fd20e9c4f"))])
+	 (:commit . "6ae44dba0cb72a3a6950cbe36d104db9c69dfb49"))])
  (helm-core .
-	    [(3 9 7)
+	    [(3 9 8)
 	     ((emacs
 	       (25 1))
 	      (async
@@ -1165,9 +1161,9 @@
 	      (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	      (:authors
 	       ("Thierry Volpiatto" . "thievol@posteo.net"))
-	      (:commit . "b04272a53e5b2db1fc7724d4ba84e51fd20e9c4f"))])
+	      (:commit . "6ae44dba0cb72a3a6950cbe36d104db9c69dfb49"))])
  (highlight-parentheses .
-			[(2 2 1)
+			[(2 2 2)
 			 ((emacs
 			   (24 3)))
 			 "Highlight surrounding parentheses" tar
@@ -1176,7 +1172,7 @@
 			  (:maintainer "Tassilo Horn" . "tsdh@gnu.org")
 			  (:authors
 			   ("Nikolaj Schumacher" . "bugs*nschumde"))
-			  (:commit . "d64add6f37304ba46756f06517cf4448e2a79090"))])
+			  (:commit . "965b18dd69eff4457e17c9e84b3cbfdbfca2ddfb"))])
  (hl-block-mode .
 		[(0 2)
 		 ((emacs
@@ -1564,14 +1560,14 @@
 	       ("Christopher Wellons" . "wellons@nullprogram.com"))
 	      (:commit . "d990ed94d902b74a5c834fb567e03307607cee45"))])
  (nginx-mode .
-	     [(1 1 9)
+	     [(1 1 10)
 	      nil "major mode for editing nginx config files" tar
 	      ((:keywords "languages" "nginx")
 	       (:maintainer "Andrew J Cosgriff" . "andrew@cosgriff.name")
 	       (:authors
 		("Andrew J Cosgriff" . "andrew@cosgriff.name"))
 	       (:url . "https://elpa.nongnu.org/nongnu/nginx-mode.html")
-	       (:commit . "a2bab83c2eb233d57d76b236e7c141c2ccc97005"))])
+	       (:commit . "c4ac5de975d65c84893a130a470af32a48b0b66c"))])
  (nix-mode .
 	   [(1 5 0)
 	    ((emacs
@@ -1894,7 +1890,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:commit . "1edda80e2e32b72e77f4f16ae5b83c312c68ee95"))])
  (racket-mode .
-	      [(1 0 20240319 160226)
+	      [(1 0 20240416 91625)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -2145,7 +2141,7 @@
 	  (:maintainer "Sacha Chua" . "sacha@sachachua.com")
 	  (:commit . "e73c0a38039eb32fd43911023ff35007e324c733"))])
  (sweeprolog .
-	     [(0 27 4)
+	     [(0 27 5)
 	      ((emacs
 		(27 1))
 	       (compat
@@ -2156,7 +2152,7 @@
 	       (:maintainer "Eshel Yaron" . "~eshel/dev@lists.sr.ht")
 	       (:authors
 		("Eshel Yaron" . "me@eshelyaron.com"))
-	       (:commit . "799e1aebfd280ed6d00fb1034a3fed60de21c8d7"))])
+	       (:commit . "d8ea9790b40d74f444ff147f7b98f2023ef2e61a"))])
  (swift-mode .
 	     [(9 1 0)
 	      ((emacs
@@ -2359,7 +2355,7 @@
 	       ("Daniel Semyonov" . "daniel@dsemy.com"))
 	      (:commit . "93ae3db40d07ae15e61d34c3c3870de5d2fce2de"))])
  (visual-fill-column .
-		     [(2 6 2)
+		     [(2 6 3)
 		      ((emacs
 			(25 1)))
 		      "fill-column for visual-line-mode" tar
@@ -2367,7 +2363,7 @@
 		       (:maintainer "Joost Kremers" . "joostkremers@fastmail.fm")
 		       (:authors
 			("Joost Kremers" . "joostkremers@fastmail.fm"))
-		       (:commit . "5b9f9309bdf040b72bb2c3d99d1d8a0f0d98c308"))])
+		       (:commit . "e04d3521b6dc2435de4c4a4b9cac5feb194f0d5b"))])
  (web-mode .
 	   [(17 3 19)
 	    ((emacs
@@ -2476,14 +2472,14 @@
 	     ((:url . "https://github.com/lewang/ws-butler")
 	      (:commit . "323b651dd70ee40a25accc940b8f80c3a3185205"))])
  (xah-fly-keys .
-	       [(24 24 20240324101507)
+	       [(24 24 20240406145635)
 		((emacs
 		  (27)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "vi" "vim" "ergoemacs" "keybinding")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "c70f6c921a8614b4bc1c66d271c1b92685e62791"))])
+		 (:commit . "ab78ee6092507be9a8b45dee54f69d93c1f055e6"))])
  (xkcd .
        [(1 1)
 	((json
