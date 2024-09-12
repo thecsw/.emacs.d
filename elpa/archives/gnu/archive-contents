@@ -730,7 +730,7 @@
 	    (:maintainer "Daniel Mendler" . "mail@daniel-mendler.de")
 	    (:commit . "4889458dccf842ab6223099f8a73ff8b147e9459"))])
  (consult-denote .
-		 [(0 1 1)
+		 [(0 1 2)
 		  ((emacs
 		    (28 1))
 		   (denote
@@ -742,7 +742,7 @@
 		   (:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
 		   (:authors
 		    ("Protesilaos Stavrou" . "info@protesilaos.com"))
-		   (:commit . "decdaa3935aa79b23f8ceab5768b248ee15e65fd"))])
+		   (:commit . "78d9cdff11554bdca8183091b59bc8c759f66d1c"))])
  (consult-hoogle .
 		 [(0 2 1)
 		  ((emacs
@@ -2113,7 +2113,7 @@
 	   ("Durand" . "mmemmew@gmail.com"))
 	  (:commit . "5a57e52122fe483fa9bd39049c13a25334e408da"))])
  (inspector .
-	    [(0 37)
+	    [(0 38)
 	     ((emacs
 	       (27 1)))
 	     "Tool for inspection of Emacs Lisp objects" tar
@@ -2122,7 +2122,7 @@
 	      (:maintainer "Mariano Montone" . "marianomontone@gmail.com")
 	      (:authors
 	       ("Mariano Montone" . "marianomontone@gmail.com"))
-	      (:commit . "9be2a62028065b4a9158858d69ec807d2dabae8e"))])
+	      (:commit . "c5617289dd40efb45f8160420c29000c7d7489de"))])
  (ioccur .
 	 [(2 6)
 	  ((emacs
@@ -2510,7 +2510,7 @@
 		      ("Sean Whitton" . "spwhitton@spwhitton.name"))
 		     (:commit . "c22a15e86acf28da716532c26ba1371574c8e979"))])
  (llm .
-      [(0 17 3)
+      [(0 17 4)
        ((emacs
 	 (28 1))
 	(plz
@@ -2520,7 +2520,7 @@
 	(:maintainer "Andrew Hyatt" . "ahyatt@gmail.com")
 	(:authors
 	 ("Andrew Hyatt" . "ahyatt@gmail.com"))
-	(:commit . "54d6e9a840650962f5f743bc2ed37d0c75b22e7d"))])
+	(:commit . "e6bc34d0e8f7d2a96b9334c7d3963ac7e6856e35"))])
  (lmc .
       [(1 4)
        nil "Little Man Computer in Elisp" tar
@@ -2999,9 +2999,11 @@
 	     ("Philip Kaludercic" . "philipk@posteo.net"))
 	    (:commit . "69254001eae10b3b162200082bcbc684363e84d7"))])
  (orderless .
-	    [(1 1)
+	    [(1 2)
 	     ((emacs
-	       (27 1)))
+	       (27 1))
+	      (compat
+	       (30)))
 	     "Completion style for matching regexps in any order" tar
 	     ((:url . "https://github.com/oantolin/orderless")
 	      (:keywords "extensions")
@@ -3010,7 +3012,7 @@
 	       ("Daniel Mendler" . "mail@daniel-mendler.de"))
 	      (:authors
 	       ("Omar Antolín Camarena" . "omar@matem.unam.mx"))
-	      (:commit . "3847f311077efa17951a786d2759f2639c5f43c8"))])
+	      (:commit . "416c62a4a8e7199567a5df63d03cf320dc4d6ab0"))])
  (org .
       [(9 7 11)
        ((emacs
@@ -3882,6 +3884,17 @@
 	       ("Eric Schulte" . "schulte.eric@gmail.com"))
 	      (:url . "https://elpa.gnu.org/packages/shen-mode.html")
 	      (:commit . "df28df31317188a6d87c9df93444543ace4f7f4f"))])
+ (show-font .
+	    [(0 1 1)
+	     ((emacs
+	       (28 1)))
+	     "Show font features in a buffer" tar
+	     ((:url . "https://github.com/protesilaos/show-font")
+	      (:keywords "convenience" "writing" "font")
+	      (:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
+	      (:authors
+	       ("Protesilaos Stavrou" . "info@protesilaos.com"))
+	      (:commit . "0f46562e42a4cc7f2546392360debed724be87e0"))])
  (sisu-mode .
 	    [(7 1 8)
 	     nil "Major mode for SiSU markup text" tar
@@ -4248,7 +4261,7 @@
 	  ("Adam Porter" . "adam@alphapapa.net"))
 	 (:commit . "3099ae5cb27a34961e06a3af67555919c62c12d7"))])
  (taxy-magit-section .
-		     [(0 14)
+		     [(0 14 1)
 		      ((emacs
 			(26 3))
 		       (magit-section
@@ -4261,7 +4274,7 @@
 		       (:maintainer "Adam Porter" . "adam@alphapapa.net")
 		       (:authors
 			("Adam Porter" . "adam@alphapapa.net"))
-		       (:commit . "c4d8c1c5393807c41a5b20030a6347beb088b47e"))])
+		       (:commit . "72e9f381f9bdfe114f86b646ce4c6b2bd40c9be5"))])
  (temp-buffer-browse .
 		     [(1 5)
 		      ((emacs
