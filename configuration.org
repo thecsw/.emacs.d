@@ -686,7 +686,10 @@ one line
     (setq neo-smart-open t)
     (global-set-key [f8] 'neotree-toggle)
     (setq neo-global--do-autorefresh t)
-    (setq neo-window-width 28)
+    (setq neo-window-width 37)
+    (setq neo-window-fixed-size nil)
+    (setq neo-smart-open t)
+    (setq neo-window-position 'right)
 
     (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   #+end_src
