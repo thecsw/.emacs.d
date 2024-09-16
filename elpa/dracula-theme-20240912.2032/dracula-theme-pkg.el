@@ -1,6 +1,6 @@
-(define-package "dracula-theme" "20240821.2046" "Dracula Theme"
+(define-package "dracula-theme" "20240912.2032" "Dracula Theme"
   '((emacs "24.3"))
-  :commit "62045abe55de683ef328f0081801451a53f33b3b" :maintainers
+  :commit "c1614c68bb7cb6f9a6f4f779f47cf0d24b938b6f" :maintainers
   '(("tienne Deparis" . "etienne@depar.is"))
   :maintainer
   '("tienne Deparis" . "etienne@depar.is")
