@@ -486,7 +486,7 @@
 		 ("Arne Jørgensen" . "arne@arnested.dk"))
 		(:commit . "f632fa5f140b04260fa23b15ffccbfe5a787b2e2"))])
  (dslide .
-	 [(0 5 3)
+	 [(0 5 4)
 	  ((emacs
 	    (29 2)))
 	  "Domain Specific sLIDEs. A presentation framework" tar
@@ -495,7 +495,7 @@
 	   (:maintainer "Positron" . "contact@positron.solutions")
 	   (:authors
 	    ("Positron" . "contact@positron.solutions"))
-	   (:commit . "2d8a9ac3e37157ce8b78880ebc1defc61303a44d"))])
+	   (:commit . "dee290e1c41fdcaa3be508f8476b3ca3a5e56ed1"))])
  (eat .
       [(0 9 4)
        ((emacs
@@ -1418,13 +1418,13 @@
 	       ((:url . "https://elpa.nongnu.org/nongnu/jinja2-mode.html")
 		(:commit . "a598357069a68b0ac2bf128c19edd8e899084cdc"))])
  (julia-mode .
-	     [(1 0 0)
+	     [(1 0 1)
 	      ((emacs
 		(26 1)))
 	      "Major mode for editing Julia source code" tar
 	      ((:url . "https://github.com/JuliaEditorSupport/julia-emacs")
 	       (:keywords "languages")
-	       (:commit . "ee086a779b80f2fab83db484f453c7d41509e73e"))])
+	       (:commit . "6283427deefa02e6b87b28efa18a66dcbe50317f"))])
  (keycast .
 	  [(1 4 1)
 	   ((emacs
@@ -2015,7 +2015,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:commit . "1edda80e2e32b72e77f4f16ae5b83c312c68ee95"))])
  (racket-mode .
-	      [(1 0 20241112 143851)
+	      [(1 0 20241121 151851)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -2262,14 +2262,14 @@
 		     ("John Olsson" . "john@cryon.se"))
 		    (:commit . "2d5acd143a153e16372d59000e57d76291ab81dd"))])
  (subed .
-	[(1 2 18)
+	[(1 2 21)
 	 ((emacs
 	   (25 1)))
 	 "A major mode for editing subtitles" tar
 	 ((:url . "https://github.com/sachac/subed")
 	  (:keywords "convenience" "files" "hypermedia" "multimedia")
 	  (:maintainer "Sacha Chua" . "sacha@sachachua.com")
-	  (:commit . "98c431e8789789273ca476091f15e53247f86a03"))])
+	  (:commit . "ace4b62fd06554fad1e2ae62339b448c30c9ae70"))])
  (sweeprolog .
 	     [(0 27 6)
 	      ((emacs
@@ -2617,14 +2617,14 @@
 	     ((:url . "https://github.com/lewang/ws-butler")
 	      (:commit . "d3927f6131f215e9cd3e1f747be5a91e5be8ca9a"))])
  (xah-fly-keys .
-	       [(26 7 20241109085947)
+	       [(26 8 20241118173945)
 		((emacs
 		  (27)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "vi" "vim" "ergoemacs" "keybinding")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "be3260765c6891dcbdffbcdb85359288e87ddb3b"))])
+		 (:commit . "6ef7d2cc36a3f1a69edda0b431d20d1752b53e95"))])
  (xkcd .
        [(1 1)
 	((json
