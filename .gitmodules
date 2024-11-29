@@ -1,3 +1,0 @@
-[submodule "elpa/copilot.el"]
-	path = elpa/copilot.el
-	url = git@github.com:zerolfx/copilot.el
