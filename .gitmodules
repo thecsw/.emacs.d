@@ -1,0 +1,3 @@
+[submodule "elpa/copilot.el"]
+	path = elpa/copilot.el
+	url = https://github.com/copilot-emacs/copilot.el.git
