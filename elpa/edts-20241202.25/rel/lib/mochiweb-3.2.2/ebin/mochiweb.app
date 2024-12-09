@@ -1,0 +1,15 @@
+
+%% This is generated from src/mochiweb.app.src
+{application, mochiweb,
+ [{description, "MochiMedia Web Server"},
+  {vsn, "3.2.2"},
+  {modules, []},
+  {registered, []},
+  {env, []},
+  {applications, [kernel, stdlib, crypto, inets, ssl, xmerl,
+                  compiler, syntax_tools]},
+
+  {licenses, ["MIT"]},
+  {links, [{"Github", "https://github.com/mochi/mochiweb"}]}
+ ]
+}.

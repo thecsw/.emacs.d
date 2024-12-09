@@ -250,7 +250,7 @@
 	    (:url . "https://elpa.nongnu.org/nongnu/cdlatex.html")
 	    (:commit . "fac070f0164ac9f5859cb4cccba7d29a65c337f3"))])
  (cider .
-	[(1 16 0)
+	[(1 16 1)
 	 ((emacs
 	   (26))
 	  (clojure-mode
@@ -278,7 +278,7 @@
 	   ("Artur Malabarba" . "bruce.connor.am@gmail.com")
 	   ("Hugo Duncan" . "hugo@hugoduncan.org")
 	   ("Steve Purcell" . "steve@sanityinc.com"))
-	  (:commit . "76eac5aa634adba9a5b632cfe670467ebe319126"))])
+	  (:commit . "588c5790f0c09f5c09076885e11a73eaef70c262"))])
  (clojure-mode .
 	       [(5 19 0)
 		((emacs
@@ -447,6 +447,19 @@
 	      (:authors
 	       ("Campbell Barton" . "ideasman42@gmail.com"))
 	      (:commit . "71336e614e3150c47c58f99f2df10a3af73370ac"))])
+ (dirvish .
+	  [(2 0 53)
+	   ((emacs
+	     (27 1))
+	    (transient
+	     (0 3 7)))
+	   "A modern file manager based on dired mode" tar
+	   ((:url . "https://github.com/alexluigit/dirvish")
+	    (:keywords "files" "convenience")
+	    (:maintainer "Alex Lu" . "https://github.com/alexluigit")
+	    (:authors
+	     ("Alex Lu" . "https://github.com/alexluigit"))
+	    (:commit . "c535e2147171be5506f4ff34e862bacbfb3de768"))])
  (doc-show-inline .
 		  [(0 1)
 		   ((emacs
@@ -532,6 +545,16 @@
 		 (:authors
 		  ("EditorConfig Team" . "editorconfig@googlegroups.com"))
 		 (:commit . "f1531bab5b57e40759167b7e5db49acbbc09972f"))])
+ (eglot-inactive-regions .
+			 [(0 6 3)
+			  ((emacs
+			    (29 1)))
+			  "Highlight inactive code regions with eglot power" tar
+			  ((:url . "https://github.com/fargiolas/eglot-inactive-regions")
+			   (:maintainer "Filippo Argiolas" . "filippo.argiolas@gmail.com")
+			   (:authors
+			    ("Filippo Argiolas" . "filippo.argiolas@gmail.com"))
+			   (:commit . "2c83a3230d4ee9336b0311dbaa6fa77c2d2538c6"))])
  (elixir-mode .
 	      [(2 5 0)
 	       ((emacs
@@ -552,15 +575,15 @@
 	    ("Tim Vaughan" . "plugd@thelambdalab.xyz"))
 	   (:commit . "a1c5fbf16b528fb67d087437d44d66e9edc99664"))])
  (emacsql .
-	  [(4 0 3)
+	  [(4 1 0)
 	   ((emacs
-	     (25 1)))
+	     (26 1)))
 	   "High-level SQL database front-end" tar
 	   ((:url . "https://github.com/magit/emacsql")
 	    (:maintainer "Jonas Bernoulli" . "emacs.emacsql@jonas.bernoulli.dev")
 	    (:authors
 	     ("Christopher Wellons" . "wellons@nullprogram.com"))
-	    (:commit . "fb05d0f72729a4b4452a3b1168a9b7b35a851a53"))])
+	    (:commit . "d6529f010a0573630122b826230e72157ab8fa88"))])
  (engine-mode .
 	      [(2 2 4)
 	       ((cl-lib
@@ -687,16 +710,16 @@
 		     ("Sylvain Benner" . "sylvain.benner@gmail.com"))
 		    (:commit . "3c65fecd9917a41eaf6460f22187e2323821f3ce"))])
  (evil-matchit .
-	       [(3 0 4)
+	       [(4 0 1)
 		((emacs
-		  (25 1)))
+		  (27 1)))
 		"Vim matchit ported to Evil" tar
 		((:url . "http://github.com/redguardtoo/evil-matchit")
 		 (:keywords "matchit" "vim" "evil")
 		 (:maintainer "Chen Bin" . "chenbin.sh@gmail.com")
 		 (:authors
 		  ("Chen Bin" . "chenbin.sh@gmail.com"))
-		 (:commit . "1c4fefa9bb11cc4b1d7f10614d2021c12ed12e89"))])
+		 (:commit . "84a6d34c1a1282c43c6ccef2ead3eaa41fd1535f"))])
  (evil-nerd-commenter .
 		      [(3 6 1)
 		       ((emacs
@@ -1118,7 +1141,7 @@
 	      ("David Andersson" . "l.david.anderssonsverige.nu"))
 	     (:commit . "278cd3e6d5107693aa2bb33189ca503f22f227d0"))])
  (gptel .
-	[(0 9 6)
+	[(0 9 7)
 	 ((emacs
 	   (27 1))
 	  (transient
@@ -1131,7 +1154,7 @@
 	  (:maintainer "Karthik Chikmagalur" . "karthik.chikmagalur@gmail.com")
 	  (:authors
 	   ("Karthik Chikmagalur" . "karthik.chikmagalur@gmail.com"))
-	  (:commit . "f24e5ad4740ce5f9829b14e499c9181f9bd7c76e"))])
+	  (:commit . "5a5cddb93d610bd59ec52a070b0f89a9ec842152"))])
  (graphql-mode .
 	       [(1 0 0)
 		((emacs
@@ -1283,7 +1306,7 @@
 	     ("Hrvoje Niksic" . "hniksic@gmail.com"))
 	    (:commit . "5d2751c4ca101fa0884ce8662f5566736f8257fe"))])
  (hyperdrive .
-	     [(0 4 2)
+	     [(0 5)
 	      ((emacs
 		(28 1))
 	       (map
@@ -1299,13 +1322,13 @@
 	       (taxy-magit-section
 		(0 14))
 	       (transient
-		(0 7 4)))
+		(0 8 0)))
 	      "P2P filesystem" tar
 	      ((:url . "https://git.sr.ht/~ushin/hyperdrive.el")
 	       (:maintainer "Joseph Turner" . "~ushin/ushin@lists.sr.ht")
 	       (:authors
 		("Joseph Turner" . "joseph@ushin.org"))
-	       (:commit . "6b70954da945664ca798bf483f1d60e9d5859409"))])
+	       (:commit . "6159bd0ad03f9bed3acb6ab57b914bf4faf78ba5"))])
  (hyperdrive-org-transclusion .
 			      [(0 3 1)
 			       ((emacs
@@ -1498,7 +1521,7 @@
 	       ("Jon Oddie" . "j.j.oddie@gmail.com"))
 	      (:commit . "31d4adcca4f08cfd7a45f85e691aaa7a9316b355"))])
  (magit .
-	[(4 1 2)
+	[(4 1 3)
 	 ((emacs
 	   (26 1))
 	  (compat
@@ -1506,13 +1529,13 @@
 	  (dash
 	   (2 19 1))
 	  (magit-section
-	   (4 1 2))
+	   (4 1 3))
 	  (seq
 	   (2 24))
 	  (transient
-	   (0 7 8))
+	   (0 8 0))
 	  (with-editor
-	   (3 4 2)))
+	   (3 4 3)))
 	 "A Git porcelain inside Emacs" tar
 	 ((:url . "https://github.com/magit/magit")
 	  (:keywords "git" "tools" "vc")
@@ -1522,9 +1545,9 @@
 	  (:authors
 	   ("Marius Vollmer" . "marius.vollmer@gmail.com")
 	   ("Jonas Bernoulli" . "emacs.magit@jonas.bernoulli.dev"))
-	  (:commit . "4992c3d1f64e0e983692c7a61d47069f47380dbf"))])
+	  (:commit . "7adad8c8d3bd61ae36659638751223cfa2c7d720"))])
  (magit-section .
-		[(4 1 2)
+		[(4 1 3)
 		 ((emacs
 		   (26 1))
 		  (compat
@@ -1539,7 +1562,7 @@
 		  (:maintainer "Jonas Bernoulli" . "emacs.magit@jonas.bernoulli.dev")
 		  (:authors
 		   ("Jonas Bernoulli" . "emacs.magit@jonas.bernoulli.dev"))
-		  (:commit . "4992c3d1f64e0e983692c7a61d47069f47380dbf"))])
+		  (:commit . "7adad8c8d3bd61ae36659638751223cfa2c7d720"))])
  (markdown-mode .
 		[(2 6)
 		 ((emacs
@@ -1552,7 +1575,7 @@
 		   ("Jason R. Blevins" . "jblevins@xbeta.org"))
 		  (:commit . "193b61605f44c85d261b8bd82e0a213fd8f1ff32"))])
  (mastodon .
-	   [(1 1 5)
+	   [(1 1 7)
 	    ((emacs
 	      (28 1))
 	     (request
@@ -1567,7 +1590,7 @@
 	     (:authors
 	      ("Johnson Denen" . "johnson.denen@gmail.com")
 	      ("Marty Hiatt" . "mousebot@disroot.org"))
-	     (:commit . "76234781213518efa44b90b09c2792753a555e09"))])
+	     (:commit . "ba7e98c29c1fbc9765576533b927ddba772f2b68"))])
  (material-theme .
 		 [(2015)
 		  ((emacs
@@ -2015,7 +2038,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:commit . "1edda80e2e32b72e77f4f16ae5b83c312c68ee95"))])
  (racket-mode .
-	      [(1 0 20241121 151851)
+	      [(1 0 20241207 124605)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -2173,7 +2196,7 @@
 	      ("Chen Bin" . "chenbin.sh@gmail.com"))
 	     (:commit . "4e71f5b9199a0ad10017104a6b2bf5ef5f207dfc"))])
  (slime .
-	[(2 30)
+	[(2 31)
 	 ((emacs
 	   (24 3))
 	  (macrostep
@@ -2181,7 +2204,7 @@
 	 "Superior Lisp Interaction Mode for Emacs" tar
 	 ((:url . "https://github.com/slime/slime")
 	  (:keywords "languages" "lisp" "slime")
-	  (:commit . "ef2af895a9e79306f0789e72b101aa39e960c900"))])
+	  (:commit . "a71e133aa7d3c132bb3a00cedaeee3f76b5f17ab"))])
  (sly .
       [(1 0 43)
        ((emacs
@@ -2566,7 +2589,7 @@
 	      ("Akib Azmain Turja" . "akib@disroot.org"))
 	     (:commit . "5203d9379afaf6703746823a580c804e1dd98e08"))])
  (with-editor .
-	      [(3 4 2)
+	      [(3 4 3)
 	       ((emacs
 		 (26 1))
 		(compat
@@ -2577,7 +2600,7 @@
 		(:maintainer "Jonas Bernoulli" . "emacs.with-editor@jonas.bernoulli.dev")
 		(:authors
 		 ("Jonas Bernoulli" . "emacs.with-editor@jonas.bernoulli.dev"))
-		(:commit . "77cb2403158cfea9d8bfb8adad81b84d1d6d7c6a"))])
+		(:commit . "ca902ae02972bdd6919a902be2593d8cb6bd991b"))])
  (with-simulated-input .
 		       [(3 0)
 			((emacs
