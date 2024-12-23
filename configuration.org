@@ -14,8 +14,8 @@ incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
 nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
 dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-sunt in culpa qui officia deserunt mollit anim id est laborum. 
-  
+sunt in culpa qui officia deserunt mollit anim id est laborum.
+
 * MELPA
 #+BEGIN_SRC emacs-lisp
 (require 'package)
@@ -309,7 +309,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     (conda-env-initialize-eshell)
     ;; if you want auto-activation (see below for details), include:
     ;(conda-env-autoactivate-mode t)
-    
+
     (custom-set-variables
      '(conda-anaconda-home "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/")
      '(lsp-session-file "/Users/thecsw/.emacs.d/lsp-sessions")
@@ -344,16 +344,10 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   ;; Default to ssh when using tramp
   (setq tramp-default-method "ssh")
 #+END_SRC
-* M-x Autocomplete
-#+BEGIN_SRC emacs-lisp
-  ;; Fuzzy command complete on M-x
-  ;(global-set-key (kbd "M-x") 'smex)
-#+END_SRC
 * Default theme
   #+BEGIN_SRC emacs-lisp
     ;; I like lush and use it by default
     (load-theme 'lush t)
-    ;;(load-theme 'uwu t)
 #+END_SRC
 * Chef
 #+BEGIN_SRC emacs-lisp
@@ -661,8 +655,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     (setq package-native-compile t)
     ;;(native-compile-async "~/.emacs.d/elpa" 'recursively) ;; <-- danger zone
   #+END_SRC
-* Teleph
-one line
+* Telephone line
   #+BEGIN_SRC emacs-lisp
     (require 'telephone-line)
 
@@ -701,26 +694,26 @@ one line
       :bind (("M-A" . marginalia-cycle)
              :map minibuffer-local-map
              ("M-A" . marginalia-cycle))
-    
+
       ;; The :init configuration is always executed (Not lazy!)
       :init
-    
+
       ;; Must be in the :init section of use-package such that the mode gets
       ;; enabled right away. Note that this forces loading the package.
       (marginalia-mode))
-    
+
     (all-the-icons-completion-mode)
-    
+
     ;; Use https://github.com/iyefrat/all-the-icons-completion for icons
     (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
   #+end_src
 * Selectrum
   #+begin_src emacs-lisp
     (selectrum-mode +1)
-    
+
     ;; to make sorting and filtering more intelligent
     (selectrum-prescient-mode +1)
-    
+
     ;; to save your command history on disk, so the sorting gets more
     ;; intelligent over time
     (prescient-persist-mode +1)
@@ -731,9 +724,9 @@ one line
     (centaur-tabs-mode t)
     (global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
     (global-set-key (kbd "C-<next>") 'centaur-tabs-forward)
-    
+
     (centaur-tabs-headline-match)
-    
+
     (setq centaur-tabs-style "box")
     (setq centaur-tabs-height 20)
     (setq centaur-tabs-set-icons t)
@@ -744,10 +737,6 @@ one line
     (setq centaur-tabs-set-modified-marker t)
     (setq centaur-tabs-modified-marker "*")
     (setq centaur-tabs-close-button " ×")
-  #+end_src
-* Yas Snippets
-  #+begin_src emacs-lisp
-     (yas-global-mode 1)
   #+end_src
 * Undo
 #+begin_src emacs-lisp
@@ -767,7 +756,7 @@ one line
   (bind-key "C-c r" 'origami-close-all-nodes)
   (bind-key "C-c t" 'origami-recursively-toggle-node)
   (bind-key "C-c n" 'origami-next-fold)
-  (bind-key "C-c u" 'origami-previous-fold)  
+  (bind-key "C-c u" 'origami-previous-fold)
 #+end_src
 * Raise the limits
 #+begin_src emacs-lisp
