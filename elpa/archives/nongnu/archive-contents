@@ -96,13 +96,16 @@
 		 (:maintainer "stardiviner" . "numbchild@gmail.com")
 		 (:commit . "b2ffd8441851659cb1cc844156073967729585e5"))])
  (auto-dim-other-buffers .
-			 [(2 1 1)
-			  nil "Makes windows without focus less prominent" tar
+			 [(2 2 1)
+			  ((emacs
+			    (27 1)))
+			  "Makes windows without focus less prominent" tar
 			  ((:url . "https://github.com/mina86/auto-dim-other-buffers.el")
+			   (:keywords "faces")
 			   (:maintainer "Michal Nazarewicz" . "mina86@mina86.com")
 			   (:authors
 			    ("Michal Nazarewicz" . "mina86@mina86.com"))
-			   (:commit . "33b5f88b799a17947c266b04ad59462c5aeb4ed7"))])
+			   (:commit . "0164908fd3f8d8e83aa636f08096dcc843d6b2fa"))])
  (autothemer .
 	     [(0 2 18)
 	      ((dash
@@ -499,16 +502,16 @@
 		 ("Arne Jørgensen" . "arne@arnested.dk"))
 		(:commit . "f632fa5f140b04260fa23b15ffccbfe5a787b2e2"))])
  (dslide .
-	 [(0 5 5)
+	 [(0 6 0)
 	  ((emacs
 	    (29 2)))
-	  "Domain Specific sLIDEs. A presentation framework" tar
+	  "Domain Specific sLIDEs. Programmable Presentation" tar
 	  ((:url . "https://github.com/positron-solutions/dslide")
 	   (:keywords "convenience" "org-mode" "presentation" "narrowing")
 	   (:maintainer "Positron" . "contact@positron.solutions")
 	   (:authors
 	    ("Positron" . "contact@positron.solutions"))
-	   (:commit . "0d9a1f6c27e0543e912213d0a5047999f9e5deb5"))])
+	   (:commit . "c90b3d65ef70808516bc639fb73e5e19359546d1"))])
  (eat .
       [(0 9 4)
        ((emacs
@@ -555,6 +558,17 @@
 			   (:authors
 			    ("Filippo Argiolas" . "filippo.argiolas@gmail.com"))
 			   (:commit . "2c83a3230d4ee9336b0311dbaa6fa77c2d2538c6"))])
+ (eldoc-diffstat .
+		 [(1 0)
+		  ((emacs
+		    (29 1)))
+		  "Make VCS diffstat available via eldoc" tar
+		  ((:url . "https://github.com/kljohann/eldoc-diffstat/")
+		   (:keywords "vc" "docs")
+		   (:maintainer "Johann Klähn" . "johann@jklaehn.de")
+		   (:authors
+		    ("Johann Klähn" . "johann@jklaehn.de"))
+		   (:commit . "33aa6d7ee5d0e712b112c74ec6e076463b540e9e"))])
  (elixir-mode .
 	      [(2 5 0)
 	       ((emacs
@@ -1055,7 +1069,7 @@
 	       ("Jonas Bernoulli" . "emacs.git-modes@jonas.bernoulli.dev"))
 	      (:commit . "f99010bbeb8b6d8a0819fac0195a2ef0159d08f0"))])
  (gnosis .
-	 [(0 4 8)
+	 [(0 4 10)
 	  ((emacs
 	    (27 2))
 	   (emacsql
@@ -1070,7 +1084,7 @@
 	   (:maintainer "Thanos Apollo" . "public@thanosapollo.org")
 	   (:authors
 	    ("Thanos Apollo" . "public@thanosapollo.org"))
-	   (:commit . "b30a06fc16c18b6de7d5a21facf2b5fd8d90b613"))])
+	   (:commit . "42b3f00f88bc6dc8c8b207be7548f29a7777b136"))])
  (gnu-apl-mode .
 	       [(1 5 1)
 		nil "Emacs mode for GNU APL" tar
@@ -1306,7 +1320,7 @@
 	     ("Hrvoje Niksic" . "hniksic@gmail.com"))
 	    (:commit . "5d2751c4ca101fa0884ce8662f5566736f8257fe"))])
  (hyperdrive .
-	     [(0 5)
+	     [(0 5 1)
 	      ((emacs
 		(28 1))
 	       (map
@@ -1328,7 +1342,7 @@
 	       (:maintainer "Joseph Turner" . "~ushin/ushin@lists.sr.ht")
 	       (:authors
 		("Joseph Turner" . "joseph@ushin.org"))
-	       (:commit . "6159bd0ad03f9bed3acb6ab57b914bf4faf78ba5"))])
+	       (:commit . "165e1b1c6bd2bd3de1dec27325fada116153c822"))])
  (hyperdrive-org-transclusion .
 			      [(0 3 1)
 			       ((emacs
@@ -1441,13 +1455,13 @@
 	       ((:url . "https://elpa.nongnu.org/nongnu/jinja2-mode.html")
 		(:commit . "a598357069a68b0ac2bf128c19edd8e899084cdc"))])
  (julia-mode .
-	     [(1 0 1)
+	     [(1 0 2)
 	      ((emacs
 		(26 1)))
 	      "Major mode for editing Julia source code" tar
 	      ((:url . "https://github.com/JuliaEditorSupport/julia-emacs")
 	       (:keywords "languages")
-	       (:commit . "6283427deefa02e6b87b28efa18a66dcbe50317f"))])
+	       (:commit . "0f4d74f9049df28e2f522733141bfc5b7a0f69a3"))])
  (keycast .
 	  [(1 4 1)
 	   ((emacs
@@ -2038,7 +2052,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:commit . "1edda80e2e32b72e77f4f16ae5b83c312c68ee95"))])
  (racket-mode .
-	      [(1 0 20241207 124605)
+	      [(1 0 20241217 125843)
 	       ((emacs
 		 (25 1)))
 	       "Racket editing, REPL, and more" tar
@@ -2285,14 +2299,14 @@
 		     ("John Olsson" . "john@cryon.se"))
 		    (:commit . "2d5acd143a153e16372d59000e57d76291ab81dd"))])
  (subed .
-	[(1 2 21)
+	[(1 2 23)
 	 ((emacs
 	   (25 1)))
 	 "A major mode for editing subtitles" tar
 	 ((:url . "https://github.com/sachac/subed")
 	  (:keywords "convenience" "files" "hypermedia" "multimedia")
 	  (:maintainer "Sacha Chua" . "sacha@sachachua.com")
-	  (:commit . "ace4b62fd06554fad1e2ae62339b448c30c9ae70"))])
+	  (:commit . "0a1b5adbd038fd16dce0a72886fbb106442d7816"))])
  (sweeprolog .
 	     [(0 27 6)
 	      ((emacs
@@ -2640,14 +2654,14 @@
 	     ((:url . "https://github.com/lewang/ws-butler")
 	      (:commit . "d3927f6131f215e9cd3e1f747be5a91e5be8ca9a"))])
  (xah-fly-keys .
-	       [(26 8 20241118173945)
+	       [(26 9 20241220195053)
 		((emacs
 		  (27)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "vi" "vim" "ergoemacs" "keybinding")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "6ef7d2cc36a3f1a69edda0b431d20d1752b53e95"))])
+		 (:commit . "c0e4534acf973ecf709b3a24ae0c4ad84dbd44f6"))])
  (xkcd .
        [(1 1)
 	((json

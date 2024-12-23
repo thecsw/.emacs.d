@@ -1,2 +1,0 @@
-;;; Generated package description from vhdl-tools.el  -*- no-byte-compile: t -*-
-(define-package "vhdl-tools" "20200330.1819" "Utilities for navigating vhdl sources" '((ggtags "0.9.0") (emacs "26.2") (helm-rg "0.1") (outshine "3.1pre")) :commit "b5d1eec90bb43ba10178219245afbddb6601e85b" :authors '(("Cayetano Santos")) :maintainer '("Cayetano Santos") :keywords '("convenience" "languages" "vhdl") :url "https://gitlab.com/emacs-elisp/vhdl-tools/-/wikis/home")

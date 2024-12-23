@@ -1,2 +1,0 @@
-;;; Generated package description from environ.el  -*- no-byte-compile: t -*-
-(define-package "environ" "20230518.1310" "API for environment variables and env files" '((emacs "24.1") (dash "2.17.0") (f "0.20.0") (s "1.12.0")) :commit "9530e2f1ead5bd37aca4d298514800f73b3cc0a7" :authors '(("Chris Clark" . "cfclrk@gmail.com")) :maintainers '(("Chris Clark" . "cfclrk@gmail.com")) :maintainer '("Chris Clark" . "cfclrk@gmail.com") :keywords '("tools") :url "https://github.com/cfclrk/environ")

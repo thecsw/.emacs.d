@@ -6,7 +6,8 @@
 ;; Maintainer: Itai Y. Efrat <itai3397@gmail.com>
 ;; Created: June 06, 2021
 ;; Modified: June 06, 2021
-;; Version: 1.0
+;; Package-Version: 20240128.2048
+;; Package-Revision: 4c8bcad8033f
 ;; Keywords: convenient, lisp
 ;; Homepage: https://github.com/iyefrat/all-the-icons-completion
 ;; Package-Requires: ((emacs "26.1") (all-the-icons "5.0"))

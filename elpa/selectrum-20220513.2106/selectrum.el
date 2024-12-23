@@ -6,11 +6,10 @@
 ;; Created: 8 Dec 2019
 ;; Homepage: https://github.com/radian-software/selectrum
 ;; Keywords: extensions
-;; Package-Version: 20220513.2106
-;; Package-Commit: 810ea697bdd559d97b86b795e01769cddfa3daf2
 ;; Package-Requires: ((emacs "26.1"))
 ;; SPDX-License-Identifier: MIT
-;; Version: 3.1
+;; Package-Version: 20220513.2106
+;; Package-Revision: 810ea697bdd5
 
 ;;; Commentary:
 
