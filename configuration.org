@@ -796,3 +796,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
               (keymap-set magit-blame-read-only-mode-map
                           "S" #'difftastic-magit-show)))
 #+end_src
+* Writegood
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x c") 'writegood-mode)
+#+end_src
