@@ -58,7 +58,7 @@ Minor mode to draw lines, boxes, & arrows using UNICODE characters.
 │ enter a sub-mode to draw a single character glyph,
 │ and change its orientation.
 ├─Intersection glyphs────────╴\\<uniline-hydra-arrows/keymap>
-│ \\[uniline-hydra-arrows/uniline-insert-fw-arrow]	arrows   ▷ ▶ → ▹ ▸
+│ \\[uniline-hydra-arrows/uniline-insert-fw-arrow]	arrows ▷ ▶ → ▹ ▸ ↔
 │ \\[uniline-hydra-arrows/uniline-insert-fw-square]	squares  □ ■ ◇ ◆ ◊
 │ \\[uniline-hydra-arrows/uniline-insert-fw-oshape]	circles  · ● ◦ Ø ø
 │ \\[uniline-hydra-arrows/uniline-insert-fw-cross]	crosses  ╳ ÷ × ± ¤

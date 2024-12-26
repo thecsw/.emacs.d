@@ -1,10 +1,10 @@
-;;; uniline.el --- Draw text diagrams using UNICODE characters -*- coding:utf-8; lexical-binding: t; -*-
+;;; uniline.el --- Add UNICODE based diagrams to text files -*- coding:utf-8; lexical-binding: t; -*-
 
 ;; Copyright (C) 2024  Thierry Banel
 
 ;; Author: Thierry Banel tbanelwebmin at free dot fr
-;; Package-Version: 20241220.715
-;; Package-Revision: d56cea27bfd6
+;; Package-Version: 20241226.1056
+;; Package-Revision: 5e17b5d8f73d
 ;; Package-Requires: ((emacs "29.1") (hydra "0.15.0"))
 ;; Keywords: convenience, text
 ;; URL: https://github.com/tbanel/uniline
@@ -756,10 +756,10 @@ without the fall-back characters.")
       (a   ?↑ ?→ ?↓ ?←)      ;; *wards arrow
       (a   ?▵ ?▹ ?▿ ?◃)      ;; white *-pointing small triangle"
       (a   ?▴ ?▸ ?▾ ?◂)      ;; black *-pointing small triangle
+      (a   ?↕ ?↔ ?↕ ?↔)      ;; up down arrow, left right arrow
 
       ;; Those commented-out arrows are monospaces and supported
       ;; by the 6 fonts.  But they do not have 4 directions.
-      ;;(a   ?↕ ?↔ ?↕ ?↔)      ;; up-dw-lf-ri arrow
       ;;(a   ?‹ ?› ?› ?‹)      ;; single *-pointing angle quotation mark
 
       ;; squares
@@ -946,6 +946,17 @@ Here we selected only the fixed-size ones.
 This list is ciurcular in forward order."))
 
 (eval-when-compile                      ; not needed at runtime
+
+  (defun uniline--duplicate (list)
+    "Return not-nil if LIST is duplicate-free.
+Using `eq'."
+    (while
+        (and
+         (cdr list)
+         (not (memq (car list) (cdr list))))
+      (pop list))
+    (cdr list))
+
   (defun uniline--make-hash (list)
     "Helper function to build `uniline--glyphs-reverse-hash-*'.
 Used only at package initialization.
@@ -959,7 +970,14 @@ LIST is `uniline--glyphs-fbw'."
            (cl-loop
             for cc in (cdar ll)
             for i from 0
-            do (puthash cc (cons i ll) hh))
+            do (puthash
+                cc
+                (cons
+                 (if (uniline--duplicate (car ll))
+                     t    ; special case ↕↔↕↔ is NOT fully directional
+                   i)     ; fully directional, i gives the direction
+                 ll)
+                hh))
          ;; glyph is not directional, like ■ ● ◆
          (puthash (cadar ll) (cons nil ll) hh))
        ;; explicitly break out of circular list
@@ -1998,12 +2016,31 @@ of the same command."
   (if (and repeat (< repeat 0))
       (setq repeat (- repeat)
             back (not back)))
-  (let ((line ; something like (3 x ((a ?▲ ?▶ ?▼ ?◀) (a ?↑ ?→ ?↓ ?←) …))
+  (let ((line
+         ;; line is something like:
+         ;; (3 ((a ?↑ ?→ ?↓ ?←) (a ?▲ ?▶ ?▼ ?◀) …))
+         ;;  △      △  △  △  △  current character is
+         ;;  │      ╰──┴──┴──┴─╴one of those arrows
+         ;;  ╰─────────────────╴oriented in this direction
+         ;;
+         ;; line can also be like:
+         ;; (t ((a ?↕ ?↔ ?↕ ?↔) (a ?↑ ?→ ?↓ ?←) …))
+         ;;  △      △  △  △  △  current character is
+         ;;  │      ╰──┴──┴──┴─╴one of those arrows
+         ;;  ╰─────────────────╴with no definite orientation
+         ;;
+         ;; or line may be like:
+         ;; (nil ((s ?■) (s ?▫) …))
+         ;;   △       △         current character is
+         ;;   │       ╰────────╴this one
+         ;;   ╰────────────────╴and it has NO orientation
          (gethash (uniline--char-after)
                   (if back
                       uniline--glyphs-reverse-hash-bw
                     uniline--glyphs-reverse-hash-fw))))
-    (if (and line (car line))
+    (if (and
+         line                  ; current character is one the known glyphs
+         (fixnump (car line))) ; it has a north-south-east-west orientation
         (setq uniline--arrow-direction (car line)))
     (setq line
           (if line
@@ -2112,7 +2149,9 @@ See `uniline--insert-glyph'."
           uniline--glyphs-reverse-hash-fw)))
     (when (car ligne) ;; if (point) is on a directional arrow
       (uniline--insert-char ;; then change its direction
-       (nth (1+ dir) (cadr ligne))))))
+       (nth (1+ dir) (cadr ligne)))
+      (setq uniline--arrow-direction dir)
+      )))
 
 ;; Run the following cl-loop to automatically write a bunch
 ;; of 4 interactive functions
@@ -2326,7 +2365,7 @@ When FORCE is not nil, overwrite whatever is in the buffer."
     "Text dir─╴%s(uniline--text-direction-str)╶"
   "\
 ╭^─^─^Insert glyph^─────╮╭^Rotate arrow^╮╭^Text dir────^╮╭^─Contour─^╮╭^─^─^─^─^─^─^─^────────────╮
-│_a_,_A_rrow   ▷ ▶ → ▹ ▸││_S-<left>_  ← ││_C-<left>_  ← ││_c_ contour││_-_ _+_ _=_ _#_ self-insert│
+│_a_,_A_rrow ▷ ▶ → ▹ ▸ ↔││_S-<left>_  ← ││_C-<left>_  ← ││_c_ contour││_-_ _+_ _=_ _#_ self-insert│
 │_s_,_S_quare  □ ■ ◇ ◆ ◊││_S-<right>_ → ││_C-<right>_ → ││_C_ ovwrt  ││_f_ ^^^^^^      choose font│
 │_o_,_O_-shape · ● ◦ Ø ø││_S-<up>_    ↑ ││_C-<up>_    ↑ │╭^─Fill────^╮│_TAB_   ^^^^^^  short hint │
 │_x_,_X_-cross ╳ ÷ × ± ¤││_S-<down>_  ↓ ││_C-<down>_  ↓ ││_i_ fill   ││_q_ _RET_ ^^^^  exit       │
@@ -2673,7 +2712,7 @@ And backup previous settings."
 │ enter a sub-mode to draw a single character glyph,
 │ and change its orientation.
 ├─Intersection glyphs────────╴\\<uniline-hydra-arrows/keymap>
-│ \\[uniline-hydra-arrows/uniline-insert-fw-arrow]	arrows   ▷ ▶ → ▹ ▸
+│ \\[uniline-hydra-arrows/uniline-insert-fw-arrow]	arrows ▷ ▶ → ▹ ▸ ↔
 │ \\[uniline-hydra-arrows/uniline-insert-fw-square]	squares  □ ■ ◇ ◆ ◊
 │ \\[uniline-hydra-arrows/uniline-insert-fw-oshape]	circles  · ● ◦ Ø ø
 │ \\[uniline-hydra-arrows/uniline-insert-fw-cross]	crosses  ╳ ÷ × ± ¤
@@ -2795,14 +2834,14 @@ And backup previous settings."
     ["inactive brush"  uniline--set-brush-nil   :style radio :selected (eq uniline--brush nil   )]
     "----"
     ("Insert glyph"
-     ["insert arrow ▷ ▶ → ▹ ▸"  uniline-insert-fw-arrow  :keys "INS a"]
-     ["insert square □ ■ ◇ ◆ ◊" uniline-insert-fw-square :keys "INS s"]
-     ["insert oshape · ● ◦ Ø ø" uniline-insert-fw-oshape :keys "INS o"]
-     ["insert cross ╳ ÷ × ± ¤"  uniline-insert-fw-cross  :keys "INS x"]
-     ["rotate arrow → right"    uniline-rotate-ri→ :keys "INS S-<right>"]
-     ["rotate arrow ↑ up"       uniline-rotate-up↑ :keys "INS S-<up>   "]
-     ["rotate arrow ← left"     uniline-rotate-lf← :keys "INS S-<left> "]
-     ["rotate arrow ↓ down"     uniline-rotate-dw↓ :keys "INS S-<down> "])
+     ["insert arrow ▷ ▶ → ▹ ▸ ↔" uniline-insert-fw-arrow  :keys "INS a"]
+     ["insert square □ ■ ◇ ◆ ◊"  uniline-insert-fw-square :keys "INS s"]
+     ["insert oshape · ● ◦ Ø ø"  uniline-insert-fw-oshape :keys "INS o"]
+     ["insert cross ╳ ÷ × ± ¤"   uniline-insert-fw-cross  :keys "INS x"]
+     ["rotate arrow → right"     uniline-rotate-ri→ :keys "INS S-<right>"]
+     ["rotate arrow ↑ up"        uniline-rotate-up↑ :keys "INS S-<up>   "]
+     ["rotate arrow ← left"      uniline-rotate-lf← :keys "INS S-<left> "]
+     ["rotate arrow ↓ down"      uniline-rotate-dw↓ :keys "INS S-<down> "])
     ("Rectangular region" :active (region-active-p)
      ["move selection right" uniline-move-rect-ri→ :keys "INS <right>"]
      ["move selection left"  uniline-move-rect-lf← :keys "INS <left> "]
