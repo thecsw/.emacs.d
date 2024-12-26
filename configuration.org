@@ -199,6 +199,10 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
   (setq lsp-log-io nil) ; if set to true can cause a performance hit
 
+  ;; don't want to have copilot mode enabled by default
+  (setq lsp-copilot-enabled nil)
+  (setq lsp-copilot-applicable-fn nil)
+
   ;; Configure LSP-UI by https://emacs-lsp.github.io/lsp-ui/
   ;; Optional - provides fancier overlays.
   (use-package lsp-ui
@@ -765,15 +769,17 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+end_src
 * Copilot
 #+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/elpa/copilot.el")
-  (require 'copilot)
+  ;; (add-to-list 'load-path "~/.emacs.d/elpa/copilot.el")
+  ;; (require 'copilot)
 
-  (with-eval-after-load 'company
-    ;; disable inline previews
-    (delq 'company-preview-if-just-one-frontend company-frontends))
+  ;; (with-eval-after-load 'company
+  ;;   ;; disable inline previews
+  ;;   (delq 'company-preview-if-just-one-frontend company-frontends))
 
-  (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-  (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+  ;; (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+  ;; (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+
+  (setq lsp-copilot-enabled nil)
 #+end_src
 * Dired-gitignore
 #+begin_src emacs-lisp
