@@ -201,7 +201,9 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
   ;; don't want to have copilot mode enabled by default
   (setq lsp-copilot-enabled nil)
-  (setq lsp-copilot-applicable-fn nil)
+  ;; (setq lsp-copilot-applicable-fn nil)
+  ;; (setq lsp-copilot-applicable-fn (-const nil)) ;; doesn't work
+  (setq lsp-copilot-applicable-fn (lambda (&rest _) lsp-copilot-enabled))
 
   ;; Configure LSP-UI by https://emacs-lsp.github.io/lsp-ui/
   ;; Optional - provides fancier overlays.
