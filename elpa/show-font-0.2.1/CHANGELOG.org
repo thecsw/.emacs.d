@@ -1,0 +1,111 @@
+#+title: Change log of show-font
+#+author: Protesilaos Stavrou
+#+email: info@protesilaos.com
+#+language: en
+#+options: ':t toc:nil author:t email:t num:t
+#+startup: content
+
+This document contains the release notes for each tagged commit on the
+project's main git repository: <https://github.com/protesilaos/show-font>.
+
+The newest release is at the top.  For further details, please consult
+the manual: <https://protesilaos.com/emacs/show-font>.
+
+#+toc: headlines 1 insert TOC here, with one headline level
+
+* Version 0.2.0 on 2025-01-25
+:PROPERTIES:
+:CUSTOM_ID: h:087ddf5c-6a65-4fb0-a1cb-0a64b3d181c2
+:END:
+
+This version includes quality-of-life refinements.
+
+** Show fonts in a tabulated listing
+:PROPERTIES:
+:CUSTOM_ID: h:ba63cb79-e469-45d6-bb29-2b1368f5f442
+:END:
+
+The command ~show-font-tabulated~ will produce a listing of font
+families and their preview that uses the built-in tabulated interface.
+This interface is the same as the one used by =M-x list-packages=.
+Users can sort fonts by font family name (move point to the given
+column and type =S= or call =M-x tabulated-list-sort=).
+
+When ~show-font-tabulated~ is called with a prefix argument (=C-u= by
+default), it prompts for a string or regular expression. It then shows
+only the font families matching the given input.
+
+** Limit font listing using a regular expression
+:PROPERTIES:
+:CUSTOM_ID: h:53df16bf-294c-46b7-81ba-fbb0120e37fb
+:END:
+
+The command ~show-font-list~ which we already had in version 0.1.0 is
+like the ~show-font-tabulated~, but uses a bespoke buffer where each
+font and its preview are shown one after the other. Now it also
+accepts an optional prefix argument to limit the list to only the
+matching fonts.
+
+** The ~show-font-display-buffer-action-alist~ controls buffer placement
+:PROPERTIES:
+:CUSTOM_ID: h:f844a1ff-80e4-4a66-9766-c19338f6ab60
+:END:
+
+The preview buffers we use will now conform with the value of the new
+user option ~show-font-display-buffer-action-alist~. This is a more
+advanced feature, due to how ~display-buffer~ works, so you may want
+to check the video I did recently about controlling where buffers are
+displayed: <https://protesilaos.com/codelog/2024-02-08-emacs-window-rules-display-buffer-alist/>.
+
+The default value of ~show-font-display-buffer-action-alist~ will show
+the buffer at the bottom of the frame.
+
+* Version 0.1.0 on 2024-09-10
+:PROPERTIES:
+:CUSTOM_ID: h:9fe44f53-9b84-49b9-bc35-780b25b72092
+:END:
+
+With ~show-font~ the user has the means to preview fonts inside of
+Emacs. This can be done in the following ways:
+
+- The command ~show-font-select-preview~ uses the minibuffer to
+  prompt with completion for a font on the system. The selected
+  font is then displayed in a bespoke buffer.
+
+- The command ~show-font-list~ produces a list with all the fonts
+  available on the system. Each font on display is styled with its
+  given character set.
+
+- The ~show-font-mode~ is a major mode that gets activated when the
+  user visits a =.ttf= or =.otf= file. It will preview with the font,
+  if it is installed on the system, else it will provide a helpful
+  message and an option to install the font (NOTE 2024-09-10: this
+  only works on Linux).
+
+The previews include a pangram, which is controlled by the user option
+~show-font-pangram~. The default value is a playful take on the more
+familiar "the quick brown fox jumps over the lazy dog" phrase. Users
+can select among a few presets, or define their own custom string.
+
+The function ~show-font-pangram-p~ is available for those who wish to
+experiment with writing their own pangrams (it is not actually limited
+to the Latin alphabet).
+
+The user option ~show-font-character-sample~ provides a more complete
+character set that is intended for use in full buffer previews (i.e.
+not in the list of fonts). It can be set to any string. The default
+value is a set of alphanumeric characters that are commonly used in
+programming: a good monospaced font should render all of them
+unambiguously.
+
+Finally, the following faces control the appearance of various
+elements.
+
+- ~show-font-small~
+- ~show-font-regular~
+- ~show-font-medium~
+- ~show-font-large~
+- ~show-font-title~
+- ~show-font-title-small~
+- ~show-font-misc~
+- ~show-font-button~

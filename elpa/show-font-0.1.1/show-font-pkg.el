@@ -1,2 +1,0 @@
-;; Generated package description from show-font.el  -*- no-byte-compile: t -*-
-(define-package "show-font" "0.1.1" "Show font features in a buffer" '((emacs "28.1")) :commit "0f46562e42a4cc7f2546392360debed724be87e0" :authors '(("Protesilaos Stavrou" . "info@protesilaos.com")) :maintainer '("Protesilaos Stavrou" . "info@protesilaos.com") :keywords '("convenience" "writing" "font") :url "https://github.com/protesilaos/show-font")

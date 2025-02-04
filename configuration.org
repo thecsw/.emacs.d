@@ -240,6 +240,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
            (zig-mode . lsp)
            (css-mode . lsp)
            (java-mode . lsp)
+           (css-mode . lsp)
            (lsp-mode . lsp-enable-which-key-integration))
     :commands lsp)
 
@@ -259,6 +260,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     :ensure t
     :commands yas-minor-mode
     :hook ((go-mode . yas-minor-mode)
+           (css-mode . yas-minor-mode)
            (c++-mode . yas-minor-mode)))
 
   ;; Set up before-save hooks to format buffer and add/delete imports.
