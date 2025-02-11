@@ -380,6 +380,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   ;; Use org-ref
   (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
   (setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/Library/Python/3.9/bin"))
+  (setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/.nvm/versions/node/v22.13.1/bin"))
   (require 'org)
   (require 'ox-latex)
 

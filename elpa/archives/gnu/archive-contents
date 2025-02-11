@@ -1,4 +1,15 @@
 (1
+ (a68-mode .
+	   [(1 0)
+	    ((emacs
+	      (24 3)))
+	    "Major mode for editing Algol 68 code" tar
+	    ((:url . "https://git.sr.ht/~jemarch/a68-mode")
+	     (:keywords "languages")
+	     (:maintainer "Jose E. Marchesi" . "jemarch@gnu.org")
+	     (:authors
+	      ("Omar Polo" . "op@omarpolo.com"))
+	     (:commit . "2a191fae4c73839d34d19c086ec75af35a0937e4"))])
  (ace-window .
 	     [(0 10 0)
 	      ((avy
@@ -249,6 +260,18 @@
 	       (:authors
 		("Kevin Ryde" . "user42_kevin@yahoo.com.au"))
 	       (:commit . "72db1f3ee04f3d1db17487d5bd98466fcbad87fd"))])
+ (auth-source-xoauth2-plugin .
+			     [(0 1)
+			      ((emacs
+				(28 1))
+			       (oauth2
+				(0 17)))
+			      "authentication source plugin for xoauth2" tar
+			      ((:maintainer "Xiyue Deng" . "manphiz@gmail.com")
+			       (:authors
+				("Xiyue Deng" . "manphiz@gmail.com"))
+			       (:url . "https://elpa.gnu.org/packages/auth-source-xoauth2-plugin.html")
+			       (:commit . "93a69c392a50b73d8d93ff486090a57dd2616e89"))])
  (auto-correct .
 	       [(1 1 4)
 		nil "Remembers and automatically fixes past corrections" tar
@@ -289,6 +312,17 @@
 	      (:authors
 	       ("Philip Kaludercic" . "philipk@posteo.net"))
 	      (:commit . "dc0223f11daf526621fda206b38bf06c29759c94"))])
+ (autorevert-tail-truncate .
+			   [(1 0 1)
+			    ((emacs
+			      (29 1)))
+			    "auto-revert-tail your files with RAM control" tar
+			    ((:url . "https://github.com/shipmints/autorevert-tail-truncate.el")
+			     (:keywords "convenience" "tools" "log files" "autorevert")
+			     (:maintainer "Stephane Marks" . "shipmints@gmail.com")
+			     (:authors
+			      ("Stephane Marks" . "shipmints@gmail.com"))
+			     (:commit . "b54df5838159abf760a48de2fd33b21cabd12e66"))])
  (avy .
       [(0 5 0)
        ((emacs
@@ -351,7 +385,7 @@
 	      ("John Wiegley" . "johnw@newartisans.com"))
 	     (:commit . "4932ed21d40f9e8ad48ad2a1f086fdf9b3847ac9"))])
  (blist .
-	[(0 4)
+	[(0 6)
 	 ((ilist
 	   (0 4))
 	  (emacs
@@ -362,7 +396,7 @@
 	  (:maintainer "Durand" . "durand@jsdurand.xyz")
 	  (:authors
 	   ("Durand" . "durand@jsdurand.xyz"))
-	  (:commit . "f5751add5626ad437459e484b66219952287c517"))])
+	  (:commit . "e3894193fd7602483e0132b82f1b0afbcebe654d"))])
  (bluetooth .
 	    [(0 4 1)
 	     ((emacs
@@ -620,7 +654,7 @@
 		("Augusto Stoffel" . "arstoffel@gmail.com"))
 	       (:commit . "caffb420be106cebbdfe4474ed0507a601603f83"))])
  (colorful-mode .
-		[(1 0 4)
+		[(1 1 0)
 		 ((emacs
 		   (28 1))
 		  (compat
@@ -628,10 +662,10 @@
 		 "Preview any color in your buffer in real time" tar
 		 ((:url . "https://github.com/DevelopmentCool2449/colorful-mode")
 		  (:keywords "faces" "tools" "matching" "convenience")
-		  (:maintainer "Elias G. Perez" . "eg642616@gmail.com")
+		  (:maintainer "Jen-Chieh" . "jcs090218@gmail.com")
 		  (:authors
 		   ("Elias G. Perez" . "eg642616@gmail.com"))
-		  (:commit . "945c9905af2045ab2e57717c01e5b20a907f939a"))])
+		  (:commit . "1aece9055546b30157c83b3b7cb51e808eeeca37"))])
  (comint-mime .
 	      [(0 7)
 	       ((emacs
@@ -767,18 +801,18 @@
 		    ("rahguzar" . "rahguzar@mailbox.org"))
 		   (:commit . "5b16f2f6c8c9c81a2539ba8371db1f76e6e4cc68"))])
  (consult-recoll .
-		 [(0 8 1)
+		 [(1 0 0)
 		  ((emacs
 		    (26 1))
 		   (consult
-		    (0 19)))
+		    (2 0)))
 		  "Recoll queries using consult" tar
 		  ((:url . "https://codeberg.org/jao/consult-recoll")
 		   (:keywords "docs" "convenience")
 		   (:maintainer "Jose A Ortega Ruiz" . "jao@gnu.org")
 		   (:authors
 		    ("Jose A Ortega Ruiz" . "jao@gnu.org"))
-		   (:commit . "ba68d052d9479aeaa5dda15a57a2c070df7d9bca"))])
+		   (:commit . "eddbc7ba70439881e4781fa73fb0fb240e02fd3b"))])
  (context-coloring .
 		   [(8 1 0)
 		    ((emacs
@@ -1422,7 +1456,7 @@
 		     (:url . "https://elpa.gnu.org/packages/elisp-benchmarks.html")
 		     (:commit . "1a3d97954957a95a179806e0d49ca6d178b097af"))])
  (ellama .
-	 [(0 13 5)
+	 [(0 13 11)
 	  ((emacs
 	    (28 1))
 	   (llm
@@ -1439,7 +1473,7 @@
 	   (:maintainer "Sergey Kostyaev" . "sskostyaev@gmail.com")
 	   (:authors
 	    ("Sergey Kostyaev" . "sskostyaev@gmail.com"))
-	   (:commit . "ed530c7f0d7d0aa9916ca73016034829731ddc54"))])
+	   (:commit . "6fb94007b983a81f06e693569faf70513a1e2157"))])
  (emacs-gc-stats .
 		 [(1 4 2)
 		  ((emacs
@@ -3879,18 +3913,18 @@
 	    (:url . "https://elpa.gnu.org/packages/satchel.html")
 	    (:commit . "6e5613e203f6937202cb5d55249e7e6be939067b"))])
  (scanner .
-	  [(0 2)
+	  [(0 3)
 	   ((emacs
 	     (25 1))
 	    (dash
 	     (2 12 0)))
 	   "Scan documents and images" tar
-	   ((:url . "https://gitlab.com/rstocker/scanner.git")
+	   ((:url . "https://codeberg.org/rstocker/scanner.git")
 	    (:keywords "hardware" "multimedia")
 	    (:maintainer "Raffael Stocker" . "r.stocker@mnet-mail.de")
 	    (:authors
 	     ("Raffael Stocker" . "r.stocker@mnet-mail.de"))
-	    (:commit . "b96d3d111b3666bb8217a67fddfc6445d1e13c82"))])
+	    (:commit . "44eab47963a61e67cd4aa3a96a6762764367de5f"))])
  (scroll-restore .
 		 [(1 0)
 		  nil "restore original position after scrolling" tar
@@ -4972,18 +5006,18 @@
 		      ("Daniel Semyonov" . "daniel@dsemy.com"))
 		     (:commit . "ad92c184ccc06f46b2caf001bc8201d983eca626"))])
  (window-tool-bar .
-		  [(0 2 1)
+		  [(0 3)
 		   ((emacs
 		     (27 1))
 		    (compat
 		     (29 1)))
 		   "Add tool bars inside windows" tar
-		   ((:keywords "mouse")
+		   ((:url . "http://github.com/chaosemer/window-tool-bar")
+		    (:keywords "mouse")
 		    (:maintainer "Jared Finder" . "jared@finder.org")
 		    (:authors
 		     ("Jared Finder" . "jared@finder.org"))
-		    (:url . "https://elpa.gnu.org/packages/window-tool-bar.html")
-		    (:commit . "a5c0d682b10fa60925641c6abc3a5dbee024fa46"))])
+		    (:commit . "72bbbff7e8128fe14c0b69c7282667788758b8b4"))])
  (windower .
 	   [(0 0 1)
 	    ((emacs
@@ -5126,7 +5160,7 @@
 		("Philip Kaludercic" . "philipk@posteo.net"))
 	       (:commit . "2bb88d0dc526177c3c6612d6585cee6b2c57803a"))])
  (yaml .
-       [(1 0 0)
+       [(1 2 0)
 	((emacs
 	  (25 1)))
 	"YAML parser for Elisp" tar
@@ -5135,7 +5169,7 @@
 	 (:maintainer "Zachary Romero" . "zkry@posteo.org")
 	 (:authors
 	  ("Zachary Romero" . "zkry@posteo.org"))
-	 (:commit . "cd3edfc02cb12514426c00e07160b87bd8340f4a"))])
+	 (:commit . "09e46d563f1f3ff948852e08360c7d3c76e2acba"))])
  (yasnippet .
 	    [(0 14 1)
 	     ((cl-lib
