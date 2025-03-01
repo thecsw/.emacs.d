@@ -774,17 +774,12 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+end_src
 * Copilot
 #+begin_src emacs-lisp
-  ;; (add-to-list 'load-path "~/.emacs.d/elpa/copilot.el")
-  ;; (require 'copilot)
-
-  ;; (with-eval-after-load 'company
-  ;;   ;; disable inline previews
-  ;;   (delq 'company-preview-if-just-one-frontend company-frontends))
-
-  ;; (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-  ;; (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
-
+  ;; We use copilot.el and not the LSP-provided one.
   (setq lsp-copilot-enabled nil)
+
+  (global-set-key (kbd "M-RET") 'copilot-accept-completion)
+  (global-set-key (kbd "M-]") 'copilot-next-completion)
+  (global-set-key (kbd "M-[") 'copilot-previous-completion)
 #+end_src
 * Dired-gitignore
 #+begin_src emacs-lisp
