@@ -1,0 +1,15 @@
+;; -*- no-byte-compile: t; lexical-binding: nil -*-
+(define-package "copilot" "20250402.2229"
+  "An unofficial Copilot plugin."
+  '((emacs        "27.2")
+    (editorconfig "0.8.2")
+    (jsonrpc      "1.0.14")
+    (f            "0.20.0"))
+  :url "https://github.com/copilot-emacs/copilot.el"
+  :commit "8f4a04e1c764bea291840387a82d03e55b0a04cf"
+  :revdesc "8f4a04e1c764"
+  :keywords '("convenience" "copilot")
+  :authors '(("zerol" . "z@zerol.me"))
+  :maintainers '(("Jen-Chieh" . "jcs090218@gmail.com")
+                 ("Rakotomandimby Mihamina" . "mihamina.rakotomandimby@rktmb.org")
+                 ("Bozhidar Batsov" . "bozhidar@batsov.dev")))
