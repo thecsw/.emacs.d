@@ -12,18 +12,10 @@
 ;;; Generated autoloads from yasnippet.el
 
 (autoload 'yas-minor-mode "yasnippet" "\
-Toggle YASnippet mode.
+YASnippet minor mode.
 
 When YASnippet mode is enabled, `yas-expand', normally bound to
-the TAB key, expands snippets of code depending on the major
-mode.
-
-With no argument, this command toggles the mode.
-positive prefix argument turns on the mode.
-Negative prefix argument turns off the mode.
-
-Key bindings:
-\\{yas-minor-mode-map}
+the TAB key, expands snippets of code depending on the major mode.
 
 This is a minor mode.  If called interactively, toggle the `yas
 minor mode' mode.  If the prefix argument is positive, enable the

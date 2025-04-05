@@ -4,8 +4,8 @@
 
 ;; Author: Thierry Volpiatto <thievol@posteo.net>
 ;; URL: https://emacs-helm.github.io/helm/
-;; Package-Version: 20250401.650
-;; Package-Revision: f948dc4464d3
+;; Package-Version: 20250402.520
+;; Package-Revision: ec3fd5dfa6d1
 ;; Package-Requires: ((emacs "25.1") (async "1.9.9"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -1193,7 +1193,7 @@ then doesn't use `while-no-input', because `while-no-input' throws on
 (defface helm-candidate-number
   `((((background dark))
      ,@(and (>= emacs-major-version 27) '(:extend t))
-     :background "Yellow" :foreground "black")
+     :background "yellow" :foreground "black")
     (((background light))
      ,@(and (>= emacs-major-version 27) '(:extend t))
      :background "#faffb5" :foreground "black"))

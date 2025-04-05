@@ -9,8 +9,8 @@
 ;;             Bozhidar Batsov <bozhidar@batsov.dev>
 ;; URL: https://github.com/copilot-emacs/copilot.el
 ;; Package-Requires: ((emacs "27.2") (editorconfig "0.8.2") (jsonrpc "1.0.14") (f "0.20.0"))
-;; Package-Version: 20250402.2229
-;; Package-Revision: 8f4a04e1c764
+;; Package-Version: 20250404.1913
+;; Package-Revision: bb517382be5d
 ;; Keywords: convenience copilot
 
 ;; The MIT License (MIT)
@@ -177,6 +177,46 @@ You may adjust this variable at your own risk."
                  (string :tag "Specific Version"))
   :group 'copilot
   :package-version '(copilot . "0.1"))
+
+(defun copilot--lsp-settings-changed (symbol value)
+  "Restart the Copilot LSP due to SYMBOL changed to VALUE.
+
+This function will be called by the customization framework when the
+`copilot-lsp-settings' is changed.  When changed with `setq', then this function
+will not be called."
+  (let ((was-bound (boundp symbol)))
+    (set-default symbol value)
+    (when was-bound
+      ;; Notifying the agent with the new value does only work if we include the
+      ;; last value (as nil) as well. For example, having the value
+      ;; '(:github-enterprise (:uri "https://example2.ghe.com")) and setting it
+      ;; to nil would require to send the value '(:github-enterprise (:uri nil))
+      ;; to the server. Otherwise, the value is ignored, since sending nil is
+      ;; not enough.
+      (copilot--start-agent))))
+
+(defcustom copilot-lsp-settings nil
+  "Settings for the Copilot LSP server.
+
+This value will always be sent to the server when the server starts or the value
+changes.  See
+https://github.com/github/copilot-language-server-release?tab=readme-ov-file#configuration-management
+for complete documentation.
+
+To change the value of this variable, the customization framework provided by
+Emacs must be used.  Either use `setopt' or `customize' to change the value.  If
+the value was set without the customization mechanism, then the LSP has to be
+manually restarted with `copilot-diagnose'.  Otherwise, the change will not be
+applied.
+
+For example to use GitHub Enterprise use the following configuration:
+ '(:github-enterprise (:uri \"https://example.ghe.com\"))
+
+Exchange the URI with the correct URI of your organization."
+  :set #'copilot--lsp-settings-changed
+  :type 'sexp
+  :group 'copilot
+  :package-version '(copilot . "0.2"))
 
 (defvar-local copilot--overlay nil
   "Overlay for Copilot completion.")
@@ -407,6 +447,7 @@ SUCCESS-FN is the CALLBACK."
                   #'make-instance
                   'jsonrpc-process-connection
                   :name "copilot"
+                  :request-dispatcher #'copilot--handle-request
                   :notification-dispatcher #'copilot--handle-notification
                   :process (make-process :name "copilot server"
                                          :command (copilot--command)
@@ -436,6 +477,7 @@ You can change the installed version with `M-x copilot-reinstall-server` or remo
     (copilot--request 'initialize `( :capabilities (:workspace (:workspaceFolders t))
                                      :processId ,(emacs-pid)))
     (copilot--notify 'initialized '())
+    (copilot--notify 'workspace/didChangeConfiguration `(:settings ,copilot-lsp-settings))
     (copilot--async-request 'setEditorInfo
                             `( :editorInfo (:name "Emacs" :version ,emacs-version)
                                :editorPluginInfo (:name "copilot.el" :version ,(or (copilot-installed-version) "unknown"))
@@ -720,31 +762,76 @@ automatically, browse to %s." user-code verification-uri))
 (defvar copilot--panel-lang nil
   "Language of current panel solutions.")
 
+(defvar copilot--request-handlers (make-hash-table :test 'equal)
+  "Hash table storing request handlers.")
+
+(defun copilot-on-request (method handler)
+  "Register a request HANDLER for the given METHOD.
+Each request METHOD can have only one HANDLER."
+  (puthash method handler copilot--request-handlers))
+
+(defun copilot--handle-request (_ method msg)
+  "Handle MSG of type METHOD by calling the appropriate registered handler."
+  (let ((handler (gethash method copilot--request-handlers)))
+    (when handler
+      (funcall handler msg))))
+
+(defvar copilot--notification-handlers (make-hash-table :test 'equal)
+  "Hash table storing lists of notification handlers.")
+
+(defun copilot-on-notification (method handler)
+  "Register a notification HANDLER for the given METHOD."
+  (let ((handlers (gethash method copilot--notification-handlers '())))
+    (puthash method (cons handler handlers) copilot--notification-handlers)))
+
 (defun copilot--handle-notification (_ method msg)
-  "Handle MSG of type METHOD."
-  (when (eql method 'PanelSolution)
-    (copilot--dbind (((:completionText completion-text)) ((:score completion-score))) msg
-      (with-current-buffer "*copilot-panel*"
-        (unless (member (secure-hash 'sha256 completion-text)
-                        (org-map-entries (lambda () (org-entry-get nil "SHA"))))
-          (save-excursion
-            (goto-char (point-max))
-            (insert "* Solution\n"
-                    "  :PROPERTIES:\n"
-                    "  :SCORE: " (number-to-string completion-score) "\n"
-                    "  :SHA: " (secure-hash 'sha256 completion-text) "\n"
-                    "  :END:\n"
-                    "#+BEGIN_SRC " copilot--panel-lang "\n"
-                    completion-text "\n#+END_SRC\n\n")
-            (call-interactively #'mark-whole-buffer)
-            (org-sort-entries nil ?R nil nil "SCORE"))))))
-  (when (eql method 'PanelSolutionsDone)
-    (message "Copilot: Finish synthesizing solutions.")
-    (display-buffer "*copilot-panel*")
-    (with-current-buffer "*copilot-panel*"
-      (save-excursion
-        (goto-char (point-max))
-        (insert "End of solutions.\n")))))
+  "Handle MSG of type METHOD by calling all appropriate registered handlers."
+  (let ((handlers (gethash method copilot--notification-handlers '())))
+    (dolist (handler handlers)
+      (funcall handler msg))))
+
+(copilot-on-notification
+ 'window/logMessage
+ (lambda (msg)
+   (copilot--dbind (:type log-level :message log-msg) msg
+     (with-current-buffer (get-buffer-create "*copilot-language-server-log*")
+       (save-excursion
+         (goto-char (point-max))
+         (insert (propertize (concat log-msg "\n")
+                             'face (pcase log-level
+                                     (4 'shadow)
+                                     (3 'success)
+                                     (2 'warning)
+                                     (1 'error)))))))))
+
+(copilot-on-notification
+ 'PanelSolution
+ (lambda (msg)
+   (copilot--dbind (((:completionText completion-text)) ((:score completion-score))) msg
+     (with-current-buffer "*copilot-panel*"
+       (unless (member (secure-hash 'sha256 completion-text)
+                       (org-map-entries (lambda () (org-entry-get nil "SHA"))))
+         (save-excursion
+           (goto-char (point-max))
+           (insert "* Solution\n"
+                   "  :PROPERTIES:\n"
+                   "  :SCORE: " (number-to-string completion-score) "\n"
+                   "  :SHA: " (secure-hash 'sha256 completion-text) "\n"
+                   "  :END:\n"
+                   "#+BEGIN_SRC " copilot--panel-lang "\n"
+                   completion-text "\n#+END_SRC\n\n")
+           (call-interactively #'mark-whole-buffer)
+           (org-sort-entries nil ?R nil nil "SCORE")))))))
+
+(copilot-on-notification
+ 'PanelSolutionsDone
+ (lambda (_msg)
+   (message "Copilot: Finish synthesizing solutions.")
+   (display-buffer "*copilot-panel*")
+   (with-current-buffer "*copilot-panel*"
+     (save-excursion
+       (goto-char (point-max))
+       (insert "End of solutions.\n")))))
 
 (defun copilot--get-panel-completions (callback)
   "Get panel completions with CALLBACK."

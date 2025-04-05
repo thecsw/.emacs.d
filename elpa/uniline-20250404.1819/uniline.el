@@ -3,8 +3,8 @@
 ;; Copyright (C) 2024-2025  Thierry Banel
 
 ;; Author: Thierry Banel tbanelwebmin at free dot fr
-;; Package-Version: 20250331.1141
-;; Package-Revision: d7b1e74010c7
+;; Package-Version: 20250404.1819
+;; Package-Revision: efacd261bc79
 ;; Package-Requires: ((emacs "29.1") (hydra "0.15.0"))
 ;; Keywords: convenience, text
 ;; URL: https://github.com/tbanel/uniline
