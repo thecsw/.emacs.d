@@ -1,4 +1,5 @@
 lsp-sessions
+history
 var
 *.elc
 .DS_Store
