@@ -158,13 +158,13 @@
 		     ("Stephane Zermatten" . "szermatt@gmx.net"))
 		    (:commit . "ed9c76252ac82d6352ba438f664b390fdd0b5d6c"))])
  (beancount .
-	    [(0 9)
+	    [(0 9 0)
 	     nil "A major mode to edit Beancount input files." tar
 	     ((:maintainer "Martin Blais" . "blais@furius.ca")
 	      (:authors
 	       ("Martin Blais" . "blais@furius.ca"))
 	      (:url . "https://elpa.nongnu.org/nongnu/beancount.html")
-	      (:commit . "71c16222461d947b82e45e4b986d01880b492bbb"))])
+	      (:commit . "2303612b2230de8b5849b9c407d3564edd189012"))])
  (better-jumper .
 		[(1 0 1)
 		 ((emacs
@@ -1149,7 +1149,7 @@
 		("Akib Azmain Turja" . "akib@disroot.org"))
 	       (:commit . "6bb82ce89ed93222dd919bc65e0f46ac4aa13479"))])
  (gnuplot .
-	  [(0 10)
+	  [(0 11)
 	   ((emacs
 	     (28 1))
 	    (compat
@@ -1160,7 +1160,7 @@
 	    (:maintainer
 	     ("Maxime Tréca" . "maxime@gmail.com")
 	     ("Daniel Mendler" . "mail@daniel-mendler.de"))
-	    (:commit . "868c992c382955eb07db985e0b2cc9f152076125"))])
+	    (:commit . "f10d42221856e86c57dd5cc7400c078c021ba710"))])
  (go-mode .
 	  [(1 6 0)
 	   ((emacs
@@ -1200,7 +1200,7 @@
 	      ("David Andersson" . "l.david.anderssonsverige.nu"))
 	     (:commit . "278cd3e6d5107693aa2bb33189ca503f22f227d0"))])
  (gptel .
-	[(0 9 8)
+	[(0 9 8 5)
 	 ((emacs
 	   (27 1))
 	  (transient
@@ -1213,7 +1213,7 @@
 	  (:maintainer "Karthik Chikmagalur" . "karthik.chikmagalur@gmail.com")
 	  (:authors
 	   ("Karthik Chikmagalur" . "karthik.chikmagalur@gmail.com"))
-	  (:commit . "4c5f7e6953c3e4dac36b4c9cf4b4a2c854febfad"))])
+	  (:commit . "a5af15c770b66a61d0609a736e1db37495655559"))])
  (graphql-mode .
 	       [(1 0 0)
 		((emacs
@@ -2152,7 +2152,7 @@
 	       ("David Christiansen" . "david@davidchristiansen.dk"))
 	      (:commit . "1edda80e2e32b72e77f4f16ae5b83c312c68ee95"))])
  (racket-mode .
-	      [(1 0 20250603 110418)
+	      [(1 0 20250609 112224)
 	       ((emacs
 		 (25 1))
 		(compat
@@ -2816,14 +2816,14 @@
 	       ("Le Wang" . "l26wang@gmail.com"))
 	      (:commit . "9ee5a7657a22e836618813c2e2b64a548d27d2ff"))])
  (xah-fly-keys .
-	       [(26 12 20250517213917)
+	       [(26 12 20250606101544)
 		((emacs
 		  (28 3)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "vi" "vim" "ergoemacs" "keybinding")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "edde947a4f27658c4a0b958461a77512176b8904"))])
+		 (:commit . "6ea524610ab805607e153b7b210a380a8fc79471"))])
  (xkcd .
        [(1 1)
 	((json
