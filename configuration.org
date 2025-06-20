@@ -460,6 +460,10 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 * Artist
 #+BEGIN_SRC emacs-lisp
   (put 'narrow-to-region 'disabled nil)
+
+  ;; Disable the annoying warning of using org-element-at-point in
+  ;; artist-mode.
+  (setq warning-suppress-types '((org-element)))
 #+END_SRC
 * Which key
 #+BEGIN_SRC emacs-lisp

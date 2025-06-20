@@ -311,14 +311,14 @@
 		 (:maintainer "Bozhidar Batsov" . "bozhidar@batsov.dev")
 		 (:commit . "d336db623e7ae8cffff50aaaea3f1b05cc4ccecb"))])
  (clojure-ts-mode .
-		  [(0 5 0)
+		  [(0 5 1)
 		   ((emacs
 		     (30 1)))
 		   "Major mode for Clojure code" tar
 		   ((:url . "http://github.com/clojure-emacs/clojure-ts-mode")
 		    (:keywords "languages" "clojure" "clojurescript" "lisp")
 		    (:maintainer "Bozhidar Batsov" . "bozhidar@batsov.dev")
-		    (:commit . "bd08cd02612507c4012d078eb94ccd7aa9b567b1"))])
+		    (:commit . "66cdee12e950f147e523849bcaf74c403ce06bad"))])
  (coffee-mode .
 	      [(0 6 3)
 	       ((emacs
@@ -1112,22 +1112,24 @@
 	       ("Jonas Bernoulli" . "emacs.git-modes@jonas.bernoulli.dev"))
 	      (:commit . "27af84f31ed022267b7108ad10ea286631f88e88"))])
  (gnosis .
-	 [(0 4 10)
+	 [(0 5 1)
 	  ((emacs
 	    (27 2))
 	   (emacsql
-	    (4 0 1))
+	    (4 1 0))
 	   (compat
 	    (29 1 4 2))
 	   (transient
-	    (0 7 2)))
+	    (0 7 2))
+	   (org-gnosis
+	    (0 0 9)))
 	  "Spaced Repetition System" tar
 	  ((:url . "https://thanosapollo.org/projects/gnosis")
 	   (:keywords "extensions")
 	   (:maintainer "Thanos Apollo" . "public@thanosapollo.org")
 	   (:authors
 	    ("Thanos Apollo" . "public@thanosapollo.org"))
-	   (:commit . "42b3f00f88bc6dc8c8b207be7548f29a7777b136"))])
+	   (:commit . "4fec18f9e4006e65c57edf97ac2ff3545a62fc9b"))])
  (gnu-apl-mode .
 	       [(1 5 1)
 		nil "Emacs mode for GNU APL" tar
@@ -1287,9 +1289,9 @@
 		     ("Pranshu Sharma" . "pranshu@bauherren.ovh"))
 		    (:commit . "95388599a3b5ca33342d4445ebcae3094068c151"))])
  (helm .
-       [(4 0 3)
+       [(4 0 4)
 	((helm-core
-	  (4 0 3))
+	  (4 0 4))
 	 (wfnames
 	  (1 2)))
 	"Helm is an Emacs incremental and narrowing framework" tar
@@ -1298,9 +1300,9 @@
 	 (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	 (:authors
 	  ("Thierry Volpiatto" . "thievol@posteo.net"))
-	 (:commit . "063fe595ace5dd008cf2cbbfc27b90f7752c44dd"))])
+	 (:commit . "6befd6e60f756936062fed6d4b905e508aa141fc"))])
  (helm-core .
-	    [(4 0 3)
+	    [(4 0 4)
 	     ((emacs
 	       (25 1))
 	      (async
@@ -1310,7 +1312,7 @@
 	      (:maintainer "Thierry Volpiatto" . "thievol@posteo.net")
 	      (:authors
 	       ("Thierry Volpiatto" . "thievol@posteo.net"))
-	      (:commit . "063fe595ace5dd008cf2cbbfc27b90f7752c44dd"))])
+	      (:commit . "6befd6e60f756936062fed6d4b905e508aa141fc"))])
  (hideshowvis .
 	      [(0 8)
 	       ((emacs
@@ -2443,7 +2445,7 @@
 		("Eshel Yaron" . "me@eshelyaron.com"))
 	       (:commit . "bd31199a34c0619b346954f25875fcb7239e2b86"))])
  (swift-mode .
-	     [(9 3 0)
+	     [(9 4 0)
 	      ((emacs
 		(24 4))
 	       (seq
@@ -2457,7 +2459,7 @@
 		("Chris Barrett" . "chris.d.barrett@me.com")
 		("Bozhidar Batsov" . "bozhidar@batsov.com")
 		("Arthur Evstifeev" . "lod@pisem.net"))
-	       (:commit . "e30b9d46e031fd25e794f00f23b6427f44f7d221"))])
+	       (:commit . "fc7df7bd906a2bb04aac6e0de47fc7acf33ceed3"))])
  (symbol-overlay .
 		 [(4 3)
 		  ((emacs
