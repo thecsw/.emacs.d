@@ -1112,7 +1112,7 @@
 	       ("Jonas Bernoulli" . "emacs.git-modes@jonas.bernoulli.dev"))
 	      (:commit . "27af84f31ed022267b7108ad10ea286631f88e88"))])
  (gnosis .
-	 [(0 5 1)
+	 [(0 5 3)
 	  ((emacs
 	    (27 2))
 	   (emacsql
@@ -1129,7 +1129,7 @@
 	   (:maintainer "Thanos Apollo" . "public@thanosapollo.org")
 	   (:authors
 	    ("Thanos Apollo" . "public@thanosapollo.org"))
-	   (:commit . "4fec18f9e4006e65c57edf97ac2ff3545a62fc9b"))])
+	   (:commit . "4b87d58574d1b8cb2eb7bf7fe571efa758838c03"))])
  (gnu-apl-mode .
 	       [(1 5 1)
 		nil "Emacs mode for GNU APL" tar
@@ -1278,7 +1278,7 @@
 		     (:keywords "languages")
 		     (:commit . "59640ceec33cd4df37096289e11ff6f4b876be03"))])
  (haskell-ts-mode .
-		  [(1 2 2)
+		  [(1 3 2)
 		   ((emacs
 		     (29 3)))
 		   "A treesit based major mode for haskell" tar
@@ -1287,7 +1287,7 @@
 		    (:maintainer "Pranshu Sharma" . "pranshu@bauherren.ovh")
 		    (:authors
 		     ("Pranshu Sharma" . "pranshu@bauherren.ovh"))
-		    (:commit . "ba817b79c1cf05782a1fcb04fc36411a17c3a7a5"))])
+		    (:commit . "b47211699944997bfb03fd88b1157dd71727bad7"))])
  (helm .
        [(4 0 4)
 	((helm-core
@@ -1534,7 +1534,7 @@
 		(:url . "https://elpa.nongnu.org/nongnu/kotlin-mode.html")
 		(:commit . "d92c3b773473e9fe15f61f6177e4fbf097aadd05"))])
  (llama .
-	[(0 6 3)
+	[(1 0 0)
 	 ((emacs
 	   (26 1))
 	  (compat
@@ -1542,7 +1542,7 @@
 	 "Compact syntax for short lambda" tar
 	 ((:url . "https://github.com/tarsius/llama")
 	  (:keywords "extensions")
-	  (:commit . "6a67e4253cc02aa9ce85ef96290c95198b65d913"))])
+	  (:commit . "0cc2daffded18eea7f00a318cfa3e216977ffe50"))])
  (logview .
 	  [(0 19 2)
 	   ((emacs
@@ -1637,19 +1637,19 @@
 	       ("Jon Oddie" . "j.j.oddie@gmail.com"))
 	      (:commit . "8e8487712d150178be7297604d0f47fd036a6d8d"))])
  (magit .
-	[(4 3 6)
+	[(4 3 8)
 	 ((emacs
 	   (27 1))
 	  (compat
 	   (30 1))
 	  (llama
-	   (0 6 3))
+	   (1 0 0))
 	  (magit-section
-	   (4 3 6))
+	   (4 3 8))
 	  (seq
 	   (2 24))
 	  (transient
-	   (0 9 0))
+	   (0 9 3))
 	  (with-editor
 	   (3 4 4)))
 	 "A Git porcelain inside Emacs" tar
@@ -1661,15 +1661,15 @@
 	  (:authors
 	   ("Marius Vollmer" . "marius.vollmer@gmail.com")
 	   ("Jonas Bernoulli" . "emacs.magit@jonas.bernoulli.dev"))
-	  (:commit . "2f1ff91f128f28aa277e0e060ef44b4be8a989c1"))])
+	  (:commit . "5b820a1d1e94649e0f218362286d520d9f29ac2c"))])
  (magit-section .
-		[(4 3 6)
+		[(4 3 8)
 		 ((emacs
 		   (27 1))
 		  (compat
 		   (30 1))
 		  (llama
-		   (0 6 3))
+		   (1 0 0))
 		  (seq
 		   (2 24)))
 		 "Sections for read-only buffers" tar
@@ -1678,7 +1678,7 @@
 		  (:maintainer "Jonas Bernoulli" . "emacs.magit@jonas.bernoulli.dev")
 		  (:authors
 		   ("Jonas Bernoulli" . "emacs.magit@jonas.bernoulli.dev"))
-		  (:commit . "2f1ff91f128f28aa277e0e060ef44b4be8a989c1"))])
+		  (:commit . "5b820a1d1e94649e0f218362286d520d9f29ac2c"))])
  (markdown-mode .
 		[(2 7)
 		 ((emacs
@@ -2818,14 +2818,14 @@
 	       ("Le Wang" . "l26wang@gmail.com"))
 	      (:commit . "9ee5a7657a22e836618813c2e2b64a548d27d2ff"))])
  (xah-fly-keys .
-	       [(26 12 20250606101544)
+	       [(26 12 20250628080356)
 		((emacs
 		  (28 3)))
 		"ergonomic modal keybinding minor mode." tar
 		((:url . "http://xahlee.info/emacs/misc/xah-fly-keys.html")
 		 (:keywords "convenience" "vi" "vim" "ergoemacs" "keybinding")
 		 (:maintainer "Xah Lee" . "xah@xahlee.org")
-		 (:commit . "6ea524610ab805607e153b7b210a380a8fc79471"))])
+		 (:commit . "c2e0d75a16ace4d44fdb7abd6e026c0dea6c0571"))])
  (xkcd .
        [(1 1)
 	((json
