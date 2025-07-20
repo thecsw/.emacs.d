@@ -1264,7 +1264,7 @@
 		    ("Clemens Radermacher" . "clemera@posteo.net"))
 		   (:commit . "bd8556eef10e57b175406c117f18e1953422c803"))])
  (dired-preview .
-		[(0 5 2)
+		[(0 6 0)
 		 ((emacs
 		   (28 1)))
 		 "Automatically preview file at point in Dired" tar
@@ -1273,7 +1273,7 @@
 		  (:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
 		  (:authors
 		   ("Protesilaos Stavrou" . "info@protesilaos.com"))
-		  (:commit . "3d6e743eeefafa47d7bdcdf3010007c0c255ee63"))])
+		  (:commit . "fbb47740cf7f30df29539061e84c6827210d2846"))])
  (disk-usage .
 	     [(1 3 3)
 	      ((emacs
@@ -1659,7 +1659,7 @@
 	   ("Adam Porter" . "adam@alphapapa.net"))
 	  (:commit . "26bf5a4efd08bc724cf29c412c36c2909d72bb13"))])
  (emms .
-       [(22)
+       [(23)
 	((cl-lib
 	  (0 5))
 	 (nadvice
@@ -1672,7 +1672,7 @@
 	 (:maintainer "Yoni Rabkin" . "yrk@gnu.org")
 	 (:authors
 	  ("Jorgen Schäfer" . "forcer@forcix.cx"))
-	 (:commit . "338462506d7de508f7f74a01d15753f9113cd3cb"))])
+	 (:commit . "09f829b04804af37d00280e31a0e0257bcd2329e"))])
  (engrave-faces .
 		[(0 3 1)
 		 ((emacs
@@ -3298,7 +3298,7 @@
 	       ("Omar Antolín Camarena" . "omar@matem.unam.mx"))
 	      (:commit . "254f2412489bbbf62700f9d3d5f18e537841dcc3"))])
  (org .
-      [(9 7 31)
+      [(9 7 32)
        ((emacs
 	 (26 1)))
        "Outline-based notes management and organizer" tar
@@ -3307,7 +3307,7 @@
 	(:maintainer "Ihor Radchenko" . "yantar92@posteo.net")
 	(:authors
 	 ("Carsten Dominik" . "carsten.dominik@gmail.com"))
-	(:commit . "4e6d38d1a60d2fa48a1ab42a24cce0862b778e2c"))])
+	(:commit . "4438cb3b1a65826e625a2c1144176092a167183e"))])
  (org-contacts .
 	       [(1 1)
 		((emacs

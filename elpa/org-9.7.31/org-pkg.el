@@ -1,2 +1,0 @@
-;; Generated package description from org.el  -*- no-byte-compile: t -*-
-(define-package "org" "9.7.31" "Outline-based notes management and organizer" '((emacs "26.1")) :commit "4e6d38d1a60d2fa48a1ab42a24cce0862b778e2c" :authors '(("Carsten Dominik" . "carsten.dominik@gmail.com")) :maintainer '("Ihor Radchenko" . "yantar92@posteo.net") :keywords '("outlines" "hypermedia" "calendar" "text") :url "https://orgmode.org")
