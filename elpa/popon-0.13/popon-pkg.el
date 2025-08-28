@@ -1,0 +1,2 @@
+;; Generated package description from popon.el  -*- no-byte-compile: t -*-
+(define-package "popon" "0.13" "\"Pop\" floating text \"on\" a window" '((emacs "25.1")) :commit "bf8174cb7e6e8fe0fe91afe6b01b6562c4dc39da" :authors '(("Akib Azmain Turja" . "akib@disroot.org")) :maintainer '("Akib Azmain Turja" . "akib@disroot.org") :keywords '("lisp" "extensions" "frames") :url "https://codeberg.org/akib/emacs-popon")
