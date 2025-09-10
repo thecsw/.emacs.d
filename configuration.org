@@ -3,9 +3,9 @@
 #+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
 #+title: Sandy's .emacs.d
-#+date: 169; 12022 H.E.
+#+date: 253; 12025 H.E.
 #+author: Sandy Urazayev
-#+email: ctu@ku.edu
+#+email: sandy@sandyuraz.com
 #+language: en
 
 * Lorem Ipsum
