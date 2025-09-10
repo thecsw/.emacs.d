@@ -722,6 +722,10 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   #+end_src
 * Vertico
 #+begin_src emacs-lisp
+  ;; Emacs 30.2 fails with vertico if compat isn't loaded first.
+  (use-package compat
+    :ensure t)
+
   ;; Enable Vertico.
   (use-package vertico
     :custom
