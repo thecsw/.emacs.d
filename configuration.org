@@ -22,6 +22,16 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 #+END_SRC
+* Performance
+#+begin_src emacs-lisp
+  ;; Performance tweaks
+  (setq gc-cons-threshold most-positive-fixnum)
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (setq gc-cons-threshold 16777216 ; 16mb
+                    gc-cons-percentage 0.1
+                    read-process-output-max (* 1024 1024)))) ; 1mb
+#+end_src
 * Coding styles
 ** C
 
@@ -151,8 +161,11 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+END_SRC
 ** Pair the braces
 #+BEGIN_SRC emacs-lisp
-(require 'autopair)
-(autopair-global-mode)
+  ;; Starting somewhere before emacs 30, autopair was deprecated
+  ;; in favor of the built-in electric-pair-mode.
+  (electric-pair-mode 1)
+  (save-place-mode 1)
+  (recentf-mode 1)
 #+END_SRC
 ** Open shell on F1
 #+BEGIN_SRC emacs-lisp
@@ -193,10 +206,6 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
    #+end_src
 * LSP
 #+BEGIN_SRC emacs-lisp
-  ;; Give emacs some RAW power, yes
-  (setq gc-cons-threshold 100000000)
-  (setq read-process-output-max (* 1024 1024)) ;; 1mb
-
   (setq lsp-log-io nil) ; if set to true can cause a performance hit
 
   ;; don't want to have copilot mode enabled by default
@@ -238,6 +247,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
            ;; (sh-mode . lsp)
            (rjsx-mode . lsp)
            (zig-mode . lsp)
+           (csharp-mode . lsp)
+           (emacs-lisp-mode lsp)
            (css-mode . lsp)
            (java-mode . lsp)
            (css-mode . lsp)
@@ -274,10 +285,6 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
    '(("gopls.completeUnimported" t t)
      ("gopls.staticcheck" t t)))
 
-  ;;Company mode is a standard completion package that works well with lsp-mode.
-  ;;company-lsp integrates company mode completion with lsp-mode.
-  ;;completion-at-point also works out of the box but doesn't support snippets.
-
   (use-package company
     :ensure t
     :config
@@ -288,13 +295,6 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (use-package company-lsp
     :ensure t
     :commands company-lsp)
-
-  ;; (require 'company-box)
-  ;; (add-hook 'company-mode-hook 'company-box-mode)
-
-  ;; Set the python interpreter right to ARM python3
-  ;; (setq python-shell-interpreter "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/bin/python3.9")
-  ;; (setq lsp-pyright-python-executable-cmd python-shell-interpreter)
 
   (lsp-register-custom-settings
    `(("python.pythonPath" "/opt/homebrew/bin/python3")))
@@ -343,10 +343,15 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+END_SRC
 * Magit
 
-  Press =C-x g= to open magit
+Press =C-x g= to open magit
+  
 #+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :commands (magit-status magit-blame))
+
   (global-set-key (kbd "C-x g") 'magit-status)
 #+END_SRC
+
 * TRAMP
 #+BEGIN_SRC emacs-lisp
   ;; Default to ssh when using tramp
