@@ -497,7 +497,7 @@
 		   ("Clemens Radermacher" . "clemera@posteo.net"))
 		  (:commit . "c4a1c745123b86c15ba7bb4858255b5252e8440a"))])
  (bufferlo .
-	   [(1 1)
+	   [(1 2)
 	    ((emacs
 	      (29 1)))
 	    "Frame/Tab Local Buffer Lists with Persistence" tar
@@ -509,7 +509,20 @@
 	     (:authors
 	      ("Florian Rommel" . "mail@florommel.de")
 	      ("Stephane Marks" . "shipmints@gmail.com"))
-	     (:commit . "2c3c5ec3d3eec20efbf23b08ecf78c9d174bdcd8"))])
+	     (:commit . "8fc587ba341b2ec8189b4d948accc90140469147"))])
+ (buframe .
+	  [(0 2)
+	   ((emacs
+	     (27 1))
+	    (timeout
+	     (2 1)))
+	   "Buffer-local frames" tar
+	   ((:url . "https://github.com/haji-ali/buframe")
+	    (:keywords "buffer" "frames" "convenience")
+	    (:maintainer "Al Haji-Ali" . "abdo.haji.ali@gmail.com")
+	    (:authors
+	     ("Al Haji-Ali" . "abdo.haji.ali@gmail.com"))
+	    (:commit . "d2f1fcdb5f320a5ac583e1f4edc22397106e830a"))])
  (bug-hunter .
 	     [(1 3 1)
 	      ((seq
@@ -1442,7 +1455,7 @@
 	       ("Markus Triska" . "triska@metalevel.at"))
 	      (:commit . "ea8710335eec483b576c7a800c92b8fd214aa6dd"))])
  (eev .
-      [(20250607)
+      [(20250914)
        ((emacs
 	 (25 1)))
        "Support for e-scripts (eepitch blocks, elisp hyperlinks, etc)" tar
@@ -1451,9 +1464,9 @@
 	(:maintainer "Eduardo Ochs" . "eduardoochs@gmail.com")
 	(:authors
 	 ("Eduardo Ochs" . "eduardoochs@gmail.com"))
-	(:commit . "0365f9a21b8494a2fab75838022141b364731e25"))])
+	(:commit . "30d2b10f85b0faef4171a7a25c7d4b5a67e5ded5"))])
  (ef-themes .
-	    [(1 10 0)
+	    [(1 11 0)
 	     ((emacs
 	       (28 1)))
 	     "Colorful and legible themes" tar
@@ -1462,7 +1475,7 @@
 	      (:maintainer "Protesilaos Stavrou" . "info@protesilaos.com")
 	      (:authors
 	       ("Protesilaos Stavrou" . "info@protesilaos.com"))
-	      (:commit . "2028e66d2f6e9e50105051d8e911ed0c4741db69"))])
+	      (:commit . "4253a4b92a8264a1bca0db43301cb8bf7538b7e3"))])
  (eglot .
 	[(1 18)
 	 ((emacs
@@ -1566,7 +1579,7 @@
 		     (:url . "https://elpa.gnu.org/packages/elisp-benchmarks.html")
 		     (:commit . "1a3d97954957a95a179806e0d49ca6d178b097af"))])
  (ellama .
-	 [(1 8 2)
+	 [(1 8 6)
 	  ((emacs
 	    (28 1))
 	   (llm
@@ -1583,7 +1596,7 @@
 	   (:maintainer "Sergey Kostyaev" . "sskostyaev@gmail.com")
 	   (:authors
 	    ("Sergey Kostyaev" . "sskostyaev@gmail.com"))
-	   (:commit . "729df728b611fe14ddc25cc0236f7bcbc00daae6"))])
+	   (:commit . "8e17b68a298f335ac78b9aab0ad3306e3245f825"))])
  (emacs-gc-stats .
 		 [(1 4 2)
 		  ((emacs
@@ -1820,7 +1833,7 @@
 			  (:maintainer "Lawrence Mitchell" . "wence@gmx.li")
 			  (:url . "http://github.com/wence-/f90-iface/"))])
  (filechooser .
-	      [(0 2 3)
+	      [(0 2 4)
 	       ((emacs
 		 (28 1))
 		(compat
@@ -1831,7 +1844,7 @@
 		(:maintainer "rahguzar" . "rahguzar@mailbox.org")
 		(:authors
 		 ("rahguzar" . "rahguzar@mailbox.org"))
-		(:commit . "904ff4764fe3a74442056e56cd298dea1edbf269"))])
+		(:commit . "e55c5ea294bbb2c67ab5c51d9489922a83c22456"))])
  (filladapt .
 	    [(2 12 2)
 	     ((emacs
@@ -4210,16 +4223,16 @@
 	      (:keywords "text" "syntax" "processes" "tools")
 	      (:commit . "456acbde87a9fa9da0ed8b441c3f22c4d5310296"))])
  (site-lisp .
-	    [(0 1 2)
+	    [(0 2 0)
 	     ((emacs
 	       (25 1)))
 	     "Manage site-lisp directories" tar
-	     ((:url . "https://git.sr.ht/~pkal/site-lisp")
+	     ((:url . "https://codeberg.org/pkal/site-lisp.el")
 	      (:keywords "lisp" "local")
-	      (:maintainer "Philip Kaludercic" . "~pkal/public-inbox@lists.sr.ht")
+	      (:maintainer "Philip Kaludercic" . "philipk@posteo.net")
 	      (:authors
 	       ("Philip Kaludercic" . "philipk@posteo.net"))
-	      (:commit . "3f7a99472a4940bc63ed032de016e5a40fec0965"))])
+	      (:commit . "3b0c3abab49cf4ab70a43e2c882bb8a2a6db45a1"))])
  (sketch-mode .
 	      [(1 0 4)
 	       nil "Quickly create svg sketches using keyboard and mouse" tar
@@ -4538,7 +4551,7 @@
 		  ("Protesilaos Stavrou" . "info@protesilaos.com"))
 		 (:commit . "f9bc3f6f8639d4ed9c2d848fdcc84fab4b1b6cae"))])
  (system-packages .
-		  [(1 0 13)
+		  [(1 1 1)
 		   ((emacs
 		     (24 3)))
 		   "functions to manage system packages" tar
@@ -4546,7 +4559,7 @@
 		    (:maintainer "J. Alexander Branham" . "alex.branham@gmail.com")
 		    (:authors
 		     ("J. Alexander Branham" . "alex.branham@gmail.com"))
-		    (:commit . "781f8d40ed35a86a65dda3123506dc810adc10e3"))])
+		    (:commit . "52b9bb08041e7d91ead25a9a3c6170bad9bed7b7"))])
  (tNFA .
        [(0 1 1)
 	((queue
@@ -4664,6 +4677,17 @@
 		  ("Bruno Boal" . "egomet@bboal.com")
 		  ("Protesilaos Stavrou" . "info@protesilaos.com"))
 		 (:commit . "06f1be349e9c3d124520b18742911307de9abda3"))])
+ (timeout .
+	  [(2 1)
+	   ((emacs
+	     (24 4)))
+	   "Throttle or debounce Elisp functions" tar
+	   ((:url . "https://github.com/karthink/timeout")
+	    (:keywords "convenience" "extensions")
+	    (:maintainer "Karthik Chikmagalur" . "karthikchikmagalur@gmail.com")
+	    (:authors
+	     ("Karthik Chikmagalur" . "karthikchikmagalur@gmail.com"))
+	    (:commit . "6d31046c5b1817271a52ab810e5bc635fe7ab3b4"))])
  (timerfunctions .
 		 [(1 4 2)
 		  ((cl-lib
@@ -4964,14 +4988,18 @@
 	    ("Yuan Fu" . "casouri@gmail.com"))
 	   (:commit . "421c8c0cb4636e5fd87ac1022d6b8268c320f74f"))])
  (vc-backup .
-	    [(1 1 0)
-	     nil "VC backend for versioned backups" tar
-	     ((:url . "https://git.sr.ht/~pkal/vc-backup")
+	    [(1 1 1)
+	     ((emacs
+	       (24 3))
+	      (compat
+	       (28 1 1 0)))
+	     "VC backend for versioned backups" tar
+	     ((:url . "https://codeberg.org/pkal/vc-backup.el")
 	      (:keywords "vc")
 	      (:maintainer "Philip Kaludercic" . "philipk@posteo.net")
 	      (:authors
 	       ("Philip Kaludercic" . "philipk@posteo.net"))
-	      (:commit . "397af1e12b2e73a00370cc3ac054ffe2402b3352"))])
+	      (:commit . "28412c81c3b046616fd8edf82d05bb2d83d0c306"))])
  (vc-got .
 	 [(1 2)
 	  ((emacs
@@ -5085,20 +5113,20 @@
 	     ("Daniel Mendler" . "mail@daniel-mendler.de"))
 	    (:commit . "488685badfdf49bb750a213f228bdba8e113c7c8"))])
  (vertico-posframe .
-		   [(0 8 0)
+		   [(0 9 0)
 		    ((emacs
 		      (26 0))
 		     (posframe
 		      (1 4 0))
 		     (vertico
-		      (1 10)))
+		      (2 5)))
 		    "Using posframe to show Vertico" tar
 		    ((:url . "https://github.com/tumashu/vertico-posframe")
 		     (:keywords "abbrev" "convenience" "matching" "vertico")
 		     (:maintainer "Feng Shu" . "tumashu@163.com")
 		     (:authors
 		      ("Feng Shu" . "tumashu@163.com"))
-		     (:commit . "781ee08f8d92f640dff8a0d8838b67a13a391846"))])
+		     (:commit . "d89a70743cfd95b7fcda621679b7555bbef51acb"))])
  (vigenere .
 	   [(1 0)
 	    ((emacs
