@@ -22,7 +22,7 @@
 		     ("Ozan Sener" . "ozan@ozansener.com"))
 		    (:commit . "b58731c3b0bbaac9d3ed8d5ae900063df5db090d"))])
  (aidermacs .
-	    [(1 5)
+	    [(1 6)
 	     ((emacs
 	       (26 1))
 	      (transient
@@ -37,7 +37,7 @@
 	      (:maintainer "Mingde Zeng" . "matthewzmd@posteo.net")
 	      (:authors
 	       ("Mingde Zeng" . "matthewzmd@posteo.net"))
-	      (:commit . "5084913506b8b243c732a77b6de4768f18edcff3"))])
+	      (:commit . "fc0f1381bb9398a2d5a76776bad812d7ce3507dc"))])
  (alect-themes .
 	       [(0 10)
 		((emacs
@@ -59,7 +59,7 @@
 		 ("Jordon Biondo" . "jordonbiondo@gmail.com"))
 		(:commit . "33691c93ee302690e41f631f82083bcc15d229e8"))])
  (annotate .
-	   [(2 4 4)
+	   [(2 4 5)
 	    ((emacs
 	      (27 1)))
 	    "annotate files without changing them" tar
@@ -67,7 +67,7 @@
 	     (:maintainer
 	      ("Bastian Bechtold" . "bastibe.dev@mailbox.org")
 	      ("cage" . "cage-dev@twistfold.it"))
-	     (:commit . "2d1dac534dc04855d0056e9ded2277815fe43644"))])
+	     (:commit . "4e610f56ae5ce24e3577ffa1a293c7037ac1c2ea"))])
  (anti-zenburn-theme .
 		     [(2 5 1)
 		      nil "Low-contrast Zenburn-inverted theme" tar
@@ -855,6 +855,37 @@
 	   (:authors
 	    ("Paul Pogonyshev" . "pogonyshev@gmail.com"))
 	   (:commit . "c7af95865ef083327d299b86c254ca87fa88a504"))])
+ (fedi .
+       [(0 2)
+	((emacs
+	  (28 1))
+	 (markdown-mode
+	  (2 5)))
+	"Helper functions for fediverse clients" tar
+	((:url . "https://codeberg.org/martianh/fedi.el")
+	 (:maintainer "Marty Hiatt" . "martianhiatus@riseup.net")
+	 (:authors
+	  ("Marty Hiatt" . "martianhiatus@riseup.net"))
+	 (:commit . "b483834e64ce311a9f0db7f758b5d2234f8c02a3"))])
+ (fj .
+     [(0 28)
+      ((emacs
+	(29 1))
+       (fedi
+	(0 2))
+       (tp
+	(0 5))
+       (transient
+	(0 9 3))
+       (magit
+	(4 3 8)))
+      "Client for Forgejo instances" tar
+      ((:url . "https://codeberg.org/martianh/fj.el")
+       (:keywords "git" "convenience")
+       (:maintainer "Marty Hiatt" . "mousebot@disroot.org")
+       (:authors
+	("Marty Hiatt" . "mousebot@disroot.org"))
+       (:commit . "7f1a5a973e387673d50c3257cb358c2d245ca930"))])
  (flx .
       [(0 6 2)
        ((cl-lib
@@ -1562,6 +1593,21 @@
 		 ("Shodai Yokoyama" . "(quantumcars@gmail.com)"))
 		(:url . "https://elpa.nongnu.org/nongnu/kotlin-mode.html")
 		(:commit . "d92c3b773473e9fe15f61f6177e4fbf097aadd05"))])
+ (lem .
+      [(0 24)
+       ((emacs
+	 (29 1))
+	(fedi
+	 (0 2))
+	(markdown-mode
+	 (2 5)))
+       "A lemmy client" tar
+       ((:url . "https://codeberg.org/martianh/lem.el")
+	(:keywords "multimedia" "comm" "web" "fediverse")
+	(:maintainer "martian hiatus" . "mousebot@disroot.org")
+	(:authors
+	 ("martian hiatus" . "mousebot@disroot.org"))
+	(:commit . "c746d32d2f330ed9a23ec7f8fc1f7d35ac22c357"))])
  (llama .
 	[(1 0 2)
 	 ((emacs
@@ -1724,7 +1770,7 @@
 		   ("Jason R. Blevins" . "jblevins@xbeta.org"))
 		  (:commit . "1c7aecba67cc478ca3f6bd7899dc06956e4762f4"))])
  (mastodon .
-	   [(2 0 5)
+	   [(2 0 6)
 	    ((emacs
 	      (28 1))
 	     (persist
@@ -1737,7 +1783,7 @@
 	     (:authors
 	      ("Johnson Denen" . "johnson.denen@gmail.com")
 	      ("Marty Hiatt" . "mousebot@disroot.org"))
-	     (:commit . "587e0c347b918208db37975a483ecdb195427fa1"))])
+	     (:commit . "10383dfda28b26fdd379798a7759cf4c99c9ae25"))])
  (material-theme .
 		 [(2015)
 		  ((emacs
@@ -2168,6 +2214,17 @@
 	  (:authors
 	   ("Tomohiro Matsuyama" . "m2ym.pub@gmail.com"))
 	  (:commit . "bfa10dc8af3f07632e5167457671ce3738ac0b7e"))])
+ (powershell .
+	     [(0 4)
+	      ((emacs
+		(24)))
+	      "Mode for editing PowerShell scripts" tar
+	      ((:url . "http://github.com/jschaf/powershell.el")
+	       (:keywords "powershell" "languages")
+	       (:maintainer "Frédéric Perrin" . "fredericperrinreselfr")
+	       (:authors
+		("Frédéric Perrin" . "fredericperrinreselfr"))
+	       (:commit . "176f9fb0c29ac60898e1e938458f26205511cc23"))])
  (projectile .
 	     [(2 9 1)
 	      ((emacs
@@ -2754,7 +2811,7 @@
 	       ("Daniel Semyonov" . "daniel@dsemy.com"))
 	      (:commit . "93ae3db40d07ae15e61d34c3c3870de5d2fce2de"))])
  (visual-fill-column .
-		     [(2 7 0)
+		     [(2 7 1)
 		      ((emacs
 			(25 1)))
 		      "fill-column for visual-line-mode" tar
@@ -2762,7 +2819,7 @@
 		       (:maintainer "Joost Kremers" . "joostkremers@fastmail.fm")
 		       (:authors
 			("Joost Kremers" . "joostkremers@fastmail.fm"))
-		       (:commit . "a38e3a28e580084749f5adb31a382aba118fa2bd"))])
+		       (:commit . "9c0ecc2af21d3024a2a838c30d574e86265a52be"))])
  (web-mode .
 	   [(17 3 22)
 	    ((emacs
