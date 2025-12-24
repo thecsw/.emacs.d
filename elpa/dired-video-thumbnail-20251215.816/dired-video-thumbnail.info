@@ -1,0 +1,792 @@
+This is dired-video-thumbnail.info, produced by makeinfo version 6.8
+from dired-video-thumbnail.texi.
+
+This manual is for dired-video-thumbnail (version 0.2.0).
+
+   Copyright © 2025 James Dyer
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with no Front-Cover Texts,
+     and with no Back-Cover Texts.  A copy of the license is included in
+     the section entitled “GNU Free Documentation License”.
+INFO-DIR-SECTION Emacs
+START-INFO-DIR-ENTRY
+* Dired Video Thumbnail: (dired-video-thumbnail). Display video thumbnails in Dired.
+END-INFO-DIR-ENTRY
+
+
+File: dired-video-thumbnail.info,  Node: Top,  Next: Introduction,  Up: (dir)
+
+Dired Video Thumbnail
+*********************
+
+This manual describes dired-video-thumbnail, an Emacs package that
+provides image-dired style thumbnail viewing for video files.
+
+   This manual is for dired-video-thumbnail (version 0.2.0).
+
+   Copyright © 2025 James Dyer
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with no Front-Cover Texts,
+     and with no Back-Cover Texts.  A copy of the license is included in
+     the section entitled “GNU Free Documentation License”.
+
+* Menu:
+
+* Introduction::                Overview of dired-video-thumbnail
+* Installation::                How to install the package
+* Usage::                       Basic usage instructions
+* Keybindings::                 Available keyboard commands
+* Customization::               Customizing the package
+* Workflows::                   Common usage patterns
+* Troubleshooting::             Solving common problems
+* Index::                       Complete index
+
+ — The Detailed Node Listing —
+
+Installation
+
+* Requirements::                What you need before installing
+* Manual Installation::         Installing manually
+* Package Manager::             Installing via package managers
+
+Usage
+
+* Basic Usage::                 Getting started
+* Working with Marked Files::   Operating on selected videos
+* Recursive Mode::              Browsing subdirectories
+* Header Line Information::     Understanding the status display
+
+Customization
+
+* Display Settings::            Thumbnail appearance and layout
+* Cache Settings::              Cache directory configuration
+* Video Settings::              Video player and extensions
+* Mark Appearance::             Customizing mark indicators
+* Sorting Settings::            Default sort options
+* Recursive Settings::          Directory search behavior
+* Advanced Settings::           Other customization options
+
+
+
+File: dired-video-thumbnail.info,  Node: Introduction,  Next: Installation,  Prev: Top,  Up: Top
+
+1 Introduction
+**************
+
+‘dired-video-thumbnail’ is an Emacs package that provides ‘image-dired’
+style thumbnail viewing for video files.  It extracts thumbnails from
+videos using ‘ffmpeg’ and displays them in a grid layout, allowing you
+to visually browse and manage video collections directly from Emacs.
+
+1.1 Features
+============
+
+   • Thumbnail grid display with configurable layout
+   • Persistent caching - thumbnails are cached and only regenerated
+     when the source file changes
+   • Asynchronous generation - Emacs remains responsive while thumbnails
+     are generated in the background
+   • Dired integration - marks sync bidirectionally with the associated
+     dired buffer
+   • Visual mark indication - marked thumbnails display a colored border
+     (like ‘image-dired’)
+   • Dynamic header line - shows filename, dimensions, duration, file
+     size, sort order, and active filters for the current video
+   • Click to play - open videos in your preferred external player
+   • Cross-platform - works on Linux, macOS, and Windows
+   • Resizable thumbnails - adjust thumbnail size on the fly
+   • Sorting - sort videos by name, date, size, or duration with
+     ascending/descending order
+   • Filtering - filter videos by name pattern (regexp), duration range,
+     or file size range
+   • Recursive search - browse videos across subdirectories with
+     optional auto-recursive mode
+
+
+File: dired-video-thumbnail.info,  Node: Installation,  Next: Usage,  Prev: Introduction,  Up: Top
+
+2 Installation
+**************
+
+* Menu:
+
+* Requirements::                What you need before installing
+* Manual Installation::         Installing manually
+* Package Manager::             Installing via package managers
+
+
+File: dired-video-thumbnail.info,  Node: Requirements,  Next: Manual Installation,  Up: Installation
+
+2.1 Requirements
+================
+
+Before installing ‘dired-video-thumbnail’, ensure you have:
+
+   • Emacs 28.1 or later
+   • ‘ffmpeg’ and ‘ffprobe’ installed and available in your ‘PATH’
+
+   To verify ‘ffmpeg’ is installed, run:
+
+     ffmpeg -version
+
+
+File: dired-video-thumbnail.info,  Node: Manual Installation,  Next: Package Manager,  Prev: Requirements,  Up: Installation
+
+2.2 Manual Installation
+=======================
+
+Download ‘dired-video-thumbnail.el’ and place it in your load path:
+
+     (add-to-list 'load-path "/path/to/dired-video-thumbnail/")
+     (require 'dired-video-thumbnail)
+
+
+File: dired-video-thumbnail.info,  Node: Package Manager,  Prev: Manual Installation,  Up: Installation
+
+2.3 Installing via Package Managers
+===================================
+
+2.3.1 use-package
+-----------------
+
+     (use-package dired-video-thumbnail
+       :load-path "/path/to/dired-video-thumbnail/"
+       :bind (:map dired-mode-map
+              ("C-t v" . dired-video-thumbnail)))
+
+2.3.2 straight.el
+-----------------
+
+     (straight-use-package
+      '(dired-video-thumbnail :type git :host github
+        :repo "captainflasmr/dired-video-thumbnail"))
+
+
+File: dired-video-thumbnail.info,  Node: Usage,  Next: Keybindings,  Prev: Installation,  Up: Top
+
+3 Usage
+*******
+
+* Menu:
+
+* Basic Usage::                 Getting started
+* Working with Marked Files::   Operating on selected videos
+* Recursive Mode::              Browsing subdirectories
+* Header Line Information::     Understanding the status display
+
+
+File: dired-video-thumbnail.info,  Node: Basic Usage,  Next: Working with Marked Files,  Up: Usage
+
+3.1 Basic Usage
+===============
+
+  1. Open a directory containing video files in dired
+  2. Run ‘M-x dired-video-thumbnail’
+  3. A new buffer opens displaying thumbnails for all videos in the
+     directory
+  4. The cursor automatically moves to the first thumbnail
+
+
+File: dired-video-thumbnail.info,  Node: Working with Marked Files,  Next: Recursive Mode,  Prev: Basic Usage,  Up: Usage
+
+3.2 Working with Marked Files
+=============================
+
+  1. In dired, mark specific video files with ‘m’
+  2. Run ‘M-x dired-video-thumbnail’
+  3. Only thumbnails for the marked videos are displayed
+
+
+File: dired-video-thumbnail.info,  Node: Recursive Mode,  Next: Header Line Information,  Prev: Working with Marked Files,  Up: Usage
+
+3.3 Recursive Mode
+==================
+
+To include videos from subdirectories:
+
+   • Use ‘C-u M-x dired-video-thumbnail’ (with prefix argument)
+   • Or run ‘M-x dired-video-thumbnail-recursive’
+   • Or press ‘R’ in the thumbnail buffer to toggle recursive mode
+
+   When ‘dired-video-thumbnail-auto-recursive’ is enabled (the default),
+the package automatically searches subdirectories if the current
+directory contains no video files but has subdirectories.
+
+3.3.1 Suggested Keybinding
+--------------------------
+
+Add a keybinding in dired for quick access:
+
+     (with-eval-after-load 'dired
+       (define-key dired-mode-map (kbd "C-t v") #'dired-video-thumbnail))
+
+
+File: dired-video-thumbnail.info,  Node: Header Line Information,  Prev: Recursive Mode,  Up: Usage
+
+3.4 Header Line Information
+===========================
+
+As you navigate between thumbnails, the header line dynamically displays
+information about the current video:
+
+   • *Mark indicator* - A red asterisk if the video is marked
+   • *Filename* - The video filename in bold (shows relative path in
+     recursive mode)
+   • *Dimensions* - Video resolution (e.g., 1920x1080)
+   • *Duration* - Video length (e.g., 5:32 or 1:23:45)
+   • *File size* - Size in MB (e.g., 45.2 MB)
+
+   The header also shows:
+
+   • *Sort indicator* - Current sort criteria and direction (e.g.,
+     ‘[name ↑]’ or ‘[date ↓]’)
+   • *Filter indicator* - Active filters (e.g., ‘name:/pattern/’,
+     ‘duration:1:00-5:00’)
+   • *Recursive indicator* - ‘[recursive]’ when browsing subdirectories
+   • *Count* - Total number of videos and how many are currently
+     displayed after filtering
+
+
+File: dired-video-thumbnail.info,  Node: Keybindings,  Next: Customization,  Prev: Usage,  Up: Top
+
+4 Keybindings
+*************
+
+All commands are available in the ‘*Video Thumbnails*’ buffer.
+
+4.1 Navigation Commands
+=======================
+
+‘n’
+‘p’
+     Move to next/previous thumbnail (‘dired-video-thumbnail-next’,
+     ‘dired-video-thumbnail-previous’)
+
+‘<right>’
+‘<left>’
+‘C-f’
+‘C-b’
+     Move forward/backward to adjacent thumbnail
+     (‘dired-video-thumbnail-forward’, ‘dired-video-thumbnail-backward’)
+
+‘<up>’
+‘<down>’
+     Move up/down one row (‘dired-video-thumbnail-previous-row’,
+     ‘dired-video-thumbnail-next-row’)
+
+‘d’
+     Switch to associated dired buffer
+     (‘dired-video-thumbnail-goto-dired’)
+
+‘q’
+     Close the thumbnail buffer (‘quit-window’)
+
+‘Q’
+     Quit and kill the thumbnail buffer
+     (‘dired-video-thumbnail-quit-and-kill’)
+
+4.2 Playback Commands
+=====================
+
+‘<RET>’
+‘<SPC>’
+‘o’
+‘mouse-1’
+     Play video at point (‘dired-video-thumbnail-play’)
+
+   On Linux, videos open with ‘xdg-open’.  On macOS, they open with
+‘open’.  On Windows, they open with the system default player.
+
+4.3 Marking Commands
+====================
+
+Marks are synchronized with the associated dired buffer.  Marking a
+video in the thumbnail view also marks it in dired, and vice versa.
+
+‘m’
+     Mark video and move to next (‘dired-video-thumbnail-mark’)
+
+‘u’
+     Unmark video and move to next (‘dired-video-thumbnail-unmark’)
+
+‘mouse-3’
+     Toggle mark on video under mouse
+     (‘dired-video-thumbnail-toggle-mark’)
+
+‘M’
+     Mark all videos (‘dired-video-thumbnail-mark-all’)
+
+‘U’
+     Unmark all videos (‘dired-video-thumbnail-unmark-all’)
+
+‘t’
+     Invert all marks (‘dired-video-thumbnail-toggle-all-marks’)
+
+4.4 Deletion Commands
+=====================
+
+‘D’
+     Delete video at point with confirmation
+     (‘dired-video-thumbnail-delete’)
+
+‘x’
+     Delete marked videos with confirmation
+     (‘dired-video-thumbnail-delete-marked’)
+
+4.5 Display Commands
+====================
+
+‘+’
+‘-’
+     Increase/decrease thumbnail size
+     (‘dired-video-thumbnail-increase-size’,
+     ‘dired-video-thumbnail-decrease-size’)
+
+‘r’
+     Refresh the display (‘dired-video-thumbnail-refresh’)
+
+‘g’
+     Regenerate thumbnail for video at point
+     (‘dired-video-thumbnail-regenerate’)
+
+‘G’
+     Regenerate all thumbnails (‘dired-video-thumbnail-regenerate-all’)
+
+‘R’
+     Toggle recursive search (‘dired-video-thumbnail-toggle-recursive’)
+
+‘w’
+     Toggle wrap display mode (‘dired-video-thumbnail-toggle-wrap’)
+
+4.6 Sorting Commands
+====================
+
+Sorting commands are prefixed with ‘s’:
+
+‘s n’
+     Sort by name (‘dired-video-thumbnail-sort-by-name’)
+
+‘s d’
+     Sort by date modified (‘dired-video-thumbnail-sort-by-date’)
+
+‘s s’
+     Sort by file size (‘dired-video-thumbnail-sort-by-size’)
+
+‘s D’
+     Sort by duration (‘dired-video-thumbnail-sort-by-duration’)
+
+‘s r’
+     Reverse sort order (‘dired-video-thumbnail-sort-reverse’)
+
+‘S’
+     Interactive sort selection (‘dired-video-thumbnail-sort’)
+
+4.7 Filtering Commands
+======================
+
+Filtering commands are prefixed with ‘/’:
+
+‘/ n’
+     Filter by filename regexp (‘dired-video-thumbnail-filter-by-name’)
+
+‘/ d’
+     Filter by duration range
+     (‘dired-video-thumbnail-filter-by-duration’)
+
+‘/ s’
+     Filter by file size range (‘dired-video-thumbnail-filter-by-size’)
+
+‘/ /’
+‘/ c’
+     Clear all filters (‘dired-video-thumbnail-filter-clear’)
+
+‘\’
+     Interactive filter selection (‘dired-video-thumbnail-filter’)
+
+4.8 Help Commands
+=================
+
+‘h’
+‘?’
+     Show help buffer with command summary
+     (‘dired-video-thumbnail-help’)
+
+
+File: dired-video-thumbnail.info,  Node: Customization,  Next: Workflows,  Prev: Keybindings,  Up: Top
+
+5 Customization
+***************
+
+All customization options are in the ‘dired-video-thumbnail’ group.  Use
+‘M-x customize-group <RET> dired-video-thumbnail <RET>’ to browse them
+interactively.
+
+* Menu:
+
+* Display Settings::            Thumbnail appearance and layout
+* Cache Settings::              Cache directory configuration
+* Video Settings::              Video player and extensions
+* Mark Appearance::             Customizing mark indicators
+* Sorting Settings::            Default sort options
+* Recursive Settings::          Directory search behavior
+* Advanced Settings::           Other customization options
+
+
+File: dired-video-thumbnail.info,  Node: Display Settings,  Next: Cache Settings,  Up: Customization
+
+5.1 Display Settings
+====================
+
+ -- User Option: dired-video-thumbnail-size
+     Width of generated thumbnails in pixels.  Default: ‘200’.
+
+          (setq dired-video-thumbnail-size 250)
+
+ -- User Option: dired-video-thumbnail-display-height
+     Display height of thumbnails in the buffer.  Set to ‘nil’ to use
+     actual thumbnail size.  Default: ‘150’.
+
+          (setq dired-video-thumbnail-display-height 180)
+
+ -- User Option: dired-video-thumbnail-columns
+     Number of thumbnail columns in the display buffer.  Only used when
+     ‘dired-video-thumbnail-wrap-display’ is ‘nil’.  Default: ‘4’.
+
+          (setq dired-video-thumbnail-columns 5)
+
+ -- User Option: dired-video-thumbnail-wrap-display
+     Whether to wrap thumbnails to fill the buffer width.  When
+     non-‘nil’, thumbnails flow naturally and wrap based on window
+     width.  When ‘nil’, a fixed number of columns is used.  Default:
+     ‘t’.
+
+          (setq dired-video-thumbnail-wrap-display nil)
+
+ -- User Option: dired-video-thumbnail-spacing
+     Spacing between thumbnails in pixels when using wrap display.
+     Default: ‘4’.
+
+          (setq dired-video-thumbnail-spacing 8)
+
+
+File: dired-video-thumbnail.info,  Node: Cache Settings,  Next: Video Settings,  Prev: Display Settings,  Up: Customization
+
+5.2 Cache Settings
+==================
+
+ -- User Option: dired-video-thumbnail-cache-dir
+     Directory for caching video thumbnails.  Default:
+     ‘~/.emacs.d/dired-video-thumbnails/’.
+
+          (setq dired-video-thumbnail-cache-dir "~/path/to/cache/")
+
+   Thumbnails are stored in this directory with filenames based on the
+video’s path and modification time.  If you modify a video file, the
+thumbnail will be automatically regenerated on next view.
+
+   To manually clear the thumbnail cache:
+
+     M-x dired-video-thumbnail-clear-cache
+
+
+File: dired-video-thumbnail.info,  Node: Video Settings,  Next: Mark Appearance,  Prev: Cache Settings,  Up: Customization
+
+5.3 Video Settings
+==================
+
+ -- User Option: dired-video-thumbnail-timestamp
+     Timestamp to extract thumbnail from (HH:MM:SS format).  Set to
+     ‘nil’ to let ‘ffmpeg’ choose automatically.  Default: ‘"00:00:05"’.
+
+          (setq dired-video-thumbnail-timestamp "00:00:10")  ; 10 seconds in
+          (setq dired-video-thumbnail-timestamp "00:01:00")  ; 1 minute in
+          (setq dired-video-thumbnail-timestamp nil)         ; Let ffmpeg choose
+
+ -- User Option: dired-video-thumbnail-video-player
+     Command to use for playing videos.  Set to ‘nil’ to use system
+     default.  Default: ‘"mpv"’.
+
+          (setq dired-video-thumbnail-video-player "mpv")
+          (setq dired-video-thumbnail-video-player "vlc")
+          (setq dired-video-thumbnail-video-player nil)  ; Use system default
+
+   When set to ‘nil’, videos open with:
+   • Linux: ‘xdg-open’
+   • macOS: ‘open’
+   • Windows: System default player
+
+ -- User Option: dired-video-thumbnail-video-extensions
+     List of video file extensions to recognize.  Default includes
+     common formats.
+
+          (setq dired-video-thumbnail-video-extensions
+                '("mp4" "mkv" "avi" "mov" "webm" "m4v" "wmv" "flv"
+                  "mpeg" "mpg" "ogv" "3gp"))
+
+ -- User Option: dired-video-thumbnail-ffmpeg-program
+ -- User Option: dired-video-thumbnail-ffprobe-program
+     Path to ‘ffmpeg’ and ‘ffprobe’ executables.  Default: ‘"ffmpeg"’
+     and ‘"ffprobe"’.
+
+          (setq dired-video-thumbnail-ffmpeg-program "/usr/local/bin/ffmpeg")
+          (setq dired-video-thumbnail-ffprobe-program "/usr/local/bin/ffprobe")
+
+
+File: dired-video-thumbnail.info,  Node: Mark Appearance,  Next: Sorting Settings,  Prev: Video Settings,  Up: Customization
+
+5.4 Mark Appearance
+===================
+
+Marked thumbnails are indicated with a colored border.
+
+ -- User Option: dired-video-thumbnail-mark-border-width
+     Width of the border around marked thumbnails in pixels.  Default:
+     ‘4’.
+
+          (setq dired-video-thumbnail-mark-border-width 5)
+
+ -- Face: dired-video-thumbnail-mark
+     Face for the border around marked video thumbnails.  Default
+     foreground: red.
+
+          (set-face-foreground 'dired-video-thumbnail-mark "blue")
+
+     Or via ‘use-package’:
+
+          (use-package dired-video-thumbnail
+            :custom-face
+            (dired-video-thumbnail-mark ((t (:foreground "orange")))))
+
+
+File: dired-video-thumbnail.info,  Node: Sorting Settings,  Next: Recursive Settings,  Prev: Mark Appearance,  Up: Customization
+
+5.5 Sorting Settings
+====================
+
+ -- User Option: dired-video-thumbnail-sort-by
+     Default sorting criteria for thumbnails.  Choices: ‘name’, ‘date’,
+     ‘size’, ‘duration’.  Default: ‘name’.
+
+          (setq dired-video-thumbnail-sort-by 'date)
+
+ -- User Option: dired-video-thumbnail-sort-order
+     Default sort order for thumbnails.  Choices: ‘ascending’,
+     ‘descending’.  Default: ‘ascending’.
+
+          (setq dired-video-thumbnail-sort-order 'descending)
+
+
+File: dired-video-thumbnail.info,  Node: Recursive Settings,  Next: Advanced Settings,  Prev: Sorting Settings,  Up: Customization
+
+5.6 Recursive Settings
+======================
+
+ -- User Option: dired-video-thumbnail-recursive
+     Whether to always search for videos recursively in subdirectories.
+     Default: ‘nil’.
+
+          (setq dired-video-thumbnail-recursive t)
+
+ -- User Option: dired-video-thumbnail-auto-recursive
+     Whether to automatically search recursively when no videos in
+     current directory.  When non-‘nil’, if the current directory
+     contains no video files but has subdirectories,
+     ‘dired-video-thumbnail’ will automatically search recursively.
+     This is useful for video collections organized in year/category
+     folders.  Default: ‘t’.
+
+          (setq dired-video-thumbnail-auto-recursive nil)
+
+
+File: dired-video-thumbnail.info,  Node: Advanced Settings,  Prev: Recursive Settings,  Up: Customization
+
+5.7 Advanced Settings
+=====================
+
+5.7.1 Example Configuration
+---------------------------
+
+Here is a complete example configuration using ‘use-package’:
+
+     (use-package dired-video-thumbnail
+       :load-path "/path/to/dired-video-thumbnail/"
+       :bind (:map dired-mode-map
+              ("C-t v" . dired-video-thumbnail))
+       :custom
+       (dired-video-thumbnail-size 250)
+       (dired-video-thumbnail-display-height 180)
+       (dired-video-thumbnail-columns 5)
+       (dired-video-thumbnail-timestamp "00:00:10")
+       (dired-video-thumbnail-video-player nil)
+       (dired-video-thumbnail-mark-border-width 5)
+       (dired-video-thumbnail-sort-by 'date)
+       (dired-video-thumbnail-sort-order 'descending)
+       (dired-video-thumbnail-auto-recursive t)
+       :custom-face
+       (dired-video-thumbnail-mark ((t (:foreground "orange")))))
+
+
+File: dired-video-thumbnail.info,  Node: Workflows,  Next: Troubleshooting,  Prev: Customization,  Up: Top
+
+6 Common Workflows
+******************
+
+6.1 Reviewing and Deleting Unwanted Videos
+==========================================
+
+  1. Open a directory with videos in dired
+  2. Press ‘C-t v’ to open thumbnail view
+  3. Browse thumbnails with ‘n’, ‘p’, ‘<SPC>’, or arrow keys
+  4. Press ‘D’ to delete individual videos, or mark with ‘m’ and delete
+     with ‘x’
+
+6.2 Selecting Videos for Processing
+===================================
+
+  1. Open thumbnail view with ‘C-t v’
+  2. Mark videos you want to process with ‘m’
+  3. Press ‘d’ to switch to dired
+  4. Your marked videos are already selected in dired
+  5. Use any dired command (‘C’, ‘R’, ‘!’, etc.)  on marked files
+
+6.3 Quick Video Preview
+=======================
+
+  1. In dired, position cursor on a video file
+  2. Press ‘C-t v’ to open thumbnail view
+  3. Press ‘<RET>’ to play the video
+  4. Press ‘q’ to return to dired
+
+6.4 Finding Large Videos
+========================
+
+  1. Open thumbnail view with ‘C-t v’
+  2. Press ‘s s’ to sort by file size
+  3. Press ‘s r’ to reverse order (largest first)
+  4. Or use ‘/ s’ to filter by size range (e.g., minimum 100 MB)
+
+6.5 Finding Long Videos
+=======================
+
+  1. Open thumbnail view with ‘C-t v’
+  2. Press ‘s D’ to sort by duration
+  3. Or use ‘/ d’ to filter by duration range (e.g., 5:00 to 30:00)
+
+6.6 Searching by Name Pattern
+=============================
+
+  1. Open thumbnail view with ‘C-t v’
+  2. Press ‘/ n’ and enter a regexp pattern (e.g., ‘2024’ or ‘holiday’)
+  3. Only matching videos are shown
+  4. Press ‘/ c’ to clear the filter and show all videos again
+
+6.7 Organizing Video Collections
+================================
+
+  1. Enable recursive search with ‘R’ or set
+     ‘dired-video-thumbnail-recursive’ to ‘t’
+  2. Sort videos by duration with ‘s D’
+  3. Filter by size range with ‘/ s’
+  4. Mark videos for moving or copying based on your criteria
+  5. Press ‘d’ to go to dired and perform file operations on marked
+     files
+
+
+File: dired-video-thumbnail.info,  Node: Troubleshooting,  Next: Index,  Prev: Workflows,  Up: Top
+
+7 Troubleshooting
+*****************
+
+7.1 Thumbnails Not Generating
+=============================
+
+  1. Ensure ‘ffmpeg’ is installed: ‘ffmpeg -version’
+  2. Check that ‘ffmpeg’ is in your ‘PATH’ or set
+     ‘dired-video-thumbnail-ffmpeg-program’
+  3. Try regenerating with ‘g’ on a specific thumbnail
+
+7.2 Placeholder Showing Instead of Thumbnail
+============================================
+
+Some videos may fail to generate thumbnails if:
+
+   • The video is corrupted
+   • The timestamp is beyond the video duration (try setting
+     ‘dired-video-thumbnail-timestamp’ to ‘nil’)
+   • ‘ffmpeg’ doesn’t support the codec
+
+   Press ‘g’ on the thumbnail to retry generation.
+
+7.3 Video Info Not Showing in Header Line
+=========================================
+
+Ensure ‘ffprobe’ is installed (it comes with ‘ffmpeg’).  Set
+‘dired-video-thumbnail-ffprobe-program’ if it’s not in your ‘PATH’.
+
+7.4 Marks Not Syncing with Dired
+================================
+
+Run ‘M-x dired-video-thumbnail-debug’ to check if the dired buffer is
+properly associated.  The output should show a live dired buffer
+reference.
+
+   For videos in subdirectories (when using recursive mode), marks are
+stored locally and the subdirectory is automatically inserted into dired
+when needed.
+
+7.5 Performance with Many Videos
+================================
+
+The package processes up to 4 videos concurrently by default.  For
+directories with hundreds of videos, initial thumbnail generation may
+take some time, but Emacs remains responsive and thumbnails appear as
+they complete.  Thumbnails are cached, so subsequent views are instant.
+
+   Video metadata (dimensions, duration) is also cached in memory to
+avoid repeated calls to ‘ffprobe’.
+
+
+File: dired-video-thumbnail.info,  Node: Index,  Prev: Troubleshooting,  Up: Top
+
+Index
+*****
+
+
+
+Tag Table:
+Node: Top757
+Node: Introduction2890
+Node: Installation4439
+Node: Requirements4762
+Node: Manual Installation5143
+Node: Package Manager5496
+Node: Usage6062
+Node: Basic Usage6420
+Node: Working with Marked Files6793
+Node: Recursive Mode7132
+Node: Header Line Information7958
+Node: Keybindings8967
+Node: Customization12945
+Node: Display Settings13679
+Node: Cache Settings14994
+Node: Video Settings15669
+Node: Mark Appearance17455
+Node: Sorting Settings18251
+Node: Recursive Settings18894
+Node: Advanced Settings19752
+Node: Workflows20736
+Node: Troubleshooting22947
+Node: Index24834
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

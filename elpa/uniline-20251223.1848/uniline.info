@@ -1,0 +1,2640 @@
+This is uniline.info, produced by makeinfo version 6.8 from
+uniline.texi.
+
+
+INFO-DIR-SECTION Emacs
+START-INFO-DIR-ENTRY
+* Uniline: (uniline).     Draw UNICODE diagrams
+END-INFO-DIR-ENTRY
+
+
+File: uniline.info,  Node: Top,  Next: Getting started in 10 seconds,  Up: (dir)
+
+Uniline
+*******
+
+* Menu:
+
+* Getting started in 10 seconds::
+* New::
+* Pure UNICODE text diagrams in Emacs::
+* A minor mode for drawing::
+* The <insert> key::
+* Glyphs ▷ ▶ → □ ◆ ╮─ insertion & modification::
+* Rectangular actions::
+* Long range actions contour and flood-fill::
+* Macros::
+* Which fonts?::
+* Hydra or Transient?::
+* Customization::
+* How Uniline behaves with its environment?::
+* Lisp API::
+* Mouse support::
+* Installation::
+* Related packages::
+* Author, contributors: Author contributors.
+* License::
+
+— The Detailed Node Listing —
+
+Pure UNICODE text diagrams in Emacs
+
+* Document a command::
+* Connect boxes with arrows::
+* Explain decisions trees::
+* Draw lines or blocks::
+* Outline the General Relativity and the Schrödinger's equations::
+* Explain the structure of a sentence in a foreign language::
+* Explain Lisp lists::
+* Draw sketched objects::
+* Pure text::
+* Beware!::
+
+A minor mode for drawing
+
+* Minor mode::
+* Draw lines by moving the cursor::
+* Brush style::
+* Text direction::
+
+Glyphs ‘▷ ▶ → □ ◆ ╮─’ insertion & modification
+
+* Arrows glyphs ▷ ▶ → ▹ ▸ ↔::
+* Intersection glyphs ■ ◆ ●::
+* Fine tweaking of lines::
+
+Rectangular actions
+
+* Drawing a rectangle::
+* Filling a rectangle::
+* Moving a rectangle::
+* Copying, killing, yanking a rectangle: Copying killing yanking a rectangle.
+* Dashed lines and other styles::
+* ASCII to UNICODE::
+
+Long range actions: contour and flood-fill
+
+* Tracing a contour::
+* Flood-fill::
+
+Which fonts?
+
+* Recommended fonts::
+* Use case mixing fonts::
+
+Hydra or Transient?
+
+* Selecting Hydra or Transient::
+* Instantly selecting Hydra or Transient::
+* One-liner menus::
+* The Hydra interface::
+* The Transient interface::
+
+Customization
+
+* Interface type (obsolete)::
+* Insert key::
+* Maximum steps when drawing a contour::
+* Cursor type::
+* Hint style::
+* Welcome message visibility::
+* Line spacing::
+* Font::
+
+How Uniline behaves with its environment?
+
+* Language environment::
+* Compatibility with Picture-mode::
+* Compatibility with Artist-mode::
+* Compatibility with Whitespace-mode::
+* Compatibility with Org Mode::
+* Org Mode and LaTex::
+* What about \t tabs?::
+* What about ^L page separation?::
+* Emacs on the Linux console::
+* Emacs on a graphical terminal emulator::
+* Emacs on Windows::
+* Compatibility with ASCIIFlow::
+
+Lisp API
+
+* Move the cursor::
+* Brush::
+* Example Lisp function to draw a plus sign::
+* Long range actions (contour, flood-fill, rectangle): Long range actions (contour flood-fill rectangle).
+* Constants::
+* Macro and text direction::
+* Insert and tweak glyphs::
+* Change to alternate styles::
+
+Installation
+
+* use-package, the straightforward way: use-package the straightforward way.
+* Without use-package::
+
+
+
+File: uniline.info,  Node: Getting started in 10 seconds,  Next: New,  Prev: Top,  Up: Top
+
+1 Getting started in 10 seconds
+*******************************
+
+   • Type ‘M-x uniline-mode’
+   • Move cursor with the arrow-keys on the keyboard ‘→ ← ↑ ↓’
+   • Quit ‘C-c C-c’
+
+
+
+     ╷   ╭─────────╮
+     ╰───┤my first ├─╮
+         │drawing  │ ╰───╮
+         ╰─────────╯     │
+            ╭────┬───────╯
+            ╰────╯
+
+
+File: uniline.info,  Node: New,  Next: Pure UNICODE text diagrams in Emacs,  Prev: Getting started in 10 seconds,  Up: Top
+
+2 New
+*****
+
+Changing user-interface from Hydra to Transient and the other way around
+is now possible without restarting the Uniline session.
+
+   Take a look at the new "Customize" entry in the Uniline menu.  This
+menu is available:
+   • from the menu-bar at the top of the Emacs screen (if not made
+     invisible),
+   • by left-clicking on ‘"Uniline"’ in the mode-line, at the bottom of
+     the Emacs screen.
+
+   Note that those changes are for the current session only.  To
+permanently choose Hydra or Transient, change your ‘~/.emacs’.
+
+   See *note Hydra or Transient?::
+
+
+File: uniline.info,  Node: Pure UNICODE text diagrams in Emacs,  Next: A minor mode for drawing,  Prev: New,  Up: Top
+
+3 Pure UNICODE text diagrams in Emacs
+*************************************
+
+Draw diagrams like those:
+
+* Menu:
+
+* Document a command::
+* Connect boxes with arrows::
+* Explain decisions trees::
+* Draw lines or blocks::
+* Outline the General Relativity and the Schrödinger's equations::
+* Explain the structure of a sentence in a foreign language::
+* Explain Lisp lists::
+* Draw sketched objects::
+* Pure text::
+* Beware!::
+
+
+File: uniline.info,  Node: Document a command,  Next: Connect boxes with arrows,  Up: Pure UNICODE text diagrams in Emacs
+
+3.1 Document a command
+======================
+
+
+
+        pdfjam source.pdf 3-5,9
+       ╶─────▲────▲────────▲──▲╴
+     command╶╯    │        │  │
+     input file╶──╯        │  │
+     select pages 3,4,5╶───╯  │
+     and page 9╶──────────────╯
+
+
+File: uniline.info,  Node: Connect boxes with arrows,  Next: Explain decisions trees,  Prev: Document a command,  Up: Pure UNICODE text diagrams in Emacs
+
+3.2 Connect boxes with arrows
+=============================
+
+
+
+                 ╭───────────────────────╮
+       ╷123╭────▶┤ hundred and something │
+       ╰───╯     ╰───────────────────────╯
+                                  ╭────▶──╮A╷
+         ╭───╮    ┏━━━┓    ╔═══╗  │       ╰─╯
+     0╶─→┤ 1 ┝━━━▶┫ 2 ┣═══▷╣ 3 ╟──●────▶──╮B╷
+         ╰───╯    ┗━┯━┛    ╚═╤═╝  │       ╰─╯
+                    ╰────←───╯    ╰────▶──╮C╷
+                                          ╰─╯
+        ╔══════════╗
+        ║ 1        ║          ▐▀▀▀▀▀▀▀▀▜
+        ║    ╭─────╫───╮ ◁──▷ ▐ 3      ▐
+        ╚════╪═════╝ 2 │      ▐▄▄▄▄▄▄▄▄▟
+             ╰─────────╯
+
+
+File: uniline.info,  Node: Explain decisions trees,  Next: Draw lines or blocks,  Prev: Connect boxes with arrows,  Up: Pure UNICODE text diagrams in Emacs
+
+3.3 Explain decisions trees
+===========================
+
+
+
+     ┏━━━━━━━━━━━━┓
+     ┃which color?┃
+     ┗━┯━━━━━━━━━━┛
+       │     ╭──────╮
+       │  ╭──┤yellow├─▷╮good─choice╭□
+       ▽  │  ╰──────╯  ╰═══════════╯
+       ╰──●  ╭───╮    ┏━━━━━┓
+          ├──┤red├───▷┨dark?┠──╮
+          │  ╰───╯    ┗━━━━━┛  │
+          │ ╭───◁──────────────╯
+          │ │   ╭───╮
+          │ ╰─●─┤yes├▷╮regular─red╭─□
+          │   │ ╰───╯ ╰═══════════╯
+          │   │ ╭──╮
+          │   ╰─┤no├─▷╮pink╭────────□
+          │     ╰──╯  ╰════╯
+          │  ╭────╮
+          ├──┤blue├───▷╮next week╭──□
+          │  ╰────╯    ╰═════════╯
+          │  ╭─────╮
+          ╰──┤white├──▷╮available╭──□
+             ╰─────╯   ╰═════════╯
+
+
+File: uniline.info,  Node: Draw lines or blocks,  Next: Outline the General Relativity and the Schrödinger's equations,  Prev: Explain decisions trees,  Up: Pure UNICODE text diagrams in Emacs
+
+3.4 Draw lines or blocks
+========================
+
+
+
+                                   ╭─╮←─╮
+                              ╭╮   │ │  ╰──╴max 235
+                            ╭╮││  ╭╯ │
+                            │╰╯│╭─╯  │
+           ╭╮               │  ││    │
+        ╭─╮││╭╮   ╭──╮╭╮    │  ╰╯    ╰╮
+       ╭╯ ╰╯╰╯│  ╭╯  ╰╯╰─╮  │         │ ╭╮
+     ◁─╯      ╰──╯       ╰──╯         ╰─╯╰────▷
+     ◀════════════════════════════════════════▶
+                            ╭────────╮
+        ▲                   │all time│
+        ┃       ▄     ▗▟█ ←─┤highest │
+       Qdx      █▌   ████   ╰────────╯
+        ┃     ▗▄█▌   █████▙
+        ┃   ▟███████▄█████████▄▄▄     ▗▄
+        ┃▐▄▄████████████████████████████▄▄▖
+         ╺━━━━━━━━━━╸time╺━━━━━━━━━━━━━━━━▶
+
+
+
+File: uniline.info,  Node: Outline the General Relativity and the Schrödinger's equations,  Next: Explain the structure of a sentence in a foreign language,  Prev: Draw lines or blocks,  Up: Pure UNICODE text diagrams in Emacs
+
+3.5 Outline the General Relativity and the Schrödinger’s equations
+==================================================================
+
+
+
+
+          ╭─────────────────────╴G: Einstein tensor
+          │                ╭────╴κ: Gravitational coupling constant
+       ╭──▽───╮        ╭───▽──╮
+     ┏━┷━━━━━━┷━━━━━━━━┷━━━━━━┷━━━┓
+     ┃ R - gR/2 + Λg = (8πG/c⁴)×T ┃◁╴General Relativity equation
+     ┗━△━━━△△━━━━━△△━━━━━━△━△━━━△━┛
+       │   ││     ││      │ │  ╭╯
+       │   ││     ││      │ │  ╰╴Energy-impulsion tensor
+       │   ││     ││      │ ╰───╴Speed of light
+       │   ││     ││      ╰─────╴Gravitational constant
+       │   ││     ╰┴────────────╴Cosmological constant
+       │   │╰──────┴────────────╴Scalar curvature
+       │   ╰───────╰────────────╴Metric tensor
+       ╰────────────────────────╴Ricci tensor
+
+
+
+
+
+            ╭─────────────────────╴Derivative over time
+            │     ╭──────────╭────╴State of quantum system at time t
+            │     │          │     (the square of its absolute value
+           ╭▽─╮ ╭─▽──╮     ╭─▽──╮   is the probability density)
+     ┏━━━━━┷━━┷━┷━━━━┷━━━━━┷━━━━┷━┓
+     ┃ i ħ d/dt |Ψ(t)> = Ĥ |Ψ(t)> ┃◁─╴Schrödinger's equation
+     ┗━△━△━━━━△━━━━△━━━━━△━━━━△━━━┛
+       │ │    ╰────╰─────┤────╰───╴Time
+       │ │               ╰────────╴Hamiltonian
+       │ ╰────────────────────────╴Reduced Plank constant
+       ╰──────────────────────────╴Imaginary number i²=-1
+
+
+
+File: uniline.info,  Node: Explain the structure of a sentence in a foreign language,  Next: Explain Lisp lists,  Prev: Outline the General Relativity and the Schrödinger's equations,  Up: Pure UNICODE text diagrams in Emacs
+
+3.6 Explain the structure of a sentence in a foreign language
+=============================================================
+
+(which language?)
+
+
+
+
+     ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+     ┃ the pretty table is standing ┃
+     ┗┯━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+      │    ╭────┬─────┬─────╴radicals
+      ↕   ╭┴╮  ╭┴─╮  ╭┴─╮
+     ┏┷━━━┿━┿━━┿━━┿━━┿━━┿━━━┓
+     ┃ la bela tablo staras ┃
+     ┗━━━━┿━┿△━┿━━┿△━┿━━┿△━━┛
+          ╰─╯│ ╰──╯│ ╰──╯│  ┏━━━━━suffixes━━━━━┓
+             │     │     ╰──╂╴as: present tense┃
+             │     │        ┃ os: future tense ┃
+             │     │        ┃ is: past tense   ┃
+             │     ╰────────╂╴ o: noun         ┃
+             ╰──────────────╂╴ a: adjective    ┃
+                            ┃  e: adverb       ┃
+                            ┗━━━━━━━━━━━━━━━━━━┛
+
+
+
+File: uniline.info,  Node: Explain Lisp lists,  Next: Draw sketched objects,  Prev: Explain the structure of a sentence in a foreign language,  Up: Pure UNICODE text diagrams in Emacs
+
+3.7 Explain Lisp lists
+======================
+
+
+
+       '(a b c)
+          ┏━━━┳━━━┓   ┏━━━┳━━━┓   ┏━━━┳━━━┓
+     ●━━━▶┫ ● ┃ ●─╂──▷┨ ● ┃ ●─╂──▷┨ ● ┃nil┃
+          ┗━┿━┻━━━┛   ┗━┿━┻━━━┛   ┗━┿━┻━━━┛
+            │           ╰──────────╮╰╮
+            │  ╭─────┬───────────╮ │ │
+            ╰─▷┤"a\0"│properties │ │ │
+               ├─────┼───────────┤ │ │
+               │"b\0"│properties ├◁╯ │
+               ├─────┼───────────┤   │
+               │"c\0"│properties ├◁──╯
+               ├─────┼───────────┤
+               │...  │...        │
+               ╵     ╵           ╵
+
+
+File: uniline.info,  Node: Draw sketched objects,  Next: Pure text,  Prev: Explain Lisp lists,  Up: Pure UNICODE text diagrams in Emacs
+
+3.8 Draw sketched objects
+=========================
+
+
+
+
+      ◀─(-)────────(+)──▶    ~╭──────╮~
+       ▗──────────────╮     ~~│ ╭~~╮ │~~
+       ▐              ╰╮     ~│ ╵  ╵ │~
+     ╭□▐   1.5 volts  ╭╯□╮    ╰─╖  ╓─╯
+     │ ▝▀▀▀▀▀▀▀▀▀▀▀▀▀▀▘  │      ╠━━╣
+     │                   ╰──────╯  │
+     ╰─────────────────────────────╯
+
+
+
+      ╶╮       ╭╴
+     ┏┳┥▒▒▒▒▒▒▒┝╸
+     ┃┃│▒▒eau▒▒│
+     ┃┃│▒▒▒▒▒▒▒│ ╔═════╗
+     ┃┃╰──╮▒╭──╯ ║ ╶╮  ▽           ╭╴
+     ┃┃    ▒     ║  │  ░           │
+     ┃┃    ▒     ║  │░░░░░░░░░░░░░░│
+     ┃┃    ╚═════╝  │░░░░░░░░░░░░░░╞════▷▒▒
+     ┃┃             │░░░░░akvo░░░░░│    ╶╮ ▒         ╭╴
+     ┃┃             │░░░░░░░░░░░░░░│     │  ▒        │
+     ┃┃             ╰─┲┳━━━━━━━━┳┱─╯     │▒▒▒▒▒▒▒▒▒▒▒│
+     ┃┃               ┃┃        ┃┃       │▒▒▒water▒▒▒│
+     ┃┃               ┃┃        ┃┃       │▒▒▒▒▒▒▒▒▒▒▒│
+     ┃┃               ┃┃        ┃┃       ╰───────────╯
+     ▝▀▀▀▀▀▀▘        ▝▀▘        ▝▀▘      ▀▀▀▀▀▀▀▀▀▀▀▀▀
+
+
+File: uniline.info,  Node: Pure text,  Next: Beware!,  Prev: Draw sketched objects,  Up: Pure UNICODE text diagrams in Emacs
+
+3.9 Pure text
+=============
+
+Those diagrams are pure text.  There is nothing graphic.  They are
+achieved using UNICODE characters.  Therefore they can be drawn within
+any text formatted document, like Org Mode, Markdown, txt, comments in
+any programming language source code (C++, Python, Rust, D, JavaScript,
+GnuPlot, LaTex, whatever).
+
+   Most often, the text file will be encoded as UTF-8.  This is becoming
+the de-facto standard for text and source code files.
+
+   Creating such diagrams by hand is painfully slow.  Use ‘Uniline’ to
+draw lines while you move the cursor with keyboard arrows.
+
+
+File: uniline.info,  Node: Beware!,  Prev: Pure text,  Up: Pure UNICODE text diagrams in Emacs
+
+3.10 Beware!
+============
+
+If you see those diagrams miss-aligned, most likely the font used to
+display them does not support UNICODE block characters.  See bellow the
+paragraph *note Which fonts?:: for details.
+
+   If you get misalignment when drawing, this could come from too wide
+characters.  Emojis are an example.  Usual characters may also be
+considered twice as wide as normal under some "language environments".
+See the paragraph *note Language environment:: for details.
+
+
+File: uniline.info,  Node: A minor mode for drawing,  Next: The <insert> key,  Prev: Pure UNICODE text diagrams in Emacs,  Up: Top
+
+4 A minor mode for drawing
+**************************
+
+* Menu:
+
+* Minor mode::
+* Draw lines by moving the cursor::
+* Brush style::
+* Text direction::
+
+
+File: uniline.info,  Node: Minor mode,  Next: Draw lines by moving the cursor,  Up: A minor mode for drawing
+
+4.1 Minor mode
+==============
+
+‘Uniline’ is a minor mode.  Activate it temporarily:
+
+   ‘M-x uniline-mode’
+
+   Exit it with:
+
+   ‘C-c C-c’
+
+   The current major mode is still active underneath ‘uniline-mode’.
+
+   While in ‘uniline-mode’, overwriting is active, as well as long lines
+truncation.  Also, a hollow cursor is provided (customizable).  Those
+settings are reset to their previous state when exiting ‘uniline-mode’.
+
+
+File: uniline.info,  Node: Draw lines by moving the cursor,  Next: Brush style,  Prev: Minor mode,  Up: A minor mode for drawing
+
+4.2 Draw lines by moving the cursor
+===================================
+
+Use keyboard arrows to draw lines.
+
+   By default, drawing lines only happens over empty space or over other
+lines.  If there is already text, it will not be erased.  However, by
+hitting the control-key while moving, lines overwrite whatever there is.
+
+   The buffer is infinite ∞ in bottom and right directions.  Which means
+that when the cursor ends up outside the buffer, white space characters
+are automatically added.
+
+   The usual numeric prefix is available.  For instance, to draw a line
+12 characters wide downward, type: ‘M-12 <down>’
+
+
+File: uniline.info,  Node: Brush style,  Next: Text direction,  Prev: Draw lines by moving the cursor,  Up: A minor mode for drawing
+
+4.3 Brush style
+===============
+
+Set the current brush with:
+
+   • ‘-’ single thin line ‘╭─┬─╮’
+
+   • ‘+’ single thick line ‘┏━┳━┓’
+
+   • ‘=’ double line ‘╔═╦═╗’
+
+   • ‘#’ quarter block ‘▙▄▟▀’
+
+   • ‘<delete>’ eraser
+
+   • ‘<return>’ move without drawing anything
+
+   The current brush and the current text direction (see *note Text
+direction::) are reflected in the mode-line (at the bottom of the
+‘Emacs’ screen).  It looks like this:
+
+
+
+
+      current text                  current
+         direction╶────╮       ╭───╴brush
+                       ▼       ▼
+     ══════════════════╧═══════╧══════════════
+     U:** buff    (... →Uniline┼ ...)
+     ═════════════════════════════════════════
+
+
+
+File: uniline.info,  Node: Text direction,  Prev: Brush style,  Up: A minor mode for drawing
+
+4.4 Text direction
+==================
+
+Usually, inserting text in a buffer moves the cursor to the right.  (And
+sometimes to the left for some locales).  Any of the 4 directions can be
+selected under ‘Uniline’.  Just type any of:
+
+   • ‘<insert> C-<up>’
+   • ‘<insert> C-<right>’
+   • ‘<insert> C-<down>’
+   • ‘<insert> C-<left>’
+
+   The current direction is reflected in the mode-line, just before the
+word ‘"uniline"’.
+
+
+File: uniline.info,  Node: The <insert> key,  Next: Glyphs ▷ ▶ → □ ◆ ╮─ insertion & modification,  Prev: A minor mode for drawing,  Up: Top
+
+5 The ‘<insert>’ key
+********************
+
+The ‘<insert>’ key is a prefix for other keys:
+   • for drawing arrows, squares, crosses, o-shapes glyphs,
+   • for handling rectangles,
+   • for inserting ‘# = - +’ which otherwise change the brush style,
+   • for trying a choice of mono-spaced fonts.
+
+   Why ‘<insert>’?  Because:
+   • ‘Uniline’ tries to leave their original meaning to as many keys as
+     possible,
+   • the standard meaning of ‘<insert>’ is to toggle the
+     ‘overwrite-mode’; but ‘Uniline’ is already in ‘overwrite-mode’, and
+     de-activating overwrite would break ‘Uniline’.
+
+   So preempting ‘<insert>’ does not sacrifices anything.
+
+   *Customization*
+
+   Another key may be defined instead of ‘<insert>’.  Type:
+
+     M-x customize-variable uniline-key-insert
+
+
+File: uniline.info,  Node: Glyphs ▷ ▶ → □ ◆ ╮─ insertion & modification,  Next: Rectangular actions,  Prev: The <insert> key,  Up: Top
+
+6 Glyphs ‘▷ ▶ → □ ◆ ╮─’ insertion & modification
+************************************************
+
+Individual character glyphs may be inserted and changed.
+   • Put the cursor where a glyphs should be edited or inserted.
+   • Then press ‘<insert>’ (this key may be customized, see *note Insert
+     key::).
+
+   Arrows, squares, circles, crosses may be handled.  Also lines may be
+fine tweaked a single character at a time.
+
+* Menu:
+
+* Arrows glyphs ▷ ▶ → ▹ ▸ ↔::
+* Intersection glyphs ■ ◆ ●::
+* Fine tweaking of lines::
+
+
+File: uniline.info,  Node: Arrows glyphs ▷ ▶ → ▹ ▸ ↔,  Next: Intersection glyphs ■ ◆ ●,  Up: Glyphs ▷ ▶ → □ ◆ ╮─ insertion & modification
+
+6.1 Arrows glyphs ‘▷ ▶ → ▹ ▸ ↔’
+===============================
+
+When inserting an arrow, it points in the direction that the line
+drawing follows.
+
+   ‘Uniline’ supports 6 arrows types: ‘▷ ▶ → ▹ ▸ ↔’
+
+
+
+
+     □
+     ╰─◁──▷─╮       □─╮ ╭─╮ ╭─╮ ╭─□
+     ╭─◀──▶─╯         △ ▲ ↑ ▵ ▴ ↕
+     ╰─←──→─╮         │ │ │ │ │ │
+     ╭─◃──▹─╯         ▽ ▼ ↓ ▿ ▾ ↕
+     ╰─◂──▸─╮         ╰─╯ ╰─╯ ╰─╯
+     ╭─↔──↔─╯
+     □
+
+
+   Actually, there are tons of arrows of all styles in the UNICODE
+standard.  Unfortunately, support by fonts is weak.  So ‘Uniline’
+restrains itself to those six safe arrows.
+
+   To insert an arrow, type: ‘<insert> a’ or ‘<insert> a a’ or ‘<insert>
+a a a’.  (‘a’ cycles through the 6 styles, ‘A’ cycles backward).
+
+   ‘<insert> 4 a’ is equivalent to ‘<insert> a a a a’, which is also
+equivalent to ‘<insert> A A A’.  Those 3 shortcuts insert an arrow of
+this style: ‘▵▹▿◃’.  The actual direction where the arrow points follows
+the last movement of the cursor.
+
+   To change the direction of the arrow, use shift-arrow, for example:
+‘S-<up>’ will change from ‘→’ to ‘↑’.
+
+
+File: uniline.info,  Node: Intersection glyphs ■ ◆ ●,  Next: Fine tweaking of lines,  Prev: Arrows glyphs ▷ ▶ → ▹ ▸ ↔,  Up: Glyphs ▷ ▶ → □ ◆ ╮─ insertion & modification
+
+6.2 Intersection glyphs ‘■ ◆ ●’
+===============================
+
+There are a few UNICODE characters which are mono-space and symmetric in
+the 4 directions.  They are great at line intersections:
+
+   To insert a square ‘□ ■ ▫ ▪ ◆ ◊’ type: ‘<insert> s s s...’ (‘s’
+cycles, ‘S’ cycles backward).
+
+   To insert a circular shape ‘· ∙ • ● ◦ Ø ø’ type: ‘<insert> o o o...’
+(‘o’ cycles, ‘O’ cycles backward).
+
+   To insert a cross shape ‘╳ ╱ ╲ ÷ × ± ¤’ type: ‘<insert> x x x...’
+(‘x’ cycles, ‘X’ cycles backward).
+
+   To insert a usual ASCII letter or symbol, just type it.
+
+   As the keys ‘- + = #’ are preempted by ‘uniline-mode’, to type them,
+prefix them with ‘<insert>’.  Example: ‘<insert> -’ inserts a ‘-’ and
+‘<insert> +’ inserts a ‘+’.
+
+
+
+
+     <insert>
+         │
+         ▼
+        ╭┴╮   ╭───────╮  ╭──────────────────╮
+        │s├─▶─┤squares├──┤ □  ■  ▫  ▪  ◆  ◊ │
+        ╰┬╯   ╰───────╯  ╰──────────────────╯
+        ╭┴╮   ╭───────╮  ╭─────────────────────╮
+        │o├─▶─┼circles┼──┤ ·  ∙  •  ●  ◦  Ø  ø │
+        ╰┬╯   ╰───────╯  ╰─────────────────────╯
+        ╭┴╮   ╭───────╮  ╭───────────────────╮
+        │x├─▶─┼crosses┼──┤ ╳  ╱ ╲ ÷  ×  ±  ¤ │
+        ╰┬╯   ╰───────╯  ╰───────────────────╯
+        ╭┴╮              ╭───╮
+        │+├─▶────────────┤ + │
+        ╰┬╯              ╰───╯
+        ╭┴╮              ╭───╮
+        │-├─▶────────────┤ - │
+        ╰┬╯              ╰───╯
+        ╭┴╮              ╭───╮
+        │=├─▶────────────┤ = │
+        ╰┬╯              ╰───╯
+        ╭┴╮              ╭───╮
+        │#├─▶────────────┤ # │
+        ╰─╯              ╰───╯
+
+
+
+File: uniline.info,  Node: Fine tweaking of lines,  Prev: Intersection glyphs ■ ◆ ●,  Up: Glyphs ▷ ▶ → □ ◆ ╮─ insertion & modification
+
+6.3 Fine tweaking of lines
+==========================
+
+
+
+
+      convert this  ═══▶   into that
+     ╭───────────╮        ╭───────────╮
+     │╶───┬────▷ │        │╶───╮────▷ │
+     │    │      │        │    │      │
+     │           │        │           │
+     │    ▀▀▀    │        │    ▀▟▀    │
+     ╰───────────╯        ╰───────────╯
+
+
+   At the crossing of lines, it may be appealing to do small
+adjustments.  In the above example, we removed a segment of line which
+occupies 1/4 of a character.  This cannot be achieve with line tracing
+alone.  We also modified a quarter-block line in a non-obvious way.
+
+   • Put the point (the cursor) on the character where lines cross each
+     other.
+   • type ‘INS S-<right> S-<right>’
+
+   ‘<right>’ here refers to the right part of the character under the
+point.  The 1/4 line segment will cycle through all displayable forms.
+On the second stroke, no segment will be displayed, which is what we
+want.
+
+   Caveat!  The UNICODE standard does not define all possible
+combinations including double line segments.  (It does for all
+combinations of thin and tick lines).  So sometimes, when working with
+double lines, the process may be frustrating.
+
+   This works also for lines made of quarter-blocks.  There are 4
+quarter-blocks in a character, either on or off.  Each of the 4 shifted
+keyboard arrows flips a quarter-block on-and-off.
+
+   In the above example, the effect was achieved with: ‘INS S-<up>
+S-<down> S-<left>’
+
+
+File: uniline.info,  Node: Rectangular actions,  Next: Long range actions contour and flood-fill,  Prev: Glyphs ▷ ▶ → □ ◆ ╮─ insertion & modification,  Up: Top
+
+7 Rectangular actions
+*********************
+
+   • Drawing,
+   • filling,
+   • moving,
+   • copying & yanking,
+   • change line & glyph styles,
+
+   those actions may be performed on a rectangular selection.
+
+   Select a rectangular region with ‘C-SPC’ or ‘C-x SPC’ and move the
+cursor.
+
+   You may also use ‘S-<arrow>’ (‘<arrow>’ being any of the 4
+directions) to extend the selection.  The buffer grows as needed with
+white spaces to accommodate the selection.  Selection extension mode is
+active when ‘shift-select-mode’ is non-nil.
+
+   Or you may use the mouse to highlight the desired region.
+
+   All those region-highlighting are standard in ‘Emacs’, and unrelated
+to ‘Uniline’.
+
+   Once you have a region highlighted, press ‘<insert>’ (this key can be
+customized, see *note Insert key::).  The selection becomes rectangular
+if it was not.  You are offered a menu of possible actions.
+
+* Menu:
+
+* Drawing a rectangle::
+* Filling a rectangle::
+* Moving a rectangle::
+* Copying, killing, yanking a rectangle: Copying killing yanking a rectangle.
+* Dashed lines and other styles::
+* ASCII to UNICODE::
+
+
+File: uniline.info,  Node: Drawing a rectangle,  Next: Filling a rectangle,  Up: Rectangular actions
+
+7.1 Drawing a rectangle
+=======================
+
+To draw a rectangle in one shot, select a region, press ‘<insert>’, then
+hit:
+   • ‘r’ to draw a rectangle inside the selection
+   • ‘S-R’ to draw a rectangle outside the selection
+   • ‘C-r’ to overwrite a rectangle inside the selection
+   • ‘C-S-R’ to overwrite a rectangle outside the selection
+
+   If needed, change the brush with any of ‘- + = # <delete>’
+
+
+
+     ╭───────╮          r: inside╮╭───────╮
+     │ one   │          ▗▄▄▄▄▄▄▖╭┤│▛▀▀▀▀▀▜│
+     │  ┏━━━━┿━━━━━━┓   ▐╭────╮▌│╰┼▌     ▐│
+     ╰──╂────╯ two  ┃   ▐│    │▌│ │▙▄▄▄▄▄▟│
+        ┃   ╔═══════╋═╗ ▐│    ├▌╯ ╰─────┬─╯
+        ┗━━━╋━━━━━━━┛ ║ ▐╰────╯▌────────┴───╮
+            ║  three  ║ ▝▀▀▀▀▀▀▘  R: outside╯
+            ╚═════════╝
+
+                            ╭─────────╮
+     my text I              │my text I│
+     want to  ╶─<insert>R─▷ │want to  │
+     box                    │box      │
+                            ╰─────────╯
+
+   The usual ‘C-_’ or ‘C-/’ keys may be hit to undo, even with the
+region still active visually.
+
+
+File: uniline.info,  Node: Filling a rectangle,  Next: Moving a rectangle,  Prev: Drawing a rectangle,  Up: Rectangular actions
+
+7.2 Filling a rectangle
+=======================
+
+While the rectangular mode is active, press ‘i’ to fill the rectangle.
+You will be asked to choose a character.  You have those options:
+
+   • for a regular character like ‘t’, just type it.
+   • ‘SPC’ or ‘DEL’ for a shade of grey ‘" ░▒▓█"’ among the 5 available
+     in UNICODE.  ‘SPC’ to make it darker and darker.  ‘DEL’ to make the
+     rectangle lighter and lighter.
+   • ‘C-y’ to chose the first character in the top of the kill ring.
+
+   The above selection is the same as for the flood-fill action (see
+*note Flood-fill::).
+
+
+File: uniline.info,  Node: Moving a rectangle,  Next: Copying killing yanking a rectangle,  Prev: Filling a rectangle,  Up: Rectangular actions
+
+7.3 Moving a rectangle
+======================
+
+Select a region, then press ‘<insert>’.
+
+   Use arrow keys to move the rectangle around.  A numeric prefix may be
+used to move the rectangle that many characters.
+   • Under ‘Hydra’, be sure to specify the numeric prefix with just
+     digits, without the ‘Alt’ key.  Typing ‘15 <left>’ moves the
+     rectangle 15 characters to the left.  ‘M-15 <left>’ does not work.
+   • Under ‘Transient’, use the ‘Alt’ key, like anywhere else in
+     ‘Emacs’.  Type ‘M-15 <left>’ to move the selected rectangle 15
+     characters to the left.
+
+   Press ‘q’, ‘<return>’, or ‘C-g’ to stop moving the rectangle.
+
+   The ‘C-_’ key may also be used to undo the previous movements, even
+though the selection is still active.
+
+
+
+                     ▲
+                     │
+                    <up>
+               ╭─────┴──────╮
+               │this is     │
+               │my rectangle│
+     ◀─<left>──┤I want to   ├─<right>─▶
+               │move        │
+               ╰─────┬──────╯
+                   <down>
+                     │
+                     ▼
+
+
+File: uniline.info,  Node: Copying killing yanking a rectangle,  Next: Dashed lines and other styles,  Prev: Moving a rectangle,  Up: Rectangular actions
+
+7.4 Copying, killing, yanking a rectangle
+=========================================
+
+A rectangle can be copied or killed, then yanked somewhere else.
+
+   Select a region, press ‘<insert>’, then:
+   • ‘c’ to copy
+   • ‘k’ to kill
+   • ‘y’ to yank (aka paste)
+
+   This is similar to the ‘Emacs’ standard rectangle handling:
+   • ‘C-x r r’ copy rectangle to register
+   • ‘C-x r k’ kill rectangle
+   • ‘C-x r y’ yank killed rectangle
+
+   The first difference is that ‘Uniline’ rectangles, when killed and
+yanked, do not move surrounding characters.
+
+   The second difference is that the white characters of the yanked
+rectangle are considered transparent.  As a result, only non-blank parts
+of the yanked rectangle are over-printed.
+
+   ‘Uniline’ and ‘Emacs’ standard rectangle share the same storage for
+copied and killed rectangles, namely the ‘killed-rectangle’ Lisp
+variable.  So, a rectangle can be killed one way, and yanked another
+way.
+
+
+File: uniline.info,  Node: Dashed lines and other styles,  Next: ASCII to UNICODE,  Prev: Copying killing yanking a rectangle,  Up: Rectangular actions
+
+7.5 Dashed lines and other styles
+=================================
+
+
+
+
+     ╭────▷───╮   ┏━━━━▶━━━┓   ╔════▶═══╗
+     │ ╭─□──╮ │   ┃ ┏━■━━┓ ┃   ║ ╔═■══╗ ║
+     △ │    │ ▽   ▲ ┃    ┃ ▼   ▲ ║    ║ ▼
+     │ ╰───◦╯ │   ┃ ┗━━━•┛ ┃   ║ ╚═══•╝ ║
+     ╰───◁────╯   ┗━━━◀━━━━┛   ╚═══◀════╝
+
+     ╭╌╌╌╌▷╌╌╌╮   ┏╍╍╍╍▶╍╍╍┓
+     ┆ ╭╌□╌╌╮ ┆   ┇ ┏╍■╍╍┓ ┇
+     △ ┆    ┆ ▽   ▲ ┇    ┇ ▼
+     ┆ ╰╌╌╌◦╯ ┆   ┇ ┗╍╍╍•┛ ┇
+     ╰╌╌╌◁╌╌╌╌╯   ┗╍╍╍◀╍╍╍╍┛
+
+     ╭┈┈┈┈▷┈┈┈╮   ┏┉┉┉┉▶┉┉┉┓
+     ┊ ╭┈□┈┈╮ ┊   ┋ ┏┉■┉┉┓ ┋
+     △ ┊    ┊ ▽   ▲ ┋    ┋ ▼
+     ┊ ╰┈┈┈◦╯ ┊   ┋ ┗┉┉┉•┛ ┋
+     ╰┈┈┈◁┈┈┈┈╯   ┗┉┉┉◀┉┉┉┉┛
+
+
+   A base drawing can be converted to dashed lines.  Moreover, lines can
+be made either thin or thick.
+
+   • Select the rectangular area you want to operate on (with mouse drag
+     or ‘S-<left>’, ‘S-<down>’ and so on as described earlier).
+   • Type ‘INS’, then ‘s’ (as "style").
+
+   You will be offered a choice of styles:
+   • ‘3’: vertical lines will become 3 dashes per character, while
+     horizontal ones will get 2 dashes per character.
+   • ‘4’: vertical and horizontal lines will get 4 dashes per character.
+   • ‘h’: thin lines corners, which are usually rounded, become hard
+     angles.
+   • ‘+’: thin lines and intersections become thick, empty glyphs get
+     filled.
+   • ‘-’: thick lines and intersections become thin, filled glyphs are
+     emptied.
+   • ‘=’: thick and thin lines become double lines.
+   • ‘0’: come back to standard base-line ‘Uniline’ style: plain,
+     not-dashed lines, thin corner rounded, ASCII art is converted to
+     UNICODE.
+   • ‘a’: apply the ‘aa2u-rectangle’ function from the unrelated
+     ‘ascii-art-to-unicode’ package, to convert ASCII art to UNICODE
+     (this only works if ‘ascii-art-to-unicode’ is already installed).
+
+   Converting parts of a drawing from one style to another can produce
+nice looking sketches.
+
+
+
+
+     ╭───╮   ╭───╮   ╭───╮
+     │░░░│   │░░░│   │░░░┝━▶┓ ╭╌╌╌╌╌╮
+     │░░░╰───╯░░░╰───╯░░░│  ┃ ┆░░░░░╰╌╌╌╌╌╮
+     □░░░░░░░░░░░░░░░░░░░│  ┗━┥░░░░░░░░░░░┆
+     │░░░╭───╮░░░╭───╮░░░│    ┆░░░░░╭╌╌╌╌╌╯
+     ╰───╯   ╰─┰─╯   ╰─┰─╯    ╰╌╌┰╌╌╯
+               ▲       ┃         ▼
+               ┗━━━━━━━┻━━━━━━━━━┛
+
+     ┏━━━┓   ┏━━━┓   ┏━━━┓
+     ┃░░░┃   ┃░░░┃   ┃░░░┠─▷╮ ┏╍╍╍╍╍┓
+     ┃░░░┗━━━┛░░░┗━━━┛░░░┃  │ ┇░░░░░┗╍╍╍╍╍┓
+     ■░░░░░░░░░░░░░░░░░░░┃  ╰─┨░░░░░░░░░░░┇
+     ┃░░░┏━━━┓░░░┏━━━┓░░░┃    ┇░░░░░┏╍╍╍╍╍┛
+     ┗━━━┛   ┗━┯━┛   ┗━┯━┛    ┗╍╍┯╍╍┛
+               △       │         ▽
+               ╰───────┴─────────╯
+
+
+
+File: uniline.info,  Node: ASCII to UNICODE,  Prev: Dashed lines and other styles,  Up: Rectangular actions
+
+7.6 ASCII to UNICODE
+====================
+
+The standard base-line ‘Uniline’ (‘INS s 0’) or ‘aa2u-rectangle’ (‘INS s
+a’) conversions may be used to convert ASCII art to UNICODE.  The
+original ASCII art may be drawn for instance by the ‘artist-mode’ or the
+‘picture-mode’ packages.
+
+   To use ‘aa2u-rectangle’, install the ‘ascii-art-to-unicode’ package
+by Thien-Thi Nguyen (RIP), available on ELPA.  ‘Uniline’ does not
+requires a dependency on this package, by lazy evaluating any call to
+‘aa2u-rectangle’.  See
+<https://elpa.gnu.org/packages/ascii-art-to-unicode.html>
+
+
+
+
+     +-------------+    +--+
+     |             +-->-|  +-----+   ASCII art
+     | 1  +--------+--+ | 3      |   made by
+     +----+--------+  | +----+---+   Artist-mode
+          | 2         +-<----+
+          +-----------+
+
+     ╭─────────────╮    ╭──╮
+     │             ├──▷─│  ╰─────╮   Converted to
+     │ 1  ╭────────┼──╮ │ 3      │   Uniline base style
+     ╰────┼────────╯  │ ╰────┬───╯   INS s 0
+          │ 2         ├─◁────╯
+          ╰───────────╯
+
+     ┌─────────────┐    ┌──┐
+     │             ├──>─│  └─────┐   Converted by
+     │ 1  ┌────────┼──┐ │ 3      │   aa2u-rectangle
+     └────┼────────┘  │ └────┬───┘   INS s a
+          │ 2         ├─<────┘
+          └───────────┘
+
+   ‘INS s 0’ with selection active calls the
+‘uniline-change-style-standard’ function.  It converts what looks
+ASCII-art to UNICODE-art.  Of course, there are ambiguities regarding
+whether a character is part of a sketch or not.
+
+   The heuristic is to consider that a character is part of a sketch if
+it is surrounded by at least one other character which is part of a
+sketch.  So, an isolated ‘-’ minus character will be left alone, while
+two such characters ‘--’ will be converted to UNICODE.  Conversion will
+happens also for ‘<-’ for instance.
+
+   Here is a fairly convoluted ASCII-art example, along with its
+conversion by ‘INS s 0’:
+
+
+
+
+          ╭─↔--<-◁-◀--━+           +--->------==+
+     /----/ Rectangle1 |-----+-----+ Rectangle2 v    v
+     |    | <uni^code> ^     "     | "quote"    +-\  ▼
+     ^^   \------------/   /-+-\   +------------+ "  v
+     |    \--+------+--/   |   |   +----\----/--+ "  >▷▶>
+     \>--\   |      |      \---/        |    |    "
+         v   \==<===/   a=b 1=2 a-to-b  +----+ ◁==/  >->
+
+          ╭─↔──◁─◁─◀──━┑           ╭───▷──────══╕
+     ╭────┤ Rectangle1 │─────╥─────┤ Rectangle2 ▽    ▽
+     │    │ <uni^code> △     ║     │ "quote"    ├─╖  ▼
+     △^   ├────────────┤   ╭─╨─╮   ├────────────┤ ║  ▽
+     │    ╰──┬──────┬──╯   │   │   ╰────┬────┬──╯ ║  ▷▷▶▷
+     ╰▷──╮   │      │      ╰───╯        │    │    ║
+         ▽   ╘══◁═══╛   a=b 1=2 a-to-b  ╰────╯ ◁══╝  ▷─▷
+
+
+
+File: uniline.info,  Node: Long range actions contour and flood-fill,  Next: Macros,  Prev: Rectangular actions,  Up: Top
+
+8 Long range actions: contour and flood-fill
+********************************************
+
+* Menu:
+
+* Tracing a contour::
+* Flood-fill::
+
+
+File: uniline.info,  Node: Tracing a contour,  Next: Flood-fill,  Up: Long range actions contour and flood-fill
+
+8.1 Tracing a contour
+=====================
+
+
+
+       ╭──────────────╮
+     ╭─╯A.written.text╰────────╮
+     │outlined by the.`contour'│
+     ╰─╮function.gets╶┬────────╯
+       ╰╮a.surrounding╰───────╮
+        ╰─╮line.in.the.current│
+          ╰─╮brush.style╭─────╯
+            ╰───────────╯
+
+   Choose or change the brush style with any of ‘-,+,=_,#,<delete>’.
+Put the cursor anywhere on the shape or outside but touching it.  Then
+type:
+
+   ‘<insert> c’
+
+   A contour line is traced (or erased if brush style is ‘<delete>’)
+around the contiguous shape close to the cursor.
+
+   When hitting capital letter: ‘<insert> S-C’ the contour is
+overwritten.  This means that if there was already a different style of
+line on the contour path, it is overwritten.
+
+   The shape is distinguished because it floats in a blank characters
+ocean.  For the shake of the contour function, blank characters are
+those containing lines as drawn by ‘Uniline’ (including true blank
+characters).  Locations outside the buffer are also considered blank.
+
+   The algorithm has an upper limit of ‘10000’ steps.  This avoids an
+infinite loop in which the algorithm may end up in some rare cases.  One
+of those cases is when the contour crosses a new-page character,
+displayed by ‘Emacs’ as ‘^L’.  ‘10000’ steps require a fraction of a
+second to run.  For shapes really huge, you may launch the contour
+command once again, at the point where the previous run ended.
+
+   This ‘10000’ steps limit is customizable.  Type:
+
+     M-x customize-variable uniline-contour-max-steps
+
+
+File: uniline.info,  Node: Flood-fill,  Prev: Tracing a contour,  Up: Long range actions contour and flood-fill
+
+8.2 Flood-fill
+==============
+
+
+
+
+     this.text.surrounds      this.text.surrounds
+     .                 /      .▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒/
+     .                //╶───▷╴.▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒//
+     ...            ////      ...▒▒▒▒▒▒▒▒▒▒▒▒////
+       ...a.hole/////           ...a.hole/////
+
+
+   A hollow shape is a contiguous region of identical characters (not
+necessarily blank), surrounded by a boundary of different characters.
+The end of the buffer in any direction is also considered a boundary.
+
+   Put the cursor anywhere in the hole.  Then type:
+
+   ‘<insert> i’
+
+   Answer by giving a character to fill the hole.
+
+   If instead of a character, ‘SPC’ or ‘DEL’ is typed, then a shade of
+grey character is picked.  ‘SPC’ selects a darker grey than the one the
+point is on, while ‘DEL’ selects a lighter.  There are 5 shades of grey
+in the UNICODE standard: ‘" ░▒▓█"’.  Those grey characters are well
+supported by the suggested fonts.
+
+   ‘C-y’ is also an option.  The first character in the top of the kill
+ring will be chosen as the filling character.  (The kill ring is filled
+by functions like ‘C-k’ or ‘M-w’, unrelated to ‘Uniline’).
+
+   Typing ‘<return>’ or ‘C-g’ aborts the filling operation.
+
+   A rectangular shape may also be filled.
+   • Mark a region
+   • ‘<insert> i’
+   • answer which character should be used to fill.
+
+   There is no limit on the area to fill.  Therefore, the filling
+operation may flood the entire buffer (but no more).
+
+
+File: uniline.info,  Node: Macros,  Next: Which fonts?,  Prev: Long range actions contour and flood-fill,  Up: Top
+
+9 Macros
+********
+
+‘Uniline’ adds directional macros to the ‘Emacs’ standard macros.
+
+   Record a macro as usual with ‘C-x (’ … ‘C-x )’.
+
+   Then call it with the usual ‘C-x e’.  But then, instead of executing
+the macro, a menu is offered to execute it in any of the 4 directions.
+
+   When a macro is executed in a direction other than the one it was
+recorded, it is twisted in that direction.  This means that recorded
+hits on the 4 keyboard arrows are rotated.  It happens also for shift
+and control variations of those keys.  Direction of text insertion is
+also rotated.
+
+   There is still the classical ‘e’ option to call the last recorded
+macro.  So instead of the usual ‘C-x e’, type ‘C-x e e’.  And of course,
+the usual repetition typing repeatedly ‘e’ is available.
+
+   Why are directional macros useful?  To create fancy lines.  For
+instance, if we want a doted-line instead of the continuous one, we
+record a macro for one step:
+
+     C-x (             ;; begin recording
+     INS o             ;; insert a small dot
+     <right> <right>   ;; draw a line over 2 characters
+     C-x )             ;; stop recording
+
+   Then we call this macro repeatedly in any of the 4 directions:
+
+
+
+
+     ·─·─·─·─·  ╷     ·──·
+             │  │     │  │
+             ·  ·     ·  ·
+             │  │     │  │
+             ·  ·─·─·─·  ·
+             │           │
+             ·─·─·─·─·─·─·
+
+
+   We can draw complex shapes by just drawing one step.  Hereafter, we
+call a macro in 4 directions, closing a square:
+
+
+
+
+       ╭╮╭╮╭╮╭╮╭╮╭╮     △ △ △ △ △ △       ╭─╮ ╭─╮ ╭─╮ ╭─╮     ╭─╮ ╭─╮ ╭─╮ ╭─╮
+     ╭─╯╰╯╰╯╰╯╰╯╰╯│    ╶╯╶╯╶╯╶╯╶╯╶╯╷   ╭──╯∙╰─╯∙╰─╯∙╰─╯∙│    ▷┤□├▷┤□├▷┤□├▷┤□├▽
+     ╰╮           ╰╮  ◁╮           ╰▷  │∙               │   ╭┴┼─╯ ╰─╯ ╰─╯ ╰─┼┴╮
+     ╭╯           ╭╯   ╵           ╷   ╰╮               ╰╮  │□│             │□│
+     ╰╮           ╰╮  ◁╮           ╰▷   │               ∙│  ╰┬╯             ╰┬╯
+     ╭╯           ╭╯   ╵           ╷   ╭╯               ╭╯   △               ▽
+     ╰╮           ╰╮  ◁╮           ╰▷  │∙               │   ╭┴╮             ╭┴╮
+     ╭╯           ╭╯   ╵           ╷   ╰╮               ╰╮  │□│             │□│
+     ╰╮           ╰╮  ◁╮           ╰▷   │               ∙│  ╰┬┼─╮ ╭─╮ ╭─╮ ╭─┼┬╯
+      │╭╮╭╮╭╮╭╮╭╮╭─╯   ╵╭╴╭╴╭╴╭╴╭╴╭╴    │∙╭─╮∙╭─╮∙╭─╮∙╭──╯   △┤□├◁┤□├◁┤□├◁┤□├◁
+      ╰╯╰╯╰╯╰╯╰╯╰╯      ▽ ▽ ▽ ▽ ▽ ▽     ╰─╯ ╰─╯ ╰─╯ ╰─╯       ╰─╯ ╰─╯ ╰─╯ ╰─╯
+
+
+
+File: uniline.info,  Node: Which fonts?,  Next: Hydra or Transient?,  Prev: Macros,  Up: Top
+
+10 Which fonts?
+***************
+
+A mono-space character font must be used.  It must also support UNICODE.
+
+* Menu:
+
+* Recommended fonts::
+* Use case mixing fonts::
+
+
+File: uniline.info,  Node: Recommended fonts,  Next: Use case mixing fonts,  Up: Which fonts?
+
+10.1 Recommended fonts
+======================
+
+Not all fonts are born equal.
+
+   • ‘(set-frame-font "DejaVu Sans Mono" )’
+   • ‘(set-frame-font "Unifont" )’
+   • ‘(set-frame-font "Hack" )’
+   • ‘(set-frame-font "JetBrains Mono" )’
+   • ‘(set-frame-font "Cascadia Mono" )’
+   • ‘(set-frame-font "Agave" )’
+   • ‘(set-frame-font "JuliaMono" )’
+   • ‘(set-frame-font "FreeMono" )’
+   • ‘(set-frame-font "Iosevka Comfy Fixed" )’
+   • ‘(set-frame-font "Iosevka Comfy Wide Fixed")’
+   • ‘(set-frame-font "Aporetic Sans Mono" )’
+   • ‘(set-frame-font "Aporetic Serif Mono" )’
+   • ‘(set-frame-font "Source Code Pro" )’
+
+   Those fonts are known to support the required UNICODE characters, AND
+display them as mono-space.  There are fonts advertised as mono-space
+which give arbitrary widths to non-ASCII characters.  That is bad for
+the kind of drawings done by ‘Uniline’.
+
+   You may want to try any of the suggested fonts.  Just hit the
+corresponding entry in the ‘Uniline’ menu, or type ‘<insert> f’.  You
+may also execute the above Lisp commands like that:
+
+   ‘M-: (set-frame-font "DejaVu Sans Mono")’
+
+   This setting is for the current session only.  If you want to make it
+permanent, you may use the ‘Emacs’ customization:
+
+   ‘<insert> f *’
+
+   or
+
+   ‘M-x customize-face default’
+
+   Beware that ‘Emacs’ tries to compensate for missing UNICODE support
+by the current font.  ‘Emacs’ substitutes one font for another,
+character per character.  The user may not notice until the drawings
+done under ‘Emacs’ are displayed on another text editor or on the Web.
+Of course, using the suggested fonts and the UNICODEs drawn by ‘Uniline’
+keeps you away from those glitches.
+
+   To know which font ‘Emacs’ has chosen for a given character, type:
+
+   ‘C-u C-x =’
+
+   Note that none of those commands downloads a font from the Web.  The
+font should already be available.
+
+
+File: uniline.info,  Node: Use case mixing fonts,  Prev: Recommended fonts,  Up: Which fonts?
+
+10.2 Use case: mixing fonts
+===========================
+
+A user on GitHub, dmullis, exposed his use-case.  A source-code base is
+usually edited with a font not in the Uniline list of recommended fonts.
+However, it is desirable to document the source code with Uniline,
+either directly along the source or in separate files.  How to achieve
+that without messing with the fonts in several Emacs buffers?
+
+   Several solutions have emerged from the discussion.
+
+   • ‘face-remap-add-relative’
+
+   A line like this at the top of the files reserved for Uniline
+drawings:
+
+     -*- eval: (face-remap-add-relative 'default :family "DejaVu Sans Mono"); -*-
+
+   This confines its effect to just the one single buffer.
+
+   • ‘uniline-mode-hook’
+
+   Add a hook (a function called when entering ‘uniline-mode’):
+
+     (add-hook
+       'uniline-mode-hook
+       (lambda () (face-remap-add-relative 'default :family "DejaVu Sans Mono")))
+
+   There are also ‘uniline-mode-on-hook’ & ‘uniline-mode-off-hook’ which
+can be handy.
+
+   • ‘font-lock-comment-face’
+
+   An alternative mean of limiting the scope of the font change is the
+Emacs standard font-lock mechanism.
+
+     (customize-face '(font-lock-comment-face))
+
+   Then check ‘Font Family’, type in value ‘"DejaVu Sans Mono",’ and
+‘C-x C-s’.
+
+   Now any major mode that understands "comments" as distinct from other
+text can safely nest a Uniline drawing within its boundaries, all text
+outside the "comment" unaffected (except perhaps by spacing).
+
+   Look also at the ‘font-lock-constant-face’ face.
+
+   • Org Mode
+
+   In Org Mode, the usable faces could be ‘org-block’, ‘org-quote’,
+‘org-verse’.  But first the ‘org-fontify-quote-and-verse-blocks’
+variable must be set to ‘t’.
+
+   • Markdown
+
+   In Markdown mode, customize the ‘markdown-pre-face’ or
+‘markdown-code-face’ faces.
+
+
+File: uniline.info,  Node: Hydra or Transient?,  Next: Customization,  Prev: Which fonts?,  Up: Top
+
+11 Hydra or Transient?
+**********************
+
+The basic usage of ‘Uniline’ should be easy: just move the point, and
+lines are traced.  Change brush to draw thicker lines.
+
+   More complex actions are summoned by the ‘<insert>’ key, with or
+without selection.  This is a single key to remember.  Then a textual
+menu is displayed, giving the possible keys continuations and their
+meaning.  All that is achieved by the ‘Hydra’ or ‘Transient’ libraries,
+which are now part of ‘Emacs’ (thanks!).
+
+   The ‘Hydra’ and ‘Transient’ libraries offer similar features.  Some
+users may prefer one or the other.
+
+   ‘Uniline’ was developed from day one with ‘Hydra’.  ‘Transient’ is a
+late addition.
+
+* Menu:
+
+* Selecting Hydra or Transient::
+* Instantly selecting Hydra or Transient::
+* One-liner menus::
+* The Hydra interface::
+* The Transient interface::
+
+
+File: uniline.info,  Node: Selecting Hydra or Transient,  Next: Instantly selecting Hydra or Transient,  Up: Hydra or Transient?
+
+11.1 Selecting Hydra or Transient
+=================================
+
+Two files are compiled when installing ‘Uniline’
+   • ‘uniline-hydra.el’
+   • ‘uniline-transient.el’
+
+   One of them should be loaded (but not both).  There are several ways.
+The cleanest is ‘use-package’.  Add those lines to your ‘~/.emacs’ file:
+
+     (use-package uniline-hydra
+       :bind ("C-<insert>" . uniline-mode))
+
+   or:
+
+     (use-package uniline-transient
+       :bind ("C-<insert>" . uniline-mode))
+
+   Note: there used to be a customizable setting to switch between the
+two interfaces.  This had many issues.  One of them is that the
+native-compiler is blind to all user-customized settings.
+
+   There is a third file, ‘uniline-code.elc’.  Loading
+‘uniline-hydra.elc’ or ‘uniline-transient.elc’ automatically loads
+‘uniline-core.elc’.
+
+
+File: uniline.info,  Node: Instantly selecting Hydra or Transient,  Next: One-liner menus,  Prev: Selecting Hydra or Transient,  Up: Hydra or Transient?
+
+11.2 Instantly selecting Hydra or Transient
+===========================================
+
+It is now possible to switch user interfaces on the fly.
+
+   To do so, look at the "Customize" entry in the Uniline menu.  This
+menu is available:
+   • from the menu-bar at the top of the Emacs screen (if not made
+     invisible),
+   • by left-clicking on ‘"Uniline"’ in the mode-line, at the bottom of
+     the Emacs screen.
+
+   Note that the changes are for the current session only.  To
+permanently choose Hydra or Transient, change your
+=~/.emacs=initialization file as describe in *note Selecting Hydra or
+Transient::.
+
+   The actions performed by the menu are:
+   • ‘(load-library "uniline-hydra")’
+   • ‘(load-library "uniline-transient")’
+
+   You can execute them directly or by other means.
+
+
+File: uniline.info,  Node: One-liner menus,  Next: The Hydra interface,  Prev: Instantly selecting Hydra or Transient,  Up: Hydra or Transient?
+
+11.3 One-liner menus
+====================
+
+The multi-lines menus in Hydra and Transient are quite useful for casual
+users.  For seasoned users, those huge textual menus may distract them
+from their workflow.
+
+   It is now possible to switch to less distracting textual menus.  They
+are displayed in the echo-area on a single line.
+
+   To do so, type:
+   • ‘C-t’ within a sub-mode (glyph insertion mode, rectangle handling,
+     etc.)
+   • ‘C-h TAB’ at the top-level.
+
+   This will flip between the two sizes of textual menus.  It also
+affects the welcome message, the one displayed when entering the
+‘Uniline’ minor mode.
+
+   The current size is controlled by the ‘uniline-hint-style’ variable:
+   • ‘t’ for full fledged messages over several lines
+   • ‘1’ for one-liner messages
+   • ‘0’ for no message at all
+
+   The variable is "buffer-local", which means that it can take distinct
+values on distinct buffers.
+
+   Its default value can be customized and saved for future sessions:
+
+   ‘M-x customize-variable uniline-hint-style’
+
+   After customization it can be changed later, on a buffer per buffer
+basis, with the ‘C-t’ or ‘C-h TAB’ keys.
+
+   Transient natively offers a similar setting: ‘transient-show-popup’.
+(There is no such variable in Hydra).  It can be customized with ‘t’,
+‘nil’, ‘0’ (zero), or a number.  This is similar but not exactly the
+same as the Hydra behavior and the ‘uniline-hint-style’.  the Transient
+setting stays in effect until the ‘C-t’ or ‘C-h TAB’ keys are not used,
+.  As soon as one of those keys is invoked, ‘transient-show-popup’ is
+toggled (which does not happens in Transient alone).  The change is kept
+in effect throughout the ‘Uniline’ session, but no longer.
+
+
+File: uniline.info,  Node: The Hydra interface,  Next: The Transient interface,  Prev: One-liner menus,  Up: Hydra or Transient?
+
+11.4 The Hydra interface
+========================
+
+Put that in your ‘~/.emacs’ file:
+
+     (use-package uniline-hydra
+       :bind ("C-<insert>" . uniline-mode))
+
+   It has been asked by ‘Transient’-only users to avoid installing the
+‘Hydra’ package.  Currently, it is not possible to make dependencies
+conditional in ‘Melpa’.  And removing the ‘Hydra’ dependency would hurt
+‘Hydra’ users.  Therefore, for the time being, the ‘Hydra’ package is
+still installed when installing ‘Uniline’ through ‘Melpa’.
+
+
+File: uniline.info,  Node: The Transient interface,  Prev: The Hydra interface,  Up: Hydra or Transient?
+
+11.5 The Transient interface
+============================
+
+Put that in your ‘~/.emacs’ file:
+
+     (use-package uniline-transient
+       :bind ("C-<insert>" . uniline-mode))
+
+   ‘Transient’ interface was added recently to ‘Uniline’.  This leaded
+to the splitting of the single ‘uniline.el’ file into 4 source files.
+Hopefully, the added complexity remains hidden by the ‘Elpa’ - ‘Melpa’
+packaging system.
+
+
+File: uniline.info,  Node: Customization,  Next: How Uniline behaves with its environment?,  Prev: Hydra or Transient?,  Up: Top
+
+12 Customization
+****************
+
+Type: ‘M-x customize-group uniline’.
+
+   Or ‘Menu bar ⟶ Options ⟶ Customize Emacs ⟶ Specific Group… ⟶
+"uniline"’.
+
+   This invokes the standard ‘Emacs’ customization system.  Your
+settings will be saved in the file pointed to by the ‘custom-file’
+variable if set, or your ‘~/.emacs’ file.  (Along with all your other
+settings unrelated to ‘Uniline’).
+
+   Two settings are special: interface type (obsolete) & the insert key.
+The other settings are self-explanatory
+
+* Menu:
+
+* Interface type (obsolete)::
+* Insert key::
+* Maximum steps when drawing a contour::
+* Cursor type::
+* Hint style::
+* Welcome message visibility::
+* Line spacing::
+* Font::
+
+
+File: uniline.info,  Node: Interface type (obsolete),  Next: Insert key,  Up: Customization
+
+12.1 Interface type (obsolete)
+==============================
+
+This switch is *obsolete*.  Choosing between ‘Hydra’ or ‘Transient’
+interface is done by loading one or the other sub-package.  See *note
+Installation:: for details.
+
+
+File: uniline.info,  Node: Insert key,  Next: Maximum steps when drawing a contour,  Prev: Interface type (obsolete),  Up: Customization
+
+12.2 Insert key
+===============
+
+By default, the ‘<insert>’ or ‘INS’ key is the prefix for most of the
+‘Uniline’ actions.  Some computers do not have an ‘INS’ key, or it is
+bound to some other command (Apple?).
+
+   This can be changed temporarily or permanently.  The customization
+allows to set several keys at the same time.
+
+   Depending on whether ‘Emacs’ is run in a graphical environment or a
+text-only terminal, either the ‘<insert>’ or the ‘<insertchar>’ events
+are generated by the ‘INS’ key.  Therefore, by default ‘Uniline’ defines
+both events as the ‘INS’ key.
+
+   Variable ‘uniline-key-insert’.
+
+
+File: uniline.info,  Node: Maximum steps when drawing a contour,  Next: Cursor type,  Prev: Insert key,  Up: Customization
+
+12.3 Maximum steps when drawing a contour
+=========================================
+
+Defaults to ‘10000’.  To avoid an infinite loop in some rare cases.
+
+   Variable ‘uniline-contour-max-steps’.
+
+
+File: uniline.info,  Node: Cursor type,  Next: Hint style,  Prev: Maximum steps when drawing a contour,  Up: Customization
+
+12.4 Cursor type
+================
+
+Hollow by default, so that what is under the cursor remains visible.
+
+   There is the option to leave the cursor as it is.
+
+   Variable ‘uniline-cursor-type.’
+
+
+File: uniline.info,  Node: Hint style,  Next: Welcome message visibility,  Prev: Cursor type,  Up: Customization
+
+12.5 Hint style
+===============
+
+Currently only applicable to the ‘Hydra’.  It defaults to "full fledged
+menus".
+
+   Variable ‘uniline-hint-style’.
+
+   ‘Transient’ offers a similar setting: ‘transient-show-popup’.
+
+
+File: uniline.info,  Node: Welcome message visibility,  Next: Line spacing,  Prev: Hint style,  Up: Customization
+
+12.6 Welcome message visibility
+===============================
+
+Default is "on".  Turn it "off" for less distraction.
+
+   Even when turned of, the welcome message can still be displayed by
+pressing ‘C-h TAB’.
+
+   Variable ‘uniline-show-welcome-message’.
+
+
+File: uniline.info,  Node: Line spacing,  Next: Font,  Prev: Welcome message visibility,  Up: Customization
+
+12.7 Line spacing
+=================
+
+The ‘line-spacing’ setting in ‘Emacs’ can change the display of a
+sketch.  (This setting is unrelated to ‘Uniline’).
+
+   The best looking effect is given by:
+     (setq line-spacing nil)
+
+   You may want to change your current setting.  ‘Uniline’ may handle
+this variable some day.  Right now, ‘line-spacing’ is left as a matter
+of choice for everyone.
+
+
+
+
+     ╭────┬────────┬────╮   ╺┯━━━━┯┯━━┯┯━┯┯━━━━━━━━┯┯━━━━━━━┯┯━━━━━━┯╸
+     │▒▒▒▒╰────────╯▒▒▒▒│    │    │╰is╯╰a╯│        ││       │╰around╯
+     │▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│    ╰this╯       ╰sentence╯╰hanging╯
+     │▒▒▒╭─╮▒▒▒▒▒▒╭─╮▒▒▒│            △
+     │▒▒▒╰─╯▒▒▒▒▒▒╰─╯▒▒▒│            │                  △
+     │▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│            ╰─────────┬────────╯
+     ╰──────────────────╯                    verbs
+                  (setq line-spacing nil)
+
+
+
+File: uniline.info,  Node: Font,  Prev: Line spacing,  Up: Customization
+
+12.8 Font
+=========
+
+Face customization is unrelated to ‘Uniline’.  However, ‘Uniline’ can
+assist in choosing a good font and customizing the ‘default’ face.  See
+*note Which fonts?::.
+
+   Type ‘<insert> f’ to select a font just for the current ‘Uniline’
+session.  Type ‘*’ to enter the ‘Emacs’ customization of the ‘default’
+face and retain your choice for future sessions.
+
+
+File: uniline.info,  Node: How Uniline behaves with its environment?,  Next: Lisp API,  Prev: Customization,  Up: Top
+
+13 How Uniline behaves with its environment?
+********************************************
+
+* Menu:
+
+* Language environment::
+* Compatibility with Picture-mode::
+* Compatibility with Artist-mode::
+* Compatibility with Whitespace-mode::
+* Compatibility with Org Mode::
+* Org Mode and LaTex::
+* What about \t tabs?::
+* What about ^L page separation?::
+* Emacs on the Linux console::
+* Emacs on a graphical terminal emulator::
+* Emacs on Windows::
+* Compatibility with ASCIIFlow::
+
+
+File: uniline.info,  Node: Language environment,  Next: Compatibility with Picture-mode,  Up: How Uniline behaves with its environment?
+
+13.1 Language environment
+=========================
+
+The so called "language environment" in Emacs can cause unwanted line
+breaks, like in this drawing:
+
+
+
+
+     ╶───────────┬─────╮
+                            │           │
+                            │           │
+                            │           │
+                            ╰───────────╯
+        unexpected broken lines
+
+     ╶─────┬───────────╮
+           │           │
+           │           │
+           │           │
+           ╰───────────╯
+        expected continuous lines
+
+
+   The above example was drawn first with the ‘Chinese-BIG5’ language
+environment, then with the ‘English’ environment.
+
+   There is nothing specific about ‘Chinese-BIG5’.  It is just an
+instance picked out from more than 100 language environments.
+
+     C-x RET l Chinese-BIG5
+     C-x RET l English
+
+   In ‘Chinese-BIG5’, some characters are considered twice as wide as
+standard characters.  Whereas in ‘English’, all characters needed by
+Uniline are 1 unit wide.
+
+   Thanks to *rumengling* (GitHub) for discovering and diagnosing the
+issue!
+
+   To workaround the issue, when entering ‘uniline-mode’, the width of
+all characters Uniline uses is checked.  If some of them are more than
+1, the ‘char-width-table’ variable is patched.
+
+   What are the consequences of this patch?  The ‘char-width-table’
+variable is an Emacs global.  Therefore the patch by Uniline will affect
+all buffers.  As the characters touched by the patch are graphic, and
+have nothing to do with Chinese, it should not have any significance on
+text written in Chinese.
+
+   It was pondered whether Uniline should put back ‘char-width-table’ at
+its original value upon exiting ‘uniline-mode’, or leaving the patch.
+For now, it has been decided to leave it.  Because anyway, intertwining
+several ‘uniline-mode’ and changes to the language environment is
+intractable.
+
+   In case of something, re-setting the language environment to its same
+value cancels the patch to ‘char-width-table’ by Uniline.
+
+
+File: uniline.info,  Node: Compatibility with Picture-mode,  Next: Compatibility with Artist-mode,  Prev: Language environment,  Up: How Uniline behaves with its environment?
+
+13.2 Compatibility with Picture-mode
+====================================
+
+‘Picture-mode’ and ‘uniline-mode’ are compatible.  Their features
+overlap somehow:
+   • Both implement an unlimited buffer in east and south directions.
+   • Both visually truncate long lines (actual text is not truncated).
+   • Both set the overwrite mode (‘uniline-mode’ activates
+     ‘overwrite-mode’, while ‘picture-mode’ re-implements it)
+   • Both are able to draw rectangles (‘uniline-mode’ in UNICODE,
+     ‘picture-mode’ in ASCII), copy and yank them.
+
+   They also have features unique to each:
+   • ‘Picture-mode’ writes in 8 possible directions
+   • ‘Picture-mode’ handles TAB stops
+   • ‘Uniline-mode’ draws lines and arrows
+
+
+File: uniline.info,  Node: Compatibility with Artist-mode,  Next: Compatibility with Whitespace-mode,  Prev: Compatibility with Picture-mode,  Up: How Uniline behaves with its environment?
+
+13.3 Compatibility with Artist-mode
+===================================
+
+‘Artist-mode’ and ‘uniline-mode’ are mostly incompatible.  This is
+because ‘artist-mode’ preempts the arrow keys, which give access to a
+large part of ‘uniline-mode’ features.
+
+   However, it is possible to use both one after the other.
+
+
+File: uniline.info,  Node: Compatibility with Whitespace-mode,  Next: Compatibility with Org Mode,  Prev: Compatibility with Artist-mode,  Up: How Uniline behaves with its environment?
+
+13.4 Compatibility with Whitespace-mode
+=======================================
+
+‘Whitespace-mode’ and ‘uniline-mode’ are mostly compatible.
+
+   Why activate ‘whitespace-mode’ while in ‘uniline-mode’?  Because
+‘Uniline’ creates a lot of white-spaces to implement an infinite buffer.
+And it is funny to look at this activity.
+
+   To make ‘uniline-mode’ and ‘whitespace-mode’ fully compatible,
+disable the newline visualization:
+
+   • ‘M-x customize-variable whitespace-style’
+   • uncheck ‘(Mark) NEWLINEs’
+
+   This is due to a glitch in ‘move-to-column’ when a visual property is
+attached to newlines.  And ‘uniline-mode’ makes heavy use of
+‘move-to-column’.
+
+
+File: uniline.info,  Node: Compatibility with Org Mode,  Next: Org Mode and LaTex,  Prev: Compatibility with Whitespace-mode,  Up: How Uniline behaves with its environment?
+
+13.5 Compatibility with Org Mode
+================================
+
+You may want to customize the shift extension mode in ‘Org Mode’.  This
+is because ‘Org Mode’ preempts ‘shift-select-mode’ for other useful
+purposes.  Just type:
+
+     M-x customize-variable org-support-shift-select
+
+   and choose "when outside special context", which sets it to ‘t’.
+
+   You then get the shift-selection from ‘Org Mode’, not from ‘Uniline’.
+The difference is that the ‘Uniline’’s one handles the infinite-ness of
+the buffer.
+
+   Other than that, ‘Uniline’ is compatible with ‘Org Mode’
+
+   Thanks to jdtsmith (GitHub) for sharing a funny fact he discovered.
+If a source block is created with the ‘Uniline’ language (‘Uniline’ is
+*not* a language like ‘C++,’ ‘Python’, or ‘Bash’), then it can be edited
+(‘M-x org-edit-special’) with ‘uniline-mode’ automatically activated.
+
+
+
+     #+begin_src uniline
+     ╭───╮   ╭───╮
+     │ ╷ ╰───╯ ╷ │
+     │ ╰─    ╶─╯ │
+     ╰╮ ●     ● ╭╯
+      │      ╷  │
+      ╰╮ ────╯ ╭╯
+       ╰───────╯
+     #+end_src
+
+
+File: uniline.info,  Node: Org Mode and LaTex,  Next: What about \t tabs?,  Prev: Compatibility with Org Mode,  Up: How Uniline behaves with its environment?
+
+13.6 Org Mode and LaTex
+=======================
+
+Use the ‘pmboxdraw’ LaTex module.  This gives limited support for "box
+drawing" characters in LaTex documents.
+
+   Example:
+
+
+
+     #+LATEX_HEADER: \usepackage{pmboxdraw}
+
+     #+begin_src text
+
+     this works:
+     ┌─────┐       ┌────────────┐
+     │     ├───────┤            │
+     └─────┘       │            │
+     ┌─────┐  ┌────┤            │
+     │     ├──┘    │            │
+     └─────┘  ┌────┤            │
+     ┌─────┐  │    │            │
+     │     ├──┘    └────────────┘
+     └─────┘
+
+     this does not quite work:
+        ┏━━━┓  ┏━━┓     ┏━━━━━┓
+        ┃   ┃  ┃  ┣━━━━━┫     ┃
+        ┃   ┗━━┛  ┃    ┏┛     ┃
+        ┗━━━━━━━━━┛    ┗━━━━━━┛
+
+     but that is OK:
+          ┏━━━┓
+          ┃   ┃
+          ┗━━━┛
+
+     that is OK too:
+     ╺════╦══╗  ╔════╗
+          ║ A║  ║ B  ╚══╗
+          ╚══╝  ╚═══════╝
+
+     this works:
+
+     ├── dev
+     └┬┬ release
+      │├── new
+      │└── old
+      ├── graph
+      └── non-graph
+
+     #+end_src
+
+   Note that corners of thin lines should be sharp.  There is no support
+for rounded corners.
+
+   To export this Org Mode example to PDF through LaTex, type:
+
+   ‘C-c C-E l o’
+
+
+File: uniline.info,  Node: What about \t tabs?,  Next: What about ^L page separation?,  Prev: Org Mode and LaTex,  Up: How Uniline behaves with its environment?
+
+13.7 What about ‘\t’ tabs?
+==========================
+
+Some files may contain tabs (the character ‘\t’).  Those include
+programming code (Python, Perl, C++, D, Rust, JavaScript and so on).
+
+   When ‘Uniline’ draws something in the middle of a TAB, or right onto
+a TAB, it first converts it to spaces, then proceeds as usual.  This
+process is invisible.  So be cautious if TABs have a special meaning in
+the file.
+
+   Also, rectangles are first untabified (if there are TABs) before
+moving them.  This avoids some rare instances of misalignment.
+
+   One way to see what is going on, is to activate the
+‘whitespace-mode’.
+
+
+File: uniline.info,  Node: What about ^L page separation?,  Next: Emacs on the Linux console,  Prev: What about \t tabs?,  Up: How Uniline behaves with its environment?
+
+13.8 What about ‘^L’ page separation?
+=====================================
+
+‘Uniline’ does not work well with ‘^L’ (page separation) character.  Nor
+with similar characters, like ‘^T’.  When trying to draw a line over
+such a character, the cursor may get stuck.  This is because those
+characters occupy twice the width of a normal character.
+
+   Just try to get away from ‘^L’, ‘^T’ and such when drawing with
+‘Uniline’.
+
+
+File: uniline.info,  Node: Emacs on the Linux console,  Next: Emacs on a graphical terminal emulator,  Prev: What about ^L page separation?,  Up: How Uniline behaves with its environment?
+
+13.9 Emacs on the Linux console
+===============================
+
+Linux consoles are the 7 non-graphic screens which can be accessed
+usually typing ‘C-M-F1’, ‘C-M-F2’, and so on.  Such a screen is also
+presented when connecting through ‘ssh’ or ‘tls’ into a non-graphical
+server.
+
+   By default they use a font named "Fixed" with poor support for
+Unicode.  However, it supports lines of the 3 types, mixing all of them
+in thin lines though.
+
+   Another problem is that by default ‘S-<left>’ and ‘C-<left>’ are
+indistinguishable from ‘<left>’.  Same problem with ‘<right>’, ‘<up>’,
+‘<down>’ and ‘<insert>’.  This has nothing to do with ‘Emacs’.  A
+solution can be found here:
+<https://www.emacswiki.org/emacs/MissingKeys>
+
+
+File: uniline.info,  Node: Emacs on a graphical terminal emulator,  Next: Emacs on Windows,  Prev: Emacs on the Linux console,  Up: How Uniline behaves with its environment?
+
+13.10 Emacs on a graphical terminal emulator
+============================================
+
+This is the ‘Emacs’ launched from a terminal typing ‘emacs -nw’.  In
+this environment, ‘<insert>’ does not exist.  It is replaced by
+‘<insertchar>’.  This has already been taken into account by ‘Uniline’
+by duplicating the key-bindings for the two flavors of this key.
+
+   If you decide to bind globally ‘C-<insert>’ to the toggling of
+‘Uniline’ minor mode as suggested, then you will have to do the same for
+‘C-<insertchar>’, for example with ‘use-package’ in your ‘~/.emacs’
+file:
+
+     (use-package uniline
+       :defer t
+       :bind ("C-<insert>"     . uniline-mode)
+       :bind ("C-<insertchar>" . uniline-mode))
+
+
+File: uniline.info,  Node: Emacs on Windows,  Next: Compatibility with ASCIIFlow,  Prev: Emacs on a graphical terminal emulator,  Up: How Uniline behaves with its environment?
+
+13.11 Emacs on Windows
+======================
+
+On Windows the only native mono-spaced fonts are ‘Lucida Console’ and
+‘Courier New’.  They are not mono-spaced for the Unicodes used by
+‘Uniline’.
+
+   Often, the ‘Consolas’ font is present on Windows.  It supports quite
+well the required Unicodes to draw lines.  A few glyphs produce
+unaligned result though.  They should be avoided under ‘Consolas’:
+‘△▶▹◆’
+
+   Of course, other fonts may be installed.  It is quite easy.
+
+
+File: uniline.info,  Node: Compatibility with ASCIIFlow,  Prev: Emacs on Windows,  Up: How Uniline behaves with its environment?
+
+13.12 Compatibility with ASCIIFlow
+==================================
+
+ASCIIFlow is a ASCII-UNICODE diagram drawing tool (as Uniline).  It
+works on a web browser.  Just open <https://asciiflow.com> and start
+drawing.  There is no server, ASCIIFlow operates locally on your PC.
+Your diagrams survive web browser sessions, as they are saved locally
+behind the scene.
+
+   When your drawing is complete, you can export it to Emacs-Uniline:
+   • Click on the download button
+   • Select ‘"ASCII Extended"’
+   • Paste your diagram in Emacs with ‘C-y’
+   • Modify it with Uniline
+
+   For the other way around, a Uniline drawing can be exported to
+ASCIIFlow:
+   • Copy it from Emacs (with ‘M-w’ for instance).
+   • In ASCIIFlow, choose ‘"Select & Move"’
+   • Type ‘C-v’
+   • Edit with ASCIIFlow
+
+
+File: uniline.info,  Node: Lisp API,  Next: Mouse support,  Prev: How Uniline behaves with its environment?,  Up: Top
+
+14 Lisp API
+***********
+
+Could ‘Uniline’ be programmed (versus used interactively)?  Yes!
+
+   The API is usable programmatically:
+
+* Menu:
+
+* Move the cursor::
+* Brush::
+* Example Lisp function to draw a plus sign::
+* Long range actions (contour, flood-fill, rectangle): Long range actions (contour flood-fill rectangle).
+* Constants::
+* Macro and text direction::
+* Insert and tweak glyphs::
+* Change to alternate styles::
+
+
+File: uniline.info,  Node: Move the cursor,  Next: Brush,  Up: Lisp API
+
+14.1 Move the cursor
+====================
+
+Move cursor while drawing lines by calling any of the 4 directions
+functions:
+   • ‘uniline-write-up↑’
+   • ‘uniline-write-ri→’
+   • ‘uniline-write-dw↓’
+   • ‘uniline-write-lf←’
+
+   They expect a repeat ‘count’ (usually 1) and optionally ‘force=t’ to
+overwrite the buffer
+
+
+File: uniline.info,  Node: Brush,  Next: Example Lisp function to draw a plus sign,  Prev: Move the cursor,  Up: Lisp API
+
+14.2 Brush
+==========
+
+Set the current brush by calling any of the following:
+
+   • ‘uniline--set-brush-nil’ ;; write nothing
+   • ‘uniline--set-brush-0’ ;; eraser
+   • ‘uniline--set-brush-1’ ;; single thin line╶─╴
+   • ‘uniline--set-brush-2’ ;; single thick line╺━╸
+   • ‘uniline--set-brush-3’ ;; double line╺═╸
+   • ‘uniline--set-brush-block’ ;; blocks ▙▄▟▀
+
+   Those functions are equivalent to:
+
+   • ‘(setq uniline--brush nil)’
+   • ‘(setq uniline--brush 0)’
+   • ‘(setq uniline--brush 1)’
+   • ‘(setq uniline--brush 2)’
+   • ‘(setq uniline--brush 3)’
+   • ‘(setq uniline--brush :block)’
+
+   except the functions also update the mode-line.
+
+
+File: uniline.info,  Node: Example Lisp function to draw a plus sign,  Next: Long range actions (contour flood-fill rectangle),  Prev: Brush,  Up: Lisp API
+
+14.3 Example: Lisp function to draw a plus sign
+===============================================
+
+For instance, if we want to create a function to draw a "plus" sign, we
+can code it as follows:
+
+     (defun uniline-draw-plus ()
+       (interactive)
+       (uniline-write-ri→ 1)
+       (uniline-write-dw↓ 1)
+       (uniline-write-ri→ 1)
+       (uniline-write-dw↓ 1)
+       (uniline-write-lf← 1)
+       (uniline-write-dw↓ 1)
+       (uniline-write-lf← 1)
+       (uniline-write-up↑ 1)
+       (uniline-write-lf← 1)
+       (uniline-write-up↑ 1)
+       (uniline-write-ri→ 1)
+       (uniline-write-up↑ 1))
+
+   Calling ‘M-x uniline-draw-plus’ will result in this nice little
+plus-shape:
+
+
+
+      ╭╮
+     ╭╯╰╮
+     ╰╮╭╯
+      ╰╯
+     generated by
+     M-x uniline-draw-plus
+
+   We may modify the function to accept the size of the shape as a
+parameter:
+
+     (defun uniline-draw-plus (size)
+       (interactive "Nsize? ")
+       (uniline-write-ri→ size)
+       (uniline-write-dw↓ size)
+       (uniline-write-ri→ size)
+       (uniline-write-dw↓ size)
+       (uniline-write-lf← size)
+       (uniline-write-dw↓ size)
+       (uniline-write-lf← size)
+       (uniline-write-up↑ size)
+       (uniline-write-lf← size)
+       (uniline-write-up↑ size)
+       (uniline-write-ri→ size)
+       (uniline-write-up↑ size))
+
+   The ‘(interactive "Nsize? ")’ form prompts user for the size of the
+shape if not given as a parameter.
+
+   This API works in any mode, not only in ‘Uniline’ minor mode.  It
+takes care of the infiniteness of the buffer in the right and down
+directions.
+
+
+File: uniline.info,  Node: Long range actions (contour flood-fill rectangle),  Next: Constants,  Prev: Example Lisp function to draw a plus sign,  Up: Lisp API
+
+14.4 Long range actions (contour, flood-fill, rectangle)
+========================================================
+
+There are other useful functions operating on many characters at once.
+Contour tracing and flood-filling are among them:
+
+   • ‘uniline-contour’
+   • ‘uniline-fill’
+
+   The following functions operate on a rectangular region, which must
+be active prior to calling them:
+
+   • ‘uniline-draw-inner-rectangle’
+   • ‘uniline-draw-outer-rectangle’
+   • ‘uniline-copy-rectangle’
+   • ‘uniline-kill-rectangle’
+   • ‘uniline-yank-rectangle’
+   • ‘uniline-fill-rectangle’
+   • ‘uniline-move-rect-up↑’
+   • ‘uniline-move-rect-ri→’
+   • ‘uniline-move-rect-dw↓’
+   • ‘uniline-move-rect-lf←’
+
+
+File: uniline.info,  Node: Constants,  Next: Macro and text direction,  Prev: Long range actions (contour flood-fill rectangle),  Up: Lisp API
+
+14.5 Constants
+==============
+
+Constants for the 4 directions:
+
+   • ‘uniline-direction-up↑’ ;; constant 0
+   • ‘uniline-direction-ri→’ ;; constant 1
+   • ‘uniline-direction-dw↓’ ;; constant 2
+   • ‘uniline-direction-lf←’ ;; constant 3
+
+
+File: uniline.info,  Node: Macro and text direction,  Next: Insert and tweak glyphs,  Prev: Constants,  Up: Lisp API
+
+14.6 Macro and text direction
+=============================
+
+Changing text direction:
+
+   • ‘uniline-text-direction-up↑’
+   • ‘uniline-text-direction-ri→’
+   • ‘uniline-text-direction-dw↓’
+   • ‘uniline-text-direction-lf←’
+
+   or (in this case the mode-line is not updated):
+
+   • ‘(setq uniline-text-direction uniline-direction-up↑)’
+   • ‘(setq uniline-text-direction uniline-direction-ri→)’
+   • ‘(setq uniline-text-direction uniline-direction-dw↓)’
+   • ‘(setq uniline-text-direction uniline-direction-lf←)’
+
+   Call macro in any direction:
+
+   • ‘uniline-call-macro-in-direction-up↑’
+   • ‘uniline-call-macro-in-direction-ri→’
+   • ‘uniline-call-macro-in-direction-dw↓’
+   • ‘uniline-call-macro-in-direction-lf←’
+
+
+File: uniline.info,  Node: Insert and tweak glyphs,  Next: Change to alternate styles,  Prev: Macro and text direction,  Up: Lisp API
+
+14.7 Insert and tweak glyphs
+============================
+
+   • ‘uniline-insert-fw-arrow’
+   • ‘uniline-insert-fw-square’
+   • ‘uniline-insert-fw-oshape’
+   • ‘uniline-insert-fw-cross’
+   • ‘uniline-insert-bw-arrow’
+   • ‘uniline-insert-bw-square’
+   • ‘uniline-insert-bw-oshape’
+   • ‘uniline-insert-bw-cross’
+
+   Rotate arrow or tweak 4-half-lines or 4-block characters:
+
+   • ‘uniline-rotate-up↑’
+   • ‘uniline-rotate-ri→’
+   • ‘uniline-rotate-dw↓’
+   • ‘uniline-rotate-lf←’
+
+   Here are the lowest level functions.  Move point, possibly extending
+the buffer in right and bottom directions:
+
+   • ‘uniline-move-to-column’
+   • ‘uniline-move-to-line’
+   • ‘uniline-move-to-lin-col’
+   • ‘uniline-move-to-delta-column’
+   • ‘uniline-move-to-delta-line’
+
+
+File: uniline.info,  Node: Change to alternate styles,  Prev: Insert and tweak glyphs,  Up: Lisp API
+
+14.8 Change to alternate styles
+===============================
+
+A drawing in a rectangular selection may have its style changed:
+
+   • ‘uniline-change-style-dot-3-2’ ;; 3 dashes vert.  ┆, 2 horiz.  ╌
+   • ‘uniline-change-style-dot-4-4’ ;; 4 dashes vert.  ┊ & horiz.  ┈
+   • ‘uniline-change-style-standard’ ;; back to Uniline base style
+   • ‘uniline-change-style-hard-corners’ ;; rounded corners╭╴become
+     hard┌
+   • ‘uniline-change-style-thin’ ;; convert to ╭╴ thin lines
+   • ‘uniline-change-style-thick’ ;; convert to ┏╸ thick lines
+   • ‘uniline-change-style-double’ ;; convert to ╔═ thick lines
+   • ‘uniline-aa2u-rectangle’ ;; call aa2u to convert ASCII to Unicode
+
+   The above functions require a region to be marked.
+
+
+File: uniline.info,  Node: Mouse support,  Next: Installation,  Prev: Lisp API,  Up: Top
+
+15 Mouse support
+****************
+
+The out-of-the-box mouse support of ‘Emacs’ works perfectly.  Except
+when the mouse clicks on a position outside the buffer.  This happens
+when clicking past the end of a too short line, or past the end of the
+buffer.
+
+   To handle those cases, a few standard ‘Emacs’ functions have been
+extended to add blank characters or blank lines.  Doing so, the
+mouse-click now falls on a valid part of the buffer.  Of course, those
+extensions are only active on ‘uniline-mode’ activated buffers.
+
+   Beware that when the window is at the same time zoomed with ‘C-x C-+
+C--’ AND horizontally scrolled with ‘C-x <’, the cursor positioning is
+not accurate.  This is due to ‘Emacs’ limitations and bugs.  Just click
+twice to fix the inaccuracy.
+
+
+File: uniline.info,  Node: Installation,  Next: Related packages,  Prev: Mouse support,  Up: Top
+
+16 Installation
+***************
+
+* Menu:
+
+* use-package, the straightforward way: use-package the straightforward way.
+* Without use-package::
+
+
+File: uniline.info,  Node: use-package the straightforward way,  Next: Without use-package,  Up: Installation
+
+16.1 use-package, the straightforward way
+=========================================
+
+The ‘use-package’ library became the de-facto standard to manage
+packages in your ‘.emacs’ initialization file.  The ‘use-package’
+library comes along with Emacs.  It can (among other services) delay
+loading external packages until they are used, and bind keyboard
+shortcuts to the package’s entry points.
+
+   Add the following lines to your ‘.emacs’ file, and reload it, if not
+already done.  This says that the popular Melpa repository is one of the
+central store of third parties packages.  To day, it provides almost
+7000 packages to choose from.
+
+     (add-to-list 'package-archives
+                  '("melpa" . "http://melpa.org/packages/")
+                  t)
+     (package-initialize)
+
+   Alternately you may customize this variable:
+
+     M-x customize-variable package-archives
+
+   Then add those lines in your Emacs initialization file (usually
+‘~/.emacs’):
+
+     (use-package uniline-hydra
+       :bind ("C-<insert>" . uniline-mode))
+
+   or:
+
+     (use-package uniline-transient
+       :bind ("C-<insert>" . uniline-mode))
+
+   This tell Emacs:
+   • Be prepared to load ‘uniline-mode’ when the user request it, but do
+     not load it now.
+   • Bind the ‘C-<insert>’ keys to the function ‘uniline-mode’.  This
+     shortens the longer ‘M-x uniline-mode’ command.  Any other key
+     combinations can be bound, as you prefer.  ‘<insert>’ happens to
+     also be the key used inside ‘Uniline’ (customizable).
+   • Load either the ‘uniline-hydra’ or the ‘uniline-transient’ file, as
+     you prefer.  This gives Uniline one or the other flavour of
+     user-interface.
+
+   There is an alias to ‘uniline-hydra’:
+
+     (use-package uniline
+       :bind ("C-<insert>" . uniline-mode))
+
+
+File: uniline.info,  Node: Without use-package,  Prev: use-package the straightforward way,  Up: Installation
+
+16.2 Without use-package
+========================
+
+Download the package from Melpa:
+
+     (package-install "uniline")
+
+   Alternately, you can download the Lisp files, and load them manually:
+
+     (load-file "uniline-hydra.el")   ;; interpreted form
+     (load-file "uniline-hydra.elc")  ;; byte-compiled form
+     (load-file "uniline-hydra.eln")  ;; native-compiled form
+     ;; this automatically
+     ;; loads "uniline-core.el"
+     ;; or    "uniline-core.elc"
+     ;; or    "uniline-core.eln"
+
+   or if you prefer the Transient interface over the Hydra one:
+     (load-file "uniline-transient.el")   ;; interpreted form
+     (load-file "uniline-transient.elc")  ;; byte-compiled form
+     (load-file "uniline-transient.eln")  ;; native-compiled form
+     ;; this automatically
+     ;; loads "uniline-core.el"
+     ;; or    "uniline-core.elc"
+     ;; or    "uniline-core.eln"
+
+   You should prefer the byte-compiled or native-compiled forms over the
+interpreted forms, because there are a lot of optimizations performed at
+compile time.
+
+   You may want to give ‘uniline-mode’ a key-binding.  A way to do that
+without ‘use-package’ is to add those lines to your initialization file
+(usually ‘~/.emacs’):
+
+     (require 'uniline-hydra)
+     (bind-keys :package uniline-hydra ("C-<insert>" . uniline-mode))
+
+   The downside is that ‘Uniline’ will be loaded as soon as ‘Emacs’ is
+launched, rather than deferred until invoked.
+
+
+File: uniline.info,  Node: Related packages,  Next: Author contributors,  Prev: Installation,  Up: Top
+
+17 Related packages
+*******************
+
+   • ‘artist-mode’: the ASCII art mode built into ‘Emacs’.
+
+   • ‘ascii-art-to-unicode’: as the name suggest, converts ASCII
+     drawings to UNICODE, giving results similar to those of ‘Uniline’.
+
+   • ‘picture-mode’: as in ‘Uniline’, the buffer is infinite in east &
+     south directions.
+
+   • ‘ascii-art-to-unicode’ ASCII art to UNICODE in ‘Emacs’.  This is a
+     standard ELPA package by Thien-Thi Nguyen (rest in peace).
+     ‘Uniline’ may call it to convert ASCII art drawings to equivalent
+     UNICODE.  ‘Uniline’ arranges to not require a dependency on
+     ‘ascii-art-to-unicode’ by lazy evaluating a call to ‘aa2u’.
+
+   • ‘org-pretty-table’: Org Mode tables _appear_ to be drawn in UNICODE
+     characters (actually they are still in ASCII).
+
+   • ‘boxes’: draws artistic boxes around text, with nice looking
+     unicorns, flowers, parchments, all in ASCII art.
+
+   • ‘org-drawio’: a bridge between the Draw.Io editor and ‘Emacs’,
+     producing drawing similar to those of ‘Uniline’, but in ‘.svg’.
+
+   • ‘syntree’: draws ASCII trees on-the-fly from description.
+
+   • ‘unicode-enbox’: create a UNICODE box around a text; input and
+     output are strings.
+
+   • ‘unicode-fonts’: in ‘Emacs’, helps alleviate the lack of full
+     UNICODE coverage of most fonts.
+
+   • ‘org-superstar’: prettify headings and plain lists in Org Mode,
+     using UNICODE glyphs.
+
+   • ‘charmap’: UNICODE table viewer for ‘Emacs’.
+
+   • ‘insert-char-preview’: insert UNICODEs with character preview in
+     completion prompt.
+
+   • ‘list-unicode-display’: list all UNICODE characters, or a selection
+     of them.
+
+   • ‘show-font’: show font features in a buffer.
+
+   • ‘ob-svgbob’: convert your ascii diagram scribbles into happy little
+     SVG
+
+   • ‘el-easydraw’: a full featured SVG editor right inside your ‘Emacs’
+
+   • ‘asciiflow’: (not ‘Emacs’) draw on the web, then copy-paste your
+     UNICODE text
+
+   • ‘dot-to-ascii.ggerganov.com:’ (not ‘Emacs’) describe your schema in
+     the Graphviz language, and copy-past your UNICODE text.
+
+   • ‘monosketch’: (not ‘Emacs’) draw on the web, then copy-paste your
+     UNICODE text
+
+   • ‘ibm-box-drawing-hydra.el’: keyboard interface to insert UNICODE
+     box-drawing characters one at a time
+
+   • ‘org-excalidraw’: integrate SVG images generated by excalidraw into
+     Org Mode
+
+   • ‘rcd-box’: create tables surrounded by box-drawing characters from
+     Lisp descriptions
+
+   • ‘ob-diagram’: generate various diagrams using diagrams backend
+
+   • ‘ob-mermaid’: generate Mermaid diagrams within org-mode babel
+
+   • ‘quail-boxdrawing.el’: input method for box drawing characters
+
+   • ‘make-box.el’: box around part of a buffer
+
+   • ‘vim drawit ascii diagrams’: in Vim, in ASCII
+
+
+File: uniline.info,  Node: Author contributors,  Next: License,  Prev: Related packages,  Up: Top
+
+18 Author, contributors
+***********************
+
+   • Thierry Banel, author
+
+   Feedback:
+
+   • Chris Rayner (@riscy), gave recommendations prior to insertion in
+     MELPA
+
+   • Adam Porter (@alphapapa), suggested submitting ‘Uniline’ to ‘ELPA’;
+     should I?
+
+   • Joost Kremers <https://github.com/joostkremers> found a bug in the
+     minor-mode key-binding definitions, and incompatibility with
+
+   • DogLooksGood <https://github.com/DogLooksGood> gave feedback on
+     inserting usual characters not moving the cursor
+
+   • LuciusChen & lhindir on GitHub, arthurno1 & karthink on Reddit,
+     pushed toward ‘Transient’ as the default interface instead of
+     ‘Hydra’
+
+   • karthink noted that ‘Transient’ was now built into ‘Emacs’,
+     loosening the dependencies conundrum, arthurno1 participated in the
+     ‘Hydra’ - ‘Transient’ discussion
+
+   • karthink pointed to the new ‘Aporetic’ font family, which was then
+     added to the ‘Uniline’ supported fonts
+
+   • rumengling on GitHub found and diagnosed the misaligned lines issue
+     produced by some "language environments" (see *note Language
+     environment::).
+
+   Contributors:
+
+   • JD Smith (jdtsmith on GitHub) rewrote the ‘:lighter’ for added
+     flexibility (the information in the mode-line about the state of
+     ‘Uniline’)
+
+   • JD Smith also pointed to ‘#+begin_src uniline’ Org Mode block
+     suprising behavior (editing its content automatically switches to
+     ‘uniline-mode’)
+
+   Utilities:
+
+   • Oleh Krehel alias abo-abo for his package ‘Hydra’
+
+   • The ‘Magit’ team for the ‘Transient’ library
+
+   • Thien-Thi Nguyen (RIP) for his package ‘ascii-art-to-unicode’
+
+
+File: uniline.info,  Node: License,  Prev: Author contributors,  Up: Top
+
+19 License
+**********
+
+Copyright (C) 2024-2025 Thierry Banel
+
+   Uniline is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+   Uniline is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+
+Tag Table:
+Node: Top75
+Node: Getting started in 10 seconds2926
+Node: New3532
+Node: Pure UNICODE text diagrams in Emacs4248
+Node: Document a command4794
+Node: Connect boxes with arrows5324
+Node: Explain decisions trees6641
+Node: Draw lines or blocks8144
+Node: Outline the General Relativity and the Schrödinger's equations9683
+Node: Explain the structure of a sentence in a foreign language12369
+Node: Explain Lisp lists13946
+Node: Draw sketched objects15159
+Node: Pure text17121
+Node: Beware!17850
+Node: A minor mode for drawing18430
+Node: Minor mode18715
+Node: Draw lines by moving the cursor19277
+Node: Brush style20034
+Node: Text direction21191
+Node: The <insert> key21741
+Node: Glyphs ▷ ▶ → □ ◆ ╮─ insertion & modification22742
+Node: Arrows glyphs ▷ ▶ → ▹ ▸ ↔23459
+Node: Intersection glyphs ■ ◆ ●25031
+Node: Fine tweaking of lines27749
+Node: Rectangular actions29632
+Node: Drawing a rectangle30955
+Node: Filling a rectangle32606
+Node: Moving a rectangle33365
+Node: Copying killing yanking a rectangle34797
+Node: Dashed lines and other styles35956
+Node: ASCII to UNICODE40072
+Node: Long range actions contour and flood-fill43755
+Node: Tracing a contour44018
+Node: Flood-fill45932
+Node: Macros47706
+Node: Which fonts?51097
+Node: Recommended fonts51358
+Node: Use case mixing fonts53448
+Node: Hydra or Transient?55445
+Node: Selecting Hydra or Transient56434
+Node: Instantly selecting Hydra or Transient57427
+Node: One-liner menus58393
+Node: The Hydra interface60331
+Node: The Transient interface61004
+Node: Customization61542
+Node: Interface type (obsolete)62393
+Node: Insert key62726
+Node: Maximum steps when drawing a contour63519
+Node: Cursor type63849
+Node: Hint style64174
+Node: Welcome message visibility64521
+Node: Line spacing64902
+Node: Font66368
+Node: How Uniline behaves with its environment?66852
+Node: Language environment67451
+Node: Compatibility with Picture-mode69856
+Node: Compatibility with Artist-mode70803
+Node: Compatibility with Whitespace-mode71322
+Node: Compatibility with Org Mode72222
+Node: Org Mode and LaTex73643
+Node: What about \t tabs?75503
+Node: What about ^L page separation?76304
+Node: Emacs on the Linux console76927
+Node: Emacs on a graphical terminal emulator77887
+Node: Emacs on Windows78817
+Node: Compatibility with ASCIIFlow79498
+Node: Lisp API80454
+Node: Move the cursor81004
+Node: Brush81435
+Node: Example Lisp function to draw a plus sign82304
+Node: Long range actions (contour flood-fill rectangle)84140
+Node: Constants85078
+Node: Macro and text direction85493
+Node: Insert and tweak glyphs86428
+Node: Change to alternate styles87430
+Node: Mouse support88339
+Node: Installation89223
+Node: use-package the straightforward way89467
+Node: Without use-package91422
+Node: Related packages92983
+Node: Author contributors96102
+Node: License97957
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:
