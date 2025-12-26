@@ -170,9 +170,6 @@ than `helm-candidate-number-limit'.")
 (defvar helm-ff--trash-directory-regexp "\\.?Trash[/0-9]+files/?\\'")
 (defvar helm-ff--show-directories-only nil)
 (defvar helm-ff--show-files-only nil)
-(defvar helm-ff--trashed-files nil
-  "[INTERNAL] Files already trashed are stored here during file deletion.
-This is used only as a let binding.")
 (defvar helm-ff--show-thumbnails nil)
 (defvar helm-ff--thumbnailed-directories nil)
 (defvar helm-source-find-files nil
@@ -1369,12 +1366,22 @@ ACTION can be `rsync' or any action supported by `helm-dired-action'."
                                   (regexp-quote
                                    (if helm-ff-transformer-show-only-basename
                                        (helm-basename cand) cand))))
-                        :default (and cdir
-                                      (expand-file-name
-                                       (format "%s.tar.gz" (if cand
-                                                               (helm-basename cand)
-                                                             "new_archive"))
-                                       cdir))
+                        :default (if cdir
+                                     (mapcar (lambda (x)
+                                               (let ((ext (replace-regexp-in-string
+                                                           "[\\']" "" (car x))))
+                                                 (expand-file-name
+                                                  (format "%s%s"
+                                                          (if cand
+                                                              (helm-basename cand)
+                                                            "new_archive")
+                                                          ext)
+                                                  cdir)))
+                                             dired-compress-files-alist)
+                                   ;; Specify default-directory as default
+                                   ;; otherwise we get thing-at-point from the
+                                   ;; *helm marked* buffer.
+                                   default-directory)
                         :must-match (and cdir (lambda (f) (not (file-directory-p f))))
                         :initial-input (or cdir (helm-dwim-target-directory))
                         :history (helm-find-files-history nil :comp-read nil))))))
@@ -4623,10 +4630,7 @@ Arg FILE is the real part of candidate, a filename with no props."
                           (helm-basedir candidate)))
       (setq actions (helm-append-at-nth
                      actions '(("Recover file" . recover-file)) 4)))
-    (cond ((and (file-exists-p candidate)
-                (string-match helm-ff--trash-directory-regexp
-                              (helm-basedir (expand-file-name candidate)))
-                (not (member (helm-basename candidate) '("." ".."))))
+    (cond ((helm-ff-trash-file-p candidate)
            (helm-append-at-nth
             actions
             '(("Restore file(s) from trash" . helm-restore-file-from-trash)
@@ -6332,8 +6336,6 @@ When a prefix arg is given, meaning of
   (with-helm-window
     (let* ((marked (helm-marked-candidates))
            (trash (helm-ff--delete-by-moving-to-trash (car marked)))
-           (helm-ff--trashed-files
-            (and trash (helm-ff-trash-list (helm-trash-directory))))
            (old--allow-recursive-deletes helm-ff-allow-recursive-deletes)
            (buffers (cl-loop for f in marked
                              append (helm-file-buffers f))))
@@ -6436,8 +6438,6 @@ When a prefix arg is given, meaning of
   (let* ((files (helm-marked-candidates :with-wildcard t))
          (len 0)
          (trash (helm-ff--delete-by-moving-to-trash (car files)))
-         (helm-ff--trashed-files
-          (and trash (helm-ff-trash-list (helm-trash-directory))))
          (prmt (if trash "Trash" "Delete"))
          (old--allow-recursive-deletes helm-ff-allow-recursive-deletes)
          (buffers (cl-loop for f in files
@@ -6847,6 +6847,8 @@ be existing directories."
     map))
 
 (defun helm-file-name-history-transformer (candidates)
+  ;; As this transformer uses propertize and not add-text-properties or similar
+  ;; it doesn't suffer of nasty side effect like in bug#2709.
   (cl-loop with lgst = helm-file-name-history-max-length
            for elm in candidates
            for c = (truncate-string-to-width

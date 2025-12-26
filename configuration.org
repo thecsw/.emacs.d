@@ -180,9 +180,9 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 ** Window management
  #+BEGIN_SRC emacs-lisp
  (global-set-key (kbd "C-x <up>") 'windmove-up)
- (global-set-key (kbd "C-x <down>") 'windmove-down)
- (global-set-key (kbd "C-x <left>") 'windmove-left)
- (global-set-key (kbd "C-x <right>") 'windmove-right)
+ (global-set-key,  (kbd "C-x <down>") 'windmove-down)
+ (global-set-key,  (kbd "C-x <left>") 'windmove-left)
+ (global-set-key,  (kbd "C-x <right>") 'windmove-right)
  #+END_SRC
 ** Go to line preview
 #+BEGIN_SRC emacs-lisp
@@ -261,7 +261,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (setq lsp-keymap-prefix "C-c l")
 
   (global-set-key (kbd "C-c f") 'lsp-find-definition)
-  (global-set-key (kbd "C-c b") 'lsp-find-references)
+  (global-set-key,  (kbd "C-c b") 'lsp-find-references)
 
   ;; Optional - provides snippet support.
   (use-package yasnippet
@@ -761,7 +761,7 @@ Press =C-x g= to open magit
     (require 'centaur-tabs)
     (centaur-tabs-mode t)
     (global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
-    (global-set-key (kbd "C-<next>") 'centaur-tabs-forward)
+    (global-set-key,  (kbd "C-<next>") 'centaur-tabs-forward)
 
     (centaur-tabs-headline-match)
 
@@ -779,7 +779,7 @@ Press =C-x g= to open magit
 * Undo
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-/") 'undo-only)
-  (global-set-key (kbd "C-?") 'undo-redo)
+  (global-set-key,  (kbd "C-?") 'undo-redo)
 #+end_src
 * Undo Tree
 #+begin_src emacs-lisp
@@ -807,8 +807,8 @@ Press =C-x g= to open magit
   (setq lsp-copilot-enabled nil)
 
   (global-set-key (kbd "M-RET") 'copilot-accept-completion)
-  (global-set-key (kbd "M-]") 'copilot-next-completion)
-  (global-set-key (kbd "M-[") 'copilot-previous-completion)
+  (global-set-key,  (kbd "M-]") 'copilot-next-completion)
+  (global-set-key,  (kbd "M-[") 'copilot-previous-completion)
 #+end_src
 * Dired-gitignore
 #+begin_src emacs-lisp
@@ -833,7 +833,7 @@ Press =C-x g= to open magit
 #+end_src
 * Writegood
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-x c") 'writegood-mode)
+  (global-set-key,  (kbd "C-x c") 'writegood-mode)
 #+end_src
 * Smooth scrolling
 #+begin_src emacs-lisp
@@ -844,4 +844,8 @@ Press =C-x g= to open magit
           scroll-margin 0)        ; important: scroll-margin>0 not yet supported
     :config
     (ultra-scroll-mode 1))
+#+end_src
+* Multiple Cursors
+#+begin_src emacs-lisp
+  (global-set-key,  (kbd "C-S-c C-S-c") 'mc/mark-all-like-this)
 #+end_src
