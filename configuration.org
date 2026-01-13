@@ -153,8 +153,36 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 #+END_SRC
 ** Character limit in Org-Mode
 #+BEGIN_SRC emacs-lisp
-(add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
+  (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+  (defun my/org-inhibit-auto-fill-on-macros ()
+    "Disable auto-fill when point is inside an Org macro."
+    (when (save-excursion
+            (beginning-of-line)
+            (looking-at-p ".*{{{.*}}}"))
+      t))  ;; returning non-nil inhibits auto-fill
+
+  (defun my/org-auto-fill-function ()
+    (unless (my/org-inhibit-auto-fill-on-macros)
+      (do-auto-fill)))
+
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (setq-local fill-column 80)
+              (setq-local auto-fill-function #'my/org-auto-fill-function)))
+
+  (defun my/org-macro-line-p ()
+    "Return non-nil if current line contains an Org macro."
+    (save-excursion
+      (beginning-of-line)
+      (search-forward "{{{" (line-end-position) t)))
+
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (setq-local fill-column 80)
+              (add-to-list 'fill-nobreak-predicate #'my/org-macro-line-p)
+              (turn-on-auto-fill)))
 #+END_SRC
 ** Pair the braces
 #+BEGIN_SRC emacs-lisp
@@ -848,4 +876,58 @@ Press =C-x g= to open magit
 * Multiple Cursors
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-S-c C-S-c") 'mc/mark-all-like-this)
+#+end_src
+* he-date.el
+This was written by chatgpt, I really do need to learn elisp.
+#+begin_src emacs-lisp
+  ;;; he-date.el --- Convert ISO filename dates to Holocene date blocks -*- lexical-binding: t; -*-
+
+  (defun he--ordinal (n)
+    "Return ordinal suffix for N (1st, 2nd, 3rd, etc.)."
+    (let ((mod100 (% n 100)))
+      (concat
+       (number-to-string n)
+       (cond
+        ((member mod100 '(11 12 13)) "th")
+        ((= (% n 10) 1) "st")
+        ((= (% n 10) 2) "nd")
+        ((= (% n 10) 3) "rd")
+        (t "th")))))
+
+  (defun he--parse-date-from-string (s)
+    "Extract YYYY-MM-DD from string S and return (year month day)."
+    (when (string-match "\\([0-9]\\{4\\}\\)-\\([0-9]\\{2\\}\\)-\\([0-9]\\{2\\}\\)" s)
+      (mapcar #'string-to-number
+              (list (match-string 1 s)
+                    (match-string 2 s)
+                    (match-string 3 s)))))
+
+  (defun he-format-date-from-string (s)
+    "Convert YYYY-MM-DD found in S into a Holocene date macro."
+    (pcase-let* ((`(,y ,m ,d) (he--parse-date-from-string s))
+                 (time (encode-time 0 0 0 d m y))
+                 (weekday (format-time-string "%A" time))
+                 (month (format-time-string "%B" time))
+                 (ordinal-day (he--ordinal d))
+                 (he-year (+ y 10000)))
+      (format "{{{date(%s, %s %s, %d H.E.)}}}"
+              weekday month ordinal-day he-year)))
+
+  ;;;###autoload
+  (defun he-insert-date-from-filename (beg end)
+    "Convert a filename containing YYYY-MM-DD to a Holocene date block.
+  Uses region if active, otherwise the current line."
+    (interactive
+     (if (use-region-p)
+         (list (region-beginning) (region-end))
+       (list (line-beginning-position)
+             (line-end-position))))
+    (let* ((input (buffer-substring-no-properties beg end))
+           (result (he-format-date-from-string input)))
+      (unless result
+        (user-error "No YYYY-MM-DD date found"))
+      (delete-region beg end)
+      (insert result)))
+
+  (provide 'he-date)
 #+end_src
