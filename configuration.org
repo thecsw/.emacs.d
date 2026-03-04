@@ -1,8 +1,8 @@
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
 #+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
 #+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
-#+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
-#+latex_class: sandy-article
+#+options: tasks:t tex:t timestamp:t title:t toc:nil todo:t |:t
+#+latex_class: sandy-technical
 #+title: Sandy's .emacs.d
 #+date: 253; 12025 H.E.
 #+author: Sandy Urazayev
@@ -439,12 +439,10 @@ Press =C-x g= to open magit
           (emacs-lisp "common-lispcode")
           ))
   (setq org-latex-minted-options
-        '(("frame"       "lines")
-          ("fontsize"    "\\footnotesize")
+        '(("fontsize"    "\\footnotesize")
           ("obeytabs"    "true")        ;; also fix this one
           ("mathescape"  "true")        ;; was ""
-          ("numbersep"   "5pt")
-          ("xleftmargin" "0.25in")))
+          ("numbersep"   "5pt")))
 
   ;; pdflatex build process
   (setq org-latex-pdf-process
@@ -573,7 +571,83 @@ Press =C-x g= to open magit
   \\def\\N{\\mathbb{N}}
   \\def\\Q{\\mathbb{Q}}
   \\def\\noi{\\noindent}
+
   \\usemintedstyle{bw}
+  \\setminted{fontsize=\\footnotesize,xleftmargin=0.75in,numbersep=5pt}
+
+  [NO-DEFAULT-PACKAGES]
+  [NO-PACKAGES]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+
+  (add-to-list 'org-latex-classes
+               '("sandy-technical"
+                 "\\documentclass[10pt]{article}
+  \\usepackage[T1]{fontenc}
+  \\usepackage[utf8]{inputenc}
+  \\usepackage{graphicx}
+  \\usepackage{longtable}
+  \\usepackage{wrapfig}
+  \\usepackage{rotating}
+  \\usepackage[normalem]{ulem}
+  \\usepackage{amsmath}
+  \\usepackage{amssymb}
+  \\usepackage{mathtools}
+  \\usepackage{textcomp}
+  \\usepackage{capt-of}
+  \\usepackage{subcaption}
+  \\usepackage{xfrac}
+  \\usepackage[left=1in, right=1in, bottom=1in]{geometry}
+  \\usepackage{marginnote}
+  \\usepackage{color}
+  \\usepackage{tikz}
+  \\usepackage[onehalfspacing]{setspace}
+  \\usepackage[p]{scholax}
+  \\usepackage[scaled=1.075,ncf,vvarbb]{newtxmath}
+  \\usepackage[nomath,variablett]{lmodern}
+  \\usepackage{textgreek}
+  \\renewcommand*{\\textgreekfontmap}{%
+  {phv/*/*}{LGR/neohellenic/*/*}%
+  {*/b/n}{LGR/artemisia/b/n}%
+  {*/bx/n}{LGR/artemisia/bx/n}%
+  {*/*/n}{LGR/artemisia/m/n}%
+  {*/b/it}{LGR/artemisia/b/it}%
+  {*/bx/it}{LGR/artemisia/bx/it}%
+  {*/*/it}{LGR/artemisia/m/it}%
+  {*/b/sl}{LGR/artemisia/b/sl}%
+  {*/bx/sl}{LGR/artemisia/bx/sl}%
+  {*/*/sl}{LGR/artemisia/m/sl}%
+  {*/*/sc}{LGR/artemisia/m/sc}%
+  {*/*/sco}{LGR/artemisia/m/sco}%
+  }
+  \\usepackage{microtype}
+  \\makeatletter
+  \\g@addto@macro\\@verbatim{\\microtypesetup{activate=false}}
+  \\newcommand*{\\rom}[1]{\\expandafter\\@slowromancap\\romannumeral #1@}
+  \\makeatother
+  \\usepackage{minted}
+  \\usepackage{hyperref}
+  \\DeclarePairedDelimiterX{\\infdivx}[2]{(}{)}{%
+  #1\\;\\delimsize\\|\\;#2%
+  }
+  \\newcommand{\\infdiv}{D\\infdivx}
+  \\DeclarePairedDelimiter{\\norm}{\\lVert}{\\rVert}
+  \\DeclarePairedDelimiter{\\ceil}{\\lceil}{\\rceil}
+  \\DeclarePairedDelimiter{\\floor}{\\lfloor}{\\rfloor}
+  \\def\\Z{\\mathbb{Z}}
+  \\def\\R{\\mathbb{R}}
+  \\def\\C{\\mathbb{C}}
+  \\def\\N{\\mathbb{N}}
+  \\def\\Q{\\mathbb{Q}}
+  \\def\\noi{\\noindent}
+
+  \\usemintedstyle{bw}
+  \\setminted{fontsize=\\footnotesize,xleftmargin=0.5in,numbersep=5pt}
+
   [NO-DEFAULT-PACKAGES]
   [NO-PACKAGES]"
                  ("\\section{%s}" . "\\section*{%s}")

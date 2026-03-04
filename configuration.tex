@@ -1,6 +1,6 @@
-% Created 2026-03-03 Tue 01:43
+% Created 2026-03-04 Wed 16:56
 % Intended LaTeX compiler: pdflatex
-\documentclass[12pt]{article}
+\documentclass[10pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -15,7 +15,7 @@
 \usepackage{capt-of}
 \usepackage{subcaption}
 \usepackage{xfrac}
-\usepackage[left=1.4in, right=1.4in, bottom=1in]{geometry}
+\usepackage[left=1in, right=1in, bottom=1in]{geometry}
 \usepackage{marginnote}
 \usepackage{color}
 \usepackage{tikz}
@@ -58,7 +58,9 @@
 \def\N{\mathbb{N}}
 \def\Q{\mathbb{Q}}
 \def\noi{\noindent}
+
 \usemintedstyle{bw}
+\setminted{fontsize=\footnotesize,xleftmargin=0.5in,numbersep=5pt}
 \author{Sandy Urazayev}
 \date{253; 12025 H.E.}
 \title{Sandy's .emacs.d}
@@ -72,10 +74,8 @@
 \begin{document}
 
 \maketitle
-\tableofcontents
-
 \section{Lorem Ipsum}
-\label{sec:orge7c10aa}
+\label{sec:org9463365}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
 nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -83,41 +83,41 @@ consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
 dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
 sunt in culpa qui officia deserunt mollit anim id est laborum.
 \section{MELPA}
-\label{sec:org27e2f39}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orga310d14}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 \end{minted}
 \section{Performance}
-\label{sec:orgb134065}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org43061d8}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; Performance tweaks
 (setq gc-cons-threshold most-positive-fixnum)
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024 16)) ; 16mb
 \end{minted}
 \section{Coding styles}
-\label{sec:orgc263911}
+\label{sec:orgad312c5}
 \subsection{C}
-\label{sec:org04f2d8f}
+\label{sec:org2a7e680}
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq-default c-basic-offset 8
               c-default-style "k&r"
               tab-width 8
               indent-tabs-mode t)
 \end{minted}
 \subsection{Python}
-\label{sec:orgadb5e4b}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org7a7cc70}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq-default python-basic-offset 8
               tab-width 8
               indent-tabs-mode nil)
 \end{minted}
 \subsection{HTML}
-\label{sec:org95a7dd8}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orgd584205}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (add-hook 'html-mode-hook
           (lambda ()
             ;; Default indentation is usually 2 spaces, changing to 4.
@@ -178,8 +178,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
             (define-key html-helper-mode-map "\C-e" 'html-end-of-line)))
 \end{minted}
 \section{Backup control}
-\label{sec:orgebf5dd5}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org8f4e05d}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; Instea of putting *~ backups in current directory,
 ;; put them in local .saves
 (setq backup-directory-alist `(("." . ".saves")))
@@ -191,15 +191,15 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
       version-control t)
 \end{minted}
 \section{Display control}
-\label{sec:orged31544}
+\label{sec:org1299558}
 \subsection{Hide top bar}
-\label{sec:org8935a9c}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orgf88f96d}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (menu-bar-mode -1)
 \end{minted}
 \subsection{Line numbers}
-\label{sec:org3df6470}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org127beac}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; (menu-bar--display-line-numbers-mode-visual) ; <- relative
 ;; (menu-bar--display-line-numbers-mode-relative) ; <- relative
 (menu-bar--display-line-numbers-mode-absolute)
@@ -216,8 +216,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 (global-display-line-numbers-mode)
 \end{minted}
 \subsection{Scrolling}
-\label{sec:org6440539}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org23a94ed}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq redisplay-dont-pause t
       scroll-margin 1
       scroll-step 1
@@ -225,13 +225,13 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
       scroll-preserve-screen-position 1)
 \end{minted}
 \subsection{Silence annoying bell}
-\label{sec:orgfbd84ce}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orga8bd166}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq ring-bell-function 'ignore)
 \end{minted}
 \subsection{Character limit in Org-Mode}
-\label{sec:org54da597}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org06c4748}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
@@ -264,8 +264,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
             (turn-on-auto-fill)))
 \end{minted}
 \subsection{Pair the braces}
-\label{sec:orgfc7659d}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org2893291}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; Starting somewhere before emacs 30, autopair was deprecated
 ;; in favor of the built-in electric-pair-mode.
 (electric-pair-mode 1)
@@ -273,37 +273,37 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 (recentf-mode 1)
 \end{minted}
 \subsection{Open shell on F1}
-\label{sec:org280d908}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org5222b82}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (global-set-key (kbd "<f1>") 'shell)
 \end{minted}
 \subsection{Show Paren Mode}
-\label{sec:org18b9327}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org9aab6d5}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 \end{minted}
 \subsection{Disable validate link in HTML}
-\label{sec:orga474726}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org588617e}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq org-html-validation-link nil)
 \end{minted}
 \subsection{Window management}
-\label{sec:orge241236}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org8f711b3}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 \end{minted}
 \subsection{Go to line preview}
-\label{sec:orgd5b24ba}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orgc49738e}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (global-set-key [remap goto-line] 'goto-line-preview)
 \end{minted}
 \subsection{Custom faces}
-\label{sec:org7947aec}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orgb303b6b}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -316,8 +316,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 \end{minted}
 \section{LSP}
-\label{sec:orgee19556}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orgeb2f93a}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq lsp-log-io nil) ; if set to true can cause a performance hit
 
 ;; don't want to have copilot mode enabled by default
@@ -421,8 +421,8 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 (setq lsp-zig-zls-executable "/Users/thecsw/gits/zls/zig-out/bin/zls")
 \end{minted}
 \section{Dashboard}
-\label{sec:orga815f39}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org1075a21}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; Enable dashboard
 (require 'dashboard)
 ;; Add the hook
@@ -440,31 +440,31 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 (setq dashboard-set-heading-icons t)
 \end{minted}
 \section{Magit}
-\label{sec:orgc611592}
+\label{sec:org605c6aa}
 
 Press \texttt{C-x g} to open magit
 
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (use-package magit
   :commands (magit-status magit-blame))
 
 (global-set-key (kbd "C-x g") 'magit-status)
 \end{minted}
 \section{TRAMP}
-\label{sec:org235e742}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orga841015}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; Default to ssh when using tramp
 (setq tramp-default-method "ssh")
 \end{minted}
 \section{Default theme}
-\label{sec:org3faa25a}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org666f570}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; I like lush and use it by default
 (load-theme 'lush t)
 \end{minted}
 \section{Chef}
-\label{sec:org4227c80}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org3fc5a60}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq org-capture-templates
       '(("c" "Cookbook" entry (file "~/org/cookbook.org")
          "%(org-chef-get-recipe-from-url)"
@@ -473,8 +473,8 @@ Press \texttt{C-x g} to open magit
          "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")))
 \end{minted}
 \section{Org mode}
-\label{sec:orge2a6d50}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orgcf5246d}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq org-startup-folded t)
 
 ;; Add the Unicode bullets package
@@ -515,12 +515,10 @@ Press \texttt{C-x g} to open magit
         (emacs-lisp "common-lispcode")
         ))
 (setq org-latex-minted-options
-      '(("frame"       "lines")
-        ("fontsize"    "\\footnotesize")
+      '(("fontsize"    "\\footnotesize")
         ("obeytabs"    "true")        ;; also fix this one
         ("mathescape"  "true")        ;; was ""
-        ("numbersep"   "5pt")
-        ("xleftmargin" "0.25in")))
+        ("numbersep"   "5pt")))
 
 ;; pdflatex build process
 (setq org-latex-pdf-process
@@ -541,36 +539,36 @@ Press \texttt{C-x g} to open magit
 (load-library "org")
 \end{minted}
 \section{Git messenger}
-\label{sec:org979f605}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orged54b4f}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; Press C-c c to open git-messenge
 (global-set-key (kbd "C-c c") 'git-messenger:popup-message)
 (custom-set-variables
  '(git-messenger:use-magit-popup t))
 \end{minted}
 \section{Olivetti}
-\label{sec:orgeb0106b}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orga2438e5}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq olivetti-body-width 80)
 \end{minted}
 \section{Emojify}
-\label{sec:org507a52d}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org6dc4c6f}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;  (add-hook 'after-init-hook #'global-emojify-mode)
 \end{minted}
 \section{Ripgrep}
-\label{sec:orgeff08b2}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org8c9216e}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (global-set-key (kbd "<f5>") #'deadgrep)
 \end{minted}
 \section{Anzu search}
-\label{sec:org9370d1f}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org72077d0}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (global-anzu-mode +1)
 \end{minted}
 \section{Artist}
-\label{sec:orgdb06b03}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org6fced6a}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (put 'narrow-to-region 'disabled nil)
 
 ;; Disable the annoying warning of using org-element-at-point in
@@ -578,25 +576,25 @@ Press \texttt{C-x g} to open magit
 (setq warning-suppress-types '((org-element)))
 \end{minted}
 \section{Which key}
-\label{sec:orge420321}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org8582f04}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (which-key-mode)
 \end{minted}
 \section{Projectile}
-\label{sec:org90d805d}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org2d47d75}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 \end{minted}
 \section{Gemini protocol}
-\label{sec:org7f5f4e4}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org3ccf424}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (add-hook 'gemini-mode-hook '(lambda () (setq fill-column 80)))
 (add-hook 'gemini-mode-hook 'turn-on-auto-fill)
 \end{minted}
 \section{\LaTeX{} in org}
-\label{sec:org65e30da}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org16a26db}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq org-highlight-latex-and-related '(latex script entities))
 
 (add-to-list 'org-latex-classes
@@ -659,7 +657,83 @@ Press \texttt{C-x g} to open magit
 \\def\\N{\\mathbb{N}}
 \\def\\Q{\\mathbb{Q}}
 \\def\\noi{\\noindent}
+
 \\usemintedstyle{bw}
+\\setminted{fontsize=\\footnotesize,xleftmargin=0.75in,numbersep=5pt}
+
+[NO-DEFAULT-PACKAGES]
+[NO-PACKAGES]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+
+(add-to-list 'org-latex-classes
+             '("sandy-technical"
+               "\\documentclass[10pt]{article}
+\\usepackage[T1]{fontenc}
+\\usepackage[utf8]{inputenc}
+\\usepackage{graphicx}
+\\usepackage{longtable}
+\\usepackage{wrapfig}
+\\usepackage{rotating}
+\\usepackage[normalem]{ulem}
+\\usepackage{amsmath}
+\\usepackage{amssymb}
+\\usepackage{mathtools}
+\\usepackage{textcomp}
+\\usepackage{capt-of}
+\\usepackage{subcaption}
+\\usepackage{xfrac}
+\\usepackage[left=1in, right=1in, bottom=1in]{geometry}
+\\usepackage{marginnote}
+\\usepackage{color}
+\\usepackage{tikz}
+\\usepackage[onehalfspacing]{setspace}
+\\usepackage[p]{scholax}
+\\usepackage[scaled=1.075,ncf,vvarbb]{newtxmath}
+\\usepackage[nomath,variablett]{lmodern}
+\\usepackage{textgreek}
+\\renewcommand*{\\textgreekfontmap}{%
+{phv/*/*}{LGR/neohellenic/*/*}%
+{*/b/n}{LGR/artemisia/b/n}%
+{*/bx/n}{LGR/artemisia/bx/n}%
+{*/*/n}{LGR/artemisia/m/n}%
+{*/b/it}{LGR/artemisia/b/it}%
+{*/bx/it}{LGR/artemisia/bx/it}%
+{*/*/it}{LGR/artemisia/m/it}%
+{*/b/sl}{LGR/artemisia/b/sl}%
+{*/bx/sl}{LGR/artemisia/bx/sl}%
+{*/*/sl}{LGR/artemisia/m/sl}%
+{*/*/sc}{LGR/artemisia/m/sc}%
+{*/*/sco}{LGR/artemisia/m/sco}%
+}
+\\usepackage{microtype}
+\\makeatletter
+\\g@addto@macro\\@verbatim{\\microtypesetup{activate=false}}
+\\newcommand*{\\rom}[1]{\\expandafter\\@slowromancap\\romannumeral #1@}
+\\makeatother
+\\usepackage{minted}
+\\usepackage{hyperref}
+\\DeclarePairedDelimiterX{\\infdivx}[2]{(}{)}{%
+#1\\;\\delimsize\\|\\;#2%
+}
+\\newcommand{\\infdiv}{D\\infdivx}
+\\DeclarePairedDelimiter{\\norm}{\\lVert}{\\rVert}
+\\DeclarePairedDelimiter{\\ceil}{\\lceil}{\\rceil}
+\\DeclarePairedDelimiter{\\floor}{\\lfloor}{\\rfloor}
+\\def\\Z{\\mathbb{Z}}
+\\def\\R{\\mathbb{R}}
+\\def\\C{\\mathbb{C}}
+\\def\\N{\\mathbb{N}}
+\\def\\Q{\\mathbb{Q}}
+\\def\\noi{\\noindent}
+
+\\usemintedstyle{bw}
+\\setminted{fontsize=\\footnotesize,xleftmargin=0.5in,numbersep=5pt}
+
 [NO-DEFAULT-PACKAGES]
 [NO-PACKAGES]"
                ("\\section{%s}" . "\\section*{%s}")
@@ -669,25 +743,25 @@ Press \texttt{C-x g} to open magit
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 \end{minted}
 \section{Default GUI font}
-\label{sec:org1c65d87}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org2bc4986}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;;;(set-frame-font "InputMono 10" nil t)
 (set-face-attribute 'default nil :height 130)
 \end{minted}
 \section{Syntax highlight}
-\label{sec:org04fd023}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org4562bca}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (add-hook 'after-init-hook 'global-color-identifiers-mode)
 \end{minted}
 \section{MacOS stuff}
-\label{sec:org13b7527}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orgcb1c518}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 \end{minted}
 \section{Nano}
-\label{sec:org6f1b838}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org3a5aa0b}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; ---------------------------------------------------------------------
 ;; GNU Emacs / N \textLambda N O - Emacs made simple
 ;; Copyright (C) 2020 - N \textLambda N O developers
@@ -713,7 +787,7 @@ Press \texttt{C-x g} to open magit
                '(min-height . 1)  '(height     . 40)
                '(min-width  . 1) '(width      . 95)
                '(vertical-scroll-bars . nil)
-               '(internal-border-width . 30)
+               '(internal-border-width . 15)
                '(left-fringe    . 0)
                '(right-fringe   . 0)
                '(tool-bar-lines . 0)
@@ -755,29 +829,29 @@ Press \texttt{C-x g} to open magit
 (setq org-hide-emphasis-markers t)
 \end{minted}
 \section{Render latex in org mode}
-\label{sec:org63ba9d1}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org704c74b}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (add-hook 'org-mode-hook 'org-fragtog-mode)
 \end{minted}
 \section{Better search with ctrlf}
-\label{sec:orgcd834d0}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orged43aa1}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (ctrlf-mode +1)
 \end{minted}
 \section{Highlight current active line}
-\label{sec:org56292c6}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org684447b}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (global-hl-line-mode +1)
 \end{minted}
 \section{Native compilation}
-\label{sec:orgdbe9fd1}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org94c52c1}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq package-native-compile t)
 ;;(native-compile-async "~/.emacs.d/elpa" 'recursively) ;; <-- danger zone
 \end{minted}
 \section{Telephone line}
-\label{sec:orgf218d83}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org1064917}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (require 'telephone-line)
 
 (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
@@ -796,8 +870,8 @@ Press \texttt{C-x g} to open magit
 ;; (powerline-nano-theme)
 \end{minted}
 \section{Neotree}
-\label{sec:orgb602eaa}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org4dcdee3}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq neo-smart-open t)
 (global-set-key [f8] 'neotree-toggle)
 (setq neo-global--do-autorefresh t)
@@ -809,8 +883,8 @@ Press \texttt{C-x g} to open magit
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 \end{minted}
 \section{Marginalia}
-\label{sec:orgd109deb}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org07d8dd0}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; Enable richer annotations using the Marginalia package
 (use-package marginalia
   ;; Either bind `marginalia-cycle` globally or only in the minibuffer
@@ -831,8 +905,8 @@ Press \texttt{C-x g} to open magit
 (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
 \end{minted}
 \section{Vertico}
-\label{sec:orge3acd2e}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org503dc4c}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; Emacs 30.2 fails with vertico if compat isn't loaded first.
 (use-package compat
   :ensure t)
@@ -866,8 +940,8 @@ Press \texttt{C-x g} to open magit
    '(read-only t cursor-intangible t face minibuffer-prompt)))
 \end{minted}
 \section{Centaur tabs}
-\label{sec:orgf556fbc}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orga04065b}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (require 'centaur-tabs)
 (centaur-tabs-mode t)
 (global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
@@ -887,19 +961,19 @@ Press \texttt{C-x g} to open magit
 (setq centaur-tabs-close-button " ×")
 \end{minted}
 \section{Undo}
-\label{sec:org9229ae8}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org1155ab1}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (global-set-key (kbd "C-/") 'undo-only)
 (global-set-key (kbd "C-?") 'undo-redo)
 \end{minted}
 \section{Undo Tree}
-\label{sec:org601e830}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org815de05}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; (global-undo-tree-mode)
 \end{minted}
 \section{Origami}
-\label{sec:orga3fe54f}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org88185e2}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; (add-to-list 'load-path (expand-file-name "/Users/thecsw/.emacs.d/elpa/origami-20200331.1019/origami.el/"))
 ;; (global-origami-mode)
 
@@ -910,14 +984,14 @@ Press \texttt{C-x g} to open magit
 ;; (bind-key "C-c u" 'origami-previous-fold)
 \end{minted}
 \section{Raise the limits}
-\label{sec:org90fbaa7}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org1c24bab}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq max-lisp-eval-depth 10000)
 (setq max-specpdl-size 10000)
 \end{minted}
 \section{Copilot}
-\label{sec:orgda346f9}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org2c0ed76}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; We use copilot.el and not the LSP-provided one.
 (setq lsp-copilot-enabled nil)
 
@@ -926,14 +1000,14 @@ Press \texttt{C-x g} to open magit
 (global-set-key (kbd "M-[") 'copilot-previous-completion)
 \end{minted}
 \section{Dired-gitignore}
-\label{sec:orgfd06d52}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orgfb82662}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (define-key dired-mode-map (kbd "h") #'dired-gitignore-mode)
 ;; (add-hook 'dired-mode-hook 'dired-gitignore-mode)
 \end{minted}
 \section{Difftastic}
-\label{sec:org55b57ac}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org8319d6f}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (require 'difftastic)
 
 ;; Add commands to a `magit-difftastic'
@@ -949,13 +1023,13 @@ Press \texttt{C-x g} to open magit
                         "S" #'difftastic-magit-show)))
 \end{minted}
 \section{Writegood}
-\label{sec:org51a68da}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:org1539d50}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (global-set-key (kbd "C-x c") 'writegood-mode)
 \end{minted}
 \section{Smooth scrolling}
-\label{sec:orgadf2eec}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orgf6ee3ea}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (use-package ultra-scroll
   ;:vc (:url "https://github.com/jdtsmith/ultra-scroll") ; if desired (emacs>=v30)
   :init
@@ -965,14 +1039,14 @@ Press \texttt{C-x g} to open magit
   (ultra-scroll-mode 1))
 \end{minted}
 \section{Multiple Cursors}
-\label{sec:orgd76cce6}
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\label{sec:orgb2dc045}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (global-set-key (kbd "C-S-c C-S-c") 'mc/mark-all-like-this)
 \end{minted}
 \section{he-date.el}
-\label{sec:orgfd8e93d}
+\label{sec:org12652dc}
 This was written by chatgpt, I really do need to learn elisp.
-\begin{minted}[frame=lines,fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt,xleftmargin=0.25in]{common-lisp}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;;; he-date.el --- Convert ISO filename dates to Holocene date blocks -*- lexical-binding: t; -*-
 
 (defun he--ordinal (n)
