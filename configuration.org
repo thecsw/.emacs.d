@@ -623,7 +623,7 @@ Press =C-x g= to open magit
                  '(min-height . 1)  '(height     . 40)
                  '(min-width  . 1) '(width      . 95)
                  '(vertical-scroll-bars . nil)
-                 '(internal-border-width . 30)
+                 '(internal-border-width . 15)
                  '(left-fringe    . 0)
                  '(right-fringe   . 0)
                  '(tool-bar-lines . 0)
