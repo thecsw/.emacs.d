@@ -2,6 +2,7 @@
 #+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
 #+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+latex_class: sandy-article
 #+title: Sandy's .emacs.d
 #+date: 253; 12025 H.E.
 #+author: Sandy Urazayev
@@ -411,6 +412,7 @@ Press =C-x g= to open magit
   (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
   (setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/Library/Python/3.9/bin"))
   (setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/.nvm/versions/node/v22.13.1/bin"))
+  (setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/.local/share/mise/installs/python/3.12.12/bin"))
   (require 'org)
   (require 'ox-latex)
 
@@ -419,13 +421,13 @@ Press =C-x g= to open magit
   (require 'bibtex)
 
   (setq bibtex-autokey-year-length 4
-          bibtex-autokey-name-year-separator "-"
-          bibtex-autokey-year-title-separator "-"
-          bibtex-autokey-titleword-separator "-"
-          bibtex-autokey-titlewords 2
-          bibtex-autokey-titlewords-stretch 1
-          bibtex-autokey-titleword-length 5
-          org-ref-bibtex-hydra-key-binding (kbd "H-b"))
+        bibtex-autokey-name-year-separator "-"
+        bibtex-autokey-year-title-separator "-"
+        bibtex-autokey-titleword-separator "-"
+        bibtex-autokey-titlewords 2
+        bibtex-autokey-titlewords-stretch 1
+        bibtex-autokey-titleword-length 5
+        org-ref-bibtex-hydra-key-binding (kbd "H-b"))
 
   (define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
 
@@ -437,22 +439,20 @@ Press =C-x g= to open magit
           (emacs-lisp "common-lispcode")
           ))
   (setq org-latex-minted-options
-        '(("frame" "lines")
-          ("fontsize" "\\footnotesize")
-          ;;   ("linenos" "")
-          ("obeytabs" "")
-          ("mathescape" "")
-          ("numbersep" "5pt")
-          ("numbersep" "2mm")
+        '(("frame"       "lines")
+          ("fontsize"    "\\footnotesize")
+          ("obeytabs"    "true")        ;; also fix this one
+          ("mathescape"  "true")        ;; was ""
+          ("numbersep"   "5pt")
           ("xleftmargin" "0.25in")))
 
-  ;; Build nonstopmode with xelatex
+  ;; pdflatex build process
   (setq org-latex-pdf-process
-        '("xelatex -shell-escape -8bit -interaction nonstopmode -output-directory %o %b %f"
+        '("pdflatex -shell-escape -8bit -interaction nonstopmode -output-directory %o %f"
           "bibtex %b"
           "makeindex %b"
-          "xelatex -shell-escape -8bit -interaction nonstopmode -output-directory %o %b %f"
-          "xelatex -shell-escape -8bit -interaction nonstopmode -output-directory %o %b %f"))
+          "pdflatex -shell-escape -8bit -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -8bit -interaction nonstopmode -output-directory %o %f"))
 
   (setq org-src-fontify-natively t)
 
@@ -516,48 +516,28 @@ Press =C-x g= to open magit
   (add-to-list 'org-latex-classes
                '("sandy-article"
                  "\\documentclass[12pt]{article}
+  \\usepackage[T1]{fontenc}
+  \\usepackage[utf8]{inputenc}
   \\usepackage{graphicx}
-  \\usepackage{grffile}
   \\usepackage{longtable}
   \\usepackage{wrapfig}
   \\usepackage{rotating}
   \\usepackage[normalem]{ulem}
   \\usepackage{amsmath}
-  \\usepackage{textcomp}
   \\usepackage{amssymb}
-  \\usepackage{capt-of}
-  \\usepackage{hyperref}
-  \\usepackage{minted}
-  \\usepackage{amsmath}
-  \\usepackage{amssymb}
-  \\usepackage{setspace}
-  \\usepackage{subcaption}
   \\usepackage{mathtools}
+  \\usepackage{textcomp}
+  \\usepackage{capt-of}
+  \\usepackage{subcaption}
   \\usepackage{xfrac}
-  %\\usepackage{geometry}
   \\usepackage[left=1.4in, right=1.4in, bottom=1in]{geometry}
   \\usepackage{marginnote}
-  \\usepackage[utf8]{inputenc}
   \\usepackage{color}
-  \\usepackage{epsf}
   \\usepackage{tikz}
-  \\usepackage{graphicx}
-  \\usepackage{pslatex}
-  \\usepackage{hyperref}
-
-  %\\usepackage{beton}
-  %\\usepackage{euler}
-  %\\usepackage[OT1]{fontenc}
-
-  %\\usepackage[T1]{fontenc}
-  %\\usepackage{newpxtext,eulerpx}
-
+  \\usepackage[onehalfspacing]{setspace}
   \\usepackage[p]{scholax}
   \\usepackage[scaled=1.075,ncf,vvarbb]{newtxmath}
-
-  % this fixes wack monospace fonts and issues
   \\usepackage[nomath,variablett]{lmodern}
-
   \\usepackage{textgreek}
   \\renewcommand*{\\textgreekfontmap}{%
   {phv/*/*}{LGR/neohellenic/*/*}%
@@ -573,23 +553,26 @@ Press =C-x g= to open magit
   {*/*/sc}{LGR/artemisia/m/sc}%
   {*/*/sco}{LGR/artemisia/m/sco}%
   }
+  \\usepackage{microtype}
   \\makeatletter
+  \\g@addto@macro\\@verbatim{\\microtypesetup{activate=false}}
   \\newcommand*{\\rom}[1]{\\expandafter\\@slowromancap\\romannumeral #1@}
   \\makeatother
+  \\usepackage{minted}
+  \\usepackage{hyperref}
   \\DeclarePairedDelimiterX{\\infdivx}[2]{(}{)}{%
   #1\\;\\delimsize\\|\\;#2%
   }
   \\newcommand{\\infdiv}{D\\infdivx}
-  \\DeclarePairedDelimiter{\\norm}{\\left\\lVert}{\\right\\rVert}
-  \\DeclarePairedDelimiter{\\ceil}{\\left\\lceil}{\\right\\rceil}
-  \\DeclarePairedDelimiter{\\floor}{\\left\\lfloor}{\\right\\rfloor}
-  \\def\\Z{\\mathbb Z}
-  \\def\\R{\\mathbb R}
-  \\def\\C{\\mathbb C}
-  \\def\\N{\\mathbb N}
-  \\def\\Q{\\mathbb Q}
+  \\DeclarePairedDelimiter{\\norm}{\\lVert}{\\rVert}
+  \\DeclarePairedDelimiter{\\ceil}{\\lceil}{\\rceil}
+  \\DeclarePairedDelimiter{\\floor}{\\lfloor}{\\rfloor}
+  \\def\\Z{\\mathbb{Z}}
+  \\def\\R{\\mathbb{R}}
+  \\def\\C{\\mathbb{C}}
+  \\def\\N{\\mathbb{N}}
+  \\def\\Q{\\mathbb{Q}}
   \\def\\noi{\\noindent}
-  \\onehalfspace
   \\usemintedstyle{bw}
   [NO-DEFAULT-PACKAGES]
   [NO-PACKAGES]"
@@ -616,8 +599,8 @@ Press =C-x g= to open magit
 * Nano
 #+begin_src emacs-lisp
   ;; ---------------------------------------------------------------------
-  ;; GNU Emacs / N Λ N O - Emacs made simple
-  ;; Copyright (C) 2020 - N Λ N O developers
+  ;; GNU Emacs / N \textLambda N O - Emacs made simple
+  ;; Copyright (C) 2020 - N \textLambda N O developers
   ;;
   ;; This program is free software; you can redistribute it and/or modify
   ;; it under the terms of the GNU General Public License as published by
