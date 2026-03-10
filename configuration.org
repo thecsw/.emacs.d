@@ -988,3 +988,7 @@ This was written by chatgpt, I really do need to learn elisp.
 
   (provide 'he-date)
 #+end_src
+* aa2u
+#+begin_src emacs-lisp
+  (setq aa2u-light-weight "LIGHT")
+#+end_src

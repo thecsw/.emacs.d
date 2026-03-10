@@ -1,0 +1,203 @@
+This is truename-cache.info, produced by makeinfo version 6.8 from
+truename-cache.texi.
+
+INFO-DIR-SECTION Emacs
+START-INFO-DIR-ENTRY
+* Truename-Cache: (truename-cache). Efficiently de-dup file-names.
+END-INFO-DIR-ENTRY
+
+
+File: truename-cache.info,  Node: Top,  Next: Why?,  Up: (dir)
+
+truename-cache
+**************
+
+     [!WARNING] This is a BETA release!  Breaking changes are possible.
+
+   This Emacs library provides two things:
+
+  1. ‘truename-cache-get’: A caching alternative to ‘file-truename’.
+
+  2. ‘truename-cache-collect-files-and-attributes’: Basically an
+     alternative to ‘directory-files-recursively’ that pre-populates
+     cache and returns truenames while minimizing calls to
+     ‘file-truename’.
+
+* Menu:
+
+* Why?::
+* Bonus Merging lists::
+* Bonus Filtering::
+* Bonus Abbreviation::
+* Appendix On referring to inodes instead of truenames::
+
+
+File: truename-cache.info,  Node: Why?,  Next: Bonus Merging lists,  Prev: Top,  Up: Top
+
+1 Why?
+******
+
+Truenames are useful as a way to de-duplicate file lists and to
+cross-reference names in one list with names in another list.
+
+   But if you write code that just wraps every file name it encounters
+in ‘(file-truename FILE)’, it gets slow if you have large lists of file
+names.  It takes 1,000 milliseconds to process 1,000 file names on my
+machine.
+
+   That is unacceptable, at least in the use-case where you often scan a
+list of directories to see if any new files have appeared or any files
+were modified or deleted.
+
+   That’s the sort of thing that might be done as part of a user
+command.  If the command is to be pleasant to use, it must take less
+than 100 milliseconds so it feels "instant".  And you may be dealing
+with not 1,000 but 10,000 or even 100,000 files.
+
+   Sidenote for Elisp devs: It might occur to you that you can also
+de-dup by filesystem inodes.  See Appendix: On referring to inodes
+instead of truenames
+(https://github.com/meedstrom/truename-cache?tab=readme-ov-file#appendix-on-referring-to-inodes-instead-of-truenames).
+
+
+File: truename-cache.info,  Node: Bonus Merging lists,  Next: Bonus Filtering,  Prev: Why?,  Up: Top
+
+2 Bonus: Merging lists
+**********************
+
+The routine ‘truename-cache-collect-files-and-attributes’ can be used to
+merge multiple file lists and return de-duplicated truenames.
+
+   Why?  See some example file-lists in Emacs that may overlap a lot:
+
+   • Variable ‘recentf-list’
+   • Variable ‘org-agenda-text-search-extra-files’
+   • Variable ‘org-id-files’
+   • Variable ‘org-id-extra-files’
+   • Output of ‘(org-files-list)’
+   • Output of ‘(hash-table-values org-id-locations)’
+
+   Even if you ‘append’ and ‘seq-uniq’ these lists, a given file may
+still be represented multiple times under different names.
+
+   To merge, pass all your file-lists in the argument
+‘:infer-dirs-from’.  In truth, it doesn’t operate directly on any of the
+files given, it just infers their parent directories and then scans each
+directory once.  That turns out to be efficient, even if it’s likely to
+pull in more unique files than were mentioned by any name in the input.
+
+
+File: truename-cache.info,  Node: Bonus Filtering,  Next: Bonus Abbreviation,  Prev: Bonus Merging lists,  Up: Top
+
+3 Bonus: Filtering
+******************
+
+While you could simply let ‘truename-cache-collect-files-and-attributes’
+return a giant file list and filter it afterwards, there are two reasons
+to do some filtering through the arguments ‘:relative-file-deny’,
+‘:relative-dir-deny’ and/or ‘:full-dir-deny’ (which take lists of
+regular expressions).
+
+  1. They filter early, so you can avoid recursing into directories that
+     you were never gonna keep anyway – e.g.  the contents of ‘.git/’ or
+     ‘node_modules/’...
+
+     It can easily make the difference between a runtime of 2.00 seconds
+     and 0.02 seconds!  That is what happens inside my ‘~/.emacs.d/’
+     when I prevent recursion into ‘elpa/’, ‘elpaca/’ and ‘.git/’.
+
+  2. If you wanted to apply your filters to relative file names rather
+     than absolute names (which can fix surprising bugs
+     (https://github.com/org-roam/org-roam/pull/2178)), you’d ordinarily
+     have to use ‘(file-relative-name FILE DIR)’ on every file, and that
+     isn’t completely free either, keeping in mind our aforementioned
+     100 millisecond budget.
+
+     That’s why it provides ‘:relative-file-deny’, ‘:relative-dir-deny’.
+     Another bottleneck dodged.
+
+
+File: truename-cache.info,  Node: Bonus Abbreviation,  Next: Appendix On referring to inodes instead of truenames,  Prev: Bonus Filtering,  Up: Top
+
+4 Bonus: Abbreviation
+*********************
+
+Sometimes you do not want a true name, but a name abbreviated with
+‘abbreviate-file-name’.  For one thing, it’s just preferable to present
+such names to the user, but for another, that’s what will match the
+confusingly named buffer-local variable ‘buffer-file-truename’ – the
+actual truename will not.
+
+   (Even _more_ confusingly, the function ‘get-truename-buffer’ needs
+the actual truename...)
+
+   But ‘abbreviate-file-name’ is another thing that can consume much of
+our aforementioned 100 millisecond budget, all by itself.
+
+   So ‘truename-cache-collect-files-and-attributes’ can pre-abbreviate
+names for you with the argument ‘:abbrev 'full’.
+
+   This does it slightly more efficiently (informal benchmark: 50-75% of
+normal runtime), and much more if you also pass ‘:local-name-handlers
+nil’ (informal benchmark: 20% of normal runtime).
+
+     [!TIP] For those of you who roll your own code, you can get the
+     same effect by using a copy-pasted definition of
+     consult–fast-abbreviate-file-name
+     (https://github.com/minad/consult/blob/d1d39d52151a10f7ca29aa291886e99534cc94db/consult.el#L795-L809)
+     or come close by just let-binding ‘file-name-handlers-alist’ to
+     nil.
+
+     In that case, this library only sets itself apart from your
+     solution by the fact it falls back on ‘:remote-name-handlers’ if
+     remote names are encountered, in case that is needed for
+     correctness.
+
+
+File: truename-cache.info,  Node: Appendix On referring to inodes instead of truenames,  Prev: Bonus Abbreviation,  Up: Top
+
+5 Appendix: On referring to inodes instead of truenames
+*******************************************************
+
+I have a theory that if de-dup is all you want, it would be possible by
+making use of the Emacs 29 function ‘file-attribute-file-identifier’.
+
+   I’ve not tried that.  However, the truename-based method brings some
+upsides.
+
+  1. It’s more hacker-friendly: when something needs debugging, better
+     to see a file name than some meaningless inode number.
+
+  2. With inodes, you must make an arbitrary choice about which of any
+     two duplicates to keep as "canonical".
+
+  3. Once you have a list of true names, it is easy to sort, filter and
+     manipulate correctly.
+
+     The assumption that they are true leads to other safe assumptions,
+     such as that an alphabetic sort automatically groups by directory.
+
+     You can use trivial string comparisons like ‘string-prefix-p’ in
+     place of ‘file-in-directory-p’, saving performance (one is ~10,000x
+     slower than the other).
+
+     Example use-case: org-node–root-dirs
+     (https://github.com/meedstrom/org-node/blob/f9ef31aa212b33b79383c0c749e0003a69e697a2/org-node.el#L976),
+     which takes shortcuts because it knows the input is all truenames.
+
+
+
+Tag Table:
+Node: Top220
+Node: Why?883
+Node: Bonus Merging lists2046
+Node: Bonus Filtering3167
+Node: Bonus Abbreviation4545
+Node: Appendix On referring to inodes instead of truenames6194
+
+End Tag Table
+
+
+Local Variables:
+coding: utf-8
+End:

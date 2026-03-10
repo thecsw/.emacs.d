@@ -1,0 +1,814 @@
+;;; org-mem-parser.el --- Gotta go fast -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024-2026 Free Software Foundation, Inc.
+;;
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; For a full copy of the GNU General Public License
+;; see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; This file is worker code meant for child processes.
+;; It should load no libraries at runtime nor enable any major mode.
+
+;;; Code:
+
+;; TODO: Consider deleting the list of links as a separate list at all, and
+;; instead store list of links as one of the entry's fields.  That is
+;; consistent with how we store active timestamps and keywords too.
+
+(eval-when-compile
+  (require 'cl-lib)
+  (require 'subr-x))
+
+;; Tell compiler these aren't free variables
+(defvar $plain-re)
+(defvar $bracket-re)
+(defvar $merged-re)
+(defvar $default-todo-re)
+(defvar $nonheritable-tags)
+(defvar $inlinetask-min-level)
+(defvar $use-tag-inheritance)
+(defvar $ignore-regions-regexps)
+
+(defun org-mem-parser--make-todo-regexp (s)
+  "Build a regexp from keyword string S.
+S is expected to be the sort of thing you see after
+a #+todo: or #+seq_todo: or #+typ_todo: setting in an Org file.
+
+The resulting regexp should be able to match any of
+the custom TODO words thus defined."
+  (let* ((words)
+         (pos (string-search "[ ]" s)))
+    (when pos
+      ;; Special-case Doom's [ ] keyword.
+      ;; https://github.com/orgs/doomemacs/discussions/74
+      (setq s (concat (substring s 0 pos)
+                      (substring s (+ 3 pos)))))
+    (setq words (thread-last s
+                             (replace-regexp-in-string "(.*?)" "")
+                             (string-replace "|" "")
+                             (string-trim)
+                             (split-string)))
+    (when pos (push "[ ]" words))
+    (regexp-opt words)))
+
+(defun org-mem-parser--mk-id (file-attribs entry-string)
+  "Return a bignum that represents an entry.
+ENTRY-STRING is the text of the entry from
+`org-entry-beginning-position' to `org-entry-end-position'.
+FILE-ATTRIBS is the `file-attributes' of the file.
+
+This can be used as a semi-stable identifier for Org entries that lack a
+stable property such as an ID.
+It changes every time the entry changes in any way, other than
+position or line number.
+Results are identical if there are two identical entries in the same
+file, however org-mem-parser uses a work-around for that.
+
+It is stable enough for use-cases such as caching backlink previews,
+since the majority of entries are typically left unchanged over weeks."
+  (+ (sxhash (file-attribute-file-identifier file-attribs))
+     (string-to-number (md5 entry-string) 16)))
+
+(defun org-mem-parser--org-link-display-format (s)
+  "Copy of `org-link-display-format'.
+Format string S for display - this means replace every link inside S
+with only their description if they have one, and in any case strip the
+brackets."
+  (replace-regexp-in-string
+   $bracket-re
+   (lambda (m) (or (match-string 2 m) (match-string 1 m)))
+   s nil t))
+
+(defconst org-mem-parser--org-ts-regexp0
+  "\\(\\([0-9]\\{4\\}\\)-\\([0-9]\\{2\\}\\)-\\([0-9]\\{2\\}\\)\\( +[^]+0-9>\r\n -]+\\)?\\( +\\([0-9]\\{1,2\\}\\):\\([0-9]\\{2\\}\\)\\)?\\)"
+  "Copy of `org-ts-regexp0'.")
+
+(defun org-mem-parser--time-string-to-int (s)
+  "Parse the first Org timestamp in string S and return as integer."
+  (if (not (string-match org-mem-parser--org-ts-regexp0 s))
+      (if (string-search "%%(" s)
+          ;; HACK: This looks like a "diary sexp" such as:
+          ;;     <%%(memq (calendar-day-of-week date) '(1 2 3 4 5)))>
+          ;; Return nil in this case, which should be safe because (as of
+          ;; 2025-06-06) the only way this function would be called with such
+          ;; a string S, is on a planning-line (CLOSED, SCHEDULED or DEADLINE),
+          ;; where nil is valid.
+          ;; FIXME: This is "safe" in the sense that the program won't break,
+          ;; but it means `org-mem-entry-scheduled' & co are not faithful.
+          ;; https://github.com/meedstrom/org-mem/issues/21
+          nil
+        (error "Code 11: Not an Org time string: %s" s))
+    ;; Copypasta `org-parse-time-string', faster than `parse-time-string'.
+    (let ((ts (list 0
+	            (cond ((match-beginning 8)
+                           (string-to-number (match-string 8 s)))
+	                  (t 0))
+	            (cond ((match-beginning 7)
+                           (string-to-number (match-string 7 s)))
+	                  (t 0))
+	            (string-to-number (match-string 4 s))
+	            (string-to-number (match-string 3 s))
+	            (string-to-number (match-string 2 s))
+	            nil -1 nil)))
+      (and ts (time-convert (encode-time ts) 'integer)))))
+
+
+;;; Links, citations and active timestamps
+
+(defvar org-mem-parser--found-keywords nil)
+(defvar org-mem-parser--found-links nil)
+(defvar org-mem-parser--found-active-stamps nil)
+(defconst org-mem-parser--org-ts-regexp
+  "<\\([[:digit:]]\\{4\\}-[[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}\\(?: .*?\\)?\\)>"
+  "Copy of `org-ts-regexp'.")
+
+(defun org-mem-parser--merge-overlapping-regions (regions)
+  "Sort and simplify REGIONS, an alist of positions \((BEG . END)).
+When one region overlaps with the next, merge the two."
+  (let (safe)
+    (setq regions (sort regions (lambda (a b) (< (car a) (car b)))))
+    (while regions
+      (if (length> regions 1)
+          (cl-destructuring-bind ((beg . end) (next-beg . next-end) . rest) regions
+            (if (>= end next-beg)
+                (progn
+                  (setcar regions (cons beg (max end next-end)))
+                  (setcdr regions (cddr regions)))
+              (push (pop regions) safe)))
+        (push (pop regions) safe)))
+    (nreverse safe)))
+
+(defun org-mem-parser--scan-visible-text (id-here file entry-pseudo-id)
+  "Call `org-mem-parser--scan-text-until', which see for arguments.
+Use the whole visible buffer, but skip regions indicated by
+`org-mem-ignore-regions-regexps'.  Leave point at the end of buffer."
+  (goto-char (point-min))
+  (let (regions)
+    (cl-loop
+     for (beg-re . end-re) in $ignore-regions-regexps
+     do (save-excursion
+          (while (re-search-forward beg-re nil t)
+            (push (cons (match-beginning 0)
+                        (or (re-search-forward end-re nil t)
+                            (error "Code 18: Matched BEG-RE but not END-RE: %s"
+                                   beg-re)))
+                  regions))))
+    (cl-loop
+     for (beg . end) in (org-mem-parser--merge-overlapping-regions regions)
+     do
+     (org-mem-parser--scan-text-until beg id-here file entry-pseudo-id)
+     (goto-char end)))
+  (unless (eobp)
+    (org-mem-parser--scan-text-until nil id-here file entry-pseudo-id)))
+
+(defun org-mem-parser--scan-text-until (end id-here file entry-pseudo-id)
+  "From here to buffer position END, collect links and active timestamps.
+
+Argument ID-HERE is the ID of the subtree where this function is being
+executed (or that of an ancestor heading, if the current subtree has
+none), to be included in each link's metadata.  FILE and
+PSEUDO-ID likewise.
+
+It is important that END does not extend past any sub-heading, as
+the subheading potentially has an ID of its own."
+  (let ((beg (point))
+        LINK-TYPE LINK-PATH LINK-POS LINK-DESC SUPPLEMENT)
+    ;; Here it may help to know that:
+    ;; - `$plain-re' will be morally the same as `org-link-plain-re'
+    ;; - `$merged-re' merges the above with `org-link-bracket-re'
+    (while (re-search-forward $merged-re end t)
+      ;; Record same position that `org-roam-db-map-links' does.
+      (setq LINK-POS (- (match-end 0) 1))
+      (setq LINK-PATH (match-string 1))
+      (setq LINK-DESC (match-string 2))
+      (if LINK-PATH
+          ;; Link is the [[bracketed]] kind.
+          (let ((colon-pos (string-search ":" LINK-PATH)))
+            (if (and colon-pos
+                     (length> LINK-PATH (1+ colon-pos))
+                     (not (eq ?: (aref LINK-PATH (1+ colon-pos))))
+                     (not (eq ?\s (aref LINK-PATH (1+ colon-pos)))))
+                ;; Guess that this is a valid URI: type link
+                (setq LINK-TYPE (substring LINK-PATH 0 colon-pos)
+                      LINK-PATH (substring LINK-PATH (1+ colon-pos)))
+              (setq LINK-TYPE nil)))
+        ;; Link is the unbracketed kind and matched `org-mem-seek-link-types'.
+        (setq LINK-TYPE (match-string 3)
+              LINK-PATH (match-string 4)))
+
+      (unless (save-excursion
+                ;; If point is in a # comment line, skip
+                (goto-char (pos-bol))
+                (looking-at-p "[\s\t]*# "))
+        ;; Handle a special case opened by Org 9.7 `org-id-link-use-context'
+        (setq SUPPLEMENT nil)
+        (when (equal LINK-TYPE "id")
+          (let ((chop (string-search "::" LINK-PATH)))
+            (when chop
+              (setq SUPPLEMENT (substring LINK-PATH (+ 2 chop))
+                    LINK-PATH (substring LINK-PATH 0 chop)))))
+        (push (record 'org-mem-link
+                      file
+                      LINK-POS
+                      LINK-TYPE
+                      (string-replace "%20" " " LINK-PATH) ; nicety, but will regret
+                      LINK-DESC
+                      nil
+                      id-here
+                      SUPPLEMENT
+                      entry-pseudo-id)
+              org-mem-parser--found-links)
+        ;; TODO: Fish any org-ref v3 &citekeys out of LINK-PATH and make a new link
+        ;;       object for each.  Then stop including &citekeys in below step.
+        ))
+
+    ;; Start over and look for @citekeys
+    ;; TODO: Make less permissive after we only look for org 9.5 citations here
+    (goto-char beg)
+    (while (search-forward "[cite" end t)
+      (when-let* ((closing-bracket (save-excursion
+                                     (or (search-forward "]" end t)
+                                         (error "Code 17: No closing bracket to \"[cite:\""))))
+                  (colon (search-forward ":" closing-bracket t)))
+        ;; Use a modified `org-element-citation-key-re'
+        (while (re-search-forward "[&@][!#-+./:<>-@^-`{-~[:word:]-]+"
+                                  closing-bracket
+                                  t)
+          ;; Record same position that `org-roam-db-map-citations' does
+          (setq LINK-POS (1+ (match-beginning 0)))
+          (setq LINK-DESC (buffer-substring colon (1- closing-bracket)))
+          (if (save-excursion
+                (goto-char (pos-bol))
+                (looking-at-p "[\s\t]*# "))
+              ;; On a # comment, skip citation
+              (goto-char closing-bracket)
+            (push (record 'org-mem-link
+                          file
+                          LINK-POS
+                          "cite"
+                          ;; Replace & with @ like `org-mem--split-roam-refs-field'
+                          (concat "@" (substring (match-string 0) 1))
+                          LINK-DESC
+                          t
+                          id-here
+                          nil
+                          entry-pseudo-id)
+                  org-mem-parser--found-links)))))
+
+    ;; Start over and look for active timestamps
+    (goto-char beg)
+    (while (re-search-forward org-mem-parser--org-ts-regexp end t)
+      (push (org-mem-parser--time-string-to-int (match-string 0))
+            org-mem-parser--found-active-stamps))
+
+    ;; Start over and look for #+keywords
+    (goto-char beg)
+    (setq org-mem-parser--found-keywords
+          (nconc (org-mem-parser--collect-keywords end)
+                 org-mem-parser--found-keywords)))
+  (goto-char (or end (point-max))))
+
+
+;;; Properties
+
+(defun org-mem-parser--collect-properties (beg end)
+  "Collect Org properties between BEG and END into an alist.
+Assumes BEG and END are buffer positions delimiting a region in
+between buffer substrings \":PROPERTIES:\" and \":END:\"."
+  (let (alist START VALUE)
+    (goto-char beg)
+    (while (< (point) end)
+      (skip-chars-forward "\s\t")
+      (unless (looking-at-p ":")
+        (error "Code 5: Possibly malformed property drawer"))
+      (forward-char)
+      (when (eolp)
+        (error "Code 6: Possibly malformed property drawer"))
+      (setq START (point))
+      (unless (search-forward ":" (pos-eol) t)
+        (error "Code 7: Possibly malformed property drawer"))
+      ;; In the wild you see some :MULTIPLE:COLONS:IN:NAME: properties, which
+      ;; would make this condition nil.  But they are illegal according to
+      ;; `org-property-drawer-re', so don't bother to collect it.
+      (when (looking-at-p " ")
+        (setq VALUE (string-trim (buffer-substring (point) (pos-eol))))
+        (push (cons (upcase (buffer-substring START (1- (point))))
+                    ;; Emulate `org-entry-get' special case for string "nil"
+                    (if (equal VALUE "nil") nil VALUE))
+              alist))
+      (forward-line 1))
+    alist))
+
+
+;;; Keywords
+
+(defconst org-mem-parser--org-keyword-regexp "^[ 	]*#\\+\\(\\S-+?\\):[ 	]*\\(.*\\)$"
+  "Copy of `org-keyword-regexp'.")
+
+(defun org-mem-parser--merge-same-keywords (keywords)
+  "In alist KEYWORDS, de-dup the cars by appending the cdrs."
+  (let (new-alist)
+    (cl-loop for (key . value) in keywords
+             do (if-let* ((cell (assoc key new-alist)))
+                    (setcdr cell (append value (cdr cell)))
+                  (push (cons key value) new-alist)))
+    (cl-loop for cell in new-alist do (setcdr cell (reverse (cdr cell))))
+    (nreverse new-alist)))
+
+(defun org-mem-parser--collect-keywords (end)
+  "Search for #+KEYWORDS: until position END, and return an alist."
+  (cl-loop
+   while (re-search-forward org-mem-parser--org-keyword-regexp end t)
+   collect (cons (upcase (match-string 1)) (list (match-string 2)))))
+
+
+;;; Main
+
+(defconst org-mem-parser--org-drawer-regexp
+  "^[ \t]*:[_[:word:]-]+:[ \t]*$")
+(defconst org-mem-parser--todo-keyword-re
+  (rx bol (* space) (or "#+todo: " "#+seq_todo: " "#+typ_todo: ")))
+
+(defvar org-mem-parser--outline-regexp nil)
+(defvar org-mem-parser--buf nil)
+
+(defun org-mem-parser--dirty-setup-if-edebug ()
+  "Maybe irreversibly mutate the environment!"
+  ;; In the normal case, this is only ever called in a subprocess, where these
+  ;; conditions fail because only org-mem-parser.el is loaded, not org-mem.el.
+  (when (and (fboundp 'org-mem--mk-work-vars)
+             (boundp 'org-mem-load-features)
+             (boundp 'org-mem-inject-vars))
+    ;; If we are edebugging `org-mem-parser--parse-file' and passing it a FILE
+    ;; directly, these variables have not been set (normally el-job would take
+    ;; care of it, but el-job was never called).  Set them now.
+    (dolist (var (org-mem--mk-work-vars))
+      (set (car var) (cdr var)))
+    (dolist (var (el-job-ng-vars org-mem-inject-vars))
+      (cl-assert (consp var))
+      (unless (equal (symbol-value (car var)) (cdr var))
+        (when (y-or-n-p (format "Globally set %S?  To: %s"
+                                (car var) (cdr var)))
+          (set (car var) (cdr var)))))
+    (dolist (lib org-mem-load-features)
+      (require lib))))
+
+(defun org-mem-parser--init ()
+  "Initialize things, then become a no-op in the normal case."
+  (unless (eq org-mem-parser--buf (current-buffer))
+    (switch-to-buffer
+     (setq org-mem-parser--buf (get-buffer-create " *org-mem-parser*" t))))
+  (unless org-mem-parser--outline-regexp
+    (setq org-mem-parser--outline-regexp
+          (if $inlinetask-min-level
+              (rx-to-string
+               `(seq bol (repeat 1 ,(1- $inlinetask-min-level) "*") " "))
+            (rx bol (repeat 1 14 "*") " ")))))
+
+(defun org-mem-parser--parse-file (file &optional _)
+  "Gather entries, links and other data in FILE."
+  (org-mem-parser--dirty-setup-if-edebug)
+  (org-mem-parser--init)
+  (setq org-mem-parser--found-keywords nil)
+  (setq org-mem-parser--found-links nil)
+  (setq org-mem-parser--found-active-stamps nil)
+  (let ((case-fold-search t)
+        (buffer-read-only t)
+        bad-path
+        found-entries
+        file-datum
+        file-attr
+        problem
+        coding-system
+        seen-hashes
+        ;; Upcased names change value a lot, take care to keep correct.
+        ID ID-HERE HASH PSEUDO-ID
+        TAGS USE-TAG-INHERITANCE NONHERITABLE-TAGS
+        TITLE HEADING-POS LNUM CRUMBS CLOCK-LINES
+        TODO-STATE STATS-COOKIES INITIAL-STATS-COOKIES
+        SCHEDULED DEADLINE CLOSED PRIORITY LEVEL PROPERTIES
+        LEFT RIGHT
+        (TODO-RE $default-todo-re))
+    (condition-case err
+        (progn
+          (when (not (file-exists-p file))
+            (setq bad-path file)
+            (signal 'skip-file t))
+          (when (file-symlink-p file)
+            (setq bad-path file)
+            (signal 'skip-file t))
+          (when (not (file-readable-p file))
+            ;; NOTE: Don't declare it a bad-path, that'd delist it from
+            ;;       org-id-locations, which the user may not want.
+            (error "Code 8: File not readable"))
+          ;; NOTE: Don't use `insert-file-contents-literally'!  It sets
+          ;; `coding-system-for-read' to `no-conversion', which results in
+          ;; wrong values for HEADING-POS when the file contains any multibyte.
+          (let ((inhibit-read-only t))
+            (erase-buffer)
+            (insert-file-contents file)
+            (setq coding-system last-coding-system-used)
+            ;; Better get the attributes now at the same time we read the file,
+            ;; on the off-chance it gets altered in the time between parsing
+            ;; it and getting its attributes.
+            (setq file-attr (file-attributes file 'integer)))
+
+          ;; Apply relevant dir-locals and file-locals.
+          ;; NOTE: Some variables you'd think would work in .dir-locals.el,
+          ;;       such as `org-todo-keywords', don't work, so don't bother
+          ;;       emulating support here.
+          ;;       (For that sort of purpose, Org provides the #+SETUPFILE option,
+          ;;       https://lists.gnu.org/r/emacs-orgmode/2020-05/msg00510.html)
+          ;;       TODO: Read any #+SETUPFILE.
+          (let* ((dir-or-cache (dir-locals-find-file file))
+                 (dir-class-vars (dir-locals-get-class-variables
+                                  (if (listp dir-or-cache)
+                                      (nth 1 dir-or-cache)
+                                    (dir-locals-read-from-dir
+                                     (file-name-directory file)))))
+                 ;; FIXME: `hack-local-variables--find-variables' can cause
+                 ;; errors if you have a #+BEGIN_SRC block containing a block
+                 ;; of Local Variables, especially if it is mis-formatted in
+                 ;; any way.
+                 ;; We do `ignore-errors' here just in case, but that'll also
+                 ;; skip any actual Local Variables at the end of file when
+                 ;; there is such an error.
+                 ;; Unfortunate, but not horrible.
+                 (all-locals (append (ignore-errors (hack-local-variables--find-variables))
+                                     (hack-local-variables-prop-line)
+                                     (cdr (assq 'org-mode dir-class-vars))
+                                     (cdr (assq 'text-mode dir-class-vars))
+                                     (cdr (assq nil dir-class-vars)))))
+            (let ((x (assq 'org-use-tag-inheritance all-locals)))
+              (setq USE-TAG-INHERITANCE (if x (cdr x)
+                                          $use-tag-inheritance)))
+            (let ((x (assq 'org-tags-exclude-from-inheritance all-locals)))
+              (setq NONHERITABLE-TAGS (if x (cdr x)
+                                        $nonheritable-tags))))
+
+          ;; Scan content before first heading, if any
+
+          (while (looking-at-p (rx (*? space) (or "# " "\n")))
+            (forward-line))
+          (unless (looking-at-p "\\*")
+            ;; Narrow until first heading, if there is one
+            (save-excursion
+              (when (re-search-forward org-mem-parser--outline-regexp nil t)
+                (narrow-to-region (point-min) (pos-bol))))
+            ;; We can safely assume that if there's a properties drawer,
+            ;; it's the first drawer AND it comes before any #+keyword, at
+            ;; least going by the behavior of `org-id-get'.
+            (when (looking-at "^[ \t]*:PROPERTIES:")
+              (goto-char (match-end 0))
+              (unless (looking-at-p "[ \t]*$")
+                (error "Code 13: Likely malformed :PROPERTIES: line"))
+              (forward-line)
+              (setq PROPERTIES (org-mem-parser--collect-properties
+                           (point)
+                           (if (re-search-forward "^[ \t]*:END:[ \t]*$" nil t)
+                               (pos-bol)
+                             (error "Code 14: Could not find :END: of drawer"))))
+              (setq ID (cdr (assoc "ID" PROPERTIES)))
+              (forward-line))
+            ;; PERF: Find tight boundaries for later searches.
+            (setq LEFT (point))
+            (while (or (looking-at-p (rx (*? space) (or "# " "\n")))
+                       (and (looking-at-p org-mem-parser--org-drawer-regexp)
+                            (re-search-forward "^[ \t]*:END:[ \t]*$")))
+              (forward-line))
+            (while (looking-at-p (rx (*? space) (or "#+" "# " "\n")))
+              (forward-line))
+            (setq RIGHT (point)) ;; End of the "front matter".
+
+            ;; TODO: Instead of searching manually for #+title & #+filetags,
+            ;; use the info from `org-mem-parser--found-keywords' (which is
+            ;; populated by `org-mem-parser--scan-visible-text').
+            (goto-char LEFT)
+            (when (re-search-forward "^#\\+FILETAGS:" RIGHT t)
+              (when (not (eolp))
+                (when (= 0 (skip-chars-forward " "))
+                  (error "Code 15: A #+FILETAGS: keyword is missing space"))
+                (setq TAGS (split-string (buffer-substring (point) (pos-eol))
+                                         ":" t))))
+            (goto-char LEFT)
+            (let (collected-todo-lines)
+              (while (re-search-forward org-mem-parser--todo-keyword-re RIGHT t)
+                (push (buffer-substring (point) (pos-eol))
+                      collected-todo-lines))
+              (when collected-todo-lines
+                (setq TODO-RE (org-mem-parser--make-todo-regexp
+                               (string-join collected-todo-lines " ")))))
+            (goto-char LEFT)
+            (when (re-search-forward "^#\\+TITLE:" RIGHT t)
+              (when (not (eolp))
+                (when (= 0 (skip-chars-forward " "))
+                  (error "Code 16: A #+TITLE: keyword is missing space"))
+                (setq TITLE (string-trim-right
+                             (org-mem-parser--org-link-display-format
+                              (buffer-substring (point) (pos-eol)))))))
+            (when (string-empty-p TITLE)
+              (setq TITLE nil))
+            (let ((heritable-tags
+                   (and USE-TAG-INHERITANCE
+                        (seq-difference TAGS NONHERITABLE-TAGS))))
+              (push (list 0 1 1 TITLE ID heritable-tags PROPERTIES) CRUMBS))
+
+            (setq PSEUDO-ID (org-mem-parser--mk-id file-attr (buffer-string)))
+            (push PSEUDO-ID seen-hashes)
+            (org-mem-parser--scan-visible-text ID file PSEUDO-ID)
+
+            (goto-char (point-max))
+            ;; We should now be at the first heading.
+            (widen))
+          (unless PSEUDO-ID
+            (setq PSEUDO-ID (org-mem-parser--mk-id file-attr ""))
+            (push PSEUDO-ID seen-hashes))
+          (push (record 'org-mem-entry
+                        file
+                        1
+                        1
+                        TITLE
+                        0
+                        ID
+                        org-mem-parser--found-active-stamps
+                        nil
+                        nil
+                        CRUMBS
+                        nil
+                        nil
+                        nil
+                        PROPERTIES
+                        nil
+                        nil
+                        nil
+                        TAGS
+                        nil
+                        PSEUDO-ID
+                        (org-mem-parser--merge-same-keywords
+                         org-mem-parser--found-keywords))
+                found-entries)
+
+          ;; Prep
+          (unless CRUMBS
+            (push (list 0 1 1 nil nil nil nil) CRUMBS))
+          (setq LNUM (line-number-at-pos))
+
+          ;; Loop over the file's headings
+
+          (while (not (eobp))
+            ;; Narrow til next heading
+            (narrow-to-region
+             (point)
+             (save-excursion
+               (forward-char) ;; Prevent matching same line forever
+               (if (re-search-forward org-mem-parser--outline-regexp nil t)
+                   (pos-bol)
+                 (point-max))))
+            (setq org-mem-parser--found-active-stamps nil)
+            (setq org-mem-parser--found-keywords nil)
+            (setq STATS-COOKIES nil)
+            (setq INITIAL-STATS-COOKIES nil)
+            (setq CLOCK-LINES nil)
+            (setq HEADING-POS (point))
+            (setq LEVEL (skip-chars-forward "*"))
+            (skip-chars-forward " ")
+            ;; NOTE: Org seems to expect todo and priority in a strict order,
+            ;;       and before anything else.  Good for us.
+            (let ((case-fold-search nil))
+              (setq TODO-STATE (and (looking-at TODO-RE)
+                                    (prog1 (match-string 0)
+                                      (goto-char (match-end 0))
+                                      (skip-chars-forward " "))))
+              (setq PRIORITY (and (looking-at "\\[#[A-Z0-9]+\\]")
+                                  (prog1 (match-string 0)
+                                    (goto-char (match-end 0))
+                                    (skip-chars-forward "\s\t")))))
+            ;; NOTE: From here on, Org seems to permit tabs.
+            (while (looking-at "\\[[0-9/%]+]")
+              (push (match-string 0) INITIAL-STATS-COOKIES)
+              (goto-char (match-end 0))
+              (skip-chars-forward "\s\t"))
+            (setq LEFT (point))
+
+            ;; Any tags in heading?
+            (if (re-search-forward "[ \t]+:\\([^ ]+\\):[ \t]*$" (pos-eol) t)
+                (progn
+                  (goto-char (match-beginning 0))
+                  (setq TAGS (split-string (match-string 1) ":" t)))
+              (goto-char (pos-eol))
+              (setq TAGS nil))
+            (setq RIGHT (point))
+
+            (skip-chars-backward "\s\t")
+            (if (< (point) LEFT)
+                (setq TITLE "")
+              ;; Get the rest of the stats-cookies, and make sure we will leave
+              ;; trailing stats-cookies out of the title.
+              ;; For example, the hypothetical heading:
+              ;; "** [2/10] Foo [5/10] Bar [1/10] [20%]"
+              ;; should be represented as an entry titled "Foo [5/10] Bar".
+              ;; https://github.com/meedstrom/org-mem/issues/22
+              (setq RIGHT (point))
+              (while (re-search-backward "\\[[0-9/%]+]" LEFT t)
+                (push (match-string 0) STATS-COOKIES)
+                (when (eq (match-end 0) RIGHT)
+                  (skip-chars-backward "\s\t")
+                  (if (< (point) LEFT)
+                      (goto-char LEFT)
+                    (setq RIGHT (point)))))
+              (setq TITLE (string-trim-right
+                           (org-mem-parser--org-link-display-format
+                            (buffer-substring LEFT RIGHT)))))
+            ;; Put the cookies in the same order as they occurred in the heading.
+            (setq STATS-COOKIES (nconc (nreverse INITIAL-STATS-COOKIES) STATS-COOKIES))
+
+            ;; See if the next line is a planning-line
+            (forward-line 1)
+            (setq LEFT (point))
+            (setq RIGHT (pos-eol))
+            (setq SCHEDULED
+                  (and (re-search-forward "[ \t]*SCHEDULED: +" RIGHT t)
+                       (org-mem-parser--time-string-to-int
+                        (buffer-substring
+                         (point)
+                         (+ (point) (skip-chars-forward "^]>\n"))))))
+            (goto-char LEFT)
+            (setq DEADLINE
+                  (and (re-search-forward "[ \t]*DEADLINE: +" RIGHT t)
+                       (org-mem-parser--time-string-to-int
+                        (buffer-substring
+                         (point)
+                         (+ (point) (skip-chars-forward "^]>\n"))))))
+            (goto-char LEFT)
+            (setq CLOSED
+                  (and (re-search-forward "[ \t]*CLOSED: +" RIGHT t)
+                       (org-mem-parser--time-string-to-int
+                        (buffer-substring
+                         (point)
+                         (+ (point) (skip-chars-forward "^]>\n"))))))
+            (when (or SCHEDULED DEADLINE CLOSED)
+              ;; Alright, so there was a planning-line, meaning any
+              ;; :PROPERTIES: are not on this line, but the next.
+              (forward-line 1))
+
+            (setq PROPERTIES
+                  (if (looking-at-p "[ \t]*:PROPERTIES:")
+                      (progn
+                        (forward-line 1)
+                        (org-mem-parser--collect-properties
+                         (point)
+                         (if (re-search-forward "^[ \t]*:END:[ \t]*$" nil t)
+                             (pos-bol)
+                           (error "Code 9: Couldn't find :END: of drawer"))))
+                    nil))
+            (setq ID (cdr (assoc "ID" PROPERTIES)))
+            (setq LEFT (point))
+            ;; Rough start of body text (just a perf hack, fails gracefully)
+            (setq RIGHT (re-search-forward "^[ \t]*[a-bd-z]" nil t))
+
+            (goto-char LEFT)
+            (while (re-search-forward "^[ \t]*CLOCK: " RIGHT t)
+              (let ((clock-start
+                     (org-mem-parser--time-string-to-int
+                      (buffer-substring (point)
+                                        (or (search-forward "--" (pos-eol) :move)
+                                            (point)))))
+                    (clock-end
+                     (unless (eolp)
+                       (org-mem-parser--time-string-to-int
+                        (buffer-substring (point)
+                                          (or (search-forward "=>" (pos-eol) :move)
+                                              (point))))))
+                    (clock-seconds
+                     (and (not (eolp))
+                          (search-forward ":" (pos-eol) t)
+                          (* 60
+                             (+ (number-at-point)
+                                (progn (backward-char)
+                                       (* 60 (number-at-point))))))))
+                (when (null clock-start)
+                  (error "Code 10: Unusual clock line: \"%s\""
+                         (buffer-substring (pos-bol) (pos-eol))))
+                (push (if clock-end (list clock-start clock-end clock-seconds)
+                        (list clock-start))
+                      CLOCK-LINES)))
+
+            ;; Since we're in a narrowed buffer, hashing the `buffer-string'
+            ;; summarizes all possible info about the entry other than its
+            ;; position (and its containing file).  That is perfect as a
+            ;; pseudo-ID that stays the same for a given entry even if the
+            ;; containing file is later edited somewhere above that entry
+            ;; (which would change all positions).
+            (setq HASH (org-mem-parser--mk-id file-attr (buffer-string)))
+            ;; Handle the rare case of two identical entries.
+            (while (member HASH seen-hashes) (cl-incf HASH))
+            (push HASH seen-hashes)
+            (setq PSEUDO-ID HASH)
+
+            ;; `CRUMBS' is kind of a state machine; a list that can look like
+            ;;    ((3 23 500 "Heading" "id1234" ("noexport" "work" "urgent"))
+            ;;     (2 10 122 "Another heading" "id6532" ("work"))
+            ;;     (... ... ... ...))
+            ;; if the previous heading (on line 23, char 500) looked like
+            ;;    *** Heading  :noexport:work:urgent:
+            ;;       :PROPERTIES:
+            ;;       :ID: id1234
+            ;;       :END:
+            ;; It lets us track context so we know the outline path to the
+            ;; current entry and what tags it should be able to inherit.
+            (cl-loop until (> LEVEL (caar CRUMBS)) do (pop CRUMBS))
+            (let ((heritable-tags
+                   (and USE-TAG-INHERITANCE
+                        (cl-loop for tag in TAGS
+                                 unless (member tag NONHERITABLE-TAGS)
+                                 collect tag))))
+              (push (list LEVEL LNUM HEADING-POS TITLE ID heritable-tags PROPERTIES)
+                    CRUMBS))
+
+            (setq ID-HERE (cl-loop for crumb in CRUMBS thereis (cl-fifth crumb)))
+            (org-mem-parser--scan-visible-text ID-HERE file PSEUDO-ID)
+
+            (push (record 'org-mem-entry
+                          file
+                          LNUM
+                          HEADING-POS
+                          TITLE
+                          LEVEL
+                          ID
+                          org-mem-parser--found-active-stamps
+                          CLOCK-LINES
+                          CLOSED
+                          ;; Same as CRUMBS but without the tags or props;
+                          ;; big lists we won't need.
+                          (cl-loop for crumb in CRUMBS
+                                   collect (take 5 crumb))
+                          DEADLINE
+                          PRIORITY
+                          ;; Inherited properties
+                          (cl-loop for crumb in (cdr CRUMBS)
+                                   append (cl-seventh crumb))
+                          PROPERTIES
+                          SCHEDULED
+                          STATS-COOKIES
+                          ;; Inherited tags
+                          (nreverse
+                           (delete-dups
+                            (cl-loop for crumb in (cdr CRUMBS)
+                                     append (cl-sixth crumb))))
+                          TAGS
+                          TODO-STATE
+                          PSEUDO-ID
+                          (org-mem-parser--merge-same-keywords
+                           org-mem-parser--found-keywords))
+                  found-entries)
+            (goto-char (point-max))
+            ;; NOTE: Famously slow `line-number-at-pos' fast in narrow region.
+            (setq LNUM (+ LNUM -1 (line-number-at-pos)))
+            (widen))
+
+          ;; Done analyzing this file.
+          (cl-assert (eobp))
+          (setq file-datum (list file
+                                file-attr
+                                LNUM
+                                (point)
+                                coding-system)))
+
+      ;; Don't crash on error signal, just record the problem so it can
+      ;; optionally be reported to user, and move on to next file.
+      (( error )
+       (widen)
+       (setq problem (list (format-time-string "%H:%M") file (point) err (line-number-at-pos)))
+       (setq file-datum (list file
+                             file-attr
+                             (line-number-at-pos (point-max))
+                             (point-max)
+                             coding-system)))
+
+      ;; Catch fake `skip-file' signal.  Already caught real error signals.
+      (t
+       (cl-assert (null problem))
+       (cl-assert (null file-datum))
+       (cl-assert (null found-entries))
+       (cl-assert (null org-mem-parser--found-links))))
+
+    (list bad-path
+          problem
+          file-datum
+          found-entries
+          org-mem-parser--found-links)))
+
+(provide 'org-mem-parser)
+
+;;; org-mem-parser.el ends here
