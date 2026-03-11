@@ -1,6 +1,6 @@
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
 #+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
-#+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+options: email:t f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+options: tasks:t tex:t timestamp:t title:t toc:nil todo:t |:t
 #+latex_class: sandy-technical
 #+title: Sandy's .emacs.d
@@ -19,110 +19,194 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 * MELPA
 #+BEGIN_SRC emacs-lisp
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
+  (require 'package)
+
+  (setq package-archives
+        '(("gnu" . "https://elpa.gnu.org/packages/")
+          ("melpa" . "https://melpa.org/packages/")))
 #+END_SRC
 * Performance
 #+begin_src emacs-lisp
   ;; Performance tweaks
   (setq gc-cons-threshold most-positive-fixnum)
   (setq gc-cons-threshold 100000000)
+  (setq gc-cons-percentage 0.6)
   (setq read-process-output-max (* 1024 1024 16)) ; 16mb
 #+end_src
-* Coding styles
-** C
 
-#+BEGIN_SRC emacs-lisp
-(setq-default c-basic-offset 8
-	      c-default-style "k&r"
-	      tab-width 8
-	      indent-tabs-mode t)
-#+END_SRC
-** Python
-#+BEGIN_SRC emacs-lisp
-(setq-default python-basic-offset 8
-	      tab-width 8
-	      indent-tabs-mode nil)
-#+END_SRC
-** HTML
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'html-mode-hook
-	    (lambda ()
-	      ;; Default indentation is usually 2 spaces, changing to 4.
-	      (set (make-local-variable 'sgml-basic-offset) 4)))
+** Raise the limits
+#+begin_src emacs-lisp
+  (setq max-lisp-eval-depth 10000)
+  (setq max-specpdl-size 10000)
+#+end_src
 
-  (defun html-show-toc ()
-    "Shows a TOC based on headings tags <H[1-6]>"
-    (interactive)
-    (if sgml-tags-invisible
-	(error "SGML tags are invisible")
-      (occur "<h[1-6]>")
-      (pop-to-buffer "*Occur*")
-      (vc-toggle-read-only)
-      (goto-char (point-min))
-      (replace-string "<h1>" "")
-      (goto-char (point-min))
-      (replace-string "<h2>" "  ")
-      (goto-char (point-min))
-      (replace-string "<h3>" "    ")
-      (goto-char (point-min))
-      (replace-string "<h4>" "      ")
-      (goto-char (point-min))
-      (replace-string "<h5>" "        ")
-      (goto-char (point-min))
-      (replace-string "<h6>" "          ")
-      (goto-char (point-min))
-      (replace-regexp "</h[1-6]>" "")
-      (goto-char (point-min))
-      (toggle-read-only 1)))
+** Native compilation
+  #+BEGIN_SRC emacs-lisp
+    (setq package-native-compile t)
+    ;;(native-compile-async "~/.emacs.d/elpa" 'recursively) ;; <-- danger zone
+  #+END_SRC
+* Git stuff!
+** Magit
 
-  (defun html-end-of-line ()
-    "If there is an HTML tag at the end of the line, then go to start of tag.
-   Otherwise go to the real end of the line."
-    (interactive)
-    (if (or (looking-at ".*>$") ; if we're on a line that ends with a tag
-	    (and (= (char-before) 62)
-		 (= (point) (save-excursion
-			      (end-of-line)
-			      (point))))) ; or we're at the end of a line
-					  ; with a tag
-	(let ((where-now (point)))
-	  (narrow-to-region
-	   (save-excursion
-	     (beginning-of-line)
-	     (point))
-	   (save-excursion
-	     (end-of-line)
-	     (point)))
-	  (end-of-line)
-	  (re-search-backward "<" nil t)
-	  (if (= (point) where-now)
-	      (end-of-line))
-	  (widen))
-      (end-of-line)))
-
-  (add-hook 'html-helper-mode-hook
-	    (lambda ()
-	      (define-key html-helper-mode-map "\C-e" 'html-end-of-line)))
-#+END_SRC
-* Backup control
+Press =C-x g= to open magit
+  
 #+BEGIN_SRC emacs-lisp
-  ;; Instea of putting *~ backups in current directory,
-  ;; put them in local .saves
-  (setq backup-directory-alist `(("." . ".saves")))
+  (use-package magit
+    :commands (magit-status magit-blame))
 
-  ;; Just to stop spamming backup files
-  (setq delete-old-versions t
-	kept-new-versions 6
-	kept-old-versions 2
-	version-control t)
+  (global-set-key (kbd "C-x g") 'magit-status)
 #+END_SRC
-* Display control
-** Hide top bar
+
+** Difftastic
+#+begin_src emacs-lisp
+  (use-package difftastic
+    :ensure t)
+
+  ;; Add commands to a `magit-difftastic'
+  (eval-after-load 'magit-diff
+    '(transient-append-suffix 'magit-diff '(-1 -1)
+       [("D" "Difftastic diff (dwim)" difftastic-magit-diff)
+        ("S" "Difftastic show" difftastic-magit-show)]))
+  (add-hook 'magit-blame-read-only-mode-hook
+            (lambda ()
+              (keymap-set magit-blame-read-only-mode-map
+                          "D" #'difftastic-magit-show)
+              (keymap-set magit-blame-read-only-mode-map
+                          "S" #'difftastic-magit-show)))
+#+end_src
+** Git messenger
 #+BEGIN_SRC emacs-lisp
-(menu-bar-mode -1)
+  ;; Press C-c c to open git-messenge
+  (global-set-key (kbd "C-c c") 'git-messenger:popup-message)
+  (custom-set-variables
+   '(git-messenger:use-magit-popup t))
 #+END_SRC
+* Visuals
+
+All the good lookin' stuff should be here.
+
+** Dashboard
+#+BEGIN_SRC emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook))
+
+  ;; Set the dashboard as the default buffer
+  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+
+  ;; Set the title
+  (setq dashboard-banner-logo-title "Sandy's Emacs")
+
+  ;; Set the banner
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-show-shortcuts nil)
+  (setq dashboard-week-agenda nil)
+  (setq dashboard-items '((recents  . 5)
+                          (projects . 5)))
+  (setq dashboard-set-heading-icons t)
+#+END_SRC
+** Nano
+#+begin_src emacs-lisp
+  ;; ---------------------------------------------------------------------
+  ;; GNU Emacs / N \textLambda N O - Emacs made simple
+  ;; Copyright (C) 2020 - N \textLambda N O developers
+  ;;
+  ;; This program is free software; you can redistribute it and/or modify
+  ;; it under the terms of the GNU General Public License as published by
+  ;; the Free Software Foundation, either version 3 of the License, or
+  ;; (at your option) any later version.
+  ;;
+  ;; This program is distributed in the hope that it will be useful,
+  ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ;; GNU General Public License for more details.
+  ;;
+  ;; You should have received a copy of the GNU General Public License
+  ;; along with this program. If not, see <http://www.gnu.org/licenses/>.
+  ;; ---------------------------------------------------------------------
+
+  (setq default-frame-alist
+        (append (list
+                 '(font . "MonacoB:size=13")
+                 ;; '(font . "Roboto Mono Emacs Regular:size=14")
+                 '(min-height . 1)  '(height     . 40)
+                 '(min-width  . 1) '(width      . 95)
+                 '(vertical-scroll-bars . nil)
+                 '(internal-border-width . 15)
+                 '(left-fringe    . 0)
+                 '(right-fringe   . 0)
+                 '(tool-bar-lines . 0)
+                 '(menu-bar-lines . 0))))
+
+  ;; on OSX, type the line below (in terminal) to get a 1 pixel border
+  ;; defaults write com.apple.universalaccess increaseContrast -bool YES
+
+  ;; To control anti-aliasing on OSX:
+  ;; defaults write org.gnu.Emacs AppleFontSmoothing -int 0 (none)
+  ;; defaults write org.gnu.Emacs AppleFontSmoothing -int 1 (light)
+  ;; defaults write org.gnu.Emacs AppleFontSmoothing -int 2 (medium)
+  ;; defaults write org.gnu.Emacs AppleFontSmoothing -int 3 (strong)
+
+
+  ;; Fix bug on OSX in term mode & zsh (spurious % after each command)
+  (add-hook 'term-mode-hook
+            (lambda () (setq buffer-display-table (make-display-table))))
+
+  (setq inhibit-startup-screen t
+        inhibit-startup-message t
+        inhibit-startup-echo-area-message t
+        initial-scratch-message nil)
+  (tool-bar-mode 0)
+  (tooltip-mode 0)
+  (menu-bar-mode 0)
+
+  ;; Vertical window divider
+  (setq window-divider-default-right-width 3)
+  (setq window-divider-default-places 'right-only)
+  (window-divider-mode 1)
+
+  ;; No ugly button for checkboxes
+  (setq widget-image-enable nil)
+
+  ;; Hide org markup for README
+  (setq org-hide-emphasis-markers t)
+#+end_src
+** Default theme
+  #+BEGIN_SRC emacs-lisp
+    ;; I like lush and use it by default
+    (load-theme 'lush t)
+#+END_SRC
+** Olivetti
+#+BEGIN_SRC emacs-lisp
+(setq olivetti-body-width 80)
+#+END_SRC
+** Highlight current active line
+  #+BEGIN_SRC emacs-lisp
+    (global-hl-line-mode +1)
+  #+END_SRC
+** Centaur tabs
+  #+begin_src emacs-lisp
+    (use-package centaur-tabs
+      :ensure t
+      :config
+      (centaur-tabs-mode t))
+
+    (global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
+    (global-set-key (kbd "C-<next>") 'centaur-tabs-forward)
+
+    (centaur-tabs-headline-match)
+
+    (setq centaur-tabs-style "box")
+    (setq centaur-tabs-height 20)
+    (setq centaur-tabs-set-icons t)
+    (setq centaur-tabs-set-bar 'under)
+    (setq x-underline-at-descent-line t)
+    (setq centaur-tabs-set-modified-marker t)
+    (setq centaur-tabs-show-navigation-buttons t)
+    (setq centaur-tabs-modified-marker "*")
+    (setq centaur-tabs-close-button " ×")
+  #+end_src
 ** Line numbers
 #+BEGIN_SRC emacs-lisp
   ;; (menu-bar--display-line-numbers-mode-visual) ; <- relative
@@ -230,7 +314,148 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
       '(italic ((t (:slant italic)))))
 
    #+end_src
-* LSP
+** aa2u
+#+begin_src emacs-lisp
+  (setq aa2u-light-weight "LIGHT")
+#+end_src
+** Telephone line
+  #+BEGIN_SRC emacs-lisp
+    (use-package telephone-line
+      :ensure t
+      :config
+      (telephone-line-mode 1))
+
+    (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
+          telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
+          telephone-line-primary-right-separator 'telephone-line-cubed-right
+          telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
+
+    (setq telephone-line-primary-right-separator 'telephone-line-abs-left
+          telephone-line-secondary-right-separator 'telephone-line-abs-hollow-left)
+
+    (setq telephone-line-height 20
+          telephone-line-evil-use-short-tag t)
+  #+END_SRC
+** Syntax highlight
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'global-color-identifiers-mode)
+#+END_SRC
+** Marginalia
+  #+begin_src emacs-lisp
+    ;; Enable richer annotations using the Marginalia package
+    (use-package marginalia
+      ;; Either bind `marginalia-cycle` globally or only in the minibuffer
+      :bind (("M-A" . marginalia-cycle)
+             :map minibuffer-local-map
+             ("M-A" . marginalia-cycle))
+
+      ;; The :init configuration is always executed (Not lazy!)
+      :init
+
+      ;; Must be in the :init section of use-package such that the mode gets
+      ;; enabled right away. Note that this forces loading the package.
+      (marginalia-mode))
+
+    (all-the-icons-completion-mode)
+
+    ;; Use https://github.com/iyefrat/all-the-icons-completion for icons
+    (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
+  #+end_src
+** Smooth scrolling
+#+begin_src emacs-lisp
+  (use-package ultra-scroll
+    ;:vc (:url "https://github.com/jdtsmith/ultra-scroll") ; if desired (emacs>=v30)
+    :init
+    (setq scroll-conservatively 3 ; or whatever value you prefer, since v0.4
+          scroll-margin 0)        ; important: scroll-margin>0 not yet supported
+    :config
+    (ultra-scroll-mode 1))
+#+end_src
+** Default GUI font
+#+BEGIN_SRC emacs-lisp
+;;;(set-frame-font "InputMono 10" nil t)
+(set-face-attribute 'default nil :height 130)
+#+END_SRC
+** C
+
+#+BEGIN_SRC emacs-lisp
+(setq-default c-basic-offset 8
+	      c-default-style "k&r"
+	      tab-width 8
+	      indent-tabs-mode t)
+#+END_SRC
+** Python
+#+BEGIN_SRC emacs-lisp
+(setq-default python-basic-offset 8
+	      tab-width 8
+	      indent-tabs-mode nil)
+#+END_SRC
+** HTML
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'html-mode-hook
+	    (lambda ()
+	      ;; Default indentation is usually 2 spaces, changing to 4.
+	      (set (make-local-variable 'sgml-basic-offset) 4)))
+
+  (defun html-show-toc ()
+    "Shows a TOC based on headings tags <H[1-6]>"
+    (interactive)
+    (if sgml-tags-invisible
+	(error "SGML tags are invisible")
+      (occur "<h[1-6]>")
+      (pop-to-buffer "*Occur*")
+      (vc-toggle-read-only)
+      (goto-char (point-min))
+      (replace-string "<h1>" "")
+      (goto-char (point-min))
+      (replace-string "<h2>" "  ")
+      (goto-char (point-min))
+      (replace-string "<h3>" "    ")
+      (goto-char (point-min))
+      (replace-string "<h4>" "      ")
+      (goto-char (point-min))
+      (replace-string "<h5>" "        ")
+      (goto-char (point-min))
+      (replace-string "<h6>" "          ")
+      (goto-char (point-min))
+      (replace-regexp "</h[1-6]>" "")
+      (goto-char (point-min))
+      (toggle-read-only 1)))
+
+  (defun html-end-of-line ()
+    "If there is an HTML tag at the end of the line, then go to start of tag.
+   Otherwise go to the real end of the line."
+    (interactive)
+    (if (or (looking-at ".*>$") ; if we're on a line that ends with a tag
+	    (and (= (char-before) 62)
+		 (= (point) (save-excursion
+			      (end-of-line)
+			      (point))))) ; or we're at the end of a line
+					  ; with a tag
+	(let ((where-now (point)))
+	  (narrow-to-region
+	   (save-excursion
+	     (beginning-of-line)
+	     (point))
+	   (save-excursion
+	     (end-of-line)
+	     (point)))
+	  (end-of-line)
+	  (re-search-backward "<" nil t)
+	  (if (= (point) where-now)
+	      (end-of-line))
+	  (widen))
+      (end-of-line)))
+
+  (add-hook 'html-helper-mode-hook
+	    (lambda ()
+	      (define-key html-helper-mode-map "\C-e" 'html-end-of-line)))
+#+END_SRC
+* Computer codes
+
+Your auto-completes, LSPs, copilots, and other junk.
+
+** LSP
 #+BEGIN_SRC emacs-lisp
   (setq lsp-log-io nil) ; if set to true can cause a performance hit
 
@@ -254,31 +479,11 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
   (setq lsp-clients-clangd-args '("--header-insertion-decorators=0"))
 
-  (require 'rjsx-mode)
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . rjsx-mode))
+  (use-package rjsx-mode
+    :mode ("\\.jsx\\'" "\\.tsx\\'"))
 
   (use-package lsp-mode
-    :hook ((go-mode . lsp)
-           (rust-mode . lsp)
-           (c++-mode . lsp)
-           (c-mode . lsp)
-           (js-mode . lsp)
-           (html-mode . lsp)
-           (python-mode . lsp)
-           (haskell-mode . lsp)
-           (elm-mode . lsp)
-           (js-mode . lsp)
-           (ruby-mode . lsp)
-           ;; (sh-mode . lsp)
-           (rjsx-mode . lsp)
-           (zig-mode . lsp)
-           (csharp-mode . lsp)
-           (emacs-lisp-mode lsp)
-           (css-mode . lsp)
-           (java-mode . lsp)
-           (css-mode . lsp)
-           (lsp-mode . lsp-enable-which-key-integration))
+    :hook ((prog-mode . lsp-deferred))
     :commands lsp)
 
   (use-package lsp-pyright
@@ -318,10 +523,6 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
     (setq company-minimum-prefix-length 1)
     :bind ("M-<tab>" . company-complete))
 
-  (use-package company-lsp
-    :ensure t
-    :commands company-lsp)
-
   (lsp-register-custom-settings
    `(("python.pythonPath" "/opt/homebrew/bin/python3")))
 
@@ -334,85 +535,170 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   ;; Add the zig lsp mode executable path for zls
   (setq lsp-zig-zls-executable "/Users/thecsw/gits/zls/zig-out/bin/zls")
 #+END_SRC
-* COMMENT Conda
+
+** Copilot
+#+begin_src emacs-lisp
+  ;; We use copilot.el and not the LSP-provided one.
+  (setq lsp-copilot-enabled nil)
+
+  (global-set-key (kbd "M-RET") 'copilot-accept-completion)
+  (global-set-key (kbd "M-]") 'copilot-next-completion)
+  (global-set-key (kbd "M-[") 'copilot-previous-completion)
+#+end_src
+
+* Interface
+
+Packages that help with organization, searching, more practical things.
+
+** Neotree
   #+begin_src emacs-lisp
-    (require 'conda)
-    ;; if you want interactive shell support, include:
-    (conda-env-initialize-interactive-shells)
-    ;; if you want eshell support, include:
-    (conda-env-initialize-eshell)
-    ;; if you want auto-activation (see below for details), include:
-    ;(conda-env-autoactivate-mode t)
+    (setq neo-smart-open t)
+    (global-set-key [f8] 'neotree-toggle)
+    (setq neo-global--do-autorefresh t)
+    (setq neo-window-width 37)
+    (setq neo-window-fixed-size nil)
+    (setq neo-smart-open t)
+    (setq neo-window-position 'right)
 
-    (custom-set-variables
-     '(conda-anaconda-home "/opt/homebrew/Caskroom/miniconda/base/envs/naked-snake/")
-     '(lsp-session-file "/Users/thecsw/.emacs.d/lsp-sessions")
-     )
+    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   #+end_src
-* Dashboard
+** Anzu search
 #+BEGIN_SRC emacs-lisp
-  ;; Enable dashboard
-  (require 'dashboard)
-  ;; Add the hook
-  (dashboard-setup-startup-hook)
-  ;; Set the dashboard as the default buffer
-  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-  ;; Set the title
-  (setq dashboard-banner-logo-title "Sandy's Emacs")
-  ;; Set the banner
-  (setq dashboard-startup-banner 'logo)
-  (setq dashboard-show-shortcuts nil)
-  (setq dashboard-week-agenda nil)
-  (setq dashboard-items '((recents  . 5)
-                          (projects . 5)))
-  (setq dashboard-set-heading-icons t)
+  (global-anzu-mode +1)
 #+END_SRC
-* Magit
+** Multiple Cursors
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/mark-all-like-this)
+#+end_src
+** Vertico
+#+begin_src emacs-lisp
+  ;; Emacs 30.2 fails with vertico if compat isn't loaded first.
+  (use-package compat
+    :ensure t)
 
-Press =C-x g= to open magit
-  
-#+BEGIN_SRC emacs-lisp
-  (use-package magit
-    :commands (magit-status magit-blame))
+  ;; Enable Vertico.
+  (use-package vertico
+    :custom
+    (vertico-scroll-margin 0) ;; Different scroll margin
+    (vertico-count 9) ;; Show more candidates
+    ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+    (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+    :init
+    (vertico-mode))
 
-  (global-set-key (kbd "C-x g") 'magit-status)
-#+END_SRC
+  ;; Persist history over Emacs restarts. Vertico sorts by history position.
+  (use-package savehist
+    :init
+    (savehist-mode))
 
-* TRAMP
-#+BEGIN_SRC emacs-lisp
-  ;; Default to ssh when using tramp
-  (setq tramp-default-method "ssh")
-#+END_SRC
-* Default theme
+  ;; Emacs minibuffer configurations.
+  (use-package emacs
+    :custom
+    ;; Support opening new minibuffers from inside existing minibuffers.
+    (enable-recursive-minibuffers t)
+    ;; Hide commands in M-x which do not work in the current mode.  Vertico
+    ;; commands are hidden in normal buffers. This setting is useful beyond
+    ;; Vertico.
+    (read-extended-command-predicate #'command-completion-default-include-p)
+    ;; Do not allow the cursor in the minibuffer prompt
+    (minibuffer-prompt-properties
+     '(read-only t cursor-intangible t face minibuffer-prompt)))
+#+end_src
+** Better search with ctrlf
   #+BEGIN_SRC emacs-lisp
-    ;; I like lush and use it by default
-    (load-theme 'lush t)
-#+END_SRC
-* Chef
+    (ctrlf-mode +1)
+  #+END_SRC
+** Undo
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-/") 'undo-only)
+  (global-set-key (kbd "C-?") 'undo-redo)
+#+end_src
+** Undo Tree
+#+begin_src emacs-lisp
+  ;; (global-undo-tree-mode)
+#+end_src
+** Origami
+#+begin_src emacs-lisp
+  ;; (add-to-list 'load-path (expand-file-name "/Users/thecsw/.emacs.d/elpa/origami-20200331.1019/origami.el/"))
+  ;; (global-origami-mode)
+
+  ;; (bind-key "C-c g" 'origami-open-all-nodes)
+  ;; (bind-key "C-c r" 'origami-close-all-nodes)
+  ;; (bind-key "C-c t" 'origami-recursively-toggle-node)
+  ;; (bind-key "C-c n" 'origami-next-fold)
+  ;; (bind-key "C-c u" 'origami-previous-fold)
+#+end_src
+** Which key
 #+BEGIN_SRC emacs-lisp
-(setq org-capture-templates
-      '(("c" "Cookbook" entry (file "~/org/cookbook.org")
-         "%(org-chef-get-recipe-from-url)"
-         :empty-lines 1)
-        ("m" "Manual Cookbook" entry (file "~/org/cookbook.org")
-         "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")))
+  (which-key-mode)
 #+END_SRC
-* Org mode
+** Projectile
+#+BEGIN_SRC emacs-lisp
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+#+END_SRC
+** Consult
+#+begin_src emacs-lisp
+  ;; This is the really cool suggestion box in the minibuffer.
+  (use-package consult
+    :bind (("C-s" . consult-line)
+           ("C-c g" . consult-ripgrep)
+           ("C-x b" . consult-buffer)
+           ("C-x r b" . consult-bookmark)
+           ("M-y" . consult-yank-pop)))
+
+
+  ;; Allows us to do the non-prefix search, more of fuzzy/contains in minibuffer.
+  (use-package orderless
+    :ensure t
+    :custom
+    (completion-styles '(orderless basic))
+    (completion-category-defaults nil)
+    (completion-category-overrides
+     '((file (styles partial-completion)))))
+#+end_src
+** Ripgrep
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "<f5>") #'deadgrep)
+#+END_SRC
+** Dired-gitignore
+#+begin_src emacs-lisp
+  (define-key dired-mode-map (kbd "h") #'dired-gitignore-mode)
+  ;; (add-hook 'dired-mode-hook 'dired-gitignore-mode)
+#+end_src
+** Avy
+
+Trying to jump to character like a decade after.
+
+#+begin_src emacs-lisp
+  (use-package avy
+    :ensure t
+    :bind
+    (("M-j" . avy-goto-char-timer)
+     ("M-g c" . avy-goto-char)
+     ("M-g l" . avy-goto-line)))
+#+end_src
+
+* Literate
+
+All the things that keep me literally literate.
+
+** Org mode
 #+BEGIN_SRC emacs-lisp
   (setq org-startup-folded t)
 
   ;; Add the Unicode bullets package
-  (require 'org-bullets)
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  (use-package org-bullets
+    :ensure t
+    :hook (org-mode . org-bullets-mode))
+
+  ;; Don't really need the below because we have the hook above.
+  ;; (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
   ;; Add timestamp when marked DONE
   (setq org-log-done 'time)
 
   ;; Use org-ref
-  (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
-  (setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/Library/Python/3.9/bin"))
-  (setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/.nvm/versions/node/v22.13.1/bin"))
-  (setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/.local/share/mise/installs/python/3.12.12/bin"))
   (require 'org)
   (require 'ox-latex)
 
@@ -462,30 +748,7 @@ Press =C-x g= to open magit
   (setf (nth 4 org-emphasis-regexp-components) 10)
   (load-library "org")
 #+END_SRC
-* Git messenger
-#+BEGIN_SRC emacs-lisp
-  ;; Press C-c c to open git-messenge
-  (global-set-key (kbd "C-c c") 'git-messenger:popup-message)
-  (custom-set-variables
-   '(git-messenger:use-magit-popup t))
-#+END_SRC
-* Olivetti
-#+BEGIN_SRC emacs-lisp
-(setq olivetti-body-width 80)
-#+END_SRC
-* Emojify
-#+BEGIN_SRC emacs-lisp
-;  (add-hook 'after-init-hook #'global-emojify-mode)
-#+END_SRC
-* Ripgrep
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "<f5>") #'deadgrep)
-#+END_SRC
-* Anzu search
-#+BEGIN_SRC emacs-lisp
-  (global-anzu-mode +1)
-#+END_SRC
-* Artist
+** Artist
 #+BEGIN_SRC emacs-lisp
   (put 'narrow-to-region 'disabled nil)
 
@@ -493,21 +756,11 @@ Press =C-x g= to open magit
   ;; artist-mode.
   (setq warning-suppress-types '((org-element)))
 #+END_SRC
-* Which key
-#+BEGIN_SRC emacs-lisp
-  (which-key-mode)
-#+END_SRC
-* Projectile
-#+BEGIN_SRC emacs-lisp
-  (projectile-mode +1)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-#+END_SRC
-* Gemini protocol
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'gemini-mode-hook '(lambda () (setq fill-column 80)))
-  (add-hook 'gemini-mode-hook 'turn-on-auto-fill)
-#+END_SRC
-* LaTeX in org
+** Writegood
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x c") 'writegood-mode)
+#+end_src
+** LaTeX in org
 #+BEGIN_SRC emacs-lisp
   (setq org-highlight-latex-and-related '(latex script entities))
 
@@ -656,285 +909,20 @@ Press =C-x g= to open magit
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+END_SRC
-* Default GUI font
-#+BEGIN_SRC emacs-lisp
-;;;(set-frame-font "InputMono 10" nil t)
-(set-face-attribute 'default nil :height 130)
-#+END_SRC
-* Syntax highlight
-#+BEGIN_SRC emacs-lisp
-(add-hook 'after-init-hook 'global-color-identifiers-mode)
-#+END_SRC
-* MacOS stuff
-#+BEGIN_SRC emacs-lisp
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-#+END_SRC
-* Nano
-#+begin_src emacs-lisp
-  ;; ---------------------------------------------------------------------
-  ;; GNU Emacs / N \textLambda N O - Emacs made simple
-  ;; Copyright (C) 2020 - N \textLambda N O developers
-  ;;
-  ;; This program is free software; you can redistribute it and/or modify
-  ;; it under the terms of the GNU General Public License as published by
-  ;; the Free Software Foundation, either version 3 of the License, or
-  ;; (at your option) any later version.
-  ;;
-  ;; This program is distributed in the hope that it will be useful,
-  ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ;; GNU General Public License for more details.
-  ;;
-  ;; You should have received a copy of the GNU General Public License
-  ;; along with this program. If not, see <http://www.gnu.org/licenses/>.
-  ;; ---------------------------------------------------------------------
-
-  (setq default-frame-alist
-        (append (list
-                 '(font . "MonacoB:size=13")
-                 ;; '(font . "Roboto Mono Emacs Regular:size=14")
-                 '(min-height . 1)  '(height     . 40)
-                 '(min-width  . 1) '(width      . 95)
-                 '(vertical-scroll-bars . nil)
-                 '(internal-border-width . 15)
-                 '(left-fringe    . 0)
-                 '(right-fringe   . 0)
-                 '(tool-bar-lines . 0)
-                 '(menu-bar-lines . 0))))
-
-  ;; on OSX, type the line below (in terminal) to get a 1 pixel border
-  ;; defaults write com.apple.universalaccess increaseContrast -bool YES
-
-  ;; To control anti-aliasing on OSX:
-  ;; defaults write org.gnu.Emacs AppleFontSmoothing -int 0 (none)
-  ;; defaults write org.gnu.Emacs AppleFontSmoothing -int 1 (light)
-  ;; defaults write org.gnu.Emacs AppleFontSmoothing -int 2 (medium)
-  ;; defaults write org.gnu.Emacs AppleFontSmoothing -int 3 (strong)
-
-
-  ;; Fix bug on OSX in term mode & zsh (spurious % after each command)
-  (add-hook 'term-mode-hook
-            (lambda () (setq buffer-display-table (make-display-table))))
-
-  (setq inhibit-startup-screen t
-        inhibit-startup-message t
-        inhibit-startup-echo-area-message t
-        initial-scratch-message nil)
-  (tool-bar-mode 0)
-  (tooltip-mode 0)
-  (menu-bar-mode 0)
-  ;; (global-hl-line-mode 1)
-  (setq x-underline-at-descent-line t)
-
-  ;; Vertical window divider
-  (setq window-divider-default-right-width 3)
-  (setq window-divider-default-places 'right-only)
-  (window-divider-mode 1)
-
-  ;; No ugly button for checkboxes
-  (setq widget-image-enable nil)
-
-  ;; Hide org markup for README
-  (setq org-hide-emphasis-markers t)
-#+end_src
-* Render latex in org mode
+** Render latex in org mode
   #+BEGIN_SRC emacs-lisp
     (add-hook 'org-mode-hook 'org-fragtog-mode)
   #+END_SRC
-* Better search with ctrlf
-  #+BEGIN_SRC emacs-lisp
-    (ctrlf-mode +1)
-  #+END_SRC
-* Highlight current active line
-  #+BEGIN_SRC emacs-lisp
-    (global-hl-line-mode +1)
-  #+END_SRC
-* Native compilation
-  #+BEGIN_SRC emacs-lisp
-    (setq package-native-compile t)
-    ;;(native-compile-async "~/.emacs.d/elpa" 'recursively) ;; <-- danger zone
-  #+END_SRC
-* Telephone line
-  #+BEGIN_SRC emacs-lisp
-    (require 'telephone-line)
+* Random
 
-    (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
-          telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
-          telephone-line-primary-right-separator 'telephone-line-cubed-right
-          telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
+I don't even know how to classify this, so it goes here.
 
-    (setq telephone-line-primary-right-separator 'telephone-line-abs-left
-          telephone-line-secondary-right-separator 'telephone-line-abs-hollow-left)
-
-    (setq telephone-line-height 20
-          telephone-line-evil-use-short-tag t)
-
-    (telephone-line-mode 1)
-
-    ;; (powerline-nano-theme)
-  #+END_SRC
-* Neotree
-  #+begin_src emacs-lisp
-    (setq neo-smart-open t)
-    (global-set-key [f8] 'neotree-toggle)
-    (setq neo-global--do-autorefresh t)
-    (setq neo-window-width 37)
-    (setq neo-window-fixed-size nil)
-    (setq neo-smart-open t)
-    (setq neo-window-position 'right)
-
-    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  #+end_src
-* Marginalia
-  #+begin_src emacs-lisp
-    ;; Enable richer annotations using the Marginalia package
-    (use-package marginalia
-      ;; Either bind `marginalia-cycle` globally or only in the minibuffer
-      :bind (("M-A" . marginalia-cycle)
-             :map minibuffer-local-map
-             ("M-A" . marginalia-cycle))
-
-      ;; The :init configuration is always executed (Not lazy!)
-      :init
-
-      ;; Must be in the :init section of use-package such that the mode gets
-      ;; enabled right away. Note that this forces loading the package.
-      (marginalia-mode))
-
-    (all-the-icons-completion-mode)
-
-    ;; Use https://github.com/iyefrat/all-the-icons-completion for icons
-    (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
-  #+end_src
-* Vertico
-#+begin_src emacs-lisp
-  ;; Emacs 30.2 fails with vertico if compat isn't loaded first.
-  (use-package compat
-    :ensure t)
-
-  ;; Enable Vertico.
-  (use-package vertico
-    :custom
-    (vertico-scroll-margin 0) ;; Different scroll margin
-    (vertico-count 9) ;; Show more candidates
-    ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
-    (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
-    :init
-    (vertico-mode))
-
-  ;; Persist history over Emacs restarts. Vertico sorts by history position.
-  (use-package savehist
-    :init
-    (savehist-mode))
-
-  ;; Emacs minibuffer configurations.
-  (use-package emacs
-    :custom
-    ;; Support opening new minibuffers from inside existing minibuffers.
-    (enable-recursive-minibuffers t)
-    ;; Hide commands in M-x which do not work in the current mode.  Vertico
-    ;; commands are hidden in normal buffers. This setting is useful beyond
-    ;; Vertico.
-    (read-extended-command-predicate #'command-completion-default-include-p)
-    ;; Do not allow the cursor in the minibuffer prompt
-    (minibuffer-prompt-properties
-     '(read-only t cursor-intangible t face minibuffer-prompt)))
-#+end_src
-* Centaur tabs
-  #+begin_src emacs-lisp
-    (require 'centaur-tabs)
-    (centaur-tabs-mode t)
-    (global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
-    (global-set-key (kbd "C-<next>") 'centaur-tabs-forward)
-
-    (centaur-tabs-headline-match)
-
-    (setq centaur-tabs-style "box")
-    (setq centaur-tabs-height 20)
-    (setq centaur-tabs-set-icons t)
-    (setq centaur-tabs-set-bar 'under)
-    (setq x-underline-at-descent-line t)
-    (setq centaur-tabs-set-modified-marker t)
-    (setq centaur-tabs-show-navigation-buttons t)
-    (setq centaur-tabs-set-modified-marker t)
-    (setq centaur-tabs-modified-marker "*")
-    (setq centaur-tabs-close-button " ×")
-  #+end_src
-* Undo
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-/") 'undo-only)
-  (global-set-key (kbd "C-?") 'undo-redo)
-#+end_src
-* Undo Tree
-#+begin_src emacs-lisp
-  ;; (global-undo-tree-mode)
-#+end_src
-* Origami
-#+begin_src emacs-lisp
-  ;; (add-to-list 'load-path (expand-file-name "/Users/thecsw/.emacs.d/elpa/origami-20200331.1019/origami.el/"))
-  ;; (global-origami-mode)
-
-  ;; (bind-key "C-c g" 'origami-open-all-nodes)
-  ;; (bind-key "C-c r" 'origami-close-all-nodes)
-  ;; (bind-key "C-c t" 'origami-recursively-toggle-node)
-  ;; (bind-key "C-c n" 'origami-next-fold)
-  ;; (bind-key "C-c u" 'origami-previous-fold)
-#+end_src
-* Raise the limits
-#+begin_src emacs-lisp
-  (setq max-lisp-eval-depth 10000)
-  (setq max-specpdl-size 10000)
-#+end_src
-* Copilot
-#+begin_src emacs-lisp
-  ;; We use copilot.el and not the LSP-provided one.
-  (setq lsp-copilot-enabled nil)
-
-  (global-set-key (kbd "M-RET") 'copilot-accept-completion)
-  (global-set-key (kbd "M-]") 'copilot-next-completion)
-  (global-set-key (kbd "M-[") 'copilot-previous-completion)
-#+end_src
-* Dired-gitignore
-#+begin_src emacs-lisp
-  (define-key dired-mode-map (kbd "h") #'dired-gitignore-mode)
-  ;; (add-hook 'dired-mode-hook 'dired-gitignore-mode)
-#+end_src
-* Difftastic
-#+begin_src emacs-lisp
-  (require 'difftastic)
-
-  ;; Add commands to a `magit-difftastic'
-  (eval-after-load 'magit-diff
-    '(transient-append-suffix 'magit-diff '(-1 -1)
-       [("D" "Difftastic diff (dwim)" difftastic-magit-diff)
-        ("S" "Difftastic show" difftastic-magit-show)]))
-  (add-hook 'magit-blame-read-only-mode-hook
-            (lambda ()
-              (keymap-set magit-blame-read-only-mode-map
-                          "D" #'difftastic-magit-show)
-              (keymap-set magit-blame-read-only-mode-map
-                          "S" #'difftastic-magit-show)))
-#+end_src
-* Writegood
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-x c") 'writegood-mode)
-#+end_src
-* Smooth scrolling
-#+begin_src emacs-lisp
-  (use-package ultra-scroll
-    ;:vc (:url "https://github.com/jdtsmith/ultra-scroll") ; if desired (emacs>=v30)
-    :init
-    (setq scroll-conservatively 3 ; or whatever value you prefer, since v0.4
-          scroll-margin 0)        ; important: scroll-margin>0 not yet supported
-    :config
-    (ultra-scroll-mode 1))
-#+end_src
-* Multiple Cursors
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-S-c C-S-c") 'mc/mark-all-like-this)
-#+end_src
-* he-date.el
+** Gemini protocol
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'gemini-mode-hook '(lambda () (setq fill-column 80)))
+  (add-hook 'gemini-mode-hook 'turn-on-auto-fill)
+#+END_SRC
+** he-date.el
 This was written by chatgpt, I really do need to learn elisp.
 #+begin_src emacs-lisp
   ;;; he-date.el --- Convert ISO filename dates to Holocene date blocks -*- lexical-binding: t; -*-
@@ -988,7 +976,28 @@ This was written by chatgpt, I really do need to learn elisp.
 
   (provide 'he-date)
 #+end_src
-* aa2u
+** Backup control
+#+BEGIN_SRC emacs-lisp
+  ;; Instea of putting *~ backups in current directory,
+  ;; put them in local .saves
+  (setq backup-directory-alist `(("." . ".saves")))
+
+  ;; Just to stop spamming backup files
+  (setq delete-old-versions t
+	kept-new-versions 6
+	kept-old-versions 2
+	version-control t)
+#+END_SRC
+** PATH setup
 #+begin_src emacs-lisp
-  (setq aa2u-light-weight "LIGHT")
+  (use-package exec-path-from-shell
+    :if (display-graphic-p)
+    :config
+    (dolist (var '("PATH" "MANPATH"))
+      (exec-path-from-shell-copy-env var)))
 #+end_src
+** TRAMP
+#+BEGIN_SRC emacs-lisp
+  ;; Default to ssh when using tramp
+  (setq tramp-default-method "ssh")
+#+END_SRC

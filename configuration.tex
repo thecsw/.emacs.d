@@ -1,4 +1,4 @@
-% Created 2026-03-04 Wed 16:56
+% Created 2026-03-11 Wed 00:06
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt]{article}
 \usepackage[T1]{fontenc}
@@ -61,7 +61,7 @@
 
 \usemintedstyle{bw}
 \setminted{fontsize=\footnotesize,xleftmargin=0.5in,numbersep=5pt}
-\author{Sandy Urazayev}
+\author{Sandy Urazayev\thanks{sandy@sandyuraz.com}}
 \date{253; 12025 H.E.}
 \title{Sandy's .emacs.d}
 \hypersetup{
@@ -69,13 +69,13 @@
  pdftitle={Sandy's .emacs.d},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 30.2 (Org mode 9.7.39)}, 
+ pdfcreator={},
  pdflang={English}}
 \begin{document}
 
 \maketitle
 \section{Lorem Ipsum}
-\label{sec:org9463365}
+\label{sec:orgf3feaad}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
 nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -83,24 +83,394 @@ consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
 dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
 sunt in culpa qui officia deserunt mollit anim id est laborum.
 \section{MELPA}
-\label{sec:orga310d14}
+\label{sec:org80f95be}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
+
+(setq package-archives
+      '(("gnu" . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")))
 \end{minted}
 \section{Performance}
-\label{sec:org43061d8}
+\label{sec:orgce00890}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;; Performance tweaks
 (setq gc-cons-threshold most-positive-fixnum)
 (setq gc-cons-threshold 100000000)
+(setq gc-cons-percentage 0.6)
 (setq read-process-output-max (* 1024 1024 16)) ; 16mb
 \end{minted}
-\section{Coding styles}
-\label{sec:orgad312c5}
+\subsection{Raise the limits}
+\label{sec:orgaa8b98a}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(setq max-lisp-eval-depth 10000)
+(setq max-specpdl-size 10000)
+\end{minted}
+\subsection{Native compilation}
+\label{sec:orgbd6db56}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(setq package-native-compile t)
+;;(native-compile-async "~/.emacs.d/elpa" 'recursively) ;; <-- danger zone
+\end{minted}
+\section{Git stuff!}
+\label{sec:org77e8570}
+\subsection{Magit}
+\label{sec:org89595ef}
+
+Press \texttt{C-x g} to open magit
+
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(use-package magit
+  :commands (magit-status magit-blame))
+
+(global-set-key (kbd "C-x g") 'magit-status)
+\end{minted}
+\subsection{Difftastic}
+\label{sec:orgc75b72b}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(use-package difftastic
+  :ensure t)
+
+;; Add commands to a `magit-difftastic'
+(eval-after-load 'magit-diff
+  '(transient-append-suffix 'magit-diff '(-1 -1)
+     [("D" "Difftastic diff (dwim)" difftastic-magit-diff)
+      ("S" "Difftastic show" difftastic-magit-show)]))
+(add-hook 'magit-blame-read-only-mode-hook
+          (lambda ()
+            (keymap-set magit-blame-read-only-mode-map
+                        "D" #'difftastic-magit-show)
+            (keymap-set magit-blame-read-only-mode-map
+                        "S" #'difftastic-magit-show)))
+\end{minted}
+\subsection{Git messenger}
+\label{sec:orgbcdfb8f}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; Press C-c c to open git-messenge
+(global-set-key (kbd "C-c c") 'git-messenger:popup-message)
+(custom-set-variables
+ '(git-messenger:use-magit-popup t))
+\end{minted}
+\section{Visuals}
+\label{sec:org65ccab4}
+
+All the good lookin' stuff should be here.
+\subsection{Dashboard}
+\label{sec:org72f99ce}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+
+;; Set the dashboard as the default buffer
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+
+;; Set the title
+(setq dashboard-banner-logo-title "Sandy's Emacs")
+
+;; Set the banner
+(setq dashboard-startup-banner 'logo)
+(setq dashboard-show-shortcuts nil)
+(setq dashboard-week-agenda nil)
+(setq dashboard-items '((recents  . 5)
+                        (projects . 5)))
+(setq dashboard-set-heading-icons t)
+\end{minted}
+\subsection{Nano}
+\label{sec:org97f26ad}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; ---------------------------------------------------------------------
+;; GNU Emacs / N \textLambda N O - Emacs made simple
+;; Copyright (C) 2020 - N \textLambda N O developers
+;;
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program. If not, see <http://www.gnu.org/licenses/>.
+;; ---------------------------------------------------------------------
+
+(setq default-frame-alist
+      (append (list
+               '(font . "MonacoB:size=13")
+               ;; '(font . "Roboto Mono Emacs Regular:size=14")
+               '(min-height . 1)  '(height     . 40)
+               '(min-width  . 1) '(width      . 95)
+               '(vertical-scroll-bars . nil)
+               '(internal-border-width . 15)
+               '(left-fringe    . 0)
+               '(right-fringe   . 0)
+               '(tool-bar-lines . 0)
+               '(menu-bar-lines . 0))))
+
+;; on OSX, type the line below (in terminal) to get a 1 pixel border
+;; defaults write com.apple.universalaccess increaseContrast -bool YES
+
+;; To control anti-aliasing on OSX:
+;; defaults write org.gnu.Emacs AppleFontSmoothing -int 0 (none)
+;; defaults write org.gnu.Emacs AppleFontSmoothing -int 1 (light)
+;; defaults write org.gnu.Emacs AppleFontSmoothing -int 2 (medium)
+;; defaults write org.gnu.Emacs AppleFontSmoothing -int 3 (strong)
+
+
+;; Fix bug on OSX in term mode & zsh (spurious % after each command)
+(add-hook 'term-mode-hook
+          (lambda () (setq buffer-display-table (make-display-table))))
+
+(setq inhibit-startup-screen t
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t
+      initial-scratch-message nil)
+(tool-bar-mode 0)
+(tooltip-mode 0)
+(menu-bar-mode 0)
+
+;; Vertical window divider
+(setq window-divider-default-right-width 3)
+(setq window-divider-default-places 'right-only)
+(window-divider-mode 1)
+
+;; No ugly button for checkboxes
+(setq widget-image-enable nil)
+
+;; Hide org markup for README
+(setq org-hide-emphasis-markers t)
+\end{minted}
+\subsection{Default theme}
+\label{sec:org42fc5a1}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; I like lush and use it by default
+(load-theme 'lush t)
+\end{minted}
+\subsection{Olivetti}
+\label{sec:org10bd5e4}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(setq olivetti-body-width 80)
+\end{minted}
+\subsection{Highlight current active line}
+\label{sec:org3adc294}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(global-hl-line-mode +1)
+\end{minted}
+\subsection{Centaur tabs}
+\label{sec:orgdd24dec}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(use-package centaur-tabs
+  :ensure t
+  :config
+  (centaur-tabs-mode t))
+
+(global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
+(global-set-key (kbd "C-<next>") 'centaur-tabs-forward)
+
+(centaur-tabs-headline-match)
+
+(setq centaur-tabs-style "box")
+(setq centaur-tabs-height 20)
+(setq centaur-tabs-set-icons t)
+(setq centaur-tabs-set-bar 'under)
+(setq x-underline-at-descent-line t)
+(setq centaur-tabs-set-modified-marker t)
+(setq centaur-tabs-show-navigation-buttons t)
+(setq centaur-tabs-modified-marker "*")
+(setq centaur-tabs-close-button " ×")
+\end{minted}
+\subsection{Line numbers}
+\label{sec:orgb4b7034}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; (menu-bar--display-line-numbers-mode-visual) ; <- relative
+;; (menu-bar--display-line-numbers-mode-relative) ; <- relative
+(menu-bar--display-line-numbers-mode-absolute)
+
+;; This fixes an annoying issue of the left line number
+;; sliding right when we get into bigger digits. Let's hope
+;; I don't open a file with >99,999 lines.
+(setq display-line-numbers-width-start 5)
+
+(setq display-line-numbers-grow-only t)
+(setq display-line-numbers-minor-tick 100)
+
+;; enable the line mode globally
+(global-display-line-numbers-mode)
+\end{minted}
+\subsection{Scrolling}
+\label{sec:orgf4c3cc1}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(setq redisplay-dont-pause t
+      scroll-margin 1
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
+\end{minted}
+\subsection{Silence annoying bell}
+\label{sec:org604dbdd}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(setq ring-bell-function 'ignore)
+\end{minted}
+\subsection{Character limit in Org-Mode}
+\label{sec:org579a84d}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+(defun my/org-inhibit-auto-fill-on-macros ()
+  "Disable auto-fill when point is inside an Org macro."
+  (when (save-excursion
+          (beginning-of-line)
+          (looking-at-p ".*{{{.*}}}"))
+    t))  ;; returning non-nil inhibits auto-fill
+
+(defun my/org-auto-fill-function ()
+  (unless (my/org-inhibit-auto-fill-on-macros)
+    (do-auto-fill)))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local fill-column 80)
+            (setq-local auto-fill-function #'my/org-auto-fill-function)))
+
+(defun my/org-macro-line-p ()
+  "Return non-nil if current line contains an Org macro."
+  (save-excursion
+    (beginning-of-line)
+    (search-forward "{{{" (line-end-position) t)))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local fill-column 80)
+            (add-to-list 'fill-nobreak-predicate #'my/org-macro-line-p)
+            (turn-on-auto-fill)))
+\end{minted}
+\subsection{Pair the braces}
+\label{sec:org7865559}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; Starting somewhere before emacs 30, autopair was deprecated
+;; in favor of the built-in electric-pair-mode.
+(electric-pair-mode 1)
+(save-place-mode 1)
+(recentf-mode 1)
+\end{minted}
+\subsection{Open shell on F1}
+\label{sec:org7828e5f}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(global-set-key (kbd "<f1>") 'shell)
+\end{minted}
+\subsection{Show Paren Mode}
+\label{sec:org646a200}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(show-paren-mode 1)
+(setq show-paren-delay 0)
+\end{minted}
+\subsection{Disable validate link in HTML}
+\label{sec:orgc891aa3}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(setq org-html-validation-link nil)
+\end{minted}
+\subsection{Window management}
+\label{sec:org3cb621c}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+\end{minted}
+\subsection{Go to line preview}
+\label{sec:orgf921b54}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(global-set-key [remap goto-line] 'goto-line-preview)
+\end{minted}
+\subsection{Custom faces}
+\label{sec:org762d0c0}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip ((t (:background "black" :foreground "white"))))
+ '(company-tooltip-selection ((t (:background "plum1" :foreground "black"))))
+ '(highlight ((t (:background "plum1" :foreground "black"))))
+ '(italic ((t (:slant italic)))))
+
+\end{minted}
+\subsection{aa2u}
+\label{sec:org49c6698}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(setq aa2u-light-weight "LIGHT")
+\end{minted}
+\subsection{Telephone line}
+\label{sec:orgc7b9d6d}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(use-package telephone-line
+  :ensure t
+  :config
+  (telephone-line-mode 1))
+
+(setq telephone-line-primary-left-separator 'telephone-line-cubed-left
+      telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
+      telephone-line-primary-right-separator 'telephone-line-cubed-right
+      telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
+
+(setq telephone-line-primary-right-separator 'telephone-line-abs-left
+      telephone-line-secondary-right-separator 'telephone-line-abs-hollow-left)
+
+(setq telephone-line-height 20
+      telephone-line-evil-use-short-tag t)
+\end{minted}
+\subsection{Syntax highlight}
+\label{sec:org98f6ebf}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(add-hook 'after-init-hook 'global-color-identifiers-mode)
+\end{minted}
+\subsection{Marginalia}
+\label{sec:orgfd6826e}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; Enable richer annotations using the Marginalia package
+(use-package marginalia
+  ;; Either bind `marginalia-cycle` globally or only in the minibuffer
+  :bind (("M-A" . marginalia-cycle)
+         :map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+
+  ;; The :init configuration is always executed (Not lazy!)
+  :init
+
+  ;; Must be in the :init section of use-package such that the mode gets
+  ;; enabled right away. Note that this forces loading the package.
+  (marginalia-mode))
+
+(all-the-icons-completion-mode)
+
+;; Use https://github.com/iyefrat/all-the-icons-completion for icons
+(add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
+\end{minted}
+\subsection{Smooth scrolling}
+\label{sec:orgc55c12a}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(use-package ultra-scroll
+  ;:vc (:url "https://github.com/jdtsmith/ultra-scroll") ; if desired (emacs>=v30)
+  :init
+  (setq scroll-conservatively 3 ; or whatever value you prefer, since v0.4
+        scroll-margin 0)        ; important: scroll-margin>0 not yet supported
+  :config
+  (ultra-scroll-mode 1))
+\end{minted}
+\subsection{Default GUI font}
+\label{sec:org22987c1}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;;;(set-frame-font "InputMono 10" nil t)
+(set-face-attribute 'default nil :height 130)
+\end{minted}
 \subsection{C}
-\label{sec:org2a7e680}
+\label{sec:orgc7d72bf}
 
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq-default c-basic-offset 8
@@ -109,14 +479,14 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
               indent-tabs-mode t)
 \end{minted}
 \subsection{Python}
-\label{sec:org7a7cc70}
+\label{sec:orgcc4f072}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq-default python-basic-offset 8
               tab-width 8
               indent-tabs-mode nil)
 \end{minted}
 \subsection{HTML}
-\label{sec:orgd584205}
+\label{sec:org3369c52}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (add-hook 'html-mode-hook
           (lambda ()
@@ -177,146 +547,12 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
           (lambda ()
             (define-key html-helper-mode-map "\C-e" 'html-end-of-line)))
 \end{minted}
-\section{Backup control}
-\label{sec:org8f4e05d}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; Instea of putting *~ backups in current directory,
-;; put them in local .saves
-(setq backup-directory-alist `(("." . ".saves")))
+\section{Computer codes}
+\label{sec:org79c6256}
 
-;; Just to stop spamming backup files
-(setq delete-old-versions t
-      kept-new-versions 6
-      kept-old-versions 2
-      version-control t)
-\end{minted}
-\section{Display control}
-\label{sec:org1299558}
-\subsection{Hide top bar}
-\label{sec:orgf88f96d}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(menu-bar-mode -1)
-\end{minted}
-\subsection{Line numbers}
-\label{sec:org127beac}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; (menu-bar--display-line-numbers-mode-visual) ; <- relative
-;; (menu-bar--display-line-numbers-mode-relative) ; <- relative
-(menu-bar--display-line-numbers-mode-absolute)
-
-;; This fixes an annoying issue of the left line number
-;; sliding right when we get into bigger digits. Let's hope
-;; I don't open a file with >99,999 lines.
-(setq display-line-numbers-width-start 5)
-
-(setq display-line-numbers-grow-only t)
-(setq display-line-numbers-minor-tick 100)
-
-;; enable the line mode globally
-(global-display-line-numbers-mode)
-\end{minted}
-\subsection{Scrolling}
-\label{sec:org23a94ed}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(setq redisplay-dont-pause t
-      scroll-margin 1
-      scroll-step 1
-      scroll-conservatively 10000
-      scroll-preserve-screen-position 1)
-\end{minted}
-\subsection{Silence annoying bell}
-\label{sec:orga8bd166}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(setq ring-bell-function 'ignore)
-\end{minted}
-\subsection{Character limit in Org-Mode}
-\label{sec:org06c4748}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
-
-(defun my/org-inhibit-auto-fill-on-macros ()
-  "Disable auto-fill when point is inside an Org macro."
-  (when (save-excursion
-          (beginning-of-line)
-          (looking-at-p ".*{{{.*}}}"))
-    t))  ;; returning non-nil inhibits auto-fill
-
-(defun my/org-auto-fill-function ()
-  (unless (my/org-inhibit-auto-fill-on-macros)
-    (do-auto-fill)))
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (setq-local fill-column 80)
-            (setq-local auto-fill-function #'my/org-auto-fill-function)))
-
-(defun my/org-macro-line-p ()
-  "Return non-nil if current line contains an Org macro."
-  (save-excursion
-    (beginning-of-line)
-    (search-forward "{{{" (line-end-position) t)))
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (setq-local fill-column 80)
-            (add-to-list 'fill-nobreak-predicate #'my/org-macro-line-p)
-            (turn-on-auto-fill)))
-\end{minted}
-\subsection{Pair the braces}
-\label{sec:org2893291}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; Starting somewhere before emacs 30, autopair was deprecated
-;; in favor of the built-in electric-pair-mode.
-(electric-pair-mode 1)
-(save-place-mode 1)
-(recentf-mode 1)
-\end{minted}
-\subsection{Open shell on F1}
-\label{sec:org5222b82}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(global-set-key (kbd "<f1>") 'shell)
-\end{minted}
-\subsection{Show Paren Mode}
-\label{sec:org9aab6d5}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(show-paren-mode 1)
-(setq show-paren-delay 0)
-\end{minted}
-\subsection{Disable validate link in HTML}
-\label{sec:org588617e}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(setq org-html-validation-link nil)
-\end{minted}
-\subsection{Window management}
-\label{sec:org8f711b3}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(global-set-key (kbd "C-x <up>") 'windmove-up)
-(global-set-key (kbd "C-x <down>") 'windmove-down)
-(global-set-key (kbd "C-x <left>") 'windmove-left)
-(global-set-key (kbd "C-x <right>") 'windmove-right)
-\end{minted}
-\subsection{Go to line preview}
-\label{sec:orgc49738e}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(global-set-key [remap goto-line] 'goto-line-preview)
-\end{minted}
-\subsection{Custom faces}
-\label{sec:orgb303b6b}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-tooltip ((t (:background "black" :foreground "white"))))
- '(company-tooltip-selection ((t (:background "plum1" :foreground "black"))))
- '(highlight ((t (:background "plum1" :foreground "black"))))
- '(italic ((t (:slant italic)))))
-
-\end{minted}
-\section{LSP}
-\label{sec:orgeb2f93a}
+Your auto-completes, LSPs, copilots, and other junk.
+\subsection{LSP}
+\label{sec:org1cc25af}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq lsp-log-io nil) ; if set to true can cause a performance hit
 
@@ -340,31 +576,11 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 (setq lsp-clients-clangd-args '("--header-insertion-decorators=0"))
 
-(require 'rjsx-mode)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . rjsx-mode))
+(use-package rjsx-mode
+  :mode ("\\.jsx\\'" "\\.tsx\\'"))
 
 (use-package lsp-mode
-  :hook ((go-mode . lsp)
-         (rust-mode . lsp)
-         (c++-mode . lsp)
-         (c-mode . lsp)
-         (js-mode . lsp)
-         (html-mode . lsp)
-         (python-mode . lsp)
-         (haskell-mode . lsp)
-         (elm-mode . lsp)
-         (js-mode . lsp)
-         (ruby-mode . lsp)
-         ;; (sh-mode . lsp)
-         (rjsx-mode . lsp)
-         (zig-mode . lsp)
-         (csharp-mode . lsp)
-         (emacs-lisp-mode lsp)
-         (css-mode . lsp)
-         (java-mode . lsp)
-         (css-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration))
+  :hook ((prog-mode . lsp-deferred))
   :commands lsp)
 
 (use-package lsp-pyright
@@ -404,10 +620,6 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
   (setq company-minimum-prefix-length 1)
   :bind ("M-<tab>" . company-complete))
 
-(use-package company-lsp
-  :ensure t
-  :commands company-lsp)
-
 (lsp-register-custom-settings
  `(("python.pythonPath" "/opt/homebrew/bin/python3")))
 
@@ -420,75 +632,183 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 ;; Add the zig lsp mode executable path for zls
 (setq lsp-zig-zls-executable "/Users/thecsw/gits/zls/zig-out/bin/zls")
 \end{minted}
-\section{Dashboard}
-\label{sec:org1075a21}
+\subsection{Copilot}
+\label{sec:org4863759}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; Enable dashboard
-(require 'dashboard)
-;; Add the hook
-(dashboard-setup-startup-hook)
-;; Set the dashboard as the default buffer
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-;; Set the title
-(setq dashboard-banner-logo-title "Sandy's Emacs")
-;; Set the banner
-(setq dashboard-startup-banner 'logo)
-(setq dashboard-show-shortcuts nil)
-(setq dashboard-week-agenda nil)
-(setq dashboard-items '((recents  . 5)
-                        (projects . 5)))
-(setq dashboard-set-heading-icons t)
-\end{minted}
-\section{Magit}
-\label{sec:org605c6aa}
+;; We use copilot.el and not the LSP-provided one.
+(setq lsp-copilot-enabled nil)
 
-Press \texttt{C-x g} to open magit
+(global-set-key (kbd "M-RET") 'copilot-accept-completion)
+(global-set-key (kbd "M-]") 'copilot-next-completion)
+(global-set-key (kbd "M-[") 'copilot-previous-completion)
+\end{minted}
+\section{Interface}
+\label{sec:org20deecc}
+
+Packages that help with organization, searching, more practical things.
+\subsection{Neotree}
+\label{sec:org96d5eb1}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(setq neo-smart-open t)
+(global-set-key [f8] 'neotree-toggle)
+(setq neo-global--do-autorefresh t)
+(setq neo-window-width 37)
+(setq neo-window-fixed-size nil)
+(setq neo-smart-open t)
+(setq neo-window-position 'right)
+
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+\end{minted}
+\subsection{Anzu search}
+\label{sec:org750382c}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(global-anzu-mode +1)
+\end{minted}
+\subsection{Multiple Cursors}
+\label{sec:orgea11252}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(global-set-key (kbd "C-S-c C-S-c") 'mc/mark-all-like-this)
+\end{minted}
+\subsection{Vertico}
+\label{sec:orgaf65271}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; Emacs 30.2 fails with vertico if compat isn't loaded first.
+(use-package compat
+  :ensure t)
+
+;; Enable Vertico.
+(use-package vertico
+  :custom
+  (vertico-scroll-margin 0) ;; Different scroll margin
+  (vertico-count 9) ;; Show more candidates
+  ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
+  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+  :init
+  (vertico-mode))
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :init
+  (savehist-mode))
+
+;; Emacs minibuffer configurations.
+(use-package emacs
+  :custom
+  ;; Support opening new minibuffers from inside existing minibuffers.
+  (enable-recursive-minibuffers t)
+  ;; Hide commands in M-x which do not work in the current mode.  Vertico
+  ;; commands are hidden in normal buffers. This setting is useful beyond
+  ;; Vertico.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+  ;; Do not allow the cursor in the minibuffer prompt
+  (minibuffer-prompt-properties
+   '(read-only t cursor-intangible t face minibuffer-prompt)))
+\end{minted}
+\subsection{Better search with ctrlf}
+\label{sec:orgf115f79}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(ctrlf-mode +1)
+\end{minted}
+\subsection{Undo}
+\label{sec:org6125a1e}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(global-set-key (kbd "C-/") 'undo-only)
+(global-set-key (kbd "C-?") 'undo-redo)
+\end{minted}
+\subsection{Undo Tree}
+\label{sec:orgc8beb11}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; (global-undo-tree-mode)
+\end{minted}
+\subsection{Origami}
+\label{sec:org591f5af}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; (add-to-list 'load-path (expand-file-name "/Users/thecsw/.emacs.d/elpa/origami-20200331.1019/origami.el/"))
+;; (global-origami-mode)
+
+;; (bind-key "C-c g" 'origami-open-all-nodes)
+;; (bind-key "C-c r" 'origami-close-all-nodes)
+;; (bind-key "C-c t" 'origami-recursively-toggle-node)
+;; (bind-key "C-c n" 'origami-next-fold)
+;; (bind-key "C-c u" 'origami-previous-fold)
+\end{minted}
+\subsection{Which key}
+\label{sec:org12ed434}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(which-key-mode)
+\end{minted}
+\subsection{Projectile}
+\label{sec:orgedc1745}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+\end{minted}
+\subsection{Consult}
+\label{sec:org36ebe7d}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; This is the really cool suggestion box in the minibuffer.
+(use-package consult
+  :bind (("C-s" . consult-line)
+         ("C-c g" . consult-ripgrep)
+         ("C-x b" . consult-buffer)
+         ("C-x r b" . consult-bookmark)
+         ("M-y" . consult-yank-pop)))
+
+
+;; Allows us to do the non-prefix search, more of fuzzy/contains in minibuffer.
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides
+   '((file (styles partial-completion)))))
+\end{minted}
+\subsection{Ripgrep}
+\label{sec:orge644979}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(global-set-key (kbd "<f5>") #'deadgrep)
+\end{minted}
+\subsection{Dired-gitignore}
+\label{sec:orge789d1c}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(define-key dired-mode-map (kbd "h") #'dired-gitignore-mode)
+;; (add-hook 'dired-mode-hook 'dired-gitignore-mode)
+\end{minted}
+\subsection{Avy}
+\label{sec:org695e10c}
+
+Trying to jump to character like a decade after.
 
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(use-package magit
-  :commands (magit-status magit-blame))
+(use-package avy
+  :ensure t
+  :bind
+  (("M-j" . avy-goto-char-timer)
+   ("M-g c" . avy-goto-char)
+   ("M-g l" . avy-goto-line)))
+\end{minted}
+\section{Literate}
+\label{sec:org923310f}
 
-(global-set-key (kbd "C-x g") 'magit-status)
-\end{minted}
-\section{TRAMP}
-\label{sec:orga841015}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; Default to ssh when using tramp
-(setq tramp-default-method "ssh")
-\end{minted}
-\section{Default theme}
-\label{sec:org666f570}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; I like lush and use it by default
-(load-theme 'lush t)
-\end{minted}
-\section{Chef}
-\label{sec:org3fc5a60}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(setq org-capture-templates
-      '(("c" "Cookbook" entry (file "~/org/cookbook.org")
-         "%(org-chef-get-recipe-from-url)"
-         :empty-lines 1)
-        ("m" "Manual Cookbook" entry (file "~/org/cookbook.org")
-         "* %^{Recipe title: }\n  :PROPERTIES:\n  :source-url:\n  :servings:\n  :prep-time:\n  :cook-time:\n  :ready-in:\n  :END:\n** Ingredients\n   %?\n** Directions\n\n")))
-\end{minted}
-\section{Org mode}
-\label{sec:orgcf5246d}
+All the things that keep me literally literate.
+\subsection{Org mode}
+\label{sec:org55d3f87}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq org-startup-folded t)
 
 ;; Add the Unicode bullets package
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(use-package org-bullets
+  :ensure t
+  :hook (org-mode . org-bullets-mode))
+
+;; Don't really need the below because we have the hook above.
+;; (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;; Add timestamp when marked DONE
 (setq org-log-done 'time)
 
 ;; Use org-ref
-(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
-(setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/Library/Python/3.9/bin"))
-(setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/.nvm/versions/node/v22.13.1/bin"))
-(setenv "PATH" (concat (getenv "PATH") ":/Users/thecsw/.local/share/mise/installs/python/3.12.12/bin"))
 (require 'org)
 (require 'ox-latex)
 
@@ -538,36 +858,8 @@ Press \texttt{C-x g} to open magit
 (setf (nth 4 org-emphasis-regexp-components) 10)
 (load-library "org")
 \end{minted}
-\section{Git messenger}
-\label{sec:orged54b4f}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; Press C-c c to open git-messenge
-(global-set-key (kbd "C-c c") 'git-messenger:popup-message)
-(custom-set-variables
- '(git-messenger:use-magit-popup t))
-\end{minted}
-\section{Olivetti}
-\label{sec:orga2438e5}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(setq olivetti-body-width 80)
-\end{minted}
-\section{Emojify}
-\label{sec:org6dc4c6f}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;  (add-hook 'after-init-hook #'global-emojify-mode)
-\end{minted}
-\section{Ripgrep}
-\label{sec:org8c9216e}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(global-set-key (kbd "<f5>") #'deadgrep)
-\end{minted}
-\section{Anzu search}
-\label{sec:org72077d0}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(global-anzu-mode +1)
-\end{minted}
-\section{Artist}
-\label{sec:org6fced6a}
+\subsection{Artist}
+\label{sec:org63f76c6}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (put 'narrow-to-region 'disabled nil)
 
@@ -575,25 +867,13 @@ Press \texttt{C-x g} to open magit
 ;; artist-mode.
 (setq warning-suppress-types '((org-element)))
 \end{minted}
-\section{Which key}
-\label{sec:org8582f04}
+\subsection{Writegood}
+\label{sec:orge05fb5d}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(which-key-mode)
+(global-set-key (kbd "C-x c") 'writegood-mode)
 \end{minted}
-\section{Projectile}
-\label{sec:org2d47d75}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(projectile-mode +1)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-\end{minted}
-\section{Gemini protocol}
-\label{sec:org3ccf424}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(add-hook 'gemini-mode-hook '(lambda () (setq fill-column 80)))
-(add-hook 'gemini-mode-hook 'turn-on-auto-fill)
-\end{minted}
-\section{\LaTeX{} in org}
-\label{sec:org16a26db}
+\subsection{\LaTeX{} in org}
+\label{sec:orga193e15}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (setq org-highlight-latex-and-related '(latex script entities))
 
@@ -742,309 +1022,23 @@ Press \texttt{C-x g} to open magit
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 \end{minted}
-\section{Default GUI font}
-\label{sec:org2bc4986}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;;;(set-frame-font "InputMono 10" nil t)
-(set-face-attribute 'default nil :height 130)
-\end{minted}
-\section{Syntax highlight}
-\label{sec:org4562bca}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(add-hook 'after-init-hook 'global-color-identifiers-mode)
-\end{minted}
-\section{MacOS stuff}
-\label{sec:orgcb1c518}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-\end{minted}
-\section{Nano}
-\label{sec:org3a5aa0b}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; ---------------------------------------------------------------------
-;; GNU Emacs / N \textLambda N O - Emacs made simple
-;; Copyright (C) 2020 - N \textLambda N O developers
-;;
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program. If not, see <http://www.gnu.org/licenses/>.
-;; ---------------------------------------------------------------------
-
-(setq default-frame-alist
-      (append (list
-               '(font . "MonacoB:size=13")
-               ;; '(font . "Roboto Mono Emacs Regular:size=14")
-               '(min-height . 1)  '(height     . 40)
-               '(min-width  . 1) '(width      . 95)
-               '(vertical-scroll-bars . nil)
-               '(internal-border-width . 15)
-               '(left-fringe    . 0)
-               '(right-fringe   . 0)
-               '(tool-bar-lines . 0)
-               '(menu-bar-lines . 0))))
-
-;; on OSX, type the line below (in terminal) to get a 1 pixel border
-;; defaults write com.apple.universalaccess increaseContrast -bool YES
-
-;; To control anti-aliasing on OSX:
-;; defaults write org.gnu.Emacs AppleFontSmoothing -int 0 (none)
-;; defaults write org.gnu.Emacs AppleFontSmoothing -int 1 (light)
-;; defaults write org.gnu.Emacs AppleFontSmoothing -int 2 (medium)
-;; defaults write org.gnu.Emacs AppleFontSmoothing -int 3 (strong)
-
-
-;; Fix bug on OSX in term mode & zsh (spurious % after each command)
-(add-hook 'term-mode-hook
-          (lambda () (setq buffer-display-table (make-display-table))))
-
-(setq inhibit-startup-screen t
-      inhibit-startup-message t
-      inhibit-startup-echo-area-message t
-      initial-scratch-message nil)
-(tool-bar-mode 0)
-(tooltip-mode 0)
-(menu-bar-mode 0)
-;; (global-hl-line-mode 1)
-(setq x-underline-at-descent-line t)
-
-;; Vertical window divider
-(setq window-divider-default-right-width 3)
-(setq window-divider-default-places 'right-only)
-(window-divider-mode 1)
-
-;; No ugly button for checkboxes
-(setq widget-image-enable nil)
-
-;; Hide org markup for README
-(setq org-hide-emphasis-markers t)
-\end{minted}
-\section{Render latex in org mode}
-\label{sec:org704c74b}
+\subsection{Render latex in org mode}
+\label{sec:org50ccfd0}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 (add-hook 'org-mode-hook 'org-fragtog-mode)
 \end{minted}
-\section{Better search with ctrlf}
-\label{sec:orged43aa1}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(ctrlf-mode +1)
-\end{minted}
-\section{Highlight current active line}
-\label{sec:org684447b}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(global-hl-line-mode +1)
-\end{minted}
-\section{Native compilation}
-\label{sec:org94c52c1}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(setq package-native-compile t)
-;;(native-compile-async "~/.emacs.d/elpa" 'recursively) ;; <-- danger zone
-\end{minted}
-\section{Telephone line}
-\label{sec:org1064917}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(require 'telephone-line)
+\section{Random}
+\label{sec:orgeb73d6c}
 
-(setq telephone-line-primary-left-separator 'telephone-line-cubed-left
-      telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
-      telephone-line-primary-right-separator 'telephone-line-cubed-right
-      telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
-
-(setq telephone-line-primary-right-separator 'telephone-line-abs-left
-      telephone-line-secondary-right-separator 'telephone-line-abs-hollow-left)
-
-(setq telephone-line-height 20
-      telephone-line-evil-use-short-tag t)
-
-(telephone-line-mode 1)
-
-;; (powerline-nano-theme)
-\end{minted}
-\section{Neotree}
-\label{sec:org4dcdee3}
+I don't even know how to classify this, so it goes here.
+\subsection{Gemini protocol}
+\label{sec:org6957dc2}
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(setq neo-smart-open t)
-(global-set-key [f8] 'neotree-toggle)
-(setq neo-global--do-autorefresh t)
-(setq neo-window-width 37)
-(setq neo-window-fixed-size nil)
-(setq neo-smart-open t)
-(setq neo-window-position 'right)
-
-(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(add-hook 'gemini-mode-hook '(lambda () (setq fill-column 80)))
+(add-hook 'gemini-mode-hook 'turn-on-auto-fill)
 \end{minted}
-\section{Marginalia}
-\label{sec:org07d8dd0}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; Enable richer annotations using the Marginalia package
-(use-package marginalia
-  ;; Either bind `marginalia-cycle` globally or only in the minibuffer
-  :bind (("M-A" . marginalia-cycle)
-         :map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
-
-  ;; The :init configuration is always executed (Not lazy!)
-  :init
-
-  ;; Must be in the :init section of use-package such that the mode gets
-  ;; enabled right away. Note that this forces loading the package.
-  (marginalia-mode))
-
-(all-the-icons-completion-mode)
-
-;; Use https://github.com/iyefrat/all-the-icons-completion for icons
-(add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
-\end{minted}
-\section{Vertico}
-\label{sec:org503dc4c}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; Emacs 30.2 fails with vertico if compat isn't loaded first.
-(use-package compat
-  :ensure t)
-
-;; Enable Vertico.
-(use-package vertico
-  :custom
-  (vertico-scroll-margin 0) ;; Different scroll margin
-  (vertico-count 9) ;; Show more candidates
-  ;; (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
-  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
-  :init
-  (vertico-mode))
-
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :init
-  (savehist-mode))
-
-;; Emacs minibuffer configurations.
-(use-package emacs
-  :custom
-  ;; Support opening new minibuffers from inside existing minibuffers.
-  (enable-recursive-minibuffers t)
-  ;; Hide commands in M-x which do not work in the current mode.  Vertico
-  ;; commands are hidden in normal buffers. This setting is useful beyond
-  ;; Vertico.
-  (read-extended-command-predicate #'command-completion-default-include-p)
-  ;; Do not allow the cursor in the minibuffer prompt
-  (minibuffer-prompt-properties
-   '(read-only t cursor-intangible t face minibuffer-prompt)))
-\end{minted}
-\section{Centaur tabs}
-\label{sec:orga04065b}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(require 'centaur-tabs)
-(centaur-tabs-mode t)
-(global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
-(global-set-key (kbd "C-<next>") 'centaur-tabs-forward)
-
-(centaur-tabs-headline-match)
-
-(setq centaur-tabs-style "box")
-(setq centaur-tabs-height 20)
-(setq centaur-tabs-set-icons t)
-(setq centaur-tabs-set-bar 'under)
-(setq x-underline-at-descent-line t)
-(setq centaur-tabs-set-modified-marker t)
-(setq centaur-tabs-show-navigation-buttons t)
-(setq centaur-tabs-set-modified-marker t)
-(setq centaur-tabs-modified-marker "*")
-(setq centaur-tabs-close-button " ×")
-\end{minted}
-\section{Undo}
-\label{sec:org1155ab1}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(global-set-key (kbd "C-/") 'undo-only)
-(global-set-key (kbd "C-?") 'undo-redo)
-\end{minted}
-\section{Undo Tree}
-\label{sec:org815de05}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; (global-undo-tree-mode)
-\end{minted}
-\section{Origami}
-\label{sec:org88185e2}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; (add-to-list 'load-path (expand-file-name "/Users/thecsw/.emacs.d/elpa/origami-20200331.1019/origami.el/"))
-;; (global-origami-mode)
-
-;; (bind-key "C-c g" 'origami-open-all-nodes)
-;; (bind-key "C-c r" 'origami-close-all-nodes)
-;; (bind-key "C-c t" 'origami-recursively-toggle-node)
-;; (bind-key "C-c n" 'origami-next-fold)
-;; (bind-key "C-c u" 'origami-previous-fold)
-\end{minted}
-\section{Raise the limits}
-\label{sec:org1c24bab}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(setq max-lisp-eval-depth 10000)
-(setq max-specpdl-size 10000)
-\end{minted}
-\section{Copilot}
-\label{sec:org2c0ed76}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-;; We use copilot.el and not the LSP-provided one.
-(setq lsp-copilot-enabled nil)
-
-(global-set-key (kbd "M-RET") 'copilot-accept-completion)
-(global-set-key (kbd "M-]") 'copilot-next-completion)
-(global-set-key (kbd "M-[") 'copilot-previous-completion)
-\end{minted}
-\section{Dired-gitignore}
-\label{sec:orgfb82662}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(define-key dired-mode-map (kbd "h") #'dired-gitignore-mode)
-;; (add-hook 'dired-mode-hook 'dired-gitignore-mode)
-\end{minted}
-\section{Difftastic}
-\label{sec:org8319d6f}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(require 'difftastic)
-
-;; Add commands to a `magit-difftastic'
-(eval-after-load 'magit-diff
-  '(transient-append-suffix 'magit-diff '(-1 -1)
-     [("D" "Difftastic diff (dwim)" difftastic-magit-diff)
-      ("S" "Difftastic show" difftastic-magit-show)]))
-(add-hook 'magit-blame-read-only-mode-hook
-          (lambda ()
-            (keymap-set magit-blame-read-only-mode-map
-                        "D" #'difftastic-magit-show)
-            (keymap-set magit-blame-read-only-mode-map
-                        "S" #'difftastic-magit-show)))
-\end{minted}
-\section{Writegood}
-\label{sec:org1539d50}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(global-set-key (kbd "C-x c") 'writegood-mode)
-\end{minted}
-\section{Smooth scrolling}
-\label{sec:orgf6ee3ea}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(use-package ultra-scroll
-  ;:vc (:url "https://github.com/jdtsmith/ultra-scroll") ; if desired (emacs>=v30)
-  :init
-  (setq scroll-conservatively 3 ; or whatever value you prefer, since v0.4
-        scroll-margin 0)        ; important: scroll-margin>0 not yet supported
-  :config
-  (ultra-scroll-mode 1))
-\end{minted}
-\section{Multiple Cursors}
-\label{sec:orgb2dc045}
-\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
-(global-set-key (kbd "C-S-c C-S-c") 'mc/mark-all-like-this)
-\end{minted}
-\section{he-date.el}
-\label{sec:org12652dc}
+\subsection{he-date.el}
+\label{sec:org72c70a5}
 This was written by chatgpt, I really do need to learn elisp.
 \begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
 ;;; he-date.el --- Convert ISO filename dates to Holocene date blocks -*- lexical-binding: t; -*-
@@ -1097,5 +1091,33 @@ Uses region if active, otherwise the current line."
     (insert result)))
 
 (provide 'he-date)
+\end{minted}
+\subsection{Backup control}
+\label{sec:orgc08afe5}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; Instea of putting *~ backups in current directory,
+;; put them in local .saves
+(setq backup-directory-alist `(("." . ".saves")))
+
+;; Just to stop spamming backup files
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
+\end{minted}
+\subsection{PATH setup}
+\label{sec:orgbcbe422}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+(use-package exec-path-from-shell
+  :if (display-graphic-p)
+  :config
+  (dolist (var '("PATH" "MANPATH"))
+    (exec-path-from-shell-copy-env var)))
+\end{minted}
+\subsection{TRAMP}
+\label{sec:org98c28d9}
+\begin{minted}[fontsize=\footnotesize,obeytabs=true,mathescape=true,numbersep=5pt]{common-lisp}
+;; Default to ssh when using tramp
+(setq tramp-default-method "ssh")
 \end{minted}
 \end{document}
