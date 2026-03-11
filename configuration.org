@@ -4,7 +4,7 @@
 #+options: tasks:t tex:t timestamp:t title:t toc:nil todo:t |:t
 #+latex_class: sandy-technical
 #+title: Sandy's .emacs.d
-#+date: 253; 12025 H.E.
+#+date: 70; 12026 H.E.
 #+author: Sandy Urazayev
 #+email: sandy@sandyuraz.com
 #+language: en
