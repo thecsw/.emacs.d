@@ -913,6 +913,65 @@ All the things that keep me literally literate.
   #+BEGIN_SRC emacs-lisp
     (add-hook 'org-mode-hook 'org-fragtog-mode)
   #+END_SRC
+** Clojure
+
+#+BEGIN_SRC emacs-lisp
+  ;; -----------------------------
+  ;; Clojure + CIDER
+  ;; -----------------------------
+
+  (add-hook 'clojure-mode-hook
+            (lambda ()
+              (when (bound-and-true-p lsp-mode)
+                (lsp-deferred)
+                (setq lsp-enable-indentation nil)
+                (setq lsp-enable-completion-at-point nil))))
+
+  (use-package clojure-mode
+    :ensure t
+    :mode ("\\.clj\\'" "\\.cljs\\'" "\\.cljc\\'" "\\.edn\\'")
+    :hook (clojure-mode . subword-mode))
+
+  (use-package cider
+    :ensure t
+    :hook ((clojure-mode . cider-mode)
+           (clojurescript-mode . cider-mode)
+           (clojurec-mode . cider-mode))
+    :config
+
+    ;; -----------------------------
+    ;; REPL behavior
+    ;; -----------------------------
+    (setq cider-repl-display-in-current-window t
+          cider-repl-pop-to-buffer-on-connect nil
+          cider-save-file-on-load t
+          cider-auto-select-error-buffer t
+          cider-repl-display-help-banner nil
+          cider-connection-timeout 10)
+
+    ;; -----------------------------
+    ;; Inline evaluation (this is the good stuff)
+    ;; -----------------------------
+    (setq cider-use-overlays t
+          cider-result-overlay-position 'at-eol
+          cider-overlays-use-font-lock t
+          cider-eval-result-prefix "=> ")
+
+    ;; Pretty printing in REPL
+    (setq cider-repl-use-pretty-printing t)
+
+    ;; -----------------------------
+    ;; Errors / stacktraces
+    ;; -----------------------------
+    (setq cider-stacktrace-default-filters '(tooling dup)
+          cider-stacktrace-fill-column 120)
+
+    ;; -----------------------------
+    ;; Reduce noise / focus on code
+    ;; -----------------------------
+    (setq cider-auto-select-test-report-buffer nil))
+#+END_SRC
+
 * Random
 
 I don't even know how to classify this, so it goes here.
