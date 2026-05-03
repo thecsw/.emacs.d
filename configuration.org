@@ -675,8 +675,8 @@ Trying to jump to character like a decade after.
     :ensure t
     :bind
     (("M-j" . avy-goto-char-timer)
-     ("M-g c" . avy-goto-char)
-     ("M-g l" . avy-goto-line)))
+     ("M-g M-c" . avy-goto-char)
+     ("M-g M-l" . avy-goto-line)))
 #+end_src
 
 * Literate
