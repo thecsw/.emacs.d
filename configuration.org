@@ -1060,3 +1060,64 @@ This was written by chatgpt, I really do need to learn elisp.
   ;; Default to ssh when using tramp
   (setq tramp-default-method "ssh")
 #+END_SRC
+
+* Maintenance
+
+Utilities for keeping the package install healthy, e.g. after a mass
+upgrade.
+
+** Recompile packages after a mass upgrade
+#+begin_src emacs-lisp
+  ;;;###autoload
+  (defun sandy-recompile (&optional recompile-all)
+    "Recompile installed packages so their bytecode matches the active `compat'.
+
+After a mass package upgrade (e.g. `package-update-all'), packages that
+depend on `compat' can end up with stale \".elc\" files that were
+byte-compiled without `compat's macros live.  At runtime this surfaces
+as spurious `invalid-function' / `wrong-number-of-arguments' errors
+from packages like `vertico' or `marginalia'.
+
+This command ensures `package-initialize' has run and `compat' is
+loaded first, then byte-compiles every \".el\" file of each activated
+package that depends on `compat' (always, even if the \".elc\" looks
+up to date, since a stale-but-equal-timestamp \".elc\" is exactly the
+bug this fixes).  Other packages are only recompiled if their \".elc\"
+is missing or older than the \".el\".
+
+With a prefix argument (RECOMPILE-ALL), recompile every activated
+package unconditionally."
+    (interactive "P")
+    (unless package--initialized
+      (package-initialize))
+    (require 'compat)
+    (let ((compiled 0) (failed 0) (failures nil))
+      (dolist (cell package-alist)
+        (let* ((desc (car (cdr cell)))
+               (dir (and desc (package-desc-dir desc)))
+               (reqs (and desc (package-desc-reqs desc)))
+               (needs-compat (assq 'compat reqs)))
+          (when (and dir (or recompile-all needs-compat))
+            (dolist (el (directory-files dir t "\\.el\\'"))
+              (unless (string-match-p "-autoloads\\.el\\'" el)
+                (let ((elc (concat el "c")))
+                  (when (or needs-compat recompile-all
+                            (not (file-exists-p elc))
+                            (file-newer-than-file-p el elc))
+                    (condition-case err
+                        (progn
+                          (byte-compile-file el)
+                          (cl-incf compiled))
+                      (error
+                       (cl-incf failed)
+                       (push (cons el err) failures))))))))))
+      (message
+       "sandy-recompile: %d file%s compiled%s%s"
+       compiled (if (= compiled 1) "" "s")
+       (if (> failed 0) (format ", %d FAILED" failed) "")
+       (if recompile-all " (all packages)" " (compat-dependent)"))
+      (when failures
+        (dolist (f (nreverse failures))
+          (message "  %s: %S" (file-name-nondirectory (car f)) (cdr f))))
+      (list compiled failed)))
+#+end_src
