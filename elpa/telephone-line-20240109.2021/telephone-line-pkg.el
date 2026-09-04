@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "telephone-line" "20240109.2021" "Rewrite of Powerline"
   '((emacs "24.4")
     (cl-lib "0.5")

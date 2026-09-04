@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; ac-jade.el --- auto complete source for html tag and attributes
 
 ;; Copyright (C) 2014 Zhang Kai Yu, Olexandr Sydorchuck

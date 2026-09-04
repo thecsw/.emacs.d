@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; gopher.el --- easily access and navigate Gopher servers
 
 ;; Copyright (C) 2011 Matthew Snyder

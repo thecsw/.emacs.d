@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; origami-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

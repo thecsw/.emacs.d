@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; ac-haml.el --- auto complete source for html tag and attributes
 
 ;; Copyright (C) 2014 - 2015 Zhang Kai Yu

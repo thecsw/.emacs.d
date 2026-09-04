@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; inf-fsharp-mode.el --- Support for F# interactive
 
 ;; Copyright (C) 1997 INRIA

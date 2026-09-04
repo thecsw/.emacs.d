@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; markdown-mode+-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "magit-lfs" "20221031.1447" "Magit plugin for Git LFS"
   '((emacs "24.4")
     (magit "2.10.3")

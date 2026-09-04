@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; magit-lfs.el --- Magit plugin for Git LFS
 
 ;; Copyright (C) 2017 Junyoung Clare Jang

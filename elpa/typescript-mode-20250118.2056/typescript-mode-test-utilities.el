@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; typescript-mode-test-utilities --- This file contains test utilities for typescript-mode.el
 
 ;;; Commentary:

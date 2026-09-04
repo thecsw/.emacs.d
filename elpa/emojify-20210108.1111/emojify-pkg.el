@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "emojify" "20210108.1111" "Display emojis in Emacs"
   '((seq "1.11")
     (ht "2.0")

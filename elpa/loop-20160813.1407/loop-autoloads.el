@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; loop-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

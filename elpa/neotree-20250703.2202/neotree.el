@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; neotree.el --- A tree plugin like NerdTree for Vim
 
 ;; Copyright (C) 2014 jaypei

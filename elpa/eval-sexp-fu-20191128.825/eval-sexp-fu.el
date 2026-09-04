@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; eval-sexp-fu.el --- Tiny functionality enhancements for evaluating sexps.
 
 ;; Copyright (C) 2009-2013 Takeshi Banse <takebi@laafc.net>

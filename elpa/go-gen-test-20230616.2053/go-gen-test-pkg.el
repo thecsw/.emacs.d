@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "go-gen-test" "20230616.2053" "Generate tests for go code with gotests"
   '((emacs "24.4"))
   :commit "af00a9abbaba2068502327ecdef574fd894a884b" :authors

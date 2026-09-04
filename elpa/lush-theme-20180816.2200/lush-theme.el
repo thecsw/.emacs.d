@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; lush-theme.el --- A dark theme with lush colors
 ;;
 ;; Filename: lush-theme.el

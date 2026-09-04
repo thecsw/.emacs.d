@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; markdown-mode+.el --- extra functions for markdown-mode
 
 ;; Copyright (c) 2011 Donald Ephraim Curtis <dcurtis@milkbox.net>

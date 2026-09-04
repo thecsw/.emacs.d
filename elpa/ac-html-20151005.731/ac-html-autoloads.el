@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; ac-html-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

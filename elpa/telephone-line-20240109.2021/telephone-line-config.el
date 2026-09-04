@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; telephone-line-config.el --- Easy config for telephone-line
 
 ;; Copyright (C) 2015-2022 Daniel Bordak

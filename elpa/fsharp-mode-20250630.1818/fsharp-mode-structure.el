@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; fsharp-mode-indent.el --- Stucture Definition, Mark, and Motion for F#
 
 ;; Copyright (C) 2010 Laurent Le Brun

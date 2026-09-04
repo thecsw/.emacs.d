@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; javap-mode.el --- Javap major mode
 ;; Package-Version: 20120223.2208
 ;; Package-Revision: 864c1130e204

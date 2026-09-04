@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "prettier" "20240902.1516" "Code formatting with Prettier"
   '((emacs "26.1")
     (iter2 "0.9")

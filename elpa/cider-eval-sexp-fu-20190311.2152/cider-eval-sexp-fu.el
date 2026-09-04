@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; cider-eval-sexp-fu.el --- Briefly highlights an evaluated sexp.
 
 ;; Adapted from Sam Aaron's code found in emacs-live in order to

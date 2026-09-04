@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; bibtex-completion.el --- A BibTeX backend for completion frameworks
 
 ;; Author: Titus von der Malsburg <malsburg@posteo.de>

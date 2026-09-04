@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "math-preview" "20240801.513" "Preview TeX math equations inline"
   '((emacs "26.1")
     (json "1.4")

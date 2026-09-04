@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "magit-diff-flycheck" "20190524.551" "Report errors in diffs"
   '((magit "2")
     (flycheck "31")

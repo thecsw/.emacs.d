@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "org-ref" "3.1.0" "citations, cross-references and bibliographies in org-mode"
   '((dash "0")
     (s "0")

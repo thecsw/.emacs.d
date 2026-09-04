@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; dot-mode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

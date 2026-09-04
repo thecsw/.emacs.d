@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "ace-window" "20220911.358" "Quickly switch windows."
   '((avy "0.5.0"))
   :commit "77115afc1b0b9f633084cf7479c767988106c196" :authors

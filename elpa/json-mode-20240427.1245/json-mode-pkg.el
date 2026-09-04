@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "json-mode" "20240427.1245" "Major mode for editing JSON files"
   '((json-snatcher "1.0.0")
     (emacs "24.4"))

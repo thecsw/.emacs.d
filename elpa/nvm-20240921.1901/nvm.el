@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; nvm.el --- Manage Node versions within Emacs
 
 ;; Copyright (C) 2013 Johan Andersson

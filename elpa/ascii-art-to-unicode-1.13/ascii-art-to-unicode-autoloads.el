@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; ascii-art-to-unicode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

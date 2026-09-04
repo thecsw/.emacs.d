@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 0xc.el --- Base conversion made easy
 
 ;; Copyright 2016 Adam Niederer

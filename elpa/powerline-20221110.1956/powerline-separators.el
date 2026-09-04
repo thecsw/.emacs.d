@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; powerline-separators.el --- Separators for Powerline
 
 ;; Copyright (C) 2012-2013 Donald Ephraim Curtis

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; fsharp-mode.el --- Support for the F# programming language
 
 ;; Copyright (C) 1997 INRIA

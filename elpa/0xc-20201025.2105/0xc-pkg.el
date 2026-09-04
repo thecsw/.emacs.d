@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "0xc" "20201025.2105" "Base conversion made easy"
   '((emacs "24.4")
     (s "1.11.0"))

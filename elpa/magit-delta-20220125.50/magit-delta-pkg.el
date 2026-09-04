@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "magit-delta" "20220125.50" "Use Delta when displaying diffs in Magit"
   '((emacs "25.1")
     (magit "20200426")

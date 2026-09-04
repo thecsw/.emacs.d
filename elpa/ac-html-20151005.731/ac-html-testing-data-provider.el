@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (require 'ac-html-core)
 
 (defun ac-html-testing-tags ()

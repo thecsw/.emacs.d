@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; org-bullets-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

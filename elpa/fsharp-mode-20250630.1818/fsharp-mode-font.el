@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; fsharp-mode-font.el --- Syntax highlighting for F#
 
 ;; Copyright (C) 1997 INRIA

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; lush-theme-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

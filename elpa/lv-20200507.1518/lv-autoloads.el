@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; lv-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

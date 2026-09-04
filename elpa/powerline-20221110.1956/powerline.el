@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; powerline.el --- Rewrite of Powerline
 
 ;; Copyright (C) 2012-2013 Donald Ephraim Curtis

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; gopher-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

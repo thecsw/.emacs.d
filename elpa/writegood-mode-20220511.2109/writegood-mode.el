@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; writegood-mode.el --- Polish up poor writing on the fly
 ;;
 ;; Author: Benjamin Beckwith

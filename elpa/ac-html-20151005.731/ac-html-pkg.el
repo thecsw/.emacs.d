@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "ac-html" "20151005.731" "auto complete source for html tags and attributes"
   '((auto-complete "1.4")
     (s "1.9")

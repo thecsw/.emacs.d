@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; emojify-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

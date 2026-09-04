@@ -25,6 +25,57 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
         '(("gnu" . "https://elpa.gnu.org/packages/")
           ("melpa" . "https://melpa.org/packages/")))
 #+END_SRC
+* Lexical-binding cookie housekeeping
+
+Old packages that ship without a =lexical-binding= cookie trigger
+"Missing ‘lexical-binding’ cookie" warnings on Emacs 29+. These
+functions add the cookie to every =.el= file under =elpa/= and run
+automatically after =package-install= / =package-upgrade=.
+
+#+BEGIN_SRC emacs-lisp
+  (defun my/el-file-needs-lexical-cookie-p (file)
+    "Return non-nil if FILE's header lacks a `lexical-binding' cookie."
+    (with-temp-buffer
+      (insert-file-contents-literally file nil 0 1024 t)
+      (goto-char (point-min))
+      (when (looking-at-p "#!")
+        (forward-line 1))
+      (not (looking-at ".*-\\*-.*lexical-binding.*-\\*-"))))
+
+  (defun my/el-file-add-lexical-cookie (file)
+    "Prepend a `lexical-binding' cookie to FILE and save it."
+    (with-temp-buffer
+      (insert-file-contents-literally file)
+      (goto-char (point-min))
+      (when (looking-at-p "#!")
+        (forward-line 1))
+      (insert ";;; -*- lexical-binding: t; -*-\n")
+      (write-region (point-min) (point-max) file nil 'silent)))
+
+  (defun my/fix-lexical-binding-in-elpa (&rest _)
+    "Add missing `lexical-binding' cookies to all .el files in `package-user-dir'.
+Runs automatically after installing or upgrading packages;
+also available interactively via M-x."
+    (interactive)
+    (let ((fixed 0))
+      (dolist (file (directory-files-recursively package-user-dir "\\.el\\'"))
+        (when (and (not (string-match-p "/\\.dir-locals\\.el\\'" file))
+                   (file-readable-p file)
+                   (my/el-file-needs-lexical-cookie-p file))
+          (condition-case err
+              (progn
+                (my/el-file-add-lexical-cookie file)
+                (setq fixed (1+ fixed)))
+            (error (message "lexical-cookie: failed on %s: %s"
+                            file (error-message-string err))))))
+      (when (> fixed 0)
+        (message "lexical-cookie: added cookie to %d file(s) in %s"
+                 fixed (abbreviate-file-name package-user-dir)))))
+
+  (advice-add 'package-install :after #'my/fix-lexical-binding-in-elpa)
+  (when (fboundp 'package-upgrade)
+    (advice-add 'package-upgrade :after #'my/fix-lexical-binding-in-elpa))
+#+END_SRC
 * Performance
 #+begin_src emacs-lisp
   ;; Performance tweaks

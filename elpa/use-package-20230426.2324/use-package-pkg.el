@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "use-package" "20230426.2324" "A configuration macro for simplifying your .emacs"
   '((emacs "24.3")
     (bind-key "2.4"))

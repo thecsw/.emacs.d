@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "arduino-mode" "20240527.1603" "Major mode for editing Arduino code"
   '((emacs "25.1")
     (spinner "1.7.3"))

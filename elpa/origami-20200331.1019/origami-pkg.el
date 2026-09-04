@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "origami" "20200331.1019" "Flexible text folding"
   '((s "1.9.0")
     (dash "2.5.0")

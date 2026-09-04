@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; dot-mode.el --- minor mode to repeat typing or commands
 
 ;;; Copyright (C) 1995 James Gillespie

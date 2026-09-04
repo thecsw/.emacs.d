@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; cider-decompile.el --- decompilation extension for cider
 
 ;; Copyright © 2013 Dmitry Bushenko

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 0xc-live.el --- Base conversion made live
 
 ;; Copyright 2020 Adam Niederer

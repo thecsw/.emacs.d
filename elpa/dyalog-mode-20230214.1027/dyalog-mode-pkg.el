@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "dyalog-mode" "20230214.1027" "Major mode for editing Dyalog APL source code"
   '((cl-lib "0.2")
     (emacs "24.3"))

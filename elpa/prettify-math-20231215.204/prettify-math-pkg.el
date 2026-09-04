@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "prettify-math" "20231215.204" "Prettify math formula"
   '((emacs "27.1")
     (dash "2.19.0")

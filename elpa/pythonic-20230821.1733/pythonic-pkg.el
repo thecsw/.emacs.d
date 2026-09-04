@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (define-package "pythonic" "20230821.1733" "Utility functions for writing pythonic emacs package"
   '((emacs "25.1")
     (s "1.9")

@@ -1,0 +1,2190 @@
+;;; copilot.el --- An Emacs plugin for GitHub Copilot -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2022-2026 copilot-emacs maintainers
+
+;; Author: zerol <z@zerol.me>
+;; Maintainer: Bozhidar Batsov <bozhidar@batsov.dev>
+;; URL: https://github.com/copilot-emacs/copilot.el
+;; Package-Requires: ((emacs "27.2") (editorconfig "0.8.2") (jsonrpc "1.0.14") (compat "30") (track-changes "1.4"))
+;; Package-Version: 20260707.516
+;; Package-Revision: 277ca357422b
+;; Keywords: convenience copilot
+
+;; The MIT License (MIT)
+
+;; Permission is hereby granted, free of charge, to any person obtaining a copy
+;; of this software and associated documentation files (the "Software"), to deal
+;; in the Software without restriction, including without limitation the rights
+;; to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+;; copies of the Software, and to permit persons to whom the Software is
+;; furnished to do so, subject to the following conditions:
+
+;; The above copyright notice and this permission notice shall be included in all
+;; copies or substantial portions of the Software.
+
+;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+;; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+;; SOFTWARE.
+
+;;; Commentary:
+
+;; An Emacs plugin for GitHub Copilot
+
+;;; Code:
+
+(require 'cl-lib)
+(require 'compat)
+(require 'compile)
+(require 'json)
+(require 'jsonrpc)
+(require 'subr-x)
+(require 'url)
+
+(require 'editorconfig)
+(require 'track-changes)
+
+(require 'copilot-balancer)
+
+(defgroup copilot nil
+  "Copilot."
+  :group 'completion
+  :prefix "copilot-")
+
+(defcustom copilot-idle-delay 0
+  "Time in seconds to wait before starting completion.
+
+Complete immediately if set to 0.
+Disable idle completion if set to nil."
+  :type '(choice
+          (number :tag "Seconds of delay")
+          (const :tag "Idle completion disabled" nil))
+  :group 'copilot
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-network-proxy nil
+  "Network proxy to use for Copilot.
+
+Nil means no proxy.
+Format: \='(:host \"127.0.0.1\" :port 80 :username \"username\"
+            :password \"password\")
+Username and password are optional.
+
+If you are using a MITM proxy which intercepts TLS connections, you may need
+to disable TLS verification.  This can be done by setting a pair
+':rejectUnauthorized :json-false' in the proxy plist.  For example:
+
+  (:host \"127.0.0.1\" :port 80 :rejectUnauthorized :json-false)"
+  :type '(plist :tag "Uncheck all to disable proxy" :key-type symbol)
+  :options '((:host string) (:port integer) (:username string) (:password string))
+  :group 'copilot
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-log-max 0
+  "Max size of the `*copilot events*' jsonrpc events buffer.
+This buffer records all JSON-RPC traffic between Emacs and the Copilot
+language server, which is useful for debugging protocol-level issues.
+Set to a positive integer (e.g. 1000) to enable, 0 to disable, or nil
+for unlimited size.  Enabling event logging may slightly affect
+performance."
+  :group 'copilot
+  :type 'integer
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-server-args '("--stdio")
+  "Additional arguments to pass to the Copilot server."
+  :group 'copilot
+  :type '(repeat string)
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-max-char 100000
+  "Maximum number of characters to send to Copilot, -1 means no limit."
+  :group 'copilot
+  :type 'integer
+  :package-version '(copilot . "0.1"))
+
+
+(defcustom copilot-clear-overlay-ignore-commands nil
+  "List of commands that should not clear the overlay when called."
+  :group 'copilot
+  :type '(repeat function)
+  :package-version '(copilot . "0.1"))
+
+(defconst copilot--hardcoded-clear-overlay-ignore-commands
+  '(universal-argument digit-argument negative-argument universal-argument-more)
+  "Hardcoded list of commands that should not clear the overlay.")
+
+(defcustom copilot-clear-overlay-on-commands '(beginning-of-visual-line)
+  "Commands that must clear the Copilot overlay before execution."
+  :group 'copilot
+  :type '(repeat function)
+  :package-version '(copilot . "0.4"))
+
+(defcustom copilot-indent-offset-warning-disable nil
+  "Disable indentation warnings.
+
+Warning occurs when the function `copilot--infer-indentation-offset' cannot
+find indentation offset."
+  :group 'copilot
+  :type 'boolean
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-max-char-warning-disable nil
+  "When non-nil, disable warning about buffer size exceeding `copilot-max-char'."
+  :group 'copilot
+  :type 'boolean
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-show-code-references t
+  "When non-nil, report when a suggestion matches public code.
+GitHub Copilot can detect when a suggestion closely matches publicly
+available code.  GitHub calls such matches \"code references\"; when
+enabled, they are announced in the echo area and collected, with their
+licenses and source URLs, in the `*copilot-code-references*' buffer (see
+`copilot-list-code-references').
+
+Note that these are GitHub's public-code references and have nothing to
+do with Emacs `xref' (cross-references to definitions and uses)."
+  :group 'copilot
+  :type 'boolean
+  :package-version '(copilot . "0.7"))
+
+(define-obsolete-variable-alias 'copilot-show-code-citations
+  'copilot-show-code-references "0.7.1")
+
+(defcustom copilot-enable-parentheses-balancer t
+  "Whether to post-process completions to balance parentheses in Lisp modes.
+When non-nil, completions in Lisp modes are adjusted to ensure that
+parentheses remain balanced within the surrounding top-level form.
+Set to nil to use completions from the server verbatim."
+  :type 'boolean
+  :group 'copilot
+  :package-version '(copilot . "0.4"))
+
+(defcustom copilot-indentation-alist
+  (append '((emacs-lisp-mode lisp-indent-offset)
+            (latex-mode tex-indent-basic)
+            (lisp-mode lisp-indent-offset)
+            (nxml-mode nxml-child-indent)
+            (python-mode python-indent py-indent-offset python-indent-offset)
+            (python-ts-mode python-indent py-indent-offset python-indent-offset)
+            (web-mode web-mode-markup-indent-offset web-mode-html-offset))
+          editorconfig-indentation-alist)
+  "Alist of `major-mode' to indentation map with optional fallbacks."
+  :type '(alist :key-type symbol :value-type (choice integer symbol))
+  :group 'copilot
+  :package-version '(copilot . "0.1"))
+
+(defconst copilot-server-package-name "@github/copilot-language-server"
+  "The name of the package to install copilot server.")
+
+(defcustom copilot-install-dir (expand-file-name
+                                (locate-user-emacs-file (file-name-concat ".cache" "copilot")))
+  "Directory in which the servers will be installed."
+  :risky t
+  :type 'directory
+  :group 'copilot
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-server-executable "copilot-language-server"
+  "The executable of copilot server."
+  :type 'string
+  :group 'copilot
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-lsp-server-version nil
+  "Copilot LSP server version.
+
+The default value is the preferred version and ensures functionality.
+You may adjust this variable at your own risk."
+  :type '(choice (const :tag "Latest" nil)
+                 (string :tag "Specific Version"))
+  :group 'copilot
+  :package-version '(copilot . "0.1"))
+
+(define-obsolete-variable-alias 'copilot-version 'copilot-lsp-server-version "0.4.0")
+
+(defun copilot--lsp-settings-changed (symbol value)
+  "Notify the Copilot LSP that SYMBOL changed to VALUE.
+
+This function will be called by the customization framework when the
+`copilot-lsp-settings' is changed.  When changed with `setq', then this function
+will not be called."
+  (let ((was-bound (boundp symbol)))
+    (set-default symbol value)
+    (when (and was-bound (copilot--connection-alivep))
+      (copilot--notify 'workspace/didChangeConfiguration
+                       `(:settings ,(copilot--effective-lsp-settings))))))
+
+(defcustom copilot-lsp-settings nil
+  "Settings for the Copilot LSP server.
+
+This value will always be sent to the server when the server starts or the value
+changes.  See
+https://github.com/github/copilot-language-server-release?tab=readme-ov-file#configuration-management
+for complete documentation.
+
+To change the value of this variable, the customization framework provided by
+Emacs must be used.  Either use `setopt' or `customize' to change the value.  If
+the value was set without the customization mechanism, then the LSP has to be
+manually restarted with `copilot-diagnose'.  Otherwise, the change will not be
+applied.
+
+For example to use GitHub Enterprise use the following configuration:
+ '(:github-enterprise (:uri \"https://example.ghe.com\"))
+
+Exchange the URI with the correct URI of your organization."
+  :set #'copilot--lsp-settings-changed
+  :type 'sexp
+  :group 'copilot
+  :package-version '(copilot . "0.2"))
+
+(defcustom copilot-completion-model nil
+  "The completion model to use for Copilot suggestions.
+When nil, the server's default model is used.
+Use `M-x copilot-select-completion-model' to interactively choose
+from available models."
+  :type '(choice (const :tag "Default" nil)
+                 (string :tag "Model ID"))
+  :group 'copilot
+  :package-version '(copilot . "0.4"))
+
+(defcustom copilot-mcp-servers nil
+  "Model Context Protocol servers to expose to Copilot agent mode.
+The value is a map from server name to its definition, sent to the
+language server so its tools become available in `copilot-chat' agent
+mode (see `copilot-chat-use-agent-mode').  Each tool invocation still
+prompts for confirmation unless auto-approved.
+
+The map is most naturally written as a plist keyed by server name.  A
+stdio server is launched from a command; an HTTP or SSE server is
+reached at a URL:
+
+  \\='(:fetch (:command \"uvx\" :args [\"mcp-server-fetch\"])
+    :memory (:command \"npx\"
+             :args [\"-y\" \"@modelcontextprotocol/server-memory\"]
+             :env (:MEMORY_FILE_PATH \"/tmp/memory.json\"))
+    :remote (:type \"http\" :url \"https://example.com/mcp/\"
+             :headers (:Authorization \"Bearer TOKEN\")))
+
+The value is serialized to JSON, so list-valued fields such as `:args'
+must be vectors.  As with `copilot-lsp-settings', change this through
+the customization framework (`setopt' or `customize') so the running
+server is updated; a plain `setq' takes effect only on restart."
+  :set #'copilot--lsp-settings-changed
+  :type 'sexp
+  :group 'copilot
+  :package-version '(copilot . "0.7"))
+
+(defvar-local copilot--overlay nil
+  "Overlay for Copilot completion.")
+
+(defvar-local copilot--keymap-overlay nil
+  "Overlay used to surround point and make copilot-completion-keymap activate.")
+
+(defvar copilot--connection nil
+  "Copilot server jsonrpc connection instance.")
+
+(defvar-local copilot--line-bias 1
+  "Line bias for Copilot completion.")
+
+(defvar copilot--post-command-timer nil)
+(defvar-local copilot--last-doc-version 0
+  "The document version of the last completion.")
+(defvar-local copilot--doc-version 0
+  "The document version of the current buffer.
+Incremented after each change.")
+
+;;
+;; Utility functions
+;;
+
+(defun copilot--buffer-changed ()
+  "Return non-nil if the buffer has changed since last completion."
+  (not (= copilot--last-doc-version copilot--doc-version)))
+
+(defvar copilot--opened-buffers nil
+  "List of buffers that have been opened in Copilot.")
+
+(defvar copilot--workspace-folders nil
+  "List of workspace folder URIs already reported to the server.")
+
+(defvar copilot--status nil
+  "Current server status from `didChangeStatus' notification.
+Plist with keys :kind, :busy, and :message.")
+
+(defvar copilot--quota nil
+  "Latest quota snapshot from the `copilot/quotaChange' notification.
+A plist with keys such as :chat, :completions, :premium_interactions
+\(each a snapshot plist with :percentRemaining and :unlimited),
+:copilotPlan, and :canUpgradePlan.  Nil until the server reports it.
+
+Note `:premium_interactions' is snake_case in the server payload even
+though its siblings are camelCase; this matches the wire format.")
+
+(defvar copilot--progress-sessions (make-hash-table :test 'equal)
+  "Hash table of active progress sessions, keyed by token.
+Each value is a plist with :title, :message, and :percentage.")
+
+(defun copilot--progress-lighter ()
+  "Compute mode-line progress indicator from active sessions.
+Returns nil when no active sessions.  Otherwise returns a string
+like \"[title: message]\" or \"[title: 42%]\" from the most
+recently updated session."
+  (when (> (hash-table-count copilot--progress-sessions) 0)
+    (let (latest)
+      (maphash (lambda (_k v) (setq latest v)) copilot--progress-sessions)
+      (let ((title (plist-get latest :title))
+            (message (plist-get latest :message))
+            (percentage (plist-get latest :percentage)))
+        (cond
+         ((stringp message) (format " [%s: %s]" title message))
+         ((numberp percentage) (format " [%s: %d%%]" title percentage))
+         (t (format " [%s]" title)))))))
+
+(defun copilot--status-lighter ()
+  "Compute the mode-line lighter string from `copilot--status'."
+  (let ((kind (plist-get copilot--status :kind))
+        (busy (plist-get copilot--status :busy))
+        (progress (copilot--progress-lighter)))
+    (concat
+     (cond
+      ((or (null kind) (and (equal kind "Normal") (not busy)))
+       " Copilot")
+      ((and (equal kind "Normal") busy)
+       " Copilot*")
+      ((equal kind "Warning")
+       (propertize " Copilot:Warning" 'face 'warning))
+      ((equal kind "Error")
+       (propertize " Copilot:Error" 'face 'error))
+      ((equal kind "Inactive")
+       (propertize " Copilot:Inactive" 'face 'shadow))
+      (t " Copilot"))
+     progress)))
+
+(defmacro copilot--dbind (pattern source &rest body)
+  "Destructure SOURCE against plist PATTERN and eval BODY."
+  (declare (indent 2))
+  `(cl-destructuring-bind (&key ,@pattern &allow-other-keys) ,source
+     ,@body))
+
+(defun copilot--log (level format &rest args)
+  "Log message with LEVEL, FORMAT and ARGS."
+  (message "%s: %s" (propertize "Copilot" 'face
+                                (pcase level
+                                  ('error 'error)
+                                  ('warning 'warning)
+                                  ('info 'success)
+                                  (_ 'warning)))
+           (apply #'format format args)))
+
+(defun copilot--mode-symbol (mode-name)
+  "Infer the language for MODE-NAME."
+  (thread-last
+    mode-name
+    (string-remove-suffix "-ts-mode")
+    (string-remove-suffix "-mode")))
+
+(defun copilot--string-common-prefix (str1 str2)
+  "Find the common prefix of STR1 and STR2 directly."
+  (let ((min-len (min (length str1) (length str2)))
+        (i 0))
+    (while (and (< i min-len)
+                (= (aref str1 i) (aref str2 i)))
+      (setq i (1+ i)))
+    (substring str1 0 i)))
+
+;;
+;; Externals
+;;
+
+(declare-function vterm-delete-region "ext:vterm.el")
+(declare-function vterm-insert "ext:vterm.el")
+(declare-function org-sort-entries "ext:org.el")
+(declare-function org-entry-get "ext:org.el")
+(declare-function org-map-entries "ext:org.el")
+
+;;
+;;; Copilot Server Installation
+;;
+
+(defun copilot-installed-version ()
+  "Return the version number of currently installed `copilot-server-package-name'."
+  (let ((possible-paths (list
+                         (when (eq system-type 'windows-nt)
+                           (file-name-concat copilot-install-dir "node_modules" copilot-server-package-name "package.json"))
+                         (file-name-concat copilot-install-dir "lib" "node_modules" copilot-server-package-name "package.json")
+                         (file-name-concat copilot-install-dir "lib64" "node_modules" copilot-server-package-name "package.json"))))
+    (seq-some
+     (lambda (path)
+       (when (and path (file-exists-p path))
+         (with-temp-buffer
+           (insert-file-contents path)
+           (save-match-data
+             (when (re-search-forward "\"version\": \"\\([0-9]+\\.[0-9]+\\.[0-9]+\\)\"" nil t)
+               (match-string 1))))))
+     possible-paths)))
+
+(defun copilot--system-arch ()
+  "Return the npm-style architecture string for the current system.
+Returns \"arm64\" for AArch64 systems or \"x64\" for x86-64 systems."
+  (let ((config (or system-configuration "")))
+    (cond
+     ((string-match-p "aarch64" config) "arm64")
+     ((string-match-p "x86_64" config) "x64")
+     (t (error "Unsupported architecture: %s" config)))))
+
+(defun copilot--native-platform ()
+  "Return the native platform string like \"darwin-arm64\".
+Combines the OS type and architecture for selecting the correct
+native binary from the npm package."
+  (let ((os (pcase system-type
+              ('darwin "darwin")
+              ('gnu/linux "linux")
+              ('windows-nt "win32")
+              (_ (error "Unsupported OS: %s" system-type))))
+        (arch (copilot--system-arch)))
+    (format "%s-%s" os arch)))
+
+(defun copilot--native-binary-name ()
+  "Return the platform-specific binary filename for the Copilot server."
+  (if (eq system-type 'windows-nt)
+      "copilot-language-server.exe"
+    "copilot-language-server"))
+
+(defun copilot-server-executable ()
+  "Return the location of the `copilot-server-executable' file."
+  (cond
+   ((and (file-name-absolute-p copilot-server-executable)
+         (file-exists-p copilot-server-executable))
+    copilot-server-executable)
+   ((executable-find copilot-server-executable t))
+   (t
+    (let ((path (executable-find
+                 (file-name-concat copilot-install-dir
+                                   (cond ((eq system-type 'windows-nt) "")
+                                         (t "bin"))
+                                   copilot-server-executable)
+                 t)))
+      (unless (and path (file-exists-p path))
+        (error "The package %s is not installed.  Unable to find %s"
+               copilot-server-package-name path))
+      path))))
+
+;; XXX: This function is modified from `lsp-mode'; see `lsp-async-start-process'
+;; function for more information.
+(defun copilot-async-start-process (callback error-callback &rest command)
+  "Start async process COMMAND with CALLBACK and ERROR-CALLBACK."
+  (with-current-buffer
+      (compilation-start
+       (mapconcat
+        #'shell-quote-argument
+        (seq-filter (lambda (cmd) cmd) command)
+        " ")
+       t
+       (lambda (&rest _)
+         (generate-new-buffer-name "*copilot-install-server*")))
+    (view-mode +1)
+    (add-hook
+     'compilation-finish-functions
+     (lambda (_buf status)
+       (if (string= "finished\n" status)
+           (when callback
+             (condition-case err
+                 (funcall callback)
+               (error
+                (funcall error-callback (error-message-string err)))))
+         (when error-callback
+           (funcall error-callback (string-trim-right status)))))
+     nil t)))
+
+(defun copilot--npm-registry-info ()
+  "Fetch package metadata from the npm registry.
+Return a plist with `:version' and `:tarball' keys."
+  (let* ((url (if copilot-lsp-server-version
+                  (format "https://registry.npmjs.org/%s/%s"
+                          copilot-server-package-name copilot-lsp-server-version)
+                (format "https://registry.npmjs.org/%s/latest"
+                        copilot-server-package-name)))
+         (buf (url-retrieve-synchronously url t)))
+    (unless buf
+      (error "Failed to fetch package info from %s" url))
+    (unwind-protect
+        (with-current-buffer buf
+          (goto-char (point-min))
+          (re-search-forward "\n\n")
+          (let* ((json-object-type 'plist)
+                 (json-key-type 'keyword)
+                 (data (json-read))
+                 (version (plist-get data :version))
+                 (tarball (plist-get (plist-get data :dist) :tarball)))
+            (unless version
+              (error "Could not determine package version from npm registry"))
+            (unless tarball
+              (error "Could not determine tarball URL from npm registry"))
+            (list :version version :tarball tarball)))
+      (kill-buffer buf))))
+
+(defun copilot--install-server-native ()
+  "Install the Copilot server using native precompiled binaries."
+  (unless (executable-find "tar")
+    (error "Cannot install the native server: `tar' is required to extract the package"))
+  (let* ((platform (copilot--native-platform))
+         (pkg-dir (file-name-concat copilot-install-dir "lib" "node_modules"
+                                    "@github" "copilot-language-server"))
+         (bin-dir (file-name-concat copilot-install-dir "bin"))
+         (binary-name (copilot--native-binary-name))
+         (native-binary (file-name-concat pkg-dir "native" platform binary-name))
+         (target-binary (if (eq system-type 'windows-nt)
+                            (file-name-concat copilot-install-dir binary-name)
+                          (file-name-concat bin-dir binary-name))))
+    (message "Copilot: Detected platform %s" platform)
+    (message "Copilot: Fetching package info from npm registry...")
+    (let* ((registry-info (copilot--npm-registry-info))
+           (version (plist-get registry-info :version))
+           (tarball-url (plist-get registry-info :tarball))
+           (tarball-file (make-temp-file "copilot-server" nil ".tar.gz")))
+      (unwind-protect
+          (progn
+            (message "Copilot: Downloading %s v%s..." copilot-server-package-name version)
+            (url-copy-file tarball-url tarball-file t)
+            (make-directory pkg-dir 'parents)
+            (message "Copilot: Extracting package...")
+            ;; `call-process' returns a string for an abnormal exit, so
+            ;; format the code with %s rather than %d.
+            (let ((exit-code (call-process "tar" nil nil nil "xzf" tarball-file "-C" pkg-dir)))
+              (unless (eq exit-code 0)
+                (error "Failed to extract tarball (exit code %s)" exit-code)))
+            ;; npm tarballs wrap everything in a `package/' directory; lift
+            ;; its contents up into pkg-dir.
+            (let ((extracted-dir (file-name-concat pkg-dir "package")))
+              (dolist (file (directory-files extracted-dir nil "\\`[^.]"))
+                (let ((src (file-name-concat extracted-dir file))
+                      (dst (file-name-concat pkg-dir file)))
+                  (when (file-exists-p dst)
+                    (if (file-directory-p dst)
+                        (delete-directory dst t)
+                      (delete-file dst)))
+                  (rename-file src dst t)))
+              (when (file-directory-p extracted-dir)
+                (delete-directory extracted-dir t)))
+            (unless (file-exists-p native-binary)
+              (error "Native binary not found at %s (platform %s may not be supported)"
+                     native-binary platform))
+            (make-directory (file-name-directory target-binary) 'parents)
+            (copy-file native-binary target-binary t)
+            (set-file-modes target-binary #o755)
+            (message "Copilot: Successfully installed %s v%s (native %s)"
+                     copilot-server-package-name version platform))
+        (when (file-exists-p tarball-file)
+          (delete-file tarball-file))))))
+
+;;;###autoload
+(defun copilot-install-server-native ()
+  "Install the Copilot server using native binaries (no npm required)."
+  (interactive)
+  (copilot--install-server-native))
+
+;;;###autoload
+(defun copilot-install-server ()
+  "Interactively install server.
+When npm is available, install using npm.  Otherwise, fall back to
+downloading precompiled native binaries from the npm registry."
+  (interactive)
+  (if-let* ((npm-binary (executable-find "npm")))
+      (progn
+        (make-directory copilot-install-dir 'parents)
+        (copilot-async-start-process
+         nil nil
+         npm-binary
+         "-g" "--prefix" copilot-install-dir
+         "install" (concat copilot-server-package-name
+                           (when copilot-lsp-server-version (format "@%s" copilot-lsp-server-version)))))
+    (copilot--install-server-native)))
+
+;;;###autoload
+(defun copilot-uninstall-server ()
+  "Delete a Copilot server from `copilot-install-dir'."
+  (interactive)
+  (unless (file-directory-p copilot-install-dir)
+    (user-error "Copilot: Couldn't find %s directory" copilot-install-dir))
+  (delete-directory copilot-install-dir 'recursive)
+  (copilot--log 'warning "Server `%s' uninstalled." (file-name-nondirectory (directory-file-name copilot-install-dir))))
+
+;;;###autoload
+(defun copilot-reinstall-server ()
+  "Interactively re-install server."
+  (interactive)
+  (copilot-uninstall-server)
+  (copilot-install-server))
+
+;;
+;; Interaction with Copilot Server
+;;
+
+(defconst copilot--ignore-response
+  (lambda (_))
+  "Simply ignore the response.")
+
+(defun copilot--connection-alivep ()
+  "Non-nil if the `copilot--connection' is alive."
+  (and copilot--connection
+       (zerop (process-exit-status (jsonrpc--process copilot--connection)))))
+
+(defmacro copilot--request (method &optional params &rest args)
+  "Send a request to the copilot server for METHOD with PARAMS and ARGS.
+When PARAMS is nil, send an empty JSON object so the server does not
+reject the request with a schema-validation error."
+  `(progn
+     (unless (copilot--connection-alivep)
+       (copilot--start-server))
+     (jsonrpc-request copilot--connection ,method (or ,params (make-hash-table)) ,@args)))
+
+(defmacro copilot--notify (&rest args)
+  "Send a notification to the copilot server with ARGS."
+  `(progn
+     (unless (copilot--connection-alivep)
+       (copilot--start-server))
+     (jsonrpc-notify copilot--connection ,@args)))
+
+(cl-defmacro copilot--async-request (method params &rest args
+                                    &key
+                                    (success-fn #'copilot--ignore-response)
+                                    (error-fn nil error-fn-supplied-p)
+                                    &allow-other-keys)
+  "Send an asynchronous request to the copilot server.
+
+Arguments METHOD, PARAMS and ARGS are used in function `jsonrpc-async-request'.
+
+SUCCESS-FN is the CALLBACK.
+
+ERROR-FN is called when the request fails.  When omitted, a default
+handler logs the error to *Messages* via `copilot--log'.
+
+Returns the request ID (a number) so callers can cancel the request later."
+  (let ((filtered-args (cl-loop for (k v) on args by #'cddr
+                                unless (eq k :error-fn)
+                                append (list k v))))
+    `(progn
+       (unless (copilot--connection-alivep)
+         (copilot--start-server))
+       ;; jsonrpc will use temp buffer for callbacks, so we need to save the
+       ;; current buffer and restore it inside callback
+       (let ((buf (current-buffer)))
+         (car (jsonrpc--async-request-1 copilot--connection
+                                        ,method ,params
+                                        :success-fn (lambda (result)
+                                                      (if (buffer-live-p buf)
+                                                          (with-current-buffer buf
+                                                            (funcall ,success-fn result))))
+                                        :error-fn ,(if error-fn-supplied-p
+                                                       error-fn
+                                                     `(lambda (err)
+                                                        (copilot--log 'error "%s failed: %S"
+                                                                      ,method err)))
+                                        ,@filtered-args))))))
+
+(defun copilot--shutdown-server (&optional at-exit)
+  "Shut down the Copilot server with the standard LSP shutdown sequence.
+Sends a `shutdown' request followed by an `exit' notification, then
+cleans up the connection and resets global state.  Safe to call when
+there is no active connection.
+
+When AT-EXIT is non-nil, skip the final `jsonrpc-shutdown' call.  That
+function waits on `accept-process-output', which can busy-loop forever
+when several jsonrpc connections are alive at once, due to an Emacs bug
+fixed only on Emacs 31+ (see https://github.com/copilot-emacs/copilot.el/issues/469).
+At exit that would hang Emacs indefinitely, and the server process is
+reaped by Emacs anyway, so the `exit' notification is enough."
+  (when copilot--connection
+    (condition-case _err
+        (jsonrpc-request copilot--connection 'shutdown nil :timeout 3)
+      (error nil))
+    (condition-case _err
+        (jsonrpc-notify copilot--connection 'exit nil)
+      (error nil))
+    (unless at-exit
+      (jsonrpc-shutdown copilot--connection))
+    (setq copilot--connection nil)
+    (setq copilot--opened-buffers nil)
+    (setq copilot--workspace-folders nil)
+    (setq copilot--status nil)
+    (setq copilot--quota nil)))
+
+(defun copilot--shutdown-server-at-exit ()
+  "Shut down the Copilot server from `kill-emacs-hook'.
+Skips the blocking `jsonrpc-shutdown' step so Emacs can exit without
+hanging.  See `copilot--shutdown-server'."
+  (copilot--shutdown-server t))
+
+(defun copilot--command ()
+  "Return the command-line to start copilot server."
+  (append
+   (list (copilot-server-executable))
+   copilot-server-args))
+
+(defun copilot--make-connection ()
+  "Establish copilot jsonrpc connection."
+  (let ((make-fn (apply-partially
+                  #'make-instance
+                  'jsonrpc-process-connection
+                  :name "copilot"
+                  :request-dispatcher #'copilot--handle-request
+                  :notification-dispatcher #'copilot--handle-notification
+                  :process (make-process :name "copilot server"
+                                         :command (copilot--command)
+                                         :coding 'utf-8-emacs-unix
+                                         :connection-type 'pipe
+                                         :stderr (get-buffer-create "*copilot stderr*")
+                                         :noquery t))))
+    (condition-case nil
+        (funcall make-fn :events-buffer-config `(:size ,copilot-log-max))
+      (invalid-slot-name
+       ;; handle older jsonrpc versions
+       (funcall make-fn :events-buffer-scrollback-size copilot-log-max)))))
+
+(defun copilot--mcp-settings-json ()
+  "Return `copilot-mcp-servers' encoded as the server's MCP config string.
+Return nil when no servers are configured or encoding fails."
+  (when copilot-mcp-servers
+    (condition-case err
+        (json-serialize copilot-mcp-servers)
+      (error
+       ;; A surfaced warning, not just a log line: the most likely cause
+       ;; is a list where a vector is required (e.g. :args), and silently
+       ;; dropping every server would be very hard to diagnose.
+       (lwarn 'copilot :error
+              "Invalid `copilot-mcp-servers' (list-valued fields like :args must be vectors): %S"
+              err)
+       nil))))
+
+(defun copilot--effective-lsp-settings ()
+  "Return the effective LSP settings, including completion model and MCP."
+  (let ((settings (copy-sequence copilot-lsp-settings)))
+    (when copilot-completion-model
+      (let* ((github (or (plist-get settings :github) '()))
+             (copilot-section (or (plist-get github :copilot) '())))
+        (setq copilot-section (plist-put copilot-section :selectedCompletionModel copilot-completion-model))
+        (setq github (plist-put github :copilot copilot-section))
+        (setq settings (plist-put settings :github github))))
+    ;; The server reads :mcp as a JSON *string* (it checks the type and
+    ;; JSON-parses it), so this must stay a serialized string rather than
+    ;; a nested object like the other settings keys.
+    (when-let* ((mcp (copilot--mcp-settings-json)))
+      (setq settings (plist-put settings :mcp mcp)))
+    settings))
+
+(defun copilot--client-capabilities ()
+  "Return the client capabilities sent in the `initialize' request.
+The `copilot' block opts into server features the user has enabled:
+public-code citations (`copilot/ipCodeCitation') and, for whole-codebase
+semantic search, watched files (`copilot/watchedFiles')."
+  `(:workspace
+    (:workspaceFolders t)
+    :textDocument
+    (:inlineCompletion (:dynamicRegistration :json-false))
+    :copilot
+    (:ipCodeCitation ,(if copilot-show-code-references t :json-false)
+     ;; Gated on a chat-side option, read defensively in case chat
+     ;; isn't loaded.
+     :watchedFiles ,(if (bound-and-true-p copilot-chat-enable-semantic-search)
+                        t :json-false))))
+
+(defun copilot--start-server ()
+  "Start the copilot server process in local."
+  (cond
+   ((not (file-exists-p (copilot-server-executable)))
+    (user-error "Copilot: Server is not installed, install it via `M-x copilot-install-server`"))
+   (t
+    (let ((installed-version (copilot-installed-version)))
+      (when (and copilot-lsp-server-version (not (equal installed-version copilot-lsp-server-version)))
+        (warn "This package has been tested for Copilot LSP server version %s but version %s has been detected.
+You can change the installed version with `M-x copilot-reinstall-server` or remove this warning by changing the value of `copilot-lsp-server-version'."
+              copilot-lsp-server-version installed-version)))
+    (setq copilot--connection (copilot--make-connection))
+    (setq copilot--workspace-folders nil)
+    (copilot--log 'info "Copilot server started.")
+    (let* ((root (copilot--workspace-root))
+           (root-uri (when root (copilot--path-to-uri root)))
+           (folders (when root-uri
+                      (setq copilot--workspace-folders (list root-uri))
+                      (vector (list :uri root-uri :name (file-name-nondirectory (directory-file-name root)))))))
+      (copilot--request
+       'initialize
+       `(:processId
+         ,(emacs-pid)
+         ,@(when root-uri `(:rootUri ,root-uri))
+         :capabilities ,(copilot--client-capabilities)
+         ,@(when folders `(:workspaceFolders ,folders))
+         :initializationOptions
+         (:editorInfo
+          (:name "Emacs" :version ,emacs-version)
+          :editorPluginInfo
+          (:name "copilot.el" :version ,(or (package-get-version) "unknown"))
+          ,@(when copilot-network-proxy
+              `(:networkProxy ,copilot-network-proxy))))))
+    (copilot--notify 'initialized '())
+    (copilot--notify 'workspace/didChangeConfiguration `(:settings ,(copilot--effective-lsp-settings)))
+    (add-hook 'kill-emacs-hook #'copilot--shutdown-server-at-exit))))
+
+;;
+;; login / logout
+;;
+
+(defun copilot-login ()
+  "Login to Copilot."
+  (interactive)
+  (copilot--dbind
+      (status user ((:userCode user-code)) ((:verificationUri verification-uri)))
+      (copilot--request 'signInInitiate nil)
+    (when (string-equal status "AlreadySignedIn")
+      (user-error "Copilot: Already signed in as %s" user))
+    ;; The language server fills in the one-time code from GitHub's
+    ;; device-code endpoint; an empty one means that request never
+    ;; reached GitHub (typically a proxy or TLS-inspecting firewall
+    ;; answering in its place), so there is no device flow to confirm.
+    ;; Bail out with a clear message instead of copying an empty code and
+    ;; timing out later on `signInConfirm'.
+    (when (or (null user-code) (string-empty-p user-code))
+      (user-error "Copilot: The language server could not get a device code \
+from GitHub, most likely because a proxy or firewall is blocking it.  See the \
+README \"Network proxy\" section"))
+    (if (display-graphic-p)
+        (progn
+          (gui-set-selection 'CLIPBOARD user-code)
+          (read-from-minibuffer (format "Your one-time code %s is copied. Press \
+ENTER to open GitHub in your browser. If your browser does not open \
+automatically, browse to %s." user-code verification-uri))
+          (browse-url verification-uri)
+          (read-from-minibuffer "Press ENTER if you finish authorizing."))
+      (read-from-minibuffer (format "First copy your one-time code: %s. Press ENTER to continue." user-code))
+      (read-from-minibuffer (format "Please open %s in your browser. Press ENTER if you finish authorizing." verification-uri)))
+    (copilot--log 'info "Verifying...")
+    (condition-case err
+        ;; The server exchanges the device code for a token with GitHub
+        ;; here, so allow more than the default 10s for a slow network.
+        (copilot--request 'signInConfirm (list :userCode user-code) :timeout 30)
+      (jsonrpc-error
+       (let ((msg (alist-get 'jsonrpc-error-message (cddr err))))
+         (if (equal msg "Timed out")
+             ;; A client-side timeout here means the server could not reach
+             ;; GitHub, most often a proxy or TLS-inspecting firewall.
+             (user-error "Copilot: Timed out waiting for the language server \
+to authenticate with GitHub.  If you are behind a proxy or a TLS-inspecting \
+firewall, see the README \"Network proxy\" section (configure \
+`copilot-network-proxy' or set NODE_EXTRA_CA_CERTS)")
+           (user-error "Copilot: Authentication failure: %s" msg)))))
+    (copilot--dbind (user) (copilot--request 'checkStatus nil)
+      (copilot--log 'info "Authenticated as GitHub user %s." user))))
+
+(defun copilot-logout ()
+  "Logout from Copilot."
+  (interactive)
+  (copilot--request 'signOut nil)
+  (copilot--log 'warning "Logged out."))
+
+;;
+;; diagnose
+;;
+
+(defun copilot-diagnose ()
+  "Restart the Copilot server and send a test completion request.
+Shuts down any running server, starts a fresh one, and fires a
+`textDocument/inlineCompletion' request for the current buffer.
+The result is logged to *Messages*: look for \"Copilot: Copilot OK.\"
+on success, or an error/timeout message on failure."
+  (interactive)
+  (copilot--shutdown-server)
+  ;; We are going to send a test request for the current buffer so we have to activate the mode
+  ;; if it is not already activated.
+  ;; If it the mode is already active, we have to make sure the current buffer is loaded in the
+  ;; server.
+  (if copilot-mode
+      (copilot--on-doc-focus (selected-window))
+    (copilot-mode))
+  (copilot--async-request 'textDocument/inlineCompletion
+                          (list :textDocument (list :uri (copilot--get-uri))
+                                :position '(:line 0 :character 0)
+                                :context '(:triggerKind 1))
+                          :success-fn (lambda (_)
+                                        (copilot--log 'info "Copilot OK."))
+                          :timeout-fn (lambda ()
+                                        (copilot--log 'warning "Copilot server timeout."))))
+
+;;
+;; completion model selection
+;;
+
+(defun copilot-select-completion-model ()
+  "Interactively select a Copilot completion model."
+  (interactive)
+  (let* ((models (copilot--request 'copilot/models nil))
+         (completion-models
+          (seq-filter (lambda (m)
+                        (seq-contains-p (plist-get m :scopes) "completion"))
+                      models))
+         (choices (mapcar (lambda (m)
+                            (cons (format "%s (%s)" (plist-get m :modelName) (plist-get m :id))
+                                  (plist-get m :id)))
+                          completion-models)))
+    (if (= (length choices) 1)
+        (let ((model-id (cdar choices)))
+          (setq copilot-completion-model model-id)
+          (copilot--notify 'workspace/didChangeConfiguration
+                           `(:settings ,(copilot--effective-lsp-settings)))
+          (message "Copilot: Only one completion model available: %s" model-id))
+      (let* ((choice (completing-read "Completion model: " choices nil t))
+             (model-id (cdr (assoc choice choices))))
+        (setq copilot-completion-model model-id)
+        (copilot--notify 'workspace/didChangeConfiguration
+                         `(:settings ,(copilot--effective-lsp-settings)))
+        (copilot--log 'info "Completion model set to %s" model-id)))))
+
+;;
+;; Auto completion
+;;
+
+;; based on https://code.visualstudio.com/docs/languages/identifiers
+;; (more here https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/)
+(defvar copilot-major-mode-alist '(("rustic" . "rust")
+                                   ("cperl" . "perl")
+                                   ("c++" . "cpp")
+                                   ("clojure" . "clojure")
+                                   ("clojurescript" . "clojure")
+                                   ("objc" . "objective-c")
+                                   ("cuda" . "cuda-cpp")
+                                   ("docker-compose" . "dockercompose")
+                                   ("coffee" . "coffeescript")
+                                   ("js" . "javascript")
+                                   ("js2" . "javascript")
+                                   ("js2-jsx" . "javascriptreact")
+                                   ("typescript-tsx" . "typescriptreact")
+                                   ("rjsx" . "typescriptreact")
+                                   ("less-css" . "less")
+                                   ("caml" . "ocaml")
+                                   ("tuareg" . "ocaml")
+                                   ("text" . "plaintext")
+                                   ("ess-r" . "r")
+                                   ("enh-ruby" . "ruby")
+                                   ("shell-script" . "shellscript")
+                                   ("sh" . "shellscript")
+                                   ("visual-basic" . "vb")
+                                   ("nxml" . "xml"))
+  "Alist mapping major mode names (with -mode removed) to copilot language ID's.")
+
+(defvar copilot-minor-mode-alist '(("git-commit" . "git-commit"))
+  "Alist mapping minor mode names (with -mode removed) to copilot language ID's.")
+
+(defvar-local copilot--completion-cache nil)
+(defvar-local copilot--completion-idx 0)
+
+(defvar-local copilot--completion-request-id nil
+  "Request ID of the in-flight completion request, or nil.")
+
+(defvar-local copilot--completion-initiated-p nil
+  "Non-nil when `copilot-complete' was called during the current command.
+Used to prevent `copilot--post-command' from immediately cancelling
+a request that was just initiated by a wrapper command.")
+
+(defun copilot--cancel-completion ()
+  "Cancel the in-flight completion request, if any.
+Sends `$/cancelRequest' to the server and resets the stored request ID."
+  (when copilot--completion-request-id
+    (when (copilot--connection-alivep)
+      (jsonrpc-notify copilot--connection
+                      '$/cancelRequest
+                      (list :id copilot--completion-request-id)))
+    (setq copilot--completion-request-id nil)))
+
+(defvar-local copilot--indent-warning-printed-p nil
+  "Flag indicating whether indent warning was already printed.")
+
+(defun copilot--infer-indentation-offset ()
+  "Infer indentation offset."
+  (or (let ((mode major-mode))
+        (while (and (not (assq mode copilot-indentation-alist))
+                    (setq mode (get mode 'derived-mode-parent))))
+        (when mode
+          (let ((indent-spec (alist-get mode copilot-indentation-alist)))
+            (cond
+             ((listp indent-spec)
+              (cl-some (lambda (s)
+                         (cond ((numberp s) s)
+                               ((and (boundp s) (numberp (symbol-value s)))
+                                (symbol-value s))))
+                       indent-spec))
+             ((functionp indent-spec) ; editorconfig 0.11.0+
+              ;; This points to a setter, which do not call
+              nil)))))
+      (progn
+        (when (and
+               (not copilot-indent-offset-warning-disable)
+               (not copilot--indent-warning-printed-p))
+          (display-warning '(copilot copilot-no-mode-indent)
+                           "copilot--infer-indentation-offset found no mode-specific indentation offset.")
+          (setq-local copilot--indent-warning-printed-p t))
+        tab-width)))
+
+(defun copilot--workspace-root ()
+  "Return the root directory of the current workspace, or nil."
+  (when buffer-file-name
+    (let ((root (or (and (fboundp 'project-current)
+                         (when-let* ((proj (project-current)))
+                           (project-root proj)))
+                    (and (fboundp 'projectile-project-root)
+                         (projectile-project-root))
+                    (and (fboundp 'vc-root-dir)
+                         (vc-root-dir)))))
+      (when root
+        (file-truename root)))))
+
+(defun copilot--get-relative-path ()
+  "Get relative path to current buffer."
+  (cond
+   ((not buffer-file-name)
+    "")
+   (t
+    (if-let* ((root (copilot--workspace-root)))
+        (file-relative-name buffer-file-name root)
+      (file-name-nondirectory buffer-file-name)))))
+
+(defun copilot--path-to-uri (path)
+  "Convert file PATH to a URI string."
+  (cond
+   ((and (eq system-type 'windows-nt)
+         (not (string-prefix-p "/" path)))
+    (concat "file:///" (url-encode-url path)))
+   (t
+    (concat "file://" (url-encode-url path)))))
+
+(defun copilot--uri-to-path (uri)
+  "Convert a file URI to a percent-decoded path.
+Non-file URIs are returned unchanged."
+  (if (string-prefix-p "file://" uri)
+      (let ((path (url-unhex-string (string-remove-prefix "file://" uri))))
+        ;; A Windows file URI is file:///c:/...; drop the leading slash
+        ;; before the drive letter so the path isn't read as /c:/...
+        ;; (which Emacs resolves against the current drive).
+        (if (and (eq system-type 'windows-nt)
+                 (string-match-p "\\`/[a-zA-Z]:" path))
+            (substring path 1)
+          path))
+    uri))
+
+(defun copilot--get-uri ()
+  "Get URI of current buffer."
+  (if buffer-file-name
+      (copilot--path-to-uri buffer-file-name)
+    (concat "file:///buffer/" (url-encode-url (buffer-name (current-buffer))))))
+
+(defun copilot--get-source ()
+  "Get source code from current buffer."
+  (save-restriction
+    (widen)
+    (let* ((p (point))
+           (pmax (point-max))
+           (pmin (point-min))
+           (half-window (/ copilot-max-char 2)))
+      (when (and buffer-file-name
+                 (>= copilot-max-char 0)
+                 (> pmax copilot-max-char))
+        (unless copilot-max-char-warning-disable
+          (display-warning '(copilot copilot-exceeds-max-char)
+                           (format "%s size exceeds 'copilot-max-char' (%s), copilot completions may not work"
+                                   (current-buffer) copilot-max-char))))
+      (cond
+       ;; using whole buffer
+       ((or (< copilot-max-char 0) (< pmax copilot-max-char))
+        (setq-local copilot--line-bias 1)
+        (buffer-substring-no-properties pmin pmax))
+       ;; truncate buffer head
+       ((< (- pmax p) half-window)
+        (let ((start (max pmin (- pmax copilot-max-char))))
+          (setq-local copilot--line-bias (line-number-at-pos start))
+          (buffer-substring-no-properties start pmax)))
+       ;; truncate buffer tail
+       ((< (- p pmin) half-window)
+        (setq-local copilot--line-bias 1)
+        (buffer-substring-no-properties pmin (min pmax (+ pmin copilot-max-char))))
+       ;; truncate head and tail
+       (t
+        (let ((start (max pmin (- p half-window)))
+              (end (min pmax (+ p half-window))))
+          (setq-local copilot--line-bias (line-number-at-pos start))
+          (buffer-substring-no-properties start end)))))))
+
+(defun copilot--get-minor-mode-language-id ()
+  "Get language ID from minor mode if available."
+  (let ((pair
+         (seq-find
+          (lambda (pair)
+            (let ((minor-mode-symbol (intern (concat (car pair) "-mode"))))
+              (and (boundp minor-mode-symbol) (symbol-value minor-mode-symbol))))
+          copilot-minor-mode-alist)))
+    (cdr pair)))
+
+(defun copilot--get-major-mode-language-id ()
+  "Get language ID from major mode."
+  (let ((major-mode-symbol (copilot--mode-symbol (symbol-name major-mode))))
+    (alist-get major-mode copilot-major-mode-alist major-mode-symbol nil 'equal)))
+
+(defun copilot--get-language-id ()
+  "Get language ID of current buffer."
+  (or (copilot--get-minor-mode-language-id)
+      (copilot--get-major-mode-language-id)))
+
+(defun copilot--utf16-offset ()
+  "Return the number of UTF-16 code units from line start to point.
+Characters above U+FFFF (e.g. emoji) count as 2 UTF-16 code units."
+  (let ((offset 0)
+        (p (line-beginning-position)))
+    (while (< p (point))
+      (let ((ch (char-after p)))
+        (setq offset (+ offset (if (>= ch #x10000) 2 1)))
+        (setq p (1+ p))))
+    offset))
+
+(defun copilot--utf16-strlen (str)
+  "Return the UTF-16 code-unit length of STR."
+  (let ((offset 0)
+        (i 0)
+        (len (length str)))
+    (while (< i len)
+      (let ((ch (aref str i)))
+        (setq offset (+ offset (if (>= ch #x10000) 2 1)))
+        (setq i (1+ i))))
+    offset))
+
+(defun copilot--goto-utf16-offset (utf16-offset)
+  "Move point forward by UTF16-OFFSET UTF-16 code units from line start.
+Point must be at line beginning before calling this."
+  (let ((remaining utf16-offset))
+    (while (and (> remaining 0) (not (eolp)))
+      (let ((ch (char-after)))
+        (setq remaining (- remaining (if (>= ch #x10000) 2 1))))
+      (forward-char 1))))
+
+(defun copilot--lsp-pos (&optional pos)
+  "Return an LSP position plist for buffer POS.
+POS defaults to point.  Character offset is in UTF-16 code units."
+  (save-excursion
+    (when pos (goto-char pos))
+    (list :line (- (line-number-at-pos) copilot--line-bias)
+          :character (copilot--utf16-offset))))
+
+(defun copilot--generate-doc ()
+  "Generate doc parameters for completion request."
+  (save-restriction
+    (widen)
+    (let ((indent (copilot--infer-indentation-offset)))
+      (list :version copilot--doc-version
+            :tabSize indent
+            ;; indentSize doesn't not appear to be used, but has been in this code
+            ;; base from the start. For now leave it as is.
+            :indentSize indent
+            :insertSpaces (if indent-tabs-mode :json-false t)
+            :path (buffer-file-name)
+            :uri (copilot--get-uri)
+            :relativePath (copilot--get-relative-path)
+            :languageId (copilot--get-language-id)
+            :position (copilot--lsp-pos)))))
+
+(defun copilot--inline-completion-params (trigger-kind)
+  "Build parameters for textDocument/inlineCompletion.
+TRIGGER-KIND is 1 for manual invocation, 2 for automatic."
+  (save-restriction
+    (widen)
+    (list :textDocument (list :uri (copilot--get-uri))
+          :position (copilot--lsp-pos)
+          :context (list :triggerKind trigger-kind)
+          :formattingOptions (list :tabSize (copilot--infer-indentation-offset)
+                                   :insertSpaces (if indent-tabs-mode :json-false t)))))
+
+(defun copilot--normalize-completion-response (response)
+  "Normalize RESPONSE from textDocument/inlineCompletion to a list of items."
+  (cond
+   ((null response) nil)
+   ((vectorp response) (append response nil))
+   ((plist-get response :items)
+    (append (plist-get response :items) nil))
+   (t nil)))
+
+(defun copilot--get-completion (callback &optional trigger-kind)
+  "Get completion with CALLBACK.
+TRIGGER-KIND is 1 for invoked, 2 for automatic (default)."
+  (copilot--cancel-completion)
+  (setq copilot--completion-request-id
+        (copilot--async-request 'textDocument/inlineCompletion
+                                (copilot--inline-completion-params (or trigger-kind 2))
+                                :success-fn callback
+                                :error-fn (lambda (err)
+                                            (unless (= (plist-get err :code) -32800) ; Request canceled
+                                              (copilot--log 'error "textDocument/inlineCompletion failed: %S"
+                                                            err))))))
+
+(defun copilot--cycle-completion (direction)
+  "Cycle completion with DIRECTION."
+  (let* ((items copilot--completion-cache)
+         (len (length items)))
+    (cond ((or (null items) (zerop len))
+           (copilot--log 'warning "No completion is available."))
+          ((= len 1)
+           (copilot--log 'warning "Only one completion is available."))
+          (t
+           (setq copilot--completion-idx (mod (+ copilot--completion-idx direction) len))
+           (copilot--show-completion (nth copilot--completion-idx items))))))
+
+(defun copilot--overlay-visible ()
+  "Return whether the `copilot--overlay' is available."
+  (and (overlayp copilot--overlay)
+       (overlay-buffer copilot--overlay)))
+
+(defun copilot-next-completion ()
+  "Cycle to next completion."
+  (interactive)
+  (when (copilot--overlay-visible)
+    (copilot--cycle-completion 1)))
+
+(defun copilot-previous-completion ()
+  "Cycle to previous completion."
+  (interactive)
+  (when (copilot--overlay-visible)
+    (copilot--cycle-completion -1)))
+
+(defvar copilot--panel-lang nil
+  "Language of current panel solutions.")
+
+(defvar-local copilot--panel-target nil
+  "Marker in the buffer that requested the current panel solutions.
+Points at the position where an accepted solution is inserted.")
+
+(defvar-local copilot--panel-solutions nil
+  "Hash table mapping a solution's SHA to its raw completion text.
+The panel renders each solution as an Org source block, but the text
+is recovered from this table rather than by re-parsing the block, so a
+completion that itself contains Org markup (a `#+END_SRC' line, a
+`*'-heading line) round-trips intact.")
+
+(defvar copilot--request-handlers (make-hash-table :test 'equal)
+  "Hash table storing request handlers.")
+
+(defun copilot-on-request (method handler)
+  "Register a request HANDLER for the given METHOD.
+Each request METHOD can have only one HANDLER."
+  (puthash method handler copilot--request-handlers))
+
+(defun copilot--handle-request (_ method msg)
+  "Handle MSG of type METHOD by calling the appropriate registered handler."
+  (let ((handler (gethash method copilot--request-handlers)))
+    (when handler
+      (funcall handler msg))))
+
+(defvar copilot--notification-handlers (make-hash-table :test 'equal)
+  "Hash table storing lists of notification handlers.")
+
+(defun copilot-on-notification (method handler)
+  "Register a notification HANDLER for the given METHOD."
+  (let ((handlers (gethash method copilot--notification-handlers '())))
+    (puthash method (cons handler handlers) copilot--notification-handlers)))
+
+(defun copilot--handle-notification (_ method msg)
+  "Handle MSG of type METHOD by calling all appropriate registered handlers."
+  (let ((handlers (gethash method copilot--notification-handlers '())))
+    (dolist (handler handlers)
+      (funcall handler msg))))
+
+(copilot-on-notification
+ 'window/logMessage
+ (lambda (msg)
+   (copilot--dbind (((:type log-level)) ((:message log-msg))) msg
+     (with-current-buffer (get-buffer-create "*copilot-language-server-log*")
+       (save-excursion
+         (goto-char (point-max))
+         (insert (propertize (concat log-msg "\n")
+                             'face (pcase log-level
+                                     (4 'shadow)
+                                     (3 'success)
+                                     (2 'warning)
+                                     (1 'error)))))))))
+
+(copilot-on-notification
+ 'PanelSolution
+ (lambda (msg)
+   (copilot--dbind (((:completionText completion-text)) ((:score completion-score))) msg
+     (with-current-buffer "*copilot-panel*"
+       (let ((sha (secure-hash 'sha256 completion-text)))
+         (unless (member sha (org-map-entries (lambda () (org-entry-get nil "SHA"))))
+           (unless (hash-table-p copilot--panel-solutions)
+             (setq copilot--panel-solutions (make-hash-table :test 'equal)))
+           (puthash sha completion-text copilot--panel-solutions)
+           (let ((inhibit-read-only t))
+             (save-excursion
+               (goto-char (point-max))
+               (insert "* Solution\n"
+                       "  :PROPERTIES:\n"
+                       "  :SCORE: " (number-to-string completion-score) "\n"
+                       "  :SHA: " sha "\n"
+                       "  :END:\n"
+                       "#+BEGIN_SRC " copilot--panel-lang "\n"
+                       completion-text "\n#+END_SRC\n\n")
+               (goto-char (point-min))
+               (org-sort-entries nil ?R nil nil "SCORE")))))))))
+
+(copilot-on-notification
+ 'PanelSolutionsDone
+ (lambda (_msg)
+   (copilot--log 'info "Finished synthesizing solutions.")
+   (display-buffer "*copilot-panel*")
+   (with-current-buffer "*copilot-panel*"
+     (let ((inhibit-read-only t))
+       (save-excursion
+         (goto-char (point-max))
+         (insert "End of solutions.\n"))))))
+
+(copilot-on-notification
+ 'didChangeStatus
+ (lambda (msg)
+   (copilot--dbind (kind busy message) msg
+     (setq copilot--status (list :kind kind :busy (eq busy t) :message message))
+     (force-mode-line-update t))))
+
+(copilot-on-notification
+ 'copilot/quotaChange
+ (lambda (msg)
+   (setq copilot--quota msg)))
+
+(copilot-on-notification
+ 'copilot/quotaWarning
+ (lambda (msg)
+   (when-let* ((message (plist-get msg :message)))
+     (let ((type (plist-get msg :type)))
+       ;; The server flags the urgent ones as type "warning"; everything
+       ;; else is informational.
+       (copilot--log (if (and (stringp type)
+                              (string-equal-ignore-case type "warning"))
+                         'warning 'info)
+                     "%s" message)))))
+
+(defun copilot--quota-snapshot-string (label snapshot)
+  "Return a one-line description of quota SNAPSHOT under LABEL, or nil.
+SNAPSHOT is a plist with :percentRemaining and :unlimited."
+  (when snapshot
+    (let ((pct (plist-get snapshot :percentRemaining)))
+      (cond
+       ((eq (plist-get snapshot :unlimited) t)
+        (format "%s: unlimited" label))
+       ((numberp pct)
+        ;; Round rather than %d-truncate so a fractional sliver such as
+        ;; 0.4% doesn't read as a flat "0% remaining".
+        (format "%s: %s%% remaining" label
+                (string-trim-right (format "%.1f" pct) "\\.0")))
+       (t nil)))))
+
+(defun copilot-quota ()
+  "Show the current Copilot usage quota reported by the server."
+  (interactive)
+  (if (null copilot--quota)
+      (message "Copilot: no quota information reported yet.")
+    (let* ((plan (plist-get copilot--quota :copilotPlan))
+           (parts (delq nil
+                        (list (and plan (format "plan: %s" plan))
+                              (copilot--quota-snapshot-string
+                               "chat" (plist-get copilot--quota :chat))
+                              (copilot--quota-snapshot-string
+                               "completions"
+                               (plist-get copilot--quota :completions))
+                              (copilot--quota-snapshot-string
+                               "premium"
+                               (plist-get copilot--quota
+                                          :premium_interactions))))))
+      (if parts
+          (message "Copilot quota - %s" (string-join parts ", "))
+        (message "Copilot: quota details unavailable.")))))
+
+(defconst copilot--code-references-buffer-name "*copilot-code-references*"
+  "Name of the buffer collecting public-code reference details.")
+
+(defun copilot--code-reference-licenses (references)
+  "Return a comma-separated, de-duplicated license list from REFERENCES."
+  (let ((seen '()))
+    (dolist (ref (append references nil))
+      (when-let* ((license (plist-get ref :license)))
+        (cl-pushnew license seen :test #'equal)))
+    (string-join (nreverse seen) ", ")))
+
+(defun copilot--code-reference-file-name (uri)
+  "Return a display file name for reference URI, or a placeholder."
+  (if (and (stringp uri) (not (string-empty-p uri)))
+      (file-name-nondirectory (copilot--uri-to-path uri))
+    "unknown file"))
+
+(defun copilot--record-code-reference (name line matching references)
+  "Append a public-code match to the code references buffer.
+NAME, LINE, MATCHING and REFERENCES describe the matched region."
+  (with-current-buffer (get-buffer-create copilot--code-references-buffer-name)
+    ;; Set the mode only when the buffer is first created, so reading it
+    ;; isn't disturbed as later matches are appended.
+    (unless (derived-mode-p 'special-mode)
+      (special-mode))
+    (let ((inhibit-read-only t))
+      (goto-char (point-max))
+      (insert (propertize (format "%s:%s\n" name line) 'face 'bold))
+      (when (and (stringp matching) (not (string-empty-p matching)))
+        (insert (format "  near: %s\n" (car (split-string matching "\n")))))
+      (dolist (ref (append references nil))
+        (insert (format "  [%s] %s\n"
+                        (or (plist-get ref :license) "unknown")
+                        (or (plist-get ref :url) ""))))
+      (insert "\n"))))
+
+(defun copilot--handle-code-reference (msg)
+  "Handle a `copilot/ipCodeCitation' notification MSG.
+Announce the public-code match and record its details.  The server's
+method name keeps GitHub's \"citation\" wording, but copilot.el calls
+these \"code references\" throughout."
+  (when copilot-show-code-references
+    (let* ((name (copilot--code-reference-file-name (plist-get msg :uri)))
+           ;; `:citations' is the field name in the server payload.
+           (references (plist-get msg :citations))
+           (start (plist-get (plist-get msg :range) :start))
+           (line (if (numberp (plist-get start :line))
+                     (1+ (plist-get start :line))
+                   "-"))
+           (licenses (copilot--code-reference-licenses references)))
+      (copilot--record-code-reference name line (plist-get msg :matchingText)
+                                      references)
+      (message "Copilot: suggestion near %s:%s matches public code%s"
+               name line
+               (if (string-empty-p licenses) "" (format " (%s)" licenses))))))
+
+(copilot-on-notification 'copilot/ipCodeCitation
+                         #'copilot--handle-code-reference)
+
+(defun copilot-list-code-references ()
+  "Show the buffer collecting public-code reference details.
+These are GitHub's public-code references (suggestions that match
+publicly available code), unrelated to Emacs `xref' cross-references."
+  (interactive)
+  (if-let* ((buf (get-buffer copilot--code-references-buffer-name)))
+      (display-buffer buf)
+    (message "Copilot: no public-code matches recorded yet.")))
+
+(define-obsolete-function-alias 'copilot-list-code-citations
+  'copilot-list-code-references "0.7.1")
+
+(copilot-on-request
+ 'window/showMessageRequest
+ (lambda (msg)
+   (copilot--dbind (type message actions) msg
+     (if (and actions (vectorp actions) (> (length actions) 0))
+         (let* ((titles (mapcar (lambda (a) (plist-get a :title))
+                                (append actions nil)))
+                (chosen (completing-read
+                         (format "Copilot (%s): "
+                                 (pcase type (1 "Error") (2 "Warning")
+                                        (3 "Info") (_ "Log")))
+                         titles nil t)))
+           (list :title chosen))
+       (copilot--log (pcase type (1 'error) (2 'warning) (_ 'info))
+                     "%s" message)
+       :json-null))))
+
+(copilot-on-request
+ 'window/showDocument
+ (lambda (msg)
+   (condition-case _err
+       (copilot--dbind (uri external takeFocus) msg
+         (let ((focus (not (eq takeFocus :json-false))))
+           (cond
+            ((or (eq external t) (string-match-p "\\`https?://" uri))
+             (browse-url uri))
+            ((string-prefix-p "file://" uri)
+             (let* ((path (url-unhex-string
+                           (string-remove-prefix "file://" uri)))
+                    (buf (find-file-noselect path)))
+               (if focus
+                   (find-file path)
+                 (display-buffer buf)))))
+           (list :success t)))
+     (error (list :success :json-false)))))
+
+(copilot-on-notification
+ '$/progress
+ (lambda (msg)
+   (copilot--dbind (token value) msg
+     (let ((kind (plist-get value :kind)))
+       (cond
+        ((equal kind "begin")
+         (puthash token
+                  (list :title (plist-get value :title)
+                        :message (plist-get value :message)
+                        :percentage (plist-get value :percentage))
+                  copilot--progress-sessions))
+        ((equal kind "report")
+         (let ((session (gethash token copilot--progress-sessions)))
+           (when session
+             (when (plist-member value :message)
+               (plist-put session :message (plist-get value :message)))
+             (when (plist-member value :percentage)
+               (plist-put session :percentage (plist-get value :percentage))))))
+        ((equal kind "end")
+         (remhash token copilot--progress-sessions)))
+       (force-mode-line-update t)))))
+
+(defun copilot--get-panel-completions (callback)
+  "Get panel completions with CALLBACK."
+  (copilot--async-request 'getPanelCompletions
+                          (list :doc (copilot--generate-doc)
+                                :panelId (generate-new-buffer-name "copilot-panel"))
+                          :success-fn callback
+                          :timeout-fn (lambda ()
+                                        (copilot--log 'warning "Copilot server timeout."))))
+
+
+(declare-function org-back-to-heading "org")
+
+(defun copilot--panel-solution-at-point ()
+  "Return the completion text of the panel solution at point, or nil.
+The text is recovered from `copilot--panel-solutions' by the SHA
+recorded on the enclosing heading, so a solution containing Org markup
+is returned verbatim rather than by re-parsing its source block."
+  (when (hash-table-p copilot--panel-solutions)
+    (save-excursion
+      (when (ignore-errors (org-back-to-heading t) t)
+        (let ((sha (org-entry-get nil "SHA")))
+          (and sha (gethash sha copilot--panel-solutions)))))))
+
+(defun copilot-panel-accept-completion ()
+  "Insert the panel solution at point into the buffer that requested it.
+Meant to be called from the *copilot-panel* buffer populated by
+`copilot-panel-complete'."
+  (interactive)
+  (let ((text (copilot--panel-solution-at-point))
+        (target copilot--panel-target))
+    (unless text
+      (user-error "No Copilot solution at point"))
+    (unless (and (markerp target) (buffer-live-p (marker-buffer target)))
+      (user-error "The buffer this panel came from is no longer available"))
+    (quit-window)
+    (pop-to-buffer (marker-buffer target))
+    (goto-char target)
+    (insert text)
+    (message "Copilot: inserted solution")))
+
+(defvar copilot-panel-mode-map
+  (let ((map (make-sparse-keymap)))
+    (keymap-set map "RET" #'copilot-panel-accept-completion)
+    (keymap-set map "C-c C-c" #'copilot-panel-accept-completion)
+    map)
+  "Keymap for `copilot-panel-mode'.")
+
+(define-minor-mode copilot-panel-mode
+  "Minor mode for the *copilot-panel* buffer.
+Accept the solution at point with \\[copilot-panel-accept-completion]."
+  :lighter " Copilot-Panel"
+  :keymap copilot-panel-mode-map)
+
+(defun copilot-panel-complete ()
+  "Pop a buffer with a list of suggested completions based on the current file."
+  (interactive)
+  (require 'org)
+  (setq copilot--last-doc-version copilot--doc-version)
+  (setq copilot--panel-lang (copilot--get-language-id))
+  (let ((target (point-marker)))
+    (copilot--get-panel-completions
+     (jsonrpc-lambda (&key solutionCountTarget)
+       (copilot--log 'info "Synthesizing %d solutions..." solutionCountTarget)))
+    (with-current-buffer (get-buffer-create "*copilot-panel*")
+      (org-mode)
+      (copilot-panel-mode 1)
+      (let ((inhibit-read-only t))
+        (erase-buffer))
+      (setq buffer-read-only t)
+      (setq copilot--panel-solutions (make-hash-table :test 'equal))
+      (setq copilot--panel-target target))))
+
+;;
+;; UI
+;;
+
+(defun copilot-current-completion ()
+  "Get current completion."
+  (and (copilot--overlay-visible)
+       (overlay-get copilot--overlay 'completion)))
+
+(defface copilot-overlay-face
+  '((t :inherit shadow))
+  "Face for Copilot overlay.")
+
+(defvar-local copilot--real-posn nil
+  "Posn information without overlay.
+To work around posn problems with after-string property.")
+
+(defconst copilot-completion-map
+  (let ((map (make-sparse-keymap)))
+    (keymap-set map "<tab>" #'copilot-accept-completion)
+    (keymap-set map "TAB" #'copilot-accept-completion)
+    (keymap-set map "C-<tab>" #'copilot-accept-completion-by-word)
+    (keymap-set map "C-TAB" #'copilot-accept-completion-by-word)
+    (keymap-set map "M-n" #'copilot-next-completion)
+    (keymap-set map "M-p" #'copilot-previous-completion)
+    map)
+  "Keymap for Copilot completion overlay.
+These bindings are active only while a completion overlay is
+visible and otherwise fall through to their usual commands.  To
+disable them, rebind or clear this map, for example
+\(keymap-unset copilot-completion-map \"TAB\").")
+
+(defun copilot--posn-advice (&rest args)
+  "Remap posn if in `copilot-mode' with ARGS."
+  (when copilot-mode
+    (let ((pos (or (car-safe args) (point))))
+      (when (and copilot--real-posn
+                 (eq pos (car copilot--real-posn)))
+        (cdr copilot--real-posn)))))
+
+(defun copilot--get-or-create-keymap-overlay ()
+  "Make or return the local copilot--keymap-overlay."
+  (unless (overlayp copilot--keymap-overlay)
+    (setq copilot--keymap-overlay (make-overlay 1 1 nil nil t))
+    (overlay-put copilot--keymap-overlay 'keymap copilot-completion-map)
+    (overlay-put copilot--keymap-overlay 'priority 101))
+  copilot--keymap-overlay)
+
+(defun copilot--get-overlay ()
+  "Create or get overlay for Copilot."
+  (unless (overlayp copilot--overlay)
+    (setq copilot--overlay (make-overlay 1 1 nil nil t))
+    (overlay-put copilot--overlay 'priority 100)
+    (overlay-put
+     copilot--overlay 'keymap-overlay (copilot--get-or-create-keymap-overlay)))
+  copilot--overlay)
+
+(defun copilot--overlay-end (ov)
+  "Return the end position of overlay OV."
+  (- (line-end-position) (overlay-get ov 'tail-length)))
+
+(defun copilot--set-overlay-text (ov completion)
+  "Set overlay OV with COMPLETION."
+  (move-overlay ov (point) (line-end-position))
+
+  ;; set overlay position for the keymap, to activate copilot-completion-map
+  ;;
+  ;; if the point is at the end of the buffer, we will create a
+  ;; 0-length buffer. But this is ok, since the keymap will still
+  ;; activate _so long_ as no other overlay contains the point.
+  ;;
+  ;; see https://github.com/copilot-emacs/copilot.el/issues/251 for details.
+  (move-overlay (overlay-get ov 'keymap-overlay) (point) (min (point-max) (+ 1 (point))))
+
+  (let* ((tail (buffer-substring (copilot--overlay-end ov) (line-end-position)))
+         (p-completion (concat (propertize completion 'face 'copilot-overlay-face)
+                               tail)))
+    (if (eolp)
+        (progn
+          (overlay-put ov 'after-string "") ; make sure posn is correct
+          (setq copilot--real-posn (cons (point) (posn-at-point)))
+          (put-text-property 0 1 'cursor t p-completion)
+          (overlay-put ov 'display "")
+          (overlay-put ov 'after-string p-completion))
+      (overlay-put ov 'display (substring p-completion 0 1))
+      (overlay-put ov 'after-string (substring p-completion 1)))
+    (overlay-put ov 'completion completion)
+    (overlay-put ov 'start (point))))
+
+(defun copilot--display-overlay-completion (completion command full-insert-text start end)
+  "Show COMPLETION with COMMAND and FULL-INSERT-TEXT between START and END.
+
+`save-excursion' is not necessary since there is only one caller, and they are
+already saving an excursion.  This is also a private function."
+  (copilot-clear-overlay)
+  (when (and (not (string-blank-p completion))
+             (or (<= start (point))))
+    (let* ((ov (copilot--get-overlay)))
+      (overlay-put ov 'tail-length (- (line-end-position) end))
+      (copilot--set-overlay-text ov completion)
+      (overlay-put ov 'command command)
+      (overlay-put ov 'full-insert-text full-insert-text)
+      (overlay-put ov 'completion-start start)
+      (when command
+        (copilot--notify 'textDocument/didShowCompletion
+                         (list :item (list :command command)))))))
+
+(defun copilot-clear-overlay (&optional _is-accepted)
+  "Clear Copilot overlay."
+  (interactive)
+  (copilot--cancel-completion)
+  (when (copilot--overlay-visible)
+    (delete-overlay copilot--overlay)
+    (delete-overlay copilot--keymap-overlay)
+    (setq copilot--real-posn nil)))
+
+(defun copilot-accept-completion (&optional transform-fn)
+  "Accept completion.
+Return t if there is a completion.  Use TRANSFORM-FN to transform completion if
+provided."
+  (interactive)
+  (when (copilot--overlay-visible)
+    (let* ((completion (overlay-get copilot--overlay 'completion))
+           (start (overlay-get copilot--overlay 'start))
+           (end (copilot--overlay-end copilot--overlay))
+           (command (overlay-get copilot--overlay 'command))
+           (full-insert-text (overlay-get copilot--overlay 'full-insert-text))
+           (t-completion (funcall (or transform-fn #'identity) completion))
+           (completion-start (overlay-get copilot--overlay 'completion-start)))
+      ;; If there is extra indentation before the point, delete it and shift the completion
+      (when (and (< completion-start (point))
+                 ;; Region we are about to delete contains only blanks …
+                 (string-blank-p (buffer-substring-no-properties completion-start (point)))
+                 ;; … *and* everything from BOL to completion-start is blank
+                 ;; as well — i.e. we are really inside the leading indentation.
+                 (string-blank-p (buffer-substring-no-properties (line-beginning-position) completion-start)))
+        (setq start completion-start)
+        (setq end (- end (- (point) completion-start)))
+        (delete-region completion-start (point)))
+      (let ((is-partial (and (string-prefix-p t-completion completion)
+                             (not (string-equal t-completion completion)))))
+        (if is-partial
+            ;; Partial acceptance
+            (when command
+              (let* ((prefix-len (- (length full-insert-text) (length completion)))
+                     (accepted-length (+ prefix-len (length t-completion))))
+                (copilot--notify 'textDocument/didPartiallyAcceptCompletion
+                                 (list :item (list :command command)
+                                       :acceptedLength accepted-length))))
+          ;; Full acceptance
+          (when command
+            (copilot--async-request 'workspace/executeCommand
+                                    command)))
+        (copilot-clear-overlay t)
+        (if (derived-mode-p 'vterm-mode)
+            (progn
+              (unless is-partial (vterm-delete-region start end))
+              (vterm-insert t-completion))
+          (unless is-partial (delete-region start end))
+          (insert t-completion))
+        ;; if it is a partial completion, show remaining text
+        (when is-partial
+          (copilot--set-overlay-text (copilot--get-overlay) (string-remove-prefix t-completion completion))))
+      t)))
+
+(defmacro copilot--define-accept-completion-by-action (func-name action)
+  "Define function FUNC-NAME to accept completion by ACTION."
+  `(defun ,func-name (&optional n)
+     (interactive "p")
+     (setq n (or n 1))
+     (copilot-accept-completion (lambda (completion)
+                                  (with-temp-buffer
+                                    (insert completion)
+                                    (goto-char (point-min))
+                                    (funcall ,action n)
+                                    (buffer-substring-no-properties (point-min) (point)))))))
+
+(copilot--define-accept-completion-by-action copilot-accept-completion-by-word #'forward-word)
+(copilot--define-accept-completion-by-action copilot-accept-completion-by-line #'forward-line)
+(copilot--define-accept-completion-by-action copilot-accept-completion-by-sentence #'forward-sentence)
+(copilot--define-accept-completion-by-action copilot-accept-completion-by-paragraph #'forward-paragraph)
+
+(defun copilot--uppercase-char-p (char)
+  "Return non-nil when CHAR is uppercase in the current locale."
+  (and (characterp char)
+       (let ((up (upcase char))
+             (down (downcase char)))
+         (and (not (eq up down)) (eq char up)))))
+
+(defun copilot--completion-chunk-to-char (completion char count include-char)
+  "Return COMPLETION substring up to CHAR.
+COUNT specifies the occurrence.  INCLUDE-CHAR toggles whether CHAR stays
+in.  Uppercase CHAR disables `case-fold-search'."
+  (let ((count (or count 1)))
+    (when (<= count 0)
+      (user-error "COUNT must be positive"))
+    (with-temp-buffer
+      (insert completion)
+      (goto-char (point-min))
+      (let ((case-fold-search (if (copilot--uppercase-char-p char)
+                                  nil case-fold-search)))
+        (search-forward (char-to-string char) nil nil count)
+        (unless include-char
+          (backward-char))
+        (buffer-substring-no-properties (point-min) (point))))))
+
+(defun copilot-accept-completion-up-to-char (char &optional count)
+  "Accept completion up to but excluding CHAR.
+COUNT must be positive; signal an error if CHAR does not occur COUNT times.
+Uppercase CHAR disables `case-fold-search', mirroring `zap-up-to-char'."
+  (interactive (list (read-char "Accept completion up to char: ")
+                     (prefix-numeric-value current-prefix-arg)))
+  (copilot-accept-completion
+   (lambda (completion)
+     (copilot--completion-chunk-to-char completion char count nil))))
+
+(defun copilot-accept-completion-to-char (char &optional count)
+  "Accept completion up to and including CHAR.
+COUNT must be positive; signal an error if CHAR does not occur COUNT times.
+Uppercase CHAR disables `case-fold-search', mirroring `zap-to-char'."
+  (interactive (list (read-char "Accept completion through char: ")
+                     (prefix-numeric-value current-prefix-arg)))
+  (copilot-accept-completion
+   (lambda (completion)
+     (copilot--completion-chunk-to-char completion char count t))))
+
+(defun copilot--show-completion (completion-data)
+  "Show COMPLETION-DATA."
+  (when (copilot--satisfy-display-predicates)
+    (copilot--dbind
+        (((:insertText insert-text)) command range)
+        completion-data
+      (save-excursion
+        (save-restriction
+          (widen)
+          (let* ((p (point))
+                 (full-insert-text insert-text)
+                 (line (map-nested-elt range '(:start :line)))
+                 (start-char (map-nested-elt range '(:start :character)))
+                 (end-char (map-nested-elt range '(:end :character)))
+                 (goto-line! (lambda ()
+                               (goto-char (point-min))
+                               (forward-line (1- (+ line copilot--line-bias)))))
+                 (start (progn
+                          (funcall goto-line!)
+                          (copilot--goto-utf16-offset start-char)
+                          (let* ((cur-line (buffer-substring-no-properties (point) (line-end-position)))
+                                 (common-prefix-len (length (copilot--string-common-prefix insert-text cur-line))))
+                            (setq insert-text (substring insert-text common-prefix-len))
+                            (forward-char common-prefix-len)
+                            (point))))
+                 (end (progn
+                        (funcall goto-line!)
+                        (copilot--goto-utf16-offset end-char)
+                        (point)))
+                 (fixed-completion (copilot-balancer-fix-completion start end insert-text)))
+            (goto-char p)
+            (pcase-let ((`(,start ,end ,balanced-text) fixed-completion))
+              (copilot--display-overlay-completion balanced-text command full-insert-text start end))))))))
+
+(defun copilot--ensure-doc-open ()
+  "Ensure the current buffer has been opened with the Copilot server.
+Sends workspace folder and `textDocument/didOpen' notifications if
+the buffer has not been registered yet.  Safe to call multiple times."
+  (when-let* ((root (copilot--workspace-root))
+              (root-uri (copilot--path-to-uri root)))
+    (unless (member root-uri copilot--workspace-folders)
+      (push root-uri copilot--workspace-folders)
+      (copilot--notify 'workspace/didChangeWorkspaceFolders
+                       (list :event
+                             (list :added (vector (list :uri root-uri
+                                                        :name (file-name-nondirectory
+                                                               (directory-file-name root))))
+                                   :removed [])))))
+  (unless (seq-contains-p copilot--opened-buffers (current-buffer))
+    (add-to-list 'copilot--opened-buffers (current-buffer))
+    (copilot--notify 'textDocument/didOpen
+                     (list :textDocument (list :uri (copilot--get-uri)
+                                               :languageId (copilot--get-language-id)
+                                               :version copilot--doc-version
+                                               :text (copilot--get-source))))))
+
+(defun copilot--on-doc-focus (window)
+  "Notify that the document WINDOW has been focussed or opened."
+  ;; When switching windows, this function is called twice, once for the
+  ;; window losing focus and once for the window gaining focus. We only want to
+  ;; send a notification for the window gaining focus and only if the buffer has
+  ;; copilot-mode enabled.
+  (when (and copilot-mode (eq window (selected-window)))
+    (if (seq-contains-p copilot--opened-buffers (current-buffer))
+        (copilot--notify 'textDocument/didFocus
+                         (list :textDocument (list :uri (copilot--get-uri))))
+      (copilot--ensure-doc-open))))
+
+(defun copilot--on-doc-close (&rest _args)
+  "Notify that the document has been closed."
+  (when (seq-contains-p copilot--opened-buffers (current-buffer))
+    (when (copilot--connection-alivep)
+      (jsonrpc-notify copilot--connection 'textDocument/didClose
+                      (list :textDocument (list :uri (copilot--get-uri)))))
+    (setq copilot--opened-buffers (delete (current-buffer) copilot--opened-buffers))))
+
+;;;###autoload
+(defun copilot-complete ()
+  "Complete at the current point."
+  (interactive)
+  (copilot--ensure-doc-open)
+  (setq copilot--last-doc-version copilot--doc-version)
+  (setq copilot--completion-initiated-p t)
+
+  (setq copilot--completion-cache nil)
+  (setq copilot--completion-idx 0)
+
+  (let ((called-interactively (called-interactively-p 'interactive))
+        (request-doc-version copilot--doc-version))
+    (copilot--get-completion
+     (lambda (response)
+       (when (= request-doc-version copilot--doc-version)
+         (let ((items (copilot--normalize-completion-response response)))
+           (setq copilot--completion-cache items)
+           (if items
+               (copilot--show-completion (car items))
+             (when called-interactively
+               (copilot--log 'warning "No completion is available."))))))
+     (if called-interactively 1 2))))
+
+;;
+;; integration with track-changes
+;;
+
+(defvar-local copilot--track-changes-id nil
+  "Tracker id from `track-changes-register' for this buffer.")
+
+(defun copilot--lsp-range-end-from-oldtext (beg oldtext)
+  "Compute old end position plist for change at BEG replacing OLDTEXT."
+  (if (string-empty-p oldtext)
+      ;; Optimization for pure insertions
+      (copilot--lsp-pos beg)
+    (let* ((start (copilot--lsp-pos beg))
+           (start-line (plist-get start :line))
+           (start-char (plist-get start :character))
+           (end-info (with-temp-buffer
+                       (insert oldtext)
+                       (goto-char (point-max))
+                       (cons (1- (line-number-at-pos))
+                             (copilot--utf16-offset))))
+           (num-newlines (car end-info))
+           (end-char (cdr end-info)))
+      (list :line (+ start-line num-newlines)
+            :character (if (= num-newlines 0)
+                           (+ start-char (copilot--utf16-strlen oldtext))
+                         end-char)))))
+
+(defun copilot--track-changes-signal (id &optional _distance)
+  "Handle `track-changes' signal for given tracker ID.
+Fetch the changes and notify the language server."
+  (condition-case err
+      (save-restriction
+        (widen)
+        (track-changes-fetch
+         id
+         (lambda (beg end before)
+           (unless (eq before 'error)
+             (save-restriction
+               (widen)
+               (let* ((new-text (buffer-substring-no-properties beg end))
+                      (start-pos (copilot--lsp-pos beg))
+                      (end-pos (copilot--lsp-range-end-from-oldtext beg (or before ""))))
+                 (cl-incf copilot--doc-version)
+                 (copilot--notify
+                  'textDocument/didChange
+                  (list :textDocument (list :uri (copilot--get-uri)
+                                            :version copilot--doc-version)
+                        :contentChanges
+                        (vector
+                         (list :range (list :start start-pos :end end-pos)
+                               :text new-text))))))))))
+    (error
+     (copilot--log 'error "Change fetch failed: %s" (error-message-string err)))))
+
+;;
+;; minor mode
+;;
+
+(defcustom copilot-disable-predicates nil
+  "A list of predicate functions with no argument to disable Copilot.
+Copilot will not be triggered if any predicate returns t."
+  :type '(repeat function)
+  :group 'copilot
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-enable-predicates '(evil-insert-state-p copilot--buffer-changed)
+  "A list of predicate functions with no argument to enable Copilot.
+Copilot will be triggered only if all predicates return t."
+  :type '(repeat function)
+  :group 'copilot
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-disable-display-predicates nil
+  "A list of predicate functions with no argument to disable Copilot.
+Copilot will not show completions if any predicate returns t."
+  :type '(repeat function)
+  :group 'copilot
+  :package-version '(copilot . "0.1"))
+
+(defcustom copilot-enable-display-predicates nil
+  "A list of predicate functions with no argument to enable Copilot.
+Copilot will show completions only if all predicates return t."
+  :type '(repeat function)
+  :group 'copilot
+  :package-version '(copilot . "0.1"))
+
+(defun copilot--satisfy-predicates (enable disable)
+  "Return t if all predicates in ENABLE return t and none in DISABLE do."
+  (and (cl-every (lambda (pred)
+                   (if (functionp pred) (funcall pred) t))
+                 enable)
+       (cl-notany (lambda (pred)
+                    (if (functionp pred) (funcall pred) nil))
+                  disable)))
+
+(defun copilot--pre-command ()
+  "Handle `pre-command-hook' for Copilot.
+Clear the overlay for commands in `copilot-clear-overlay-on-commands' so
+that display-based motions (such as `beginning-of-visual-line') work
+consistently even when the overlay is visible."
+  (when (and this-command
+             (copilot--overlay-visible)
+             (memq this-command copilot-clear-overlay-on-commands))
+    (copilot-clear-overlay)))
+
+(defun copilot--satisfy-trigger-predicates ()
+  "Return t if all trigger predicates are satisfied."
+  (copilot--satisfy-predicates copilot-enable-predicates copilot-disable-predicates))
+
+(defun copilot--satisfy-display-predicates ()
+  "Return t if all display predicates are satisfied."
+  (copilot--satisfy-predicates copilot-enable-display-predicates copilot-disable-display-predicates))
+
+(defun copilot--post-command ()
+  "Complete in `post-command-hook' hook."
+  (let ((completion-initiated copilot--completion-initiated-p))
+    (setq copilot--completion-initiated-p nil)
+    (when (and this-command
+               (not completion-initiated)
+               (not (and (symbolp this-command)
+                         (or
+                          (string-prefix-p "copilot-" (symbol-name this-command))
+                          (member this-command copilot-clear-overlay-ignore-commands)
+                          ;; `this-original-command' captures remapped helpers like
+                          ;; `universal-argument-more' and `digit-argument'.
+                          (member this-original-command copilot-clear-overlay-ignore-commands)
+                          (member this-original-command copilot--hardcoded-clear-overlay-ignore-commands)
+                          (copilot--self-insert this-command)))))
+      (copilot-clear-overlay)
+      (when copilot--post-command-timer
+        (cancel-timer copilot--post-command-timer))
+      (when (numberp copilot-idle-delay)
+        (setq copilot--post-command-timer
+              (run-with-idle-timer copilot-idle-delay
+                                   nil
+                                   #'copilot--post-command-debounce
+                                   (current-buffer)))))))
+
+(defun copilot--self-insert (command)
+  "Handle the case where the char just inserted is the start of the completion.
+If so, update the overlays and continue.  COMMAND is the command that triggered
+in `post-command-hook'."
+  (when (and (eq command 'self-insert-command)
+             (copilot--overlay-visible)
+             (copilot--satisfy-display-predicates))
+    (let* ((ov copilot--overlay)
+           (completion (overlay-get ov 'completion)))
+      ;; The char just inserted is the next char of completion
+      (when (eq last-command-event (elt completion 0))
+        (if (= (length completion) 1)
+            ;; If there is only one char in the completion, accept it
+            (copilot-accept-completion)
+          (copilot--set-overlay-text ov (substring completion 1)))))))
+
+(defun copilot--post-command-debounce (buffer)
+  "Complete in BUFFER."
+  (when (and (buffer-live-p buffer)
+             (equal (current-buffer) buffer)
+             copilot-mode
+             (copilot--satisfy-trigger-predicates))
+    (copilot-complete)
+    ;; Clear the flag: idle timers don't trigger `post-command-hook', so the
+    ;; flag would otherwise persist and cause the next real command to skip
+    ;; overlay clearing.
+    (setq copilot--completion-initiated-p nil)))
+
+;;
+;; Minor mode definition
+;;
+
+(defvar copilot-mode-map (make-sparse-keymap)
+  "Keymap for Copilot minor mode.
+Use this for custom bindings in `copilot-mode'.")
+
+(easy-menu-define copilot-mode-menu copilot-mode-map "Copilot menu."
+  '("Copilot"
+    ["Complete" copilot-complete]
+    ["Clear Overlay" copilot-clear-overlay]
+    ["Accept Completion" copilot-accept-completion]
+    ["Accept Completion by Word" copilot-accept-completion-by-word]
+    ["Accept Completion by Line" copilot-accept-completion-by-line]
+    ["Accept Completion by Paragraph" copilot-accept-completion-by-paragraph]
+    ["Next Completion" copilot-next-completion]
+    ["Previous Completion" copilot-previous-completion]
+    ["Panel Complete" copilot-panel-complete]
+    "--"
+    ["Chat" copilot-chat]
+    ["Chat Send Region" copilot-chat-send-region]
+    ["Chat Reset" copilot-chat-reset]
+    "--"
+    ["Toggle NES Mode" copilot-nes-mode]
+    "--"
+    ["Select Completion Model" copilot-select-completion-model]
+    ["Select Chat Model" copilot-chat-select-model]
+    ["Login" copilot-login]
+    ["Logout" copilot-logout]
+    "--"
+    ["Install Server" copilot-install-server]
+    ["Reinstall Server" copilot-reinstall-server]
+    ["Uninstall Server" copilot-uninstall-server]
+    ["Diagnose" copilot-diagnose]))
+
+(defun copilot--mode-setup ()
+  "Set up copilot mode."
+  (add-hook 'pre-command-hook #'copilot--pre-command nil 'local)
+  (add-hook 'post-command-hook #'copilot--post-command nil 'local)
+  ;; Hook onto both window-selection-change-functions and window-buffer-change-functions
+  ;; since both are separate ways of 'focussing' a buffer.
+  (add-hook 'window-selection-change-functions #'copilot--on-doc-focus nil 'local)
+  (add-hook 'window-buffer-change-functions #'copilot--on-doc-focus nil 'local)
+  (add-hook 'kill-buffer-hook #'copilot--on-doc-close nil 'local)
+  (unless copilot--track-changes-id
+    (setq copilot--track-changes-id
+          (track-changes-register #'copilot--track-changes-signal)))
+  ;; The mode may be activated manually while focus remains on the current window/buffer.
+  (copilot--on-doc-focus (selected-window)))
+
+(defun copilot--mode-teardown ()
+  "Tear down copilot mode."
+  (remove-hook 'pre-command-hook #'copilot--pre-command 'local)
+  (remove-hook 'post-command-hook #'copilot--post-command 'local)
+  (remove-hook 'window-selection-change-functions #'copilot--on-doc-focus 'local)
+  (remove-hook 'window-buffer-change-functions #'copilot--on-doc-focus 'local)
+  (remove-hook 'kill-buffer-hook #'copilot--on-doc-close 'local)
+  (when copilot--track-changes-id
+    (track-changes-unregister copilot--track-changes-id)
+    (setq copilot--track-changes-id nil))
+  ;; Send the close event for the active buffer since activating the mode will open it again.
+  (copilot--on-doc-close))
+
+;;;###autoload
+(define-minor-mode copilot-mode
+  "Minor mode for Copilot."
+  :init-value nil
+  :lighter (:eval (copilot--status-lighter))
+  (copilot-clear-overlay)
+  (advice-add 'posn-at-point :before-until #'copilot--posn-advice)
+  (if copilot-mode
+      (copilot--mode-setup)
+    (copilot--mode-teardown)))
+
+(defun copilot-turn-on-unless-buffer-read-only ()
+  "Turn on `copilot-mode' if the buffer is writable and not internal.
+Skip read-only buffers, minibuffers, and hidden internal buffers
+whose names start with a space."
+  (unless (or buffer-read-only
+              (minibufferp)
+              (string-prefix-p " " (buffer-name)))
+    (copilot-mode 1)))
+
+;;;###autoload
+(define-global-minor-mode global-copilot-mode
+  copilot-mode copilot-turn-on-unless-buffer-read-only)
+
+(provide 'copilot)
+;;; copilot.el ends here

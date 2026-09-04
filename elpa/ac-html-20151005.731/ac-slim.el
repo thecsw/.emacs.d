@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; ac-slim.el --- auto complete source for html tag and attributes
 
 ;; Copyright (C) 2015  Zhang Kai Yu

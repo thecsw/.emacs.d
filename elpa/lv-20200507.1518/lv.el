@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; lv.el --- Other echo area
 ;; Package-Version: 20200507.1518
 

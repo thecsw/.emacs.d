@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; telephone-line-separators.el --- Separators for Telephone Line
 
 ;; Copyright (C) 2015-2022 Daniel Bordak

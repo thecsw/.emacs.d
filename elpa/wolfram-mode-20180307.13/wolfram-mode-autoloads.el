@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; wolfram-mode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:

@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; 0blayout.el --- Layout grouping with ease
 
 ;; Copyright (c) 2015-2016 Elis Axelsson
