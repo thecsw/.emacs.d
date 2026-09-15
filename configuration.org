@@ -9,6 +9,10 @@
 #+email: sandy@sandyuraz.com
 #+language: en
 
+#+BEGIN_SRC emacs-lisp
+;;; -*- lexical-binding: t; -*-
+#+END_SRC
+
 * Lorem Ipsum
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -533,8 +537,13 @@ Your auto-completes, LSPs, copilots, and other junk.
   (use-package rjsx-mode
     :mode ("\\.jsx\\'" "\\.tsx\\'"))
 
+  (defun my/lsp-deferred-for-programming-mode ()
+    "Start LSP, except for data-only Lisp buffers."
+    (unless (derived-mode-p 'lisp-data-mode)
+      (lsp-deferred)))
+
   (use-package lsp-mode
-    :hook ((prog-mode . lsp-deferred))
+    :hook ((prog-mode . my/lsp-deferred-for-programming-mode))
     :commands lsp)
 
   (use-package lsp-pyright
