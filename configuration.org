@@ -587,9 +587,39 @@ Your auto-completes, LSPs, copilots, and other junk.
    `(("python.pythonPath" "/opt/homebrew/bin/python3")))
 
   (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-position 'at-point)
   (setq lsp-ui-doc-delay 0.1)
   (setq lsp-ui-doc-header nil)
   (setq lsp-ui-doc-show-with-cursor t)
+
+  ;; lsp-ui's child-frame calculation can leave the bottom border one line
+  ;; over the hovered symbol when a header line (e.g. centaur-tabs) is active.
+  ;; Preserve its normal above/below behavior, but add a one-line safety gap
+  ;; only when the calculated frame would overlap the symbol.
+  (defun my/lsp-ui-doc--keep-symbol-visible
+      (orig frame width height start-x start-y)
+    "Keep an at-point lsp-ui documentation frame off the hovered symbol."
+    (let ((position (funcall orig frame width height start-x start-y)))
+      (when (and (bound-and-true-p lsp-ui-doc--bounds)
+                 (fboundp 'posn-at-point)
+                 (fboundp 'posn-x-y))
+        (let* ((symbol-pos (posn-at-point (car lsp-ui-doc--bounds)))
+               (symbol-y (and symbol-pos
+                              (+ start-y (cdr (posn-x-y symbol-pos)))))
+               (frame-y (cdr position)))
+          (when (and symbol-y
+                     (< frame-y symbol-y)
+                     (> (+ frame-y height) symbol-y))
+            (setcdr position
+                    (- symbol-y height (frame-char-height))))))
+      position))
+
+  (with-eval-after-load 'lsp-ui-doc
+    (unless (advice-member-p #'my/lsp-ui-doc--keep-symbol-visible
+                             'lsp-ui-doc--mv-at-point)
+      (advice-add 'lsp-ui-doc--mv-at-point :around
+                  #'my/lsp-ui-doc--keep-symbol-visible)))
+
   (setq lsp-ui-doc-show-with-mouse t)
 
   ;; Add the zig lsp mode executable path for zls
