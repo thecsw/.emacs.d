@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; seq-tests.el --- Tests for sequences.el
 
 ;; Copyright (C) 2014-2015 Free Software Foundation, Inc.
