@@ -242,9 +242,27 @@ All the good lookin' stuff should be here.
   #+END_SRC
 ** Centaur tabs
   #+begin_src emacs-lisp
+    ;; Emacs 31 on macOS can crash inside `char-displayable-p' while
+    ;; Centaur Tabs evaluates its Unicode defaults during `require'.  Make
+    ;; those defaults use their ASCII fallbacks, without modifying the package.
     (use-package centaur-tabs
       :ensure t
+      :init
+      (require 'cl-lib)
+      (cl-letf (((symbol-function 'char-displayable-p)
+                 (lambda (&rest _characters) nil)))
+        (require 'centaur-tabs))
       :config
+      ;; Keep Centaur Tabs from probing the Emacs font backend at runtime too.
+      (defun my/centaur-tabs-char-displayable-p (_character)
+        nil)
+      (advice-add 'centaur-tabs-char-displayable-p :override
+                  #'my/centaur-tabs-char-displayable-p)
+      (defun my/centaur-tabs-truncate-string-no-font-probe
+          (orig length string &optional ellipsis)
+        (funcall orig length string (or ellipsis "...")))
+      (advice-add 'centaur-tabs-truncate-string :around
+                  #'my/centaur-tabs-truncate-string-no-font-probe)
       (centaur-tabs-mode t))
 
     (global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
@@ -254,13 +272,15 @@ All the good lookin' stuff should be here.
 
     (setq centaur-tabs-style "box")
     (setq centaur-tabs-height 20)
-    (setq centaur-tabs-set-icons t)
+    ;; Avoid a second `char-displayable-p' probe when tab icons are rendered.
+    ;; Re-enable this after upgrading to an Emacs version with the macOS font fix.
+    (setq centaur-tabs-set-icons nil)
     (setq centaur-tabs-set-bar 'under)
     (setq x-underline-at-descent-line t)
     (setq centaur-tabs-set-modified-marker t)
     (setq centaur-tabs-show-navigation-buttons t)
     (setq centaur-tabs-modified-marker "*")
-    (setq centaur-tabs-close-button " ×")
+    (setq centaur-tabs-close-button " x")
   #+end_src
 ** Line numbers
 #+BEGIN_SRC emacs-lisp
