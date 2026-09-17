@@ -147,8 +147,11 @@ All the good lookin' stuff should be here.
     :config
     (dashboard-setup-startup-hook))
 
-  ;; Set the dashboard as the default buffer
-  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+  ;; Also create the buffer when startup arguments skip Dashboard's hooks.
+  (setq initial-buffer-choice
+        (lambda ()
+          (dashboard-insert-startupify-lists)
+          (get-buffer dashboard-buffer-name)))
 
   ;; Set the title
   (setq dashboard-banner-logo-title "Sandy's Emacs")
@@ -1162,8 +1165,7 @@ This was written by chatgpt, I really do need to learn elisp.
   (use-package exec-path-from-shell
     :if (display-graphic-p)
     :config
-    (dolist (var '("PATH" "MANPATH"))
-      (exec-path-from-shell-copy-env var)))
+    (exec-path-from-shell-copy-envs '("PATH" "MANPATH")))
 #+end_src
 ** TRAMP
 #+BEGIN_SRC emacs-lisp

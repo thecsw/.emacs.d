@@ -4,8 +4,6 @@
 ;; Emacs loads this file before .emacs, package initialization, and
 ;; configuration.org, so these variables are available to libgccjit.
 (when (eq system-type 'darwin)
-  (require 'subr-x)
-
   ;; Prefer the full Xcode SDK when Xcode is installed.  This avoids stale
   ;; or broken Command Line Tools SDK selection after macOS upgrades.
   (let ((xcode-developer-dir
@@ -15,15 +13,18 @@
 
   ;; Discover the installed SDK rather than hard-coding a macOS version.
   ;; If xcrun cannot find a valid SDK, leave the environment untouched.
+  ;; Invoke xcrun directly to avoid starting the user's shell twice.
   (let ((sdk-path
-         (string-trim
-          (shell-command-to-string
-           "/usr/bin/xcrun --sdk macosx --show-sdk-path 2>/dev/null")))
+         (ignore-errors
+           (car (process-lines "/usr/bin/xcrun" "--sdk" "macosx"
+                               "--show-sdk-path"))))
         (sdk-version
-         (string-trim
-          (shell-command-to-string
-           "/usr/bin/xcrun --sdk macosx --show-sdk-version 2>/dev/null"))))
-    (when (and (file-directory-p sdk-path)
+         (ignore-errors
+           (car (process-lines "/usr/bin/xcrun" "--sdk" "macosx"
+                               "--show-sdk-version")))))
+    (when (and (stringp sdk-path)
+               (file-directory-p sdk-path)
+               (stringp sdk-version)
                (string-match-p
                 "\\`[0-9]+\\(?:\\.[0-9]+\\)*\\'" sdk-version))
       (setenv "SDKROOT" sdk-path)
